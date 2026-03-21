@@ -1,21 +1,21 @@
 "use client";
 
 import { Agentation } from "@/components/playground-kit";
-import { Icon } from "@nds-icons";
-import { pencilLineIcon } from "@nds-icons/pencilLine/default.icon";
-import { cursorClickIcon } from "@nds-icons/cursorClick/default.icon";
-import { squareDashedIcon } from "@nds-icons/squareDashed/default.icon";
-import { circleIcon } from "@nds-icons/circle/default.icon";
-import { textCursorIBeamIcon } from "@nds-icons/textCursorIBeam/default.icon";
-import { composeIcon } from "@nds-icons/compose/default.icon";
-import { arrowUTurnUpLeftIcon } from "@nds-icons/arrowUTurnUpLeft/default.icon";
-import { trashIcon } from "@nds-icons/trash/default.icon";
-import { paintPaletteIcon } from "@nds-icons/paintPalette/default.icon";
-import { arrowUpDownLeftRightIcon } from "@nds-icons/arrowUpDownLeftRight/default.icon";
-import { atom, useAtom, useSetAtom } from "jotai";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/cn";
-import { motion, AnimatePresence } from "motion/react";
+import { Icon } from "@nds-icons";
+import { arrowUpDownLeftRightIcon } from "@nds-icons/arrowUpDownLeftRight/default.icon";
+import { arrowUTurnUpLeftIcon } from "@nds-icons/arrowUTurnUpLeft/default.icon";
+import { circleIcon } from "@nds-icons/circle/default.icon";
+import { composeIcon } from "@nds-icons/compose/default.icon";
+import { cursorClickIcon } from "@nds-icons/cursorClick/default.icon";
+import { paintPaletteIcon } from "@nds-icons/paintPalette/default.icon";
+import { pencilLineIcon } from "@nds-icons/pencilLine/default.icon";
+import { squareDashedIcon } from "@nds-icons/squareDashed/default.icon";
+import { textCursorIBeamIcon } from "@nds-icons/textCursorIBeam/default.icon";
+import { trashIcon } from "@nds-icons/trash/default.icon";
+import { atom, useAtom } from "jotai";
+import { AnimatePresence, motion } from "motion/react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // Types
 type Tool =
@@ -117,7 +117,7 @@ export default function WhiteboardPage() {
   const [currentColor, setCurrentColor] = useAtom(currentColorAtom);
   const [elements, setElements] = useAtom(elementsAtom);
   const [selectedElementId, setSelectedElementId] = useAtom(
-    selectedElementIdAtom
+    selectedElementIdAtom,
   );
   const [history, setHistory] = useAtom(historyAtom);
   const [historyIndex, setHistoryIndex] = useAtom(historyIndexAtom);
@@ -144,7 +144,7 @@ export default function WhiteboardPage() {
       setHistory(newHistory);
       setHistoryIndex(newHistory.length - 1);
     },
-    [history, historyIndex, setHistory, setHistoryIndex]
+    [history, historyIndex, setHistory, setHistoryIndex],
   );
 
   // Undo
@@ -171,7 +171,13 @@ export default function WhiteboardPage() {
       setSelectedElementId(null);
       addToHistory(newElements);
     }
-  }, [selectedElementId, elements, setElements, setSelectedElementId, addToHistory]);
+  }, [
+    selectedElementId,
+    elements,
+    setElements,
+    setSelectedElementId,
+    addToHistory,
+  ]);
 
   // Convert screen coordinates to canvas coordinates
   const screenToCanvas = useCallback(
@@ -183,7 +189,7 @@ export default function WhiteboardPage() {
         y: (screenY - rect.top - pan.y) / zoom,
       };
     },
-    [pan, zoom]
+    [pan, zoom],
   );
 
   // Handle mouse down
@@ -213,7 +219,7 @@ export default function WhiteboardPage() {
             if (el.type === "path") {
               return el.points.some(
                 (p) =>
-                  Math.abs(p.x - point.x) < 10 && Math.abs(p.y - point.y) < 10
+                  Math.abs(p.x - point.x) < 10 && Math.abs(p.y - point.y) < 10,
               );
             }
             if (el.type === "rectangle" || el.type === "sticky") {
@@ -246,7 +252,10 @@ export default function WhiteboardPage() {
 
         if (clickedElement) {
           setSelectedElementId(clickedElement.id);
-          if (clickedElement.type === "text" || clickedElement.type === "sticky") {
+          if (
+            clickedElement.type === "text" ||
+            clickedElement.type === "sticky"
+          ) {
             setEditingTextId(clickedElement.id);
           }
         } else {
@@ -310,7 +319,7 @@ export default function WhiteboardPage() {
       screenToCanvas,
       setElements,
       setSelectedElementId,
-    ]
+    ],
   );
 
   // Handle mouse move
@@ -376,7 +385,7 @@ export default function WhiteboardPage() {
       currentColor,
       currentElement,
       screenToCanvas,
-    ]
+    ],
   );
 
   // Handle mouse up
@@ -387,7 +396,12 @@ export default function WhiteboardPage() {
       return;
     }
 
-    if (isDrawing && currentElement && currentTool !== "text" && currentTool !== "sticky") {
+    if (
+      isDrawing &&
+      currentElement &&
+      currentTool !== "text" &&
+      currentTool !== "sticky"
+    ) {
       const newElements = [...elements, currentElement];
       setElements(newElements);
       addToHistory(newElements);
@@ -396,7 +410,15 @@ export default function WhiteboardPage() {
 
     setIsDrawing(false);
     setStartPoint(null);
-  }, [isDrawing, isPanning, currentElement, elements, currentTool, setElements, addToHistory]);
+  }, [
+    isDrawing,
+    isPanning,
+    currentElement,
+    elements,
+    currentTool,
+    setElements,
+    addToHistory,
+  ]);
 
   // Handle wheel for zoom
   const handleWheel = useCallback((e: React.WheelEvent) => {
@@ -415,10 +437,10 @@ export default function WhiteboardPage() {
             return { ...el, text };
           }
           return el;
-        })
+        }),
       );
     },
-    [setElements]
+    [setElements],
   );
 
   // Handle text blur
@@ -545,7 +567,7 @@ export default function WhiteboardPage() {
                       "h-6 w-6 rounded-md border-2 transition-all hover:scale-110",
                       currentColor === color
                         ? "border-primary ring-2 ring-blue-500 ring-offset-1"
-                        : "border-border-primary"
+                        : "border-border-primary",
                     )}
                     style={{ backgroundColor: color }}
                   />
@@ -579,7 +601,9 @@ export default function WhiteboardPage() {
         onWheel={handleWheel}
         className={cn(
           "h-full w-full",
-          currentTool === "pan" || isPanning ? "cursor-grab" : "cursor-crosshair"
+          currentTool === "pan" || isPanning
+            ? "cursor-grab"
+            : "cursor-crosshair",
         )}
       >
         <svg
@@ -632,7 +656,7 @@ export default function WhiteboardPage() {
                   strokeWidth={element.strokeWidth}
                   className={cn(
                     selectedElementId === element.id &&
-                      "stroke-blue-500 stroke-[3px]"
+                      "stroke-blue-500 stroke-[3px]",
                   )}
                 />
               )}
@@ -647,7 +671,7 @@ export default function WhiteboardPage() {
                   strokeWidth={element.strokeWidth}
                   className={cn(
                     selectedElementId === element.id &&
-                      "stroke-blue-500 stroke-[3px]"
+                      "stroke-blue-500 stroke-[3px]",
                   )}
                 />
               )}
@@ -736,7 +760,7 @@ export default function WhiteboardPage() {
                       className={cn(
                         "cursor-pointer",
                         selectedElementId === element.id &&
-                          "ring-2 ring-blue-500"
+                          "ring-2 ring-blue-500",
                       )}
                     >
                       {element.text || "Click to edit"}
@@ -751,7 +775,7 @@ export default function WhiteboardPage() {
                   key={element.id}
                   className={cn(
                     "pointer-events-auto absolute rounded-md p-4 shadow-sm-outline",
-                    selectedElementId === element.id && "ring-2 ring-blue-500"
+                    selectedElementId === element.id && "ring-2 ring-blue-500",
                   )}
                   style={{
                     left: element.x,
@@ -791,7 +815,8 @@ export default function WhiteboardPage() {
 
       {/* Info bar */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-lg border border-primary bg-elevated px-4 py-2 text-caption text-secondary shadow-md-outline">
-        Zoom: {Math.round(zoom * 100)}% · Pan: {Math.round(pan.x)}, {Math.round(pan.y)} · Elements: {elements.length}
+        Zoom: {Math.round(zoom * 100)}% · Pan: {Math.round(pan.x)},{" "}
+        {Math.round(pan.y)} · Elements: {elements.length}
       </div>
 
       <Agentation />
@@ -830,7 +855,7 @@ function ToolButton({
           active
             ? "bg-blue-500 text-white"
             : "text-secondary hover:bg-tertiary hover:text-primary",
-          disabled && "cursor-not-allowed opacity-40"
+          disabled && "cursor-not-allowed opacity-40",
         )}
       >
         <Icon icon={icon} size="small" />
