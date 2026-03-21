@@ -1,20 +1,18 @@
 "use client";
 
 import { Agentation } from "@/components/playground-kit/Agentation";
-import { PrimarySidebarLayout } from "@/components/notion-kit/PrimarySidebar/Layout";
-import { PrimarySidebarHeader } from "@/components/notion-kit/PrimarySidebar/Header";
 import { CollapsibleGroup } from "@/components/notion-kit/PrimarySidebar/CollapsibleGroup";
+import { PrimarySidebarHeader } from "@/components/notion-kit/PrimarySidebar/Header";
+import { PrimarySidebarLayout } from "@/components/notion-kit/PrimarySidebar/Layout";
 import { SidebarItem } from "@/components/notion-kit/PrimarySidebar/SidebarItem";
 import { PageTopBar } from "@/components/notion-kit/PageTopBar";
 import { Icon } from "@nds-icons";
 import { homeIcon } from "@nds-icons/home/default.icon";
 import { inboxIcon } from "@nds-icons/inbox/default.icon";
 import { pageIcon } from "@nds-icons/page/default.icon";
-import { starIcon } from "@nds-icons/star/fill.icon";
 import { sparklesIcon } from "@nds-icons/sparkles/default.icon";
+import { starIcon } from "@nds-icons/star/fill.icon";
 import { motion } from "motion/react";
-import { cn } from "@/utils/cn";
-import { useState } from "react";
 
 // Twinkling Star Component
 function TwinklingStar({ delay = 0 }: { delay?: number }) {
@@ -204,16 +202,20 @@ function RainbowRoadContent() {
           <div className="space-y-4">
             <div className="rainbow-card rounded-lg p-6">
               <div className="mb-2 flex items-center gap-2">
-                <Icon icon={sparklesIcon} size={20} className="text-purple-400" />
+                <Icon
+                  icon={sparklesIcon}
+                  size={20}
+                  className="text-purple-400"
+                />
                 <h2 className="content-h2 font-semibold">
                   A Magical Workspace Experience
                 </h2>
               </div>
               <p className="content-text-block text-secondary">
-                You've discovered a secret easter egg! This is what Notion would
-                look like if it took a trip through Mario Kart's most iconic
-                level. Every element is infused with cosmic energy and rainbow
-                magic.
+                You&apos;ve discovered a secret easter egg! This is what Notion
+                would look like if it took a trip through Mario Kart&apos;s most
+                iconic level. Every element is infused with cosmic energy and
+                rainbow magic.
               </p>
             </div>
 
