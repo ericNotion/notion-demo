@@ -60,6 +60,8 @@ const statusColumns = [
   },
 ];
 
+const columnStyle = { width: `calc((100% - 1.5rem) / 3)`, minWidth: 220 };
+
 function renderCardProperty(value: CellValue, property: Property) {
   switch (property.type) {
     case "Title":
@@ -197,7 +199,7 @@ export function BoardView({
             <div
               key={column.id}
               className="flex-shrink-0"
-              style= width: `calc((100% - 1.5rem) / 3)`, minWidth: 220 
+              style={columnStyle}
             >
               {/* Column Content with Header Inside */}
               <div
