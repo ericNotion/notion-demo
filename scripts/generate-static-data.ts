@@ -17,11 +17,6 @@
 import { createHash } from "crypto";
 import { promises as fs } from "fs";
 import path from "path";
-import {
-  getAllPrototypes,
-  isPrototypesDbConfigured,
-  type PrototypeMetadata,
-} from "../src/lib/notion"; // @ts-expect-error removed in fork
 import { Prototype, UserPrototypes } from "../src/types/prototypes";
 
 export type StaticData = {
@@ -45,56 +40,6 @@ function getDataDirectory(rootDir: string): string {
 }
 
 type CreationDates = Record<string, string>;
-
-/**
- * Fetch prototype data from Notion and transform to UserPrototypes format
- */
-async function generateFromNotion(): Promise<UserPrototypes[]> {
-  console.log(" 🔄 Fetching data from Notion...");
-
-  const notionPrototypes = await getAllPrototypes();
-  console.log(` ✅ Fetched ${notionPrototypes.length} prototypes from Notion`);
-
-  // Group by username
-  const byUser = new Map<string, PrototypeMetadata[]>();
-  for (const proto of notionPrototypes) {
-    const existing = byUser.get(proto.username) || [];
-    existing.push(proto);
-    byUser.set(proto.username, existing);
-  }
-
-  // Transform to UserPrototypes format
-  const users: UserPrototypes[] = [];
-  for (const [username, prototypes] of byUser) {
-    const transformedPrototypes: Prototype[] = prototypes
-      .map((p) => ({
-        slug: p.slug,
-        title: p.title,
-        description: p.description,
-        createdAt: new Date(p.createdAt),
-        updatedAt: new Date(p.updatedAt),
-        externalUrl: p.externalUrl,
-        // Version fields
-        versionGroupId: p.versionGroupId,
-        version: p.version,
-        branchedFromVersion: p.branchedFromVersion,
-      }))
-      .sort((a, b) => {
-        // Sort by updatedAt (most recent first)
-        const dateComparison =
-          (b.updatedAt?.getTime() ?? b.createdAt.getTime()) -
-          (a.updatedAt?.getTime() ?? a.createdAt.getTime());
-        if (dateComparison === 0) {
-          return a.slug.localeCompare(b.slug);
-        }
-        return dateComparison;
-      });
-
-    users.push({ username, prototypes: transformedPrototypes });
-  }
-
-  return users.sort((a, b) => a.username.localeCompare(b.username));
-}
 
 /**
  * Load prototype creation dates from the centralized file
@@ -358,76 +303,7 @@ async function generateStaticData(): Promise<void> {
   const appDir = path.join(rootDir, "src/app");
   const outputPath = path.join(getDataDirectory(rootDir), "static-data.json");
 
-  // Only use Notion as the data source for production builds on Vercel
-  const useNotion =
-    isPrototypesDbConfigured() && process.env.VERCEL_ENV === "production";
-
-  if (useNotion) {
-    console.log(" 💾 Data source: Notion database");
-
-    // Always regenerate when using Notion (no caching)
-    const users = await generateFromNotion();
-
-    // Merge filesystem-discovered templates that aren't in Notion yet
-    const templatesPath = path.join(appDir, "(templates)", "templates");
-    try {
-      await fs.access(templatesPath);
-      const creationDates = await loadCreationDates();
-      const fsTemplates = await getUserPrototypes(
-        templatesPath,
-        "templates",
-        creationDates,
-      );
-      const notionTemplatesUser = users.find((u) => u.username === "templates");
-      const notionSlugs = new Set(
-        notionTemplatesUser?.prototypes.map((p) => p.slug) ?? [],
-      );
-      const newTemplates = fsTemplates.filter((t) => !notionSlugs.has(t.slug));
-      if (newTemplates.length > 0) {
-        if (notionTemplatesUser) {
-          notionTemplatesUser.prototypes.push(...newTemplates);
-        } else {
-          users.push({ username: "templates", prototypes: newTemplates });
-        }
-        console.log(
-          ` 🆕 Merged ${newTemplates.length} new template(s) from filesystem`,
-        );
-      }
-    } catch {
-      // Templates directory doesn't exist, skip
-    }
-
-    const staticData: StaticData = {
-      users,
-      currentUsername: undefined,
-    };
-
-    // Ensure the data directory exists
-    await fs.mkdir(path.dirname(outputPath), { recursive: true });
-
-    // Write the data with pretty formatting
-    const jsonReplacer = (_key: string, value: unknown) => {
-      if (value instanceof Date) {
-        return value.toISOString();
-      }
-      return value;
-    };
-    await fs.writeFile(
-      outputPath,
-      JSON.stringify(staticData, jsonReplacer, 2) + "\n",
-      "utf-8",
-    );
-
-    const protoCount = users.reduce((sum, u) => sum + u.prototypes.length, 0);
-    console.log(
-      ` 📝 Generated static data for ${users.length} users (${protoCount} prototypes)`,
-    );
-    console.log(` 📝 Written to: ${outputPath}`);
-    return;
-  }
-
-  // Local development: use filesystem
-  console.log(" 💾 Data source: Filesystem (local development)");
+  console.log(" 💾 Data source: Filesystem");
 
   // Verify the app directory exists
   try {
