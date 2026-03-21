@@ -1,5 +1,18 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
+
+import { usePathname, useRouter } from "next/navigation";
+
+import { Icon } from "@nds-icons";
+import { arrowDiagonalUpRightIcon } from "@nds-icons/arrowDiagonalUpRight/default.icon";
+import { calendarAltIcon } from "@nds-icons/calendarAlt/default.icon";
+import { chatBubbleIcon } from "@nds-icons/chatBubble/default.icon";
+import { homeIcon } from "@nds-icons/home/default.icon";
+import { inboxIcon } from "@nds-icons/inbox/default.icon";
+import { magnifyingGlassIcon } from "@nds-icons/magnifyingGlass/default.icon";
+import { plusIcon } from "@nds-icons/plus/default.icon";
+
 import { PageTopBar } from "@/components/notion-kit/PageTopBar";
 import { PrimarySidebarHeader } from "@/components/notion-kit/PrimarySidebar/Header";
 import {
@@ -20,16 +33,7 @@ import {
 } from "@/components/notion-kit/SlipperySidebar";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { IconButton } from "@/components/ui/icon-button";
-import { Icon } from "@nds-icons";
-import { arrowDiagonalUpRightIcon } from "@nds-icons/arrowDiagonalUpRight/default.icon";
-import { calendarAltIcon } from "@nds-icons/calendarAlt/default.icon";
-import { chatBubbleIcon } from "@nds-icons/chatBubble/default.icon";
-import { homeIcon } from "@nds-icons/home/default.icon";
-import { inboxIcon } from "@nds-icons/inbox/default.icon";
-import { magnifyingGlassIcon } from "@nds-icons/magnifyingGlass/default.icon";
-import { plusIcon } from "@nds-icons/plus/default.icon";
-import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+
 import { CreateAgentModal } from "./components/CreateAgentModal";
 import {
   agents,

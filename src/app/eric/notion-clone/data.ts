@@ -1,13 +1,14 @@
-import type {
-  ChatGroup,
-  InboxNotification,
-  MeetingGroup,
-} from "@/components/notion-kit/SlipperySidebar";
 import type { LoadedIconFunction } from "@nds-icons";
 import { checkStackIcon } from "@nds-icons/checkStack/default.icon";
 import { codeIcon } from "@nds-icons/code/default.icon";
 import { paperMicrophoneIcon } from "@nds-icons/paperMicrophone/default.icon";
 import { sparklesIcon } from "@nds-icons/sparkles/default.icon";
+
+import type {
+  ChatGroup,
+  InboxNotification,
+  MeetingGroup,
+} from "@/components/notion-kit/SlipperySidebar";
 
 const BASE = "/eric/notion-clone";
 

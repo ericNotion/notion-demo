@@ -1,6 +1,7 @@
+import Image from "next/image";
+
 import { Icon } from "@nds-icons";
 import type { LoadedIconFunction } from "@nds-icons";
-import Image from "next/image";
 
 interface AgentItemProps {
   name: string;
