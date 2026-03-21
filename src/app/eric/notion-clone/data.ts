@@ -113,7 +113,7 @@ export const agents: Agent[] = [
   {
     id: "3",
     name: "Meeting Summarizer",
-    avatar: "",
+    avatar: "/images/customAgentAvatars/book-green-sm.png",
     emoji: "📋",
     description:
       "Turns meeting transcripts into structured summaries with action items and key decisions.",
@@ -125,7 +125,7 @@ export const agents: Agent[] = [
   {
     id: "4",
     name: "Task Prioritizer",
-    avatar: "",
+    avatar: "/images/customAgentAvatars/check-blue-sm.png",
     emoji: "🎯",
     description:
       "Analyzes your tasks and suggests priorities based on deadlines, dependencies, and effort.",
@@ -137,7 +137,7 @@ export const agents: Agent[] = [
   {
     id: "5",
     name: "Code Reviewer",
-    avatar: "",
+    avatar: "/images/customAgentAvatars/chat-orange-sm.png",
     emoji: "💻",
     description:
       "Reviews code snippets for bugs, performance issues, and best practices.",
@@ -149,7 +149,7 @@ export const agents: Agent[] = [
   {
     id: "6",
     name: "Notion AI",
-    avatar: "",
+    avatar: "/images/customAgentAvatars/triangle-yellow-sm.png",
     emoji: "✨",
     description:
       "Your general-purpose AI assistant built into Notion. Ask questions, draft content, and brainstorm.",
