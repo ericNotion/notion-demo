@@ -24,11 +24,11 @@ export function RainbowRoadToggle() {
         />
       </motion.div>
       <div className="flex flex-1 flex-col">
-        <span className="text-body text-primary font-medium">
+        <span className="text-primary text-body font-medium">
           Rainbow Road
         </span>
-        <span className="text-caption text-tertiary">
-          {isRainbowMode ? "Cosmic mode active \uD83C\uDF08" : "Enable cosmic theme"}
+        <span className="text-tertiary text-caption">
+          {isRainbowMode ? "Cosmic mode active 🌈" : "Enable cosmic theme"}
         </span>
       </div>
       <Switch checked={isRainbowMode} onCheckedChange={setIsRainbowMode} />
