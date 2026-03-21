@@ -1,0 +1,21 @@
+import React from "react";
+
+import {
+  createIcon,
+  type IconDefinition,
+  type LoadedIconFunction,
+} from "@nds-icons";
+
+export const iconDefinition: IconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: (
+    <>
+      <path d="M8.4375 9.0625H2.5V3.125H4.375V5.90312L5.1375 5.14063C6.48125 3.79688 8.24062 3.12813 10 3.12813C11.7594 3.12813 13.5188 3.8 14.8625 5.14063L13.5375 6.46563C12.5625 5.49063 11.2812 5 10.0031 5C8.725 5 7.44375 5.4875 6.46875 6.46563L5.74687 7.1875H8.44375V9.0625H8.4375ZM11.5625 10.9375V12.8125H14.2594L13.5375 13.5344C12.5625 14.5094 11.2812 15 10.0031 15C8.725 15 7.44375 14.5125 6.46875 13.5344L5.14375 14.8594C6.4875 16.2031 8.24688 16.8719 10.0063 16.8719C11.7656 16.8719 13.525 16.2 14.8688 14.8594L15.6313 14.0969V16.875H17.5063V10.9375H11.5688H11.5625Z" />
+    </>
+  ),
+};
+
+export const syncReverseIcon: LoadedIconFunction = createIcon(
+  "syncReverse",
+  iconDefinition,
+);

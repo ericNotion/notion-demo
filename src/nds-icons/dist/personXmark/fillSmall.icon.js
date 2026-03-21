@@ -1,0 +1,99 @@
+// src/nds-icons/SvgIcon.tsx
+import { jsxDEV } from "react/jsx-dev-runtime";
+function SvgIcon({
+  children,
+  viewBox,
+  style,
+  className,
+  label
+}) {
+  return /* @__PURE__ */ jsxDEV("svg", {
+    ...label !== undefined ? { "aria-label": label } : { "aria-hidden": true },
+    role: "graphics-symbol",
+    viewBox,
+    style: {
+      width: "100%",
+      height: "100%",
+      display: "block",
+      fill: "inherit",
+      flexShrink: 0,
+      ...style
+    },
+    className,
+    children
+  }, undefined, false, undefined, this);
+}
+
+// src/nds-icons/iconUtils.tsx
+import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
+var iconGroupVariantNames = [
+  "fillSmall",
+  "small",
+  "fill",
+  "default"
+];
+var logoVariantNames = ["default", "darkMode"];
+var deprecatedIconGroupVariantNames = [
+  "micro",
+  "mini",
+  "small",
+  "default",
+  "large",
+  "extraLarge",
+  "max"
+];
+var iconVariantNames = [
+  ...iconGroupVariantNames,
+  ...deprecatedIconGroupVariantNames,
+  ...logoVariantNames
+];
+var ICON_SIZE = {
+  xxs: 12,
+  xs: 14,
+  sm: 16,
+  default: 20,
+  lg: 22,
+  xl: 32
+};
+var ICON_SIZE_FOR_VARIANT = {
+  default: ICON_SIZE.default,
+  small: ICON_SIZE.sm,
+  fill: ICON_SIZE.default,
+  fillSmall: ICON_SIZE.sm,
+  darkMode: ICON_SIZE.default,
+  micro: 14,
+  mini: 14,
+  large: 24,
+  max: 28,
+  extraLarge: 36
+};
+function createIcon(name, iconDefinition) {
+  const { viewBox, svg } = iconDefinition;
+  const finalViewBox = viewBox ?? `0 0 ${ICON_SIZE.default} ${ICON_SIZE.default}`;
+  const iconFunction = (style, className) => {
+    const finalClassName = className ? `${name} ${className}` : name;
+    return /* @__PURE__ */ jsxDEV2(SvgIcon, {
+      viewBox: finalViewBox,
+      className: finalClassName,
+      style,
+      children: svg
+    }, undefined, false, undefined, this);
+  };
+  return Object.assign(iconFunction, {
+    __iconDefinition: { ...iconDefinition, viewBox: finalViewBox }
+  });
+}
+
+// src/nds-icons/src/personXmark/fillSmall.icon.tsx
+import { jsxDEV as jsxDEV3 } from "react/jsx-dev-runtime";
+var iconDefinition = {
+  viewBox: "0 0 16 16",
+  svg: /* @__PURE__ */ jsxDEV3("path", {
+    d: "M6.275 1.85c-.924 0-1.673.382-2.178 1.012-.495.617-.731 1.435-.731 2.29 0 .856.236 1.674.73 2.291.506.63 1.255 1.012 2.18 1.012.924 0 1.672-.382 2.178-1.012.495-.617.73-1.435.73-2.29 0-.856-.235-1.674-.73-2.291C7.948 2.232 7.2 1.85 6.275 1.85m0 7.403c-2.175 0-4.115 1.06-4.94 2.672-.3.585-.165 1.179.19 1.594.34.396.873.631 1.43.631h6.64c.557 0 1.09-.235 1.43-.631.355-.415.49-1.01.19-1.594-.825-1.612-2.765-2.672-4.94-2.672m8.834-3.939a.55.55 0 0 1 0 .778L13.8 7.4l1.308 1.308a.55.55 0 1 1-.778.778l-1.308-1.308-1.308 1.308a.55.55 0 1 1-.778-.778L12.245 7.4l-1.308-1.308a.55.55 0 1 1 .778-.778l1.308 1.308 1.308-1.308a.55.55 0 0 1 .778 0"
+  }, undefined, false, undefined, this)
+};
+var personXmarkFillSmallIcon = createIcon("personXmarkFillSmall", iconDefinition);
+export {
+  personXmarkFillSmallIcon,
+  iconDefinition
+};

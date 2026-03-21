@@ -1,0 +1,2827 @@
+// src/nds-icons/icon-manifest.ts
+var iconManifest = [
+  {
+    dir: "addSquareRounded",
+    name: "addSquareRounded",
+    tags: ["new", "create", "plus", "positive", "increase", "add"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "aiBlock",
+    name: "aiBlock",
+    tags: ["ai", "ai block", "embed", "LLM", "smart", "summary"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "aiDescription",
+    name: "aiDescription",
+    tags: ["write", "smart", "LLM", "ai", "writing", "meeting note"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "aiFace",
+    name: "aiFace",
+    tags: ["ai", "artificial", "intelligence", "sparkle", "technology", "nosy"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "airplane",
+    name: "airplane",
+    tags: ["airplane", "aircraft", "flight", "travel", "aviation"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "alarm",
+    name: "alarm",
+    tags: ["alarm", "clock", "timepiece", "wakeup", "reminder"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "alarmVibrating",
+    name: "alarmVibrating",
+    tags: ["alarm", "clock", "timepiece", "wakeup", "reminder"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "alignCenter",
+    name: "alignCenter",
+    tags: ["layout", "justification", "orientation", "margin"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "alignLeft",
+    name: "alignLeft",
+    tags: ["layout", "justification", "orientation", "margin"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "alignRight",
+    name: "alignRight",
+    tags: ["layout", "justification", "orientation", "margin"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "app",
+    name: "app",
+    tags: ["application", "software", "mobile", "program"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "archiveBox",
+    name: "archiveBox",
+    tags: ["storage", "save", "folder", "box", "file"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "archiveBoxCheck",
+    name: "archiveBoxCheck",
+    tags: ["storage", "save", "folder", "box", "file", "read"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowBranch",
+    name: "arrowBranch",
+    tags: ["arrow", "branch", "fork", "split"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowCaretDown",
+    name: "arrowCaretDown",
+    tags: ["caret", "down", "arrow", "pointer", "direction"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowCaretLeft",
+    name: "arrowCaretLeft",
+    tags: ["caret", "left", "arrow", "pointer", "direction"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowCaretRight",
+    name: "arrowCaretRight",
+    tags: ["caret", "right", "arrow", "pointer", "direction"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowCaretUp",
+    name: "arrowCaretUp",
+    tags: ["caret", "up", "arrow", "pointer", "direction"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowChevronDoubleBackward",
+    name: "arrowChevronDoubleBackward",
+    tags: ["double", "chevron", "left", "arrows", "direction"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowChevronDoubleDownward",
+    name: "arrowChevronDoubleDownward",
+    tags: ["double", "chevron", "up", "arrows", "direction"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowChevronDoubleForward",
+    name: "arrowChevronDoubleForward",
+    tags: ["double", "chevron", "right", "arrows", "direction"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowChevronDoubleLeftAndRight",
+    name: "arrowChevronDoubleLeftAndRight",
+    tags: ["chevrons", "toggle", "expand", "collapse", "menu", "horizontal"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowChevronDoubleUpAndDown",
+    name: "arrowChevronDoubleUpAndDown",
+    tags: ["chevrons", "toggle", "expand", "collapse", "menu", "vertical"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowChevronDoubleUpward",
+    name: "arrowChevronDoubleUpward",
+    tags: ["double", "chevron", "up", "arrows", "direction"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowChevronSingleDown",
+    name: "arrowChevronSingleDown",
+    tags: ["chevron", "down", "arrow", "direction", "downward"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowChevronSingleLeft",
+    name: "arrowChevronSingleLeft",
+    tags: ["chevron", "left", "arrow", "direction", "backward"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowChevronSingleRight",
+    name: "arrowChevronSingleRight",
+    tags: ["chevron", "right", "arrow", "direction", "forward"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowChevronSingleUp",
+    name: "arrowChevronSingleUp",
+    tags: ["chevron", "up", "arrow", "direction", "upward"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowCircleCheck",
+    name: "arrowCircleCheck",
+    tags: [
+      "turn",
+      "90degree",
+      "upright",
+      "direction",
+      "rotate",
+      "move to",
+      "move"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowCircleLoop",
+    name: "arrowCircleLoop",
+    tags: ["refresh", "reload", "update", "sync", "circular"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowCircleLoopSlash",
+    name: "arrowCircleLoopSlash",
+    tags: ["refresh", "reload", "update", "sync", "circular"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowCircleSpinClockwise",
+    name: "arrowCircleSpinClockwise",
+    tags: ["refresh", "reload", "update", "sync", "circular"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowCircleSpinCounterClockwise",
+    name: "arrowCircleSpinCounterClockwise",
+    tags: ["refresh", "reload", "update", "sync", "circular"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowCollapse",
+    name: "arrowCollapse",
+    tags: ["arrows", "collapse", "minimize", "reduce", "contract"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowDiagonalDownLeft",
+    name: "arrowDiagonalDownLeft",
+    tags: ["arrow", "down", "left", "direction", "navigation"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowDiagonalDownLeftUpRight",
+    name: "arrowDiagonalDownLeftUpRight",
+    tags: ["arrows", "upright", "downleft", "diagonal", "directions"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowDiagonalDownRight",
+    name: "arrowDiagonalDownRight",
+    tags: ["arrow", "down", "right", "direction", "navigation"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowDiagonalUpLeft",
+    name: "arrowDiagonalUpLeft",
+    tags: ["arrow", "up", "left", "direction", "navigation"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowDiagonalUpRight",
+    name: "arrowDiagonalUpRight",
+    tags: ["arrow", "up", "right", "direction", "navigation"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowExpandDiagonal",
+    name: "arrowExpandDiagonal",
+    tags: ["expand", "enlarge", "stretch", "grow", "unfold"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowExpandDiagonalBottomLeftToTopRight",
+    name: "arrowExpandDiagonalBottomLeftToTopRight",
+    tags: ["expand", "enlarge", "stretch", "grow", "unfold"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowExpandHorizontal",
+    name: "arrowExpandHorizontal",
+    tags: ["expand", "zoom", "full width", "wide", "full screen"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowFromLineRight",
+    name: "arrowFromLineRight",
+    tags: ["send", "close", "open", "drawer", "panel"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowInCircleClockwiseInCircle",
+    name: "arrowInCircleClockwiseInCircle",
+    tags: ["refresh", "reload", "subscription", "renew", "cancel", "upgrade"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowInCircleDown",
+    name: "arrowInCircleDown",
+    tags: ["arrow", "circle", "down", "direction", "pointer", "downgrade"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowInCircleUp",
+    name: "arrowInCircleUp",
+    tags: ["arrow", "circle", "up", "direction", "pointer", "upgrade"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowInRectangleRight",
+    name: "arrowInRectangleRight",
+    tags: ["point", "go", "send", "submit"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowIntersectRight",
+    name: "arrowIntersectRight",
+    tags: ["shuffle", "cross", "crisscross", "diverge", "converge"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowLeftRight",
+    name: "arrowLeftRight",
+    tags: [
+      "arrows",
+      "sort",
+      "arrange",
+      "organize",
+      "order",
+      "categorize",
+      "switch",
+      "swap"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowLineDown",
+    name: "arrowLineDown",
+    tags: ["download", "arrow", "down", "horizontal line", "save"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowLineRight",
+    name: "arrowLineRight",
+    tags: ["send", "close", "open", "drawer", "panel"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowLineUp",
+    name: "arrowLineUp",
+    tags: ["download", "arrow", "up", "horizontal line", "share", "send"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowMergeUp",
+    name: "arrowMergeUp",
+    tags: ["arrow", "merge", "combine", "unify", "integrate", "join"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowPageDown",
+    name: "arrowPageDown",
+    tags: ["document", "download", "save", "file", "arrow"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowPageUp",
+    name: "arrowPageUp",
+    tags: ["document", "upload", "send", "file", "arrow"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowRectangleLeft",
+    name: "arrowRectangleLeft",
+    tags: ["insert", "left", "column", "layout"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowRectangleRight",
+    name: "arrowRectangleRight",
+    tags: ["insert", "right", "column", "layout"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowRightFromRectangle",
+    name: "arrowRightFromRectangle",
+    tags: ["exit", "remove", "logout", "leave", "door"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowRightIntoRectangle",
+    name: "arrowRightIntoRectangle",
+    tags: ["enter", "entrance", "login", "door"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowShapeDoubleUpLeft",
+    name: "arrowShapeDoubleUpLeft",
+    tags: ["reply all", "reply", "all", "email", "respond"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowShapeUpLeft",
+    name: "arrowShapeUpLeft",
+    tags: ["reply", "email", "respond"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowShapeUpRight",
+    name: "arrowShapeUpRight",
+    tags: ["forward", "email", "send"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowSquareLeftRight",
+    name: "arrowSquareLeftRight",
+    tags: ["turn into", "refresh", "reload", "update", "sync", "circular"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowSquarePathUpDown",
+    name: "arrowSquarePathUpDown",
+    tags: ["turn into", "refresh", "reload", "update", "sync", "circular"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowStraightDown",
+    name: "arrowStraightDown",
+    tags: ["arrow", "right", "direction", "next", "forward"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowStraightLeft",
+    name: "arrowStraightLeft",
+    tags: ["arrow", "right", "direction", "next", "forward"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowStraightRight",
+    name: "arrowStraightRight",
+    tags: ["arrow", "right", "direction", "next", "forward"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowStraightUp",
+    name: "arrowStraightUp",
+    tags: ["arrow", "right", "direction", "next", "forward"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowTriangleDownCircle",
+    name: "arrowTriangleDownCircle",
+    tags: [
+      "arrow",
+      "caret",
+      "circle",
+      "pointer",
+      "direction",
+      "indicator",
+      "down"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowTriangleRightCircle",
+    name: "arrowTriangleRightCircle",
+    tags: ["play", "media", "arrow", "caret", "circle", "pointer", "direction"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowTurnDownLeft",
+    name: "arrowTurnDownLeft",
+    tags: [
+      "turn",
+      "90degree",
+      "downleft",
+      "direction",
+      "rotate",
+      "return",
+      "carriage",
+      "enter"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowTurnDownRight",
+    name: "arrowTurnDownRight",
+    tags: [
+      "turn",
+      "90degree",
+      "downright",
+      "direction",
+      "rotate",
+      "move to",
+      "move"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowTurnLeftUp",
+    name: "arrowTurnLeftUp",
+    tags: [
+      "turn",
+      "90degree",
+      "leftup",
+      "direction",
+      "rotate",
+      "move to",
+      "move",
+      "back",
+      "go back",
+      "revert"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowTurnUpRight",
+    name: "arrowTurnUpRight",
+    tags: [
+      "turn",
+      "90degree",
+      "upright",
+      "direction",
+      "rotate",
+      "move to",
+      "move"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowUTurnDownLeft",
+    name: "arrowUTurnDownLeft",
+    tags: [
+      "uturn",
+      "left",
+      "reverse",
+      "direction",
+      "turn",
+      "undo",
+      "back",
+      "return",
+      "enter",
+      "new line",
+      "line break"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowUTurnUpLeft",
+    name: "arrowUTurnUpLeft",
+    tags: ["uturn", "left", "reverse", "direction", "turn", "undo", "back"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowUTurnUpRight",
+    name: "arrowUTurnUpRight",
+    tags: ["uturn", "right", "reverse", "direction", "turn", "redo", "repeat"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowUpDown",
+    name: "arrowUpDown",
+    tags: ["arrows", "sort", "arrange", "organize", "order", "categorize"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowUpDownLeftRight",
+    name: "arrowUpDownLeftRight",
+    tags: ["arrows", "move", "drag", "drop", "reorder", "arrange", "rearrange"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowUpDownStacked",
+    name: "arrowUpDownStacked",
+    tags: ["arrows", "more", "arrange", "organize", "order", "categorize"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowUpRightSquare",
+    name: "arrowUpRightSquare",
+    tags: [
+      "arrow",
+      "upright",
+      "northeast",
+      "direction",
+      "diagonal",
+      "link",
+      "external"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "arrowsDivergeRight",
+    name: "arrowsDivergeRight",
+    tags: ["branch", "git", "merge", "split", "diverge"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "asterisk",
+    name: "asterisk",
+    tags: ["star", "footnote", "notation"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "at",
+    name: "at",
+    tags: ["at", "symbol", "email", "address", "contact", "mention"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "badgeCheck",
+    name: "badgeCheck",
+    tags: ["checkmark", "badge", "verified", "approved", "confirmed"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "bell",
+    name: "bell",
+    tags: ["bell", "notification", "alert", "alarm", "reminder"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "bellSlash",
+    name: "bellSlash",
+    tags: ["notfication", "disable", "mute", "silence", "reminder"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "blockColor",
+    name: "blockColor",
+    tags: ["paint", "roller", "brush", "decorate", "renovate"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "blockLimit",
+    name: "blockLimit",
+    tags: ["cube", "block", "limit", "warning", "square"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "blockSync",
+    name: "blockSync",
+    tags: ["sync", "embed", "listen"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "book",
+    name: "book",
+    tags: ["book", "open", "literature", "education", "reading"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "bookClosed",
+    name: "bookClosed",
+    tags: ["book", "library", "read", "resource"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "bookmark",
+    name: "bookmark",
+    tags: ["bookmark", "save", "favorite", "mark", "tag"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "briefcase",
+    name: "briefcase",
+    tags: ["business", "company", "work", "career", "portfolio"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "browser",
+    name: "browser",
+    tags: ["browser", "chrome", "safari", "firefox", "windows", "mac"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "browserAdd",
+    name: "browserAdd",
+    tags: ["browser", "plus", "add", "new", "create"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "browserClick",
+    name: "browserClick",
+    tags: [
+      "browser",
+      "chrome",
+      "safari",
+      "pointer",
+      "cursor",
+      "firefox",
+      "windows",
+      "mac"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "browserMagnifyingGlass",
+    name: "browserMagnifyingGlass",
+    tags: [
+      "chrome",
+      "safari",
+      "firefox",
+      "windows",
+      "mac",
+      "search",
+      "find",
+      "web"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "bubbleEllipses",
+    name: "bubbleEllipses",
+    tags: [
+      "speech",
+      "bubble",
+      "typing",
+      "type",
+      "reply",
+      "replying",
+      "waiting",
+      "message",
+      "comment"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "bubbleRight",
+    name: "bubbleRight",
+    tags: ["comment", "bubble", "chat", "message", "speech", "right"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "bulletedList",
+    name: "bulletedList",
+    tags: ["bullet", "list", "items", "points", "checklist"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "burst",
+    name: "burst",
+    tags: ["new", "flash", "spinner", "highlight", "radiate"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "buttonBlock",
+    name: "buttonBlock",
+    tags: ["button", "action", "link", "submit", "CTA"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "calendarBadgeClock",
+    name: "calendarBadgeClock",
+    tags: [
+      "annually",
+      "badge",
+      "calendar",
+      "clock",
+      "date",
+      "daily",
+      "monthly",
+      "recurring",
+      "schedule",
+      "time"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "calendarBadgeX",
+    name: "calendarBadgeX",
+    tags: [
+      "annually",
+      "badge",
+      "calendar",
+      "clock",
+      "date",
+      "daily",
+      "monthly",
+      "recurring",
+      "schedule",
+      "time",
+      "clear"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "calloutBlock",
+    name: "calloutBlock",
+    tags: ["callout", "banner", "emphasis", "caption"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "caption",
+    name: "caption",
+    tags: ["subtitle", "text", "CC", "description", "label"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "captionsBubble",
+    name: "captionsBubble",
+    tags: ["comment", "bubble", "chat", "message", "text"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "carrot",
+    name: "carrot",
+    tags: [
+      "emoji",
+      "picker",
+      "food",
+      "cuisine",
+      "dining",
+      "dinner",
+      "vegetable"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "chartBarXAxis",
+    name: "chartBarXAxis",
+    tags: ["chart", "bar chart"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "chartBarYAxis",
+    name: "chartBarYAxis",
+    tags: ["chart", "bar chart"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "chartLine",
+    name: "chartLine",
+    tags: ["chart", "line", "upright", "graph"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "chartLineUptrend",
+    name: "chartLineUptrend",
+    tags: ["chart", "line", "upright", "trend", "increase"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "chartPieCutout",
+    name: "chartPieCutout",
+    tags: ["section", "divide", "piece", "pie"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "chat",
+    name: "chat",
+    tags: ["comment", "bubble", "chat", "message", "speech", "right"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "checkStack",
+    name: "checkStack",
+    tags: ["Cards", "tasks", "completed", "pile", "stack"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "checklist",
+    name: "checklist",
+    tags: ["checklist", "tasks", "todo", "items", "list"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "checkmark",
+    name: "checkmark",
+    tags: ["check", "tick", "confirm", "approve", "success"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "checkmarkCircle",
+    name: "checkmarkCircle",
+    tags: ["check", "mark", "tick", "confirm", "approve"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "checkmarkShield",
+    name: "checkmarkShield",
+    tags: ["checkmark", "shield", "protect", "secure", "validate"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "checkmarkSquare",
+    name: "checkmarkSquare",
+    tags: ["checkmark", "square", "tick", "confirm", "approve"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "circle",
+    name: "circle",
+    tags: ["dot", "circle", "marker", "spot", "orb"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "circleDotted",
+    name: "circleDotted",
+    tags: ["circle", "dotted", "outline", "round", "border"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "circleDottedAndCircle",
+    name: "circleDottedAndCircle",
+    tags: ["move", "animation", "frame rate", "FPS", "frames per second"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "circleGrid2X2",
+    name: "circleGrid2X2",
+    tags: ["grid", "layout", "tiles", "matrix", "dashboard"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "clock",
+    name: "clock",
+    tags: ["clock", "timepiece", "hour", "minute", "second", "history"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "clockArrow2CirclePath",
+    name: "clockArrow2CirclePath",
+    tags: [
+      "again",
+      "annually",
+      "daily",
+      "monthly",
+      "recur",
+      "recurring",
+      "repeat",
+      "repeating",
+      "weekly",
+      "yearly"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "clockArrowBack",
+    name: "clockArrowBack",
+    tags: ["history", "clock", "timeline", "records", "past"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "cloudArrowCircleCounterclockwiseLeft",
+    name: "cloudArrowCircleCounterclockwiseLeft",
+    tags: ["offline", "mode", "internet", "wifi", "sync"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "cloudCheck",
+    name: "cloudCheck",
+    tags: ["offline", "mode", "internet", "wifi", "sync"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "cloudExclamation",
+    name: "cloudExclamation",
+    tags: ["offline", "mode", "internet", "wifi", "sync"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "cloudSlash",
+    name: "cloudSlash",
+    tags: ["offline", "mode", "internet", "wifi", "sync"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "code",
+    name: "code",
+    tags: ["html", "snippet", "css", "development", "syntax", "markup"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "collection",
+    name: "collection",
+    tags: ["database", "stack", "cylinder", "collection", "server"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "collectionArrow",
+    name: "collectionArrow",
+    tags: [
+      "database",
+      "stack",
+      "cylinder",
+      "collection",
+      "server",
+      "send",
+      "arrow"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "command",
+    name: "command",
+    tags: ["command", "mac", "keyboard", "shortcut", "symbol"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "commit",
+    name: "commit",
+    tags: ["commit", "git", "version", "save", "checkpoint"],
+    variants: ["default"]
+  },
+  {
+    dir: "comment",
+    name: "comment",
+    tags: ["comment", "bubble", "chat", "message", "speech"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "commentAdd",
+    name: "commentAdd",
+    tags: ["comment", "bubble", "chat", "message", "speech"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "commentArrowUp",
+    name: "commentArrowUp",
+    tags: ["comment", "arrow", "up", "send", "chat"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "commentFilled",
+    name: "commentFilled",
+    tags: ["comment", "bubble", "chat", "message", "speech"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "commentInfo",
+    name: "commentInfo",
+    tags: ["contact", "help", "information"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "commentPencil",
+    name: "commentPencil",
+    tags: ["edit", "suggest", "pencil", "compose", "message"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "compose",
+    name: "compose",
+    tags: ["paper", "pad", "pencil", "write", "notebook", "author", "pen"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "connections",
+    name: "connections",
+    tags: ["connections", "nodes", "wire", "link", "network"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "creditCard",
+    name: "creditCard",
+    tags: ["credit", "card", "payment", "money", "plastic"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "crop",
+    name: "crop",
+    tags: ["editing", "resize", "trim", "frame", "adjust"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "cube",
+    name: "cube",
+    tags: ["cube", "box", "threedimensional", "geometric", "square"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "curlyBraces",
+    name: "curlyBraces",
+    tags: [
+      "braces",
+      "code",
+      "curly",
+      "curly braces",
+      "development",
+      "syntax",
+      "webhooks"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "cursorClick",
+    name: "cursorClick",
+    tags: ["cursor", "click"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "dash",
+    name: "dash",
+    tags: ["dash", "hyphen", "line", "punctuation"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "databaseEmbed",
+    name: "databaseEmbed",
+    tags: ["database", "inline", "block"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "display",
+    name: "display",
+    tags: ["monitor", "desktop", "computer", "window"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "displayAndArrowDown",
+    name: "displayAndArrowDown",
+    tags: [
+      "monitor",
+      "down arrow",
+      "computer",
+      "download",
+      "screen",
+      "desktop",
+      "device",
+      "downward"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "divider",
+    name: "divider",
+    tags: ["line", "break", "page", "divider", "rule"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "docBadgeClock",
+    name: "docBadgeClock",
+    tags: [
+      "IPR",
+      "initial page render",
+      "recent document",
+      "recent page",
+      "recents",
+      "page history"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "docBadgePlus",
+    name: "docBadgePlus",
+    tags: [
+      "IPR",
+      "initial page render",
+      "recent document",
+      "recent page",
+      "recents",
+      "page history"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "docHashtag",
+    name: "docHashtag",
+    tags: ["code", "script", "hash", "programming", "file"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "docOnDoc",
+    name: "docOnDoc",
+    tags: ["document", "copy", "duplicate", "clone"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "docPlainText",
+    name: "docPlainText",
+    tags: ["document", "paper", "lines", "text", "file"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "docRichText",
+    name: "docRichText",
+    tags: ["document", "rich text", "formatted", "text", "file"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "docSend",
+    name: "docSend",
+    tags: ["document", "embed", "link", "go", "leave", "navigate"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "docTextMagnifyingGlass",
+    name: "docTextMagnifyingGlass",
+    tags: ["document", "search", "find", "explore", "locate"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "docWithQuotationMarks",
+    name: "docWithQuotationMarks",
+    tags: ["document", "paper", "quotes", "text", "speech"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "dollarSign",
+    name: "dollarSign",
+    tags: ["dollar", "money", "currency", "finance", "cash"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "donutChart",
+    name: "donutChart",
+    tags: ["chart", "reporting", "pie", "segment"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "dot",
+    name: "dot",
+    tags: ["unread", "notification", "circle", "inbox"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "dotWavesRight",
+    name: "dotWavesRight",
+    tags: ["sound", "audio", "volume", "signal", "broadcast"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "dragHandle",
+    name: "dragHandle",
+    tags: ["six dots", "menu", "command"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "drive",
+    name: "drive",
+    tags: ["HDD", "hard disk", "memory", "hard drive", "storage"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "duplicate",
+    name: "duplicate",
+    tags: ["copy", "paste", "clone", "duplicate", "CC"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "ellipsis",
+    name: "ellipsis",
+    tags: ["Ellipsis", "more", "etc", "3 dots", "etcetera", "overflow"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "ellipsisVertical",
+    name: "ellipsisVertical",
+    tags: ["more", "etc", "3 dots", "etcetera", "overflow"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "emojiFace",
+    name: "emojiFace",
+    tags: ["emoji", "face", "emotion", "expression", "smile"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "emojiFacePlus",
+    name: "emojiFacePlus",
+    tags: ["emoji", "face", "plus", "add", "increase"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "envelope",
+    name: "envelope",
+    tags: ["envelope", "open", "mail", "message", "communication"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "envelopeBadge",
+    name: "envelopeBadge",
+    tags: ["envelope", "notification", "dot", "mail", "message"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "envelopeOpen",
+    name: "envelopeOpen",
+    tags: ["envelope", "open", "mail", "message", "communication"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "equal",
+    name: "equal",
+    tags: ["equals", "equal"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "equalCircle",
+    name: "equalCircle",
+    tags: ["equals"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "equalSquare",
+    name: "equalSquare",
+    tags: ["equals"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "equation",
+    name: "equation",
+    tags: ["inline", "math", "sum", "divide", "multiply", "formula"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "eraserLineDashed",
+    name: "eraserLineDashed",
+    tags: ["eraser", "remove", "delete", "clean", "edit"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "euroSign",
+    name: "euroSign",
+    tags: ["euro", "currency", "money", "finance", "symbol"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "exclamationDiamond",
+    name: "exclamationDiamond",
+    tags: ["rule", "create", "new", "automation", "error", "warning"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "exclamationMarkCircle",
+    name: "exclamationMarkCircle",
+    tags: ["exclamation", "circle", "alert", "warning", "attention"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "exclamationMarkCircleArrow",
+    name: "exclamationMarkCircleArrow",
+    tags: ["exclamation", "square", "alert", "warning", "attention"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "exclamationMarkSquare",
+    name: "exclamationMarkSquare",
+    tags: ["exclamation", "square", "alert", "warning", "attention"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "exclamationMarkTriangle",
+    name: "exclamationMarkTriangle",
+    tags: ["warning", "caution", "triangle", "road", "traffic", "fill"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "eye",
+    name: "eye",
+    tags: ["eye", "vision", "see", "look", "observe"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "eyeSlash",
+    name: "eyeSlash",
+    tags: [
+      "eye",
+      "slash",
+      "visibility",
+      "hidden",
+      "conceal",
+      "privacy",
+      "crossed",
+      "noview"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "eyeglasses",
+    name: "eyeglasses",
+    tags: ["glasses", "eyewear", "spectacles", "vision", "lenses"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "figure2",
+    name: "figure2",
+    tags: ["team", "group", "partnership", "friends", "duo"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "figure2ArmsOpen",
+    name: "figure2ArmsOpen",
+    tags: ["team", "group", "partnership", "friends", "duo"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "figureRun",
+    name: "figureRun",
+    tags: ["person", "running", "jogger", "athlete", "sprinter"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "fileCsv",
+    name: "fileCsv",
+    tags: ["format", "file", "download", "save", "document"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "filePdf",
+    name: "filePdf",
+    tags: [
+      "format",
+      "file",
+      "download",
+      "save",
+      "document",
+      "adobe",
+      "acrobat"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "filter",
+    name: "filter",
+    tags: ["filter", "sort", "funnel", "refine", "search"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "filterCircle",
+    name: "filterCircle",
+    tags: ["sort", "funnel", "refine", "search", "circle", "enclosed"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "fish",
+    name: "fish",
+    tags: ["spam", "email", "swim", "marine"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "flag",
+    name: "flag",
+    tags: ["flag", "marker", "indicator", "symbol", "alert"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "flowchart",
+    name: "flowchart",
+    tags: ["diagram", "process", "flow", "hierarchy"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "folder",
+    name: "folder",
+    tags: ["folder", "directory", "file", "documents", "storage"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "formula",
+    name: "formula",
+    tags: ["formula", "equation", "calculation", "math", "algorithm", "fx"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "gear",
+    name: "gear",
+    tags: ["gear", "settings", "cog", "options", "tools"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "globe",
+    name: "globe",
+    tags: ["globe", "world", "earth", "global", "international"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "globeAmericas",
+    name: "globeAmericas",
+    tags: ["globe", "world", "earth", "global", "international"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "goForwardPlus",
+    name: "goForwardPlus",
+    tags: ["circular", "arrow", "fast", "forward"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "graduationCap",
+    name: "graduationCap",
+    tags: ["education", "graduate", "learning", "student", "degree"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "graphArea",
+    name: "graphArea",
+    tags: ["graph", "visualize", "gradient", "chart"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "handTap",
+    name: "handTap",
+    tags: ["point", "pointer", "finger"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "handThumbsDown",
+    name: "handThumbsDown",
+    tags: ["plus", "add", "new", "create", "increase"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "handThumbsUp",
+    name: "handThumbsUp",
+    tags: ["plus", "add", "new", "create", "increase"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "handWave",
+    name: "handWave",
+    tags: ["hand", "palm", "gesture", "grasp", "hold", "wave"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "handbag",
+    name: "handbag",
+    tags: ["handbag", "purse", "tote", "carryall", "accessory"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "heart",
+    name: "heart",
+    tags: ["like", "favorite", "love"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "home",
+    name: "home",
+    tags: ["home", "house", "residence", "building", "main"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "hourglass",
+    name: "hourglass",
+    tags: ["time", "hour glass", "loading", "loader", "latency"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "iPhone",
+    name: "iPhone",
+    tags: [],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "inbox",
+    name: "inbox",
+    tags: ["inbox", "messages", "emails", "received", "mail"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "infoCircle",
+    name: "infoCircle",
+    tags: ["info", "circle", "information", "help", "details"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "inlineBlockDouble",
+    name: "inlineBlockDouble",
+    tags: ["embed", "format", "document"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "inlineBlockSingle",
+    name: "inlineBlockSingle",
+    tags: ["embed", "format", "document"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "inlineEquation",
+    name: "inlineEquation",
+    tags: ["formula", "equation", "calculation", "math", "algorithm"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "integration",
+    name: "integration",
+    tags: ["integration", "dots", "lines", "connect"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "inviteMember",
+    name: "inviteMember",
+    tags: ["person", "plus", "add", "include", "join"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "key",
+    name: "key",
+    tags: ["key", "security", "lock", "access", "password"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "keyboard",
+    name: "keyboard",
+    tags: ["keyboard", "type", "keys", "input", "computer"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "keyboardDown",
+    name: "keyboardDown",
+    tags: ["type", "keys", "input", "computer", "hide", "unfocus"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "laptopComputer",
+    name: "laptopComputer",
+    tags: ["computer", "laptop", "mac", "macbook", "pc"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "layerMultiple",
+    name: "layerMultiple",
+    tags: ["3d", "frame", "depth", "app", "dimension", "canvas"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "layerSingle",
+    name: "layerSingle",
+    tags: ["3d", "frame", "depth", "app", "dimension", "canvas"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "layout",
+    name: "layout",
+    tags: [
+      "structure",
+      "customize",
+      "page",
+      "rectangle",
+      "square",
+      "grid",
+      "bento"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "leaf",
+    name: "leaf",
+    tags: ["emoji", "nature", "natural", "outdoors", "plant"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "lightBulbBright",
+    name: "lightBulbBright",
+    tags: ["idea", "filament", "brightness", "on"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "lightning",
+    name: "lightning",
+    tags: ["lightning", "bolt", "electricity", "power", "energy"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "lineCurve",
+    name: "lineCurve",
+    tags: ["smooth", "arc", "arch", "chart", "graph"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "link",
+    name: "link",
+    tags: ["hyperlink", "connect", "URL", "join", "network"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "linkBadgePlus",
+    name: "linkBadgePlus",
+    tags: ["link", "add", "plus", "create", "new"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "linkCapture",
+    name: "linkCapture",
+    tags: ["camera", "photo", "scan", "pic", "snap", "frame"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "listBullet",
+    name: "listBullet",
+    tags: ["format", "bullet", "list", "steps", "checklist", "order"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "listDash",
+    name: "listDash",
+    tags: ["list", "items", "tasks", "agenda", "schedule"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "listNumber",
+    name: "listNumber",
+    tags: ["format", "bullet", "list", "steps", "checklist", "order"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "listToggle",
+    name: "listToggle",
+    tags: [
+      "format",
+      "bullet",
+      "list",
+      "steps",
+      "checklist",
+      "order",
+      "expand",
+      "collapse"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "listToggleIndent",
+    name: "listToggleIndent",
+    tags: ["table of contents", "caret", "arrow", "collapse", "expand", "list"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "lock",
+    name: "lock",
+    tags: ["lock", "closed", "secure", "padlock", "privacy"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "lockDoc",
+    name: "lockDoc",
+    tags: ["document", "lock", "secure", "confidential", "privacy"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "lockOpen",
+    name: "lockOpen",
+    tags: ["unlock", "open", "secure", "safe", "password", "latch", "padlock"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "lockSlash",
+    name: "lockSlash",
+    tags: ["lock", "slash", "unsecured", "unlock", "access"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "magicWand",
+    name: "magicWand",
+    tags: ["magic", "wand", "fantasy", "wizard", "enchantment"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "magnifyingGlass",
+    name: "magnifyingGlass",
+    tags: ["magnifying", "glass", "search", "zoom", "explore"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "magnifyingGlassPlus",
+    name: "magnifyingGlassPlus",
+    tags: ["zoom", "magnify", "enlarge", "search", "plus"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "mail",
+    name: "mail",
+    tags: ["mail", "envelope", "email", "letter", "message", "postcard"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "map",
+    name: "map",
+    tags: ["map", "location", "geography", "navigation", "atlas"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "mapPin",
+    name: "mapPin",
+    tags: ["map", "location", "GPS", "track", "tracking"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "markUnread",
+    name: "markUnread",
+    tags: ["unread", "new", "notification", "alert", "indicator"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "medal",
+    name: "medal",
+    tags: ["award", "premium", "winner", "1st place", "prize"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "mediaFastForward",
+    name: "mediaFastForward",
+    tags: ["skip", "forward", "audio", "video"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "mediaPause",
+    name: "mediaPause",
+    tags: ["hold", "audio", "video"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "mediaPlay",
+    name: "mediaPlay",
+    tags: ["forward", "start", "audio", "video"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "mediaRewind",
+    name: "mediaRewind",
+    tags: ["skip", "backward", "audio", "video"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "mediaStop",
+    name: "mediaStop",
+    tags: ["end", "audio", "video"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "medicine",
+    name: "medicine",
+    tags: ["pill", "rx", "dose", "dosage", "fix"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "megaphone",
+    name: "megaphone",
+    tags: ["broadcast", "loud", "speaker", "horn"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "menu",
+    name: "menu",
+    tags: ["navigation", "hamburger", "bars", "sidebar"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "microphone",
+    name: "microphone",
+    tags: [
+      "microphone",
+      "dictate",
+      "record",
+      "audio",
+      "voice",
+      "speak",
+      "sound"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "microphoneMute",
+    name: "microphoneMute",
+    tags: [
+      "microphone",
+      "dictate",
+      "record",
+      "audio",
+      "voice",
+      "speak",
+      "sound",
+      "mute",
+      "off",
+      "quiet"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "microphonePlus",
+    name: "microphonePlus",
+    tags: ["dictate", "record", "audio", "voice", "speak", "sound"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "microphoneText",
+    name: "microphoneText",
+    tags: [
+      "dictate",
+      "record",
+      "audio",
+      "voice",
+      "speak",
+      "sound",
+      "transcript"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "musicNoteTv",
+    name: "musicNoteTv",
+    tags: ["music", "note", "computer", "monitor", "screen"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "newspaper",
+    name: "newspaper",
+    tags: ["feed", "inbox", "updates", "subscribe", "subscription"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "nodeTopLeftBottomRight",
+    name: "nodeTopLeftBottomRight",
+    tags: ["parent", "child", "subtask", "task", "inherit"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "number",
+    name: "number",
+    tags: ["number", "symbol", "numeral", "digit", "hashtag"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "numbers123",
+    name: "numbers123",
+    tags: ["label", "data", "input", "format"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "numero",
+    name: "numero",
+    tags: ["number", "sign", "hashtag", "pound", "symbol"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "page",
+    name: "page",
+    tags: ["document", "lines", "text", "paper", "file"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "pageEmpty",
+    name: "pageEmpty",
+    tags: ["document", "blank", "text", "paper", "file"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "paintBrush",
+    name: "paintBrush",
+    tags: ["color", "edit", "paint", "fill", "background", "personalize"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "paintPalette",
+    name: "paintPalette",
+    tags: ["color", "rainbow", "painting", "fill", "art"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "paperClip",
+    name: "paperClip",
+    tags: ["attach", "fasten", "clip", "secure", "connect"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "paperPlane",
+    name: "paperPlane",
+    tags: ["send", "fly", "flight", "email", "inbox", "outbox"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "pathRoundEnds",
+    name: "pathRoundEnds",
+    tags: ["workflow", "connection", "sync", "route", "process"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "peekCenter",
+    name: "peekCenter",
+    tags: ["view", "center", "peek", "modal", "switch"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "peekFull",
+    name: "peekFull",
+    tags: ["view", "full page", "fullscreen", "full screen", "switch"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "peekSide",
+    name: "peekSide",
+    tags: ["view", "side", "peek", "drawer", "switch"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "pencil",
+    name: "pencil",
+    tags: ["compose", "edit", "write", "create"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "pencilAndOutline",
+    name: "pencilAndOutline",
+    tags: ["pencil", "edit", "write", "circle", "draw"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "pencilLine",
+    name: "pencilLine",
+    tags: ["compose", "edit", "write", "create"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "pencilScribble",
+    name: "pencilScribble",
+    tags: ["doodle", "draft", "sketch", "pen", "ink"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "people",
+    name: "people",
+    tags: ["users", "people", "team", "collaboration", "avatars"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "peopleStack",
+    name: "peopleStack",
+    tags: [
+      "users",
+      "people",
+      "team",
+      "collaboration",
+      "avatars",
+      "contacts",
+      "contact cards"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "person",
+    name: "person",
+    tags: ["user", "individual", "human", "avatar"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "personCheckmark",
+    name: "personCheckmark",
+    tags: ["person", "check", "verified", "approved", "user"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "personCircle",
+    name: "personCircle",
+    tags: ["person", "user", "self", "avatar", "human"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "personCropCircleBadgeExclamationPoint",
+    name: "personCropCircleBadgeExclamationPoint",
+    tags: ["person", "alert", "exclamation", "warning", "user"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "personCropCircleBadgePlus",
+    name: "personCropCircleBadgePlus",
+    tags: ["person", "add", "user", "new", "plus"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "personCropCircleDashed",
+    name: "personCropCircleDashed",
+    tags: ["person", "user", "profile", "account", "avatar", "member", "guest"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "personCropRectangleStack",
+    name: "personCropRectangleStack",
+    tags: ["person", "stacked", "squares", "user", "avatar"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "personKey",
+    name: "personKey",
+    tags: [
+      "user",
+      "individual",
+      "human",
+      "avatar",
+      "access",
+      "lock",
+      "private"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "personXmark",
+    name: "personXmark",
+    tags: ["person", "close", "remove", "delete", "cancel"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "phone",
+    name: "phone",
+    tags: ["phone", "mobile", "device", "call", "smartphone"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "photo",
+    name: "photo",
+    tags: ["camera", "picture", "image", "photography", "snapshot", "stack"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "pin",
+    name: "pin",
+    tags: ["pin", "add pin", "fix"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "pinSlash",
+    name: "pinSlash",
+    tags: ["remove pin", "unpin", "unfix"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "pipEnter",
+    name: "pipEnter",
+    tags: ["enter", "picture", "video", "mode", "zoom", "screen"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "pipExit",
+    name: "pipExit",
+    tags: ["exit", "picture", "video", "mode", "zoom", "screen"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "playButton",
+    name: "playButton",
+    tags: ["media", "play", "arrow", "pause"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "playSquareStack",
+    name: "playSquareStack",
+    tags: ["play button", "arrow", "start", "begin", "launch", "media"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "plug",
+    name: "plug",
+    tags: ["power", "plug", "electric", "energy", "socket"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "plus",
+    name: "plus",
+    tags: ["plus", "add", "new", "create", "increase"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "plusCircle",
+    name: "plusCircle",
+    tags: ["plus", "circle", "add", "new", "create"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "plusDiamond",
+    name: "plusDiamond",
+    tags: ["rule", "create", "new", "automation"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "plusForwardSlashMinus",
+    name: "plusForwardSlashMinus",
+    tags: ["plus", "add", "new", "create", "increase"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "plusMinus",
+    name: "plusMinus",
+    tags: ["plus", "add", "new", "create", "increase"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "poundSign",
+    name: "poundSign",
+    tags: ["sterling", "pound", "money", "currency", "finance"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "present",
+    name: "present",
+    tags: ["gift", "box", "birthday", "reward", "celebration"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "priceTag",
+    name: "priceTag",
+    tags: ["cost", "sale", "bargain", "tag", "discount"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "qrcode",
+    name: "qrcode",
+    tags: ["qr", "code", "scan", "matrix", "barcode"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "questionDiamond",
+    name: "questionDiamond",
+    tags: ["rule", "create", "new", "automation", "error", "warning"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "questionMark",
+    name: "questionMark",
+    tags: ["question", "query", "inquiry", "uncertain", "unknown", "help"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "questionMarkCircle",
+    name: "questionMarkCircle",
+    tags: [
+      "question",
+      "query",
+      "inquiry",
+      "uncertain",
+      "unknown",
+      "help",
+      "circle"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "questionMarkSquareDashed",
+    name: "questionMarkSquareDashed",
+    tags: [
+      "question",
+      "query",
+      "inquiry",
+      "uncertain",
+      "unknown",
+      "help",
+      "circle",
+      "empty",
+      "missing"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "quill",
+    name: "quill",
+    tags: ["feather", "tone", "write", "compose"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "quote",
+    name: "quote",
+    tags: ["apostrophe", "text", "punctuation", "blockquote"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "quoteText",
+    name: "quoteText",
+    tags: ["quote block", "inline", "quotation"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "rectangleCompressVertical",
+    name: "rectangleCompressVertical",
+    tags: ["collapse", "minimize"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "rectangleExpandVertical",
+    name: "rectangleExpandVertical",
+    tags: ["expand", "enlarge"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "rectangleOnRectangle",
+    name: "rectangleOnRectangle",
+    tags: ["tab", "group", "layer"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "rectangleOnRectanglePlus",
+    name: "rectangleOnRectanglePlus",
+    tags: ["tab", "new", "plus", "view"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "rectangleOnRectangleTilt",
+    name: "rectangleOnRectangleTilt",
+    tags: ["leaf", "tab", "paper", "layer", "loose"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "rectanglePlus",
+    name: "rectanglePlus",
+    tags: ["tab", "new", "plus", "view"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "rectangleSplit2",
+    name: "rectangleSplit2",
+    tags: ["layout", "columns", "grid"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "rectangleSplit2Vertical",
+    name: "rectangleSplit2Vertical",
+    tags: ["layout", "rows", "grid"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "rectangleSplit3",
+    name: "rectangleSplit3",
+    tags: ["layout", "columns", "grid"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "rectangleSplit4",
+    name: "rectangleSplit4",
+    tags: ["layout", "columns", "grid"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "rectangleSplit5",
+    name: "rectangleSplit5",
+    tags: ["layout", "columns", "grid"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "rectangleStackBadgePlus",
+    name: "rectangleStackBadgePlus",
+    tags: ["rectangle", "stack", "shapes", "geometric", "layers"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "scroll",
+    name: "scroll",
+    tags: ["receipt", "paper", "feed", "activity", "ream", "roll"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "serverRack",
+    name: "serverRack",
+    tags: ["data", "storage", "server", "network", "hardware"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "sidebarLeft",
+    name: "sidebarLeft",
+    tags: ["menu", "navigation", "panel", "drawer"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "sidebarRight",
+    name: "sidebarRight",
+    tags: ["menu", "navigation", "panel", "drawer"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "sliders",
+    name: "sliders",
+    tags: ["slider", "adjust", "control", "settings", "knob"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "soccerBall",
+    name: "soccerBall",
+    tags: ["emoji", "picker", "sports", "activity", "activities"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "sparkleMagnifyingGlass",
+    name: "sparkleMagnifyingGlass",
+    tags: ["zoom", "magnify", "enlarge", "search", "plus"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "sparkles",
+    name: "sparkles",
+    tags: ["ai", "artificial", "intelligence", "sparkle", "technology"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "squareAndArrowDown",
+    name: "squareAndArrowDown",
+    tags: ["download", "save", "get", "fetch", "retrieve", "import"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "squareAndArrowUp",
+    name: "squareAndArrowUp",
+    tags: ["upload", "send", "transfer", "share", "submit"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "squareDashed",
+    name: "squareDashed",
+    tags: [
+      "copy",
+      "duplicate",
+      "stacked",
+      "squares",
+      "overlap",
+      "geometry",
+      "layers"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "squareGrid2X2",
+    name: "squareGrid2X2",
+    tags: ["grid", "layout", "tiles", "matrix", "dashboard"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "squareGridBelowLines",
+    name: "squareGridBelowLines",
+    tags: ["dashboard", "layout", "grid", "organize", "menu"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "squareOnSquareDashed",
+    name: "squareOnSquareDashed",
+    tags: ["copy", "duplicate", "replicate", "clone", "reproduce"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "squareOnSquarePlus",
+    name: "squareOnSquarePlus",
+    tags: ["copy", "duplicate", "clone", "replicate", "add", "plus"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "stack",
+    name: "stack",
+    tags: ["rectangle", "stack", "shapes", "geometric", "layers"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "star",
+    name: "star",
+    tags: ["star", "favorite", "rating", "highlight", "bookmark"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "starSlash",
+    name: "starSlash",
+    tags: ["star", "slash", "unfavorite", "remove", "disabled"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "switch",
+    name: "switch",
+    tags: ["switches", "boolean", "true", "false", "controls"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "tableCellsBadgeEllipsis",
+    name: "tableCellsBadgeEllipsis",
+    tags: ["table", "ellipsis", "more", "options", "menu"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "tableHeaderColumn",
+    name: "tableHeaderColumn",
+    tags: ["title", "header", "fixed", "column", "th", "primary key"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "tableHeaderRow",
+    name: "tableHeaderRow",
+    tags: ["title", "header", "fixed", "row", "th", "primary key"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "tableOfContents",
+    name: "tableOfContents",
+    tags: ["list", "dash", "indent", "index", "navigation"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "tabs",
+    name: "tabs",
+    tags: ["layout", "navigation", "sitemap", "website"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "target",
+    name: "target",
+    tags: ["aim", "goal", "bullseye", "focus"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "teamspace",
+    name: "teamspace",
+    tags: ["building", "architecture", "company", "organization"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "templates",
+    name: "templates",
+    tags: ["triangle", "circle", "square", "shapes"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textAlignLeft",
+    name: "textAlignLeft",
+    tags: ["left align", "text", "format", "paragraph", "justify"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textAlt",
+    name: "textAlt",
+    tags: ["accessibility", "image", "annotation", "label", "description"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textBelowPhoto",
+    name: "textBelowPhoto",
+    tags: ["photo", "text", "caption", "image", "description"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textBold",
+    name: "textBold",
+    tags: ["format", "text", "bold", "emphasis", "emphasized"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textColor",
+    name: "textColor",
+    tags: ["picker", "customize", "color", "personalize"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textCursorIBeam",
+    name: "textCursorIBeam",
+    tags: ["text", "entry", "input", "cursor", "type"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textFormat",
+    name: "textFormat",
+    tags: [
+      "Text",
+      "insert",
+      "edit",
+      "bold",
+      "caps",
+      "style",
+      "type",
+      "markdown"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textH1",
+    name: "textH1",
+    tags: ["format", "text", "heading", "title", "headline", "large"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textH1Toggle",
+    name: "textH1Toggle",
+    tags: ["format", "text", "heading", "title", "headline", "large"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textH2",
+    name: "textH2",
+    tags: [
+      "format",
+      "text",
+      "heading",
+      "subhead",
+      "title",
+      "headline",
+      "large",
+      "medium"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textH2Toggle",
+    name: "textH2Toggle",
+    tags: [
+      "format",
+      "text",
+      "heading",
+      "subhead",
+      "title",
+      "headline",
+      "large",
+      "medium"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textH3",
+    name: "textH3",
+    tags: [
+      "format",
+      "text",
+      "heading",
+      "subhead",
+      "title",
+      "headline",
+      "large",
+      "medium"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textH3Toggle",
+    name: "textH3Toggle",
+    tags: [
+      "format",
+      "text",
+      "heading",
+      "subhead",
+      "title",
+      "headline",
+      "large",
+      "medium"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textIndent",
+    name: "textIndent",
+    tags: ["justify", "text", "right", "align", "format"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textItalic",
+    name: "textItalic",
+    tags: ["format", "text", "slant", "quote", "emphasis"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textJustifyLeft",
+    name: "textJustifyLeft",
+    tags: ["justify", "text", "left", "align", "format"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textNormal",
+    name: "textNormal",
+    tags: ["format", "input", "type", "body"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textOutdent",
+    name: "textOutdent",
+    tags: ["justify", "text", "left", "align", "format"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textShort",
+    name: "textShort",
+    tags: [
+      "text",
+      "shorten",
+      "edit",
+      "summarize",
+      "make shorter",
+      "truncate",
+      "summary",
+      "ai"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textSmall",
+    name: "textSmall",
+    tags: ["font", "size", "shrink", "zoom", "collapse", "small"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textStrikethrough",
+    name: "textStrikethrough",
+    tags: ["text", "format", "crossed out", "redacted"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textTranslate",
+    name: "textTranslate",
+    tags: ["a", "hiragana", "language", "multilingual", "translation"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textUnderline",
+    name: "textUnderline",
+    tags: ["format", "input", "type", "link", "emphasis", "highlight"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "textXYunderline",
+    name: "textXYunderline",
+    tags: ["axis", "label", "chart", "graph"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "thermometer",
+    name: "thermometer",
+    tags: ["temperature", "gauge", "mercury", "cooldown"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "trash",
+    name: "trash",
+    tags: ["trash", "can", "bin", "delete", "remove"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "trashArrowUp",
+    name: "trashArrowUp",
+    tags: ["trash", "can", "bin", "delete", "remove", "deleted", "page"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "trashSlash",
+    name: "trashSlash",
+    tags: ["trash", "can", "bin", "delete", "remove", "slash"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "videoCamera",
+    name: "videoCamera",
+    tags: ["record", "conference", "call", "media"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "viewBoard",
+    name: "viewBoard",
+    tags: ["board", "view", "database", "cards", "columns"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "viewCalendar",
+    name: "viewCalendar",
+    tags: ["calendar", "date", "schedule", "month", "year"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "viewChart",
+    name: "viewChart",
+    tags: [
+      "dashboard",
+      "view",
+      "database",
+      "chart",
+      "pie",
+      "visualization",
+      "report",
+      "reporting"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "viewTable",
+    name: "viewTable",
+    tags: ["table", "database", "grid", "rows", "columns"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "viewTimeline",
+    name: "viewTimeline",
+    tags: ["timeline", "view", "database", "events", "chronological"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "volumeOff",
+    name: "volumeOff",
+    tags: ["audio", "speaker", "sound", "mute", "playback", "quiet"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "volumeOn",
+    name: "volumeOn",
+    tags: ["audio", "speaker", "sound", "loud", "playback"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "waveform",
+    name: "waveform",
+    tags: [
+      "wave",
+      "form",
+      "signal",
+      "audio",
+      "volume",
+      "visualization",
+      "soundwave"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "waveformSlash",
+    name: "waveformSlash",
+    tags: [
+      "wave",
+      "form",
+      "signal",
+      "audio",
+      "visualization",
+      "soundwave",
+      "mute",
+      "volume"
+    ],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "whaleTail",
+    name: "whaleTail",
+    tags: ["docker", "fish", "mermaid", "fin"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "wifiExclamationMark",
+    name: "wifiExclamationMark",
+    tags: ["wifi", "exclamation", "alert", "warning", "connection"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "xMark",
+    name: "xMark",
+    tags: ["close", "cross", "delete", "remove", "cancel"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "xMarkCircle",
+    name: "xMarkCircle",
+    tags: ["close", "cross", "delete", "remove", "cancel"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "xMarkSeal",
+    name: "xMarkSeal",
+    tags: ["x", "seal", "reject", "deny", "cancel"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  },
+  {
+    dir: "zipFile",
+    name: "zipFile",
+    tags: ["compress", "compression", "download", "extension", "file"],
+    variants: ["default", "small", "fill", "fillSmall"]
+  }
+];
+export {
+  iconManifest
+};

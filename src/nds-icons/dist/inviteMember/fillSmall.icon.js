@@ -1,0 +1,106 @@
+// src/nds-icons/SvgIcon.tsx
+import { jsxDEV } from "react/jsx-dev-runtime";
+function SvgIcon({
+  children,
+  viewBox,
+  style,
+  className,
+  label
+}) {
+  return /* @__PURE__ */ jsxDEV("svg", {
+    ...label !== undefined ? { "aria-label": label } : { "aria-hidden": true },
+    role: "graphics-symbol",
+    viewBox,
+    style: {
+      width: "100%",
+      height: "100%",
+      display: "block",
+      fill: "inherit",
+      flexShrink: 0,
+      ...style
+    },
+    className,
+    children
+  }, undefined, false, undefined, this);
+}
+
+// src/nds-icons/iconUtils.tsx
+import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
+var iconGroupVariantNames = [
+  "fillSmall",
+  "small",
+  "fill",
+  "default"
+];
+var logoVariantNames = ["default", "darkMode"];
+var deprecatedIconGroupVariantNames = [
+  "micro",
+  "mini",
+  "small",
+  "default",
+  "large",
+  "extraLarge",
+  "max"
+];
+var iconVariantNames = [
+  ...iconGroupVariantNames,
+  ...deprecatedIconGroupVariantNames,
+  ...logoVariantNames
+];
+var ICON_SIZE = {
+  xxs: 12,
+  xs: 14,
+  sm: 16,
+  default: 20,
+  lg: 22,
+  xl: 32
+};
+var ICON_SIZE_FOR_VARIANT = {
+  default: ICON_SIZE.default,
+  small: ICON_SIZE.sm,
+  fill: ICON_SIZE.default,
+  fillSmall: ICON_SIZE.sm,
+  darkMode: ICON_SIZE.default,
+  micro: 14,
+  mini: 14,
+  large: 24,
+  max: 28,
+  extraLarge: 36
+};
+function createIcon(name, iconDefinition) {
+  const { viewBox, svg } = iconDefinition;
+  const finalViewBox = viewBox ?? `0 0 ${ICON_SIZE.default} ${ICON_SIZE.default}`;
+  const iconFunction = (style, className) => {
+    const finalClassName = className ? `${name} ${className}` : name;
+    return /* @__PURE__ */ jsxDEV2(SvgIcon, {
+      viewBox: finalViewBox,
+      className: finalClassName,
+      style,
+      children: svg
+    }, undefined, false, undefined, this);
+  };
+  return Object.assign(iconFunction, {
+    __iconDefinition: { ...iconDefinition, viewBox: finalViewBox }
+  });
+}
+
+// src/nds-icons/src/inviteMember/fillSmall.icon.tsx
+import { jsxDEV as jsxDEV3, Fragment } from "react/jsx-dev-runtime";
+var iconDefinition = {
+  viewBox: "0 0 16 16",
+  svg: /* @__PURE__ */ jsxDEV3(Fragment, {
+    children: [
+      /* @__PURE__ */ jsxDEV3("path", {
+        d: "M5.821 2.862c.506-.63 1.255-1.012 2.18-1.012.924 0 1.672.382 2.178 1.012.495.617.73 1.435.73 2.29 0 .856-.235 1.674-.73 2.291-.506.63-1.254 1.012-2.179 1.012s-1.673-.382-2.179-1.012c-.495-.617-.73-1.435-.73-2.29 0-.856.235-1.674.73-2.291M3.06 11.925C3.885 10.313 5.825 9.253 8 9.253c.723 0 1.42.117 2.058.333A3.93 3.93 0 0 0 8.657 12.6c0 .55.113 1.074.316 1.55H4.68c-.557 0-1.09-.235-1.43-.631a1.4 1.4 0 0 1-.19-1.594"
+      }, undefined, false, undefined, this),
+      /* @__PURE__ */ jsxDEV3("path", {
+        d: "M9.664 13.22a3 3 0 1 1 5.872-1.24 3 3 0 0 1-5.872 1.24m5.102-.62a.5.5 0 0 0-.5-.5H13.1v-1.166a.5.5 0 1 0-1 0V12.1h-1.167a.5.5 0 1 0 0 1H12.1v1.167a.5.5 0 1 0 1 0V13.1h1.166a.5.5 0 0 0 .5-.5"
+      }, undefined, false, undefined, this)
+    ]
+  }, undefined, true, undefined, this)
+};
+var inviteMemberFillSmallIcon = createIcon("inviteMemberFillSmall", iconDefinition);
+export {
+  inviteMemberFillSmallIcon,
+  iconDefinition
+};

@@ -1,0 +1,119 @@
+// src/nds-icons/SvgIcon.tsx
+import { jsxDEV } from "react/jsx-dev-runtime";
+function SvgIcon({
+  children,
+  viewBox,
+  style,
+  className,
+  label
+}) {
+  return /* @__PURE__ */ jsxDEV("svg", {
+    ...label !== undefined ? { "aria-label": label } : { "aria-hidden": true },
+    role: "graphics-symbol",
+    viewBox,
+    style: {
+      width: "100%",
+      height: "100%",
+      display: "block",
+      fill: "inherit",
+      flexShrink: 0,
+      ...style
+    },
+    className,
+    children
+  }, undefined, false, undefined, this);
+}
+
+// src/nds-icons/iconUtils.tsx
+import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
+var iconGroupVariantNames = [
+  "fillSmall",
+  "small",
+  "fill",
+  "default"
+];
+var logoVariantNames = ["default", "darkMode"];
+var deprecatedIconGroupVariantNames = [
+  "micro",
+  "mini",
+  "small",
+  "default",
+  "large",
+  "extraLarge",
+  "max"
+];
+var iconVariantNames = [
+  ...iconGroupVariantNames,
+  ...deprecatedIconGroupVariantNames,
+  ...logoVariantNames
+];
+var ICON_SIZE = {
+  xxs: 12,
+  xs: 14,
+  sm: 16,
+  default: 20,
+  lg: 22,
+  xl: 32
+};
+var ICON_SIZE_FOR_VARIANT = {
+  default: ICON_SIZE.default,
+  small: ICON_SIZE.sm,
+  fill: ICON_SIZE.default,
+  fillSmall: ICON_SIZE.sm,
+  darkMode: ICON_SIZE.default,
+  micro: 14,
+  mini: 14,
+  large: 24,
+  max: 28,
+  extraLarge: 36
+};
+function createIcon(name, iconDefinition) {
+  const { viewBox, svg } = iconDefinition;
+  const finalViewBox = viewBox ?? `0 0 ${ICON_SIZE.default} ${ICON_SIZE.default}`;
+  const iconFunction = (style, className) => {
+    const finalClassName = className ? `${name} ${className}` : name;
+    return /* @__PURE__ */ jsxDEV2(SvgIcon, {
+      viewBox: finalViewBox,
+      className: finalClassName,
+      style,
+      children: svg
+    }, undefined, false, undefined, this);
+  };
+  return Object.assign(iconFunction, {
+    __iconDefinition: { ...iconDefinition, viewBox: finalViewBox }
+  });
+}
+
+// src/nds-icons/src/tableCellsBadgeEllipsis/default.icon.tsx
+import { jsxDEV as jsxDEV3, Fragment } from "react/jsx-dev-runtime";
+var iconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: /* @__PURE__ */ jsxDEV3(Fragment, {
+    children: [
+      /* @__PURE__ */ jsxDEV3("g", {
+        clipPath: "url(#clip0_9391_11037)",
+        children: [
+          /* @__PURE__ */ jsxDEV3("path", {
+            d: "M2.375 6.25c0-1.174.951-2.125 2.125-2.125h11c1.174 0 2.125.951 2.125 2.125v5.445A4.6 4.6 0 0 0 16 11.4a4.58 4.58 0 0 0-2.832.975h-2.543v2.25h.984a4.6 4.6 0 0 0-.207 1.25H4.5a2.125 2.125 0 0 1-2.125-2.125zm8.25 4.875h5.75v-2.25h-5.75zm-7 0h5.75v-2.25h-5.75zm5.75 1.25h-5.75v1.375c0 .483.392.875.875.875h4.875zM3.625 6.25v1.375h5.75v-2.25H4.5a.875.875 0 0 0-.875.875m7-.875v2.25h5.75V6.25a.875.875 0 0 0-.875-.875z"
+          }, undefined, false, undefined, this),
+          /* @__PURE__ */ jsxDEV3("path", {
+            d: "M12.5 16a3.5 3.5 0 1 0 7 0 3.5 3.5 0 0 0-7 0m1.594.738a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5m2.656-.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.156.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5"
+          }, undefined, false, undefined, this)
+        ]
+      }, undefined, true, undefined, this),
+      /* @__PURE__ */ jsxDEV3("defs", {
+        children: /* @__PURE__ */ jsxDEV3("clipPath", {
+          id: "clip0_9391_11037",
+          children: /* @__PURE__ */ jsxDEV3("path", {
+            d: "M0 0h20v20H0z"
+          }, undefined, false, undefined, this)
+        }, undefined, false, undefined, this)
+      }, undefined, false, undefined, this)
+    ]
+  }, undefined, true, undefined, this)
+};
+var tableCellsBadgeEllipsisIcon = createIcon("tableCellsBadgeEllipsis", iconDefinition);
+export {
+  tableCellsBadgeEllipsisIcon,
+  iconDefinition
+};

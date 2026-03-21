@@ -1,0 +1,52 @@
+/* ContentEditable placeholders and editing styles */
+
+/* Placeholder for blocks with editable-placeholder class - only when focused */
+.editable-placeholder:focus:empty::before {
+  content: attr(data-placeholder);
+  color: rgba(81, 73, 60, 0.32); /* text-quaternary */
+  pointer-events: none;
+  white-space: pre-wrap;
+}
+
+/* Placeholder for blocks using data-placeholder attribute - only when focused AND empty */
+[contenteditable][data-placeholder]:empty:focus::before {
+  content: attr(data-placeholder);
+  color: rgba(81, 73, 60, 0.32); /* text-quaternary */
+  pointer-events: none;
+  white-space: pre-wrap;
+}
+
+/* Placeholder for blocks with data-placeholder (works without contenteditable attribute) */
+[data-placeholder]:empty:focus::before {
+  content: attr(data-placeholder);
+  color: rgba(81, 73, 60, 0.32); /* text-quaternary */
+  pointer-events: none;
+  white-space: pre-wrap;
+}
+
+/* Placeholder for empty blocks within a contenteditable parent (even when not focused) */
+[contenteditable="true"] [data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: rgba(81, 73, 60, 0.32); /* text-quaternary */
+  pointer-events: none;
+  white-space: pre-wrap;
+}
+
+/* Placeholder for page title - show even when not focused */
+.content-page-title[data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: rgba(81, 73, 60, 0.32); /* text-quaternary */
+  pointer-events: none;
+  white-space: pre-wrap;
+}
+
+/* Dark mode placeholder colors */
+@media (prefers-color-scheme: dark) {
+  .editable-placeholder:focus:empty::before,
+  [contenteditable][data-placeholder]:empty:focus::before,
+  [data-placeholder]:empty:focus::before,
+  [contenteditable="true"] [data-placeholder]:empty::before,
+  .content-page-title[data-placeholder]:empty::before {
+    color: #404040; /* neutral-700 */
+  }
+}

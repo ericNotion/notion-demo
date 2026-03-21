@@ -1,0 +1,99 @@
+// src/nds-icons/SvgIcon.tsx
+import { jsxDEV } from "react/jsx-dev-runtime";
+function SvgIcon({
+  children,
+  viewBox,
+  style,
+  className,
+  label
+}) {
+  return /* @__PURE__ */ jsxDEV("svg", {
+    ...label !== undefined ? { "aria-label": label } : { "aria-hidden": true },
+    role: "graphics-symbol",
+    viewBox,
+    style: {
+      width: "100%",
+      height: "100%",
+      display: "block",
+      fill: "inherit",
+      flexShrink: 0,
+      ...style
+    },
+    className,
+    children
+  }, undefined, false, undefined, this);
+}
+
+// src/nds-icons/iconUtils.tsx
+import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
+var iconGroupVariantNames = [
+  "fillSmall",
+  "small",
+  "fill",
+  "default"
+];
+var logoVariantNames = ["default", "darkMode"];
+var deprecatedIconGroupVariantNames = [
+  "micro",
+  "mini",
+  "small",
+  "default",
+  "large",
+  "extraLarge",
+  "max"
+];
+var iconVariantNames = [
+  ...iconGroupVariantNames,
+  ...deprecatedIconGroupVariantNames,
+  ...logoVariantNames
+];
+var ICON_SIZE = {
+  xxs: 12,
+  xs: 14,
+  sm: 16,
+  default: 20,
+  lg: 22,
+  xl: 32
+};
+var ICON_SIZE_FOR_VARIANT = {
+  default: ICON_SIZE.default,
+  small: ICON_SIZE.sm,
+  fill: ICON_SIZE.default,
+  fillSmall: ICON_SIZE.sm,
+  darkMode: ICON_SIZE.default,
+  micro: 14,
+  mini: 14,
+  large: 24,
+  max: 28,
+  extraLarge: 36
+};
+function createIcon(name, iconDefinition) {
+  const { viewBox, svg } = iconDefinition;
+  const finalViewBox = viewBox ?? `0 0 ${ICON_SIZE.default} ${ICON_SIZE.default}`;
+  const iconFunction = (style, className) => {
+    const finalClassName = className ? `${name} ${className}` : name;
+    return /* @__PURE__ */ jsxDEV2(SvgIcon, {
+      viewBox: finalViewBox,
+      className: finalClassName,
+      style,
+      children: svg
+    }, undefined, false, undefined, this);
+  };
+  return Object.assign(iconFunction, {
+    __iconDefinition: { ...iconDefinition, viewBox: finalViewBox }
+  });
+}
+
+// src/nds-icons/src/personCropCircleDashed/default.icon.tsx
+import { jsxDEV as jsxDEV3 } from "react/jsx-dev-runtime";
+var iconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: /* @__PURE__ */ jsxDEV3("path", {
+    d: "M10 2.375q-.634 0-1.242.1A.625.625 0 0 0 8.96 3.71a6.4 6.4 0 0 1 2.08 0 .625.625 0 0 0 .202-1.233q-.608-.1-1.242-.101m4.442 1.426a.625.625 0 0 0-.729 1.015 6.4 6.4 0 0 1 1.47 1.47.625.625 0 1 0 1.015-.73 7.7 7.7 0 0 0-1.756-1.755M6.287 4.817a.625.625 0 0 0-.73-1.015 7.7 7.7 0 0 0-1.755 1.756.625.625 0 1 0 1.015.729 6.4 6.4 0 0 1 1.47-1.47m11.237 3.941a.625.625 0 0 0-1.233.202 6.4 6.4 0 0 1 0 2.08.625.625 0 0 0 1.233.202 7.7 7.7 0 0 0 0-2.484M3.71 8.96a.625.625 0 0 0-1.234-.202 7.7 7.7 0 0 0 0 2.484.625.625 0 1 0 1.233-.202 6.4 6.4 0 0 1 0-2.08m12.489 5.482a.625.625 0 0 0-1.015-.729 6.4 6.4 0 0 1-1.096 1.18c-.79-1.398-2.333-2.332-4.087-2.332s-3.298.934-4.087 2.331a6 6 0 0 1-.567-.536l-.006-.006a6 6 0 0 1-.523-.637.625.625 0 0 0-1.015.73 7.7 7.7 0 0 0 1.756 1.755l.008.006a7.6 7.6 0 0 0 4.74 1.415 7.6 7.6 0 0 0 5.261-2.408l.006-.007q.337-.36.625-.762M6.951 15.6c.547-1.049 1.697-1.789 3.049-1.789s2.502.74 3.049 1.79a6.34 6.34 0 0 1-3.046.774H10a6.35 6.35 0 0 1-3.05-.775m.805-9.431C8.277 5.519 9.05 5.125 10 5.125s1.723.393 2.245 1.044c.51.635.75 1.474.75 2.346s-.24 1.71-.75 2.346c-.522.65-1.294 1.044-2.245 1.044-.95 0-1.723-.394-2.245-1.044-.51-.635-.75-1.474-.75-2.346s.24-1.711.75-2.346m.975.782c-.293.365-.475.909-.475 1.564s.182 1.198.475 1.564c.281.35.694.576 1.27.576s.989-.226 1.27-.576c.294-.366.475-.909.475-1.564s-.181-1.199-.475-1.564c-.281-.35-.693-.576-1.27-.576-.576 0-.989.225-1.27.576"
+  }, undefined, false, undefined, this)
+};
+var personCropCircleDashedIcon = createIcon("personCropCircleDashed", iconDefinition);
+export {
+  personCropCircleDashedIcon,
+  iconDefinition
+};
