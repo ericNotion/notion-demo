@@ -38,59 +38,62 @@ export function CollectionsBlock({
   className,
 }: CollectionsBlockProps) {
   return (
-    <div className="flex overflow-auto">
-      <div className={className}>
-        {/* Table Header */}
-        <div className="flex">
-          {properties.map((property) => (
-            <div
-              key={property.id}
-              className="border-secondary hover:bg-secondary flex h-9 min-w-[150px] cursor-pointer items-center gap-1.5 border-b px-3"
-              style={{ width: property.width }}
-            >
-              {property.type === "Title" && (
-                <Icon icon={textFormatIcon} color="secondary" />
-              )}
-              {property.type === "Text" && (
-                <Icon icon={textJustifyLeftIcon} color="secondary" />
-              )}
-              {property.type === "Person" && (
-                <Icon icon={peopleIcon} color="secondary" />
-              )}
-              {property.type === "Status" && (
-                <Icon icon={checkmarkCircleIcon} color="secondary" />
-              )}
-              {property.type === "Select" && (
-                <Icon icon={arrowTriangleDownCircleIcon} color="secondary" />
-              )}
-              <span className="text-tertiary text-sm">{property.name}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Table Rows */}
-        {rows.map((row) => (
-          <div key={row.id} className="flex">
+    <div className="bg-primary border-primary rounded-lg border shadow-sm">
+      {/* Embedded database container with proper styling */}
+      <div className="overflow-auto p-4">
+        <div className={className}>
+          {/* Table Header */}
+          <div className="flex">
             {properties.map((property) => (
               <div
-                key={`${row.id}-${property.id}`}
-                className="border-secondary flex h-9 min-w-[150px] items-center border-r border-b px-3 last:border-r-0"
+                key={property.id}
+                className="border-secondary hover:bg-secondary flex h-9 min-w-[150px] cursor-pointer items-center gap-1.5 border-b px-3"
                 style={{ width: property.width }}
               >
-                {renderCellContent(row[property.id], property.type)}
+                {property.type === "Title" && (
+                  <Icon icon={textFormatIcon} color="secondary" />
+                )}
+                {property.type === "Text" && (
+                  <Icon icon={textJustifyLeftIcon} color="secondary" />
+                )}
+                {property.type === "Person" && (
+                  <Icon icon={peopleIcon} color="secondary" />
+                )}
+                {property.type === "Status" && (
+                  <Icon icon={checkmarkCircleIcon} color="secondary" />
+                )}
+                {property.type === "Select" && (
+                  <Icon icon={arrowTriangleDownCircleIcon} color="secondary" />
+                )}
+                <span className="text-tertiary text-sm">{property.name}</span>
               </div>
             ))}
           </div>
-        ))}
-        {/* New page button */}
-        <Button
-          variant="ghost"
-          size="sm"
-          className="text-tertiary mt-1 ml-1 h-7 px-1.5"
-        >
-          <Icon icon={plusSmallIcon} color="tertiary" size="sm" />
-          <span>New Page</span>
-        </Button>
+
+          {/* Table Rows */}
+          {rows.map((row) => (
+            <div key={row.id} className="flex">
+              {properties.map((property) => (
+                <div
+                  key={`${row.id}-${property.id}`}
+                  className="border-secondary flex h-9 min-w-[150px] items-center border-r border-b px-3 last:border-r-0"
+                  style={{ width: property.width }}
+                >
+                  {renderCellContent(row[property.id], property.type)}
+                </div>
+              ))}
+            </div>
+          ))}
+          {/* New page button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-tertiary mt-1 ml-1 h-7 px-1.5"
+          >
+            <Icon icon={plusSmallIcon} color="tertiary" size="sm" />
+            <span>New Page</span>
+          </Button>
+        </div>
       </div>
     </div>
   );

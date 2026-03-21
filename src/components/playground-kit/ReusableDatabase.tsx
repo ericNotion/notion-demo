@@ -122,70 +122,73 @@ export function ReusableDatabase<T extends { id: string }>({
         </div>
       </div>
 
-      {/* Table */}
-      <div className="overflow-hidden">
-        <table className="w-full border-collapse">
-          {/* Table Header */}
-          <thead>
-            <tr className="border-primary border-b">
-              {columns.map((column) => (
-                <th
-                  key={column.id}
-                  className={`text-secondary hover:bg-secondary/50 h-8 cursor-pointer px-3 text-left text-sm font-normal ${column.width || ""}`}
-                >
-                  <span>{column.label}</span>
-                </th>
-              ))}
-              <th
-                className="text-secondary h-8 w-20 px-2 text-left text-sm font-normal"
-                colSpan={2}
-              >
-                <div className="flex items-center gap-0.5">
-                  <IconButton>
-                    <Icon icon={plusIcon} color="secondary" size={16} />
-                  </IconButton>
-                  <IconButton>
-                    <span className="text-secondary text-xl">⋯</span>
-                  </IconButton>
-                </div>
-              </th>
-            </tr>
-          </thead>
-
-          {/* Table Body */}
-          <tbody>
-            {data.map((row) => (
-              <tr
-                key={row.id}
-                className="group border-primary hover:bg-secondary/50 border-b"
-              >
+      {/* Embedded database container with proper styling */}
+      <div className="bg-primary border-primary rounded-lg border shadow-sm">
+        {/* Table */}
+        <div className="overflow-hidden">
+          <table className="w-full border-collapse">
+            {/* Table Header */}
+            <thead>
+              <tr className="border-primary border-b">
                 {columns.map((column) => (
-                  <td
+                  <th
                     key={column.id}
-                    className="border-primary h-9 border-r px-3"
+                    className={`text-secondary hover:bg-secondary/50 h-8 cursor-pointer px-3 text-left text-sm font-normal ${column.width || ""}`}
                   >
-                    {column.render(row)}
-                  </td>
+                    <span>{column.label}</span>
+                  </th>
                 ))}
-
-                {/* Actions Column */}
-                <td className="h-9 px-3 text-center" colSpan={2}>
-                  {/* Empty - no icons in rows */}
-                </td>
+                <th
+                  className="text-secondary h-8 w-20 px-2 text-left text-sm font-normal"
+                  colSpan={2}
+                >
+                  <div className="flex items-center gap-0.5">
+                    <IconButton>
+                      <Icon icon={plusIcon} color="secondary" size={16} />
+                    </IconButton>
+                    <IconButton>
+                      <span className="text-secondary text-xl">⋯</span>
+                    </IconButton>
+                  </div>
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
 
-        {/* New Page Button */}
-        <div className="px-3 py-2">
-          <button
-            className="text-tertiary hover:bg-secondary/50 flex items-center gap-1 rounded px-2 py-1 text-sm"
-            onClick={onNew}
-          >
-            <span>+</span>
-            <span>New page</span>
-          </button>
+            {/* Table Body */}
+            <tbody>
+              {data.map((row) => (
+                <tr
+                  key={row.id}
+                  className="group border-primary hover:bg-secondary/50 border-b"
+                >
+                  {columns.map((column) => (
+                    <td
+                      key={column.id}
+                      className="border-primary h-9 border-r px-3"
+                    >
+                      {column.render(row)}
+                    </td>
+                  ))}
+
+                  {/* Actions Column */}
+                  <td className="h-9 px-3 text-center" colSpan={2}>
+                    {/* Empty - no icons in rows */}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* New Page Button */}
+          <div className="px-3 py-2">
+            <button
+              className="text-tertiary hover:bg-secondary/50 flex items-center gap-1 rounded px-2 py-1 text-sm"
+              onClick={onNew}
+            >
+              <span>+</span>
+              <span>New page</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
