@@ -1,5 +1,5 @@
 {
   "title": "Whiteboard Collaboration",
-  "description": "Real-time collaboration and Notion-native integrations for whiteboard",
-  "tags": ["whiteboard", "collaboration", "real-time", "cursors"]
+  "description": "Real-time collaboration and Notion-native integrations for whiteboard — live cursors, presence, follow mode, page embeds, database embeds, comments, and version history",
+  "tags": ["whiteboard", "collaboration", "real-time", "cursors", "presence", "comments"]
 }
