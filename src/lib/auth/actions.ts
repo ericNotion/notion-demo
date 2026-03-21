@@ -1,11 +1,13 @@
 "use server";
 
-import { signIn, signOut } from "@/lib/auth/config";
+export async function signInAction() {
+  // No-op in demo mode
+}
 
-export async function handleSignIn(callbackUrl: string = "/") {
-  await signIn("okta", { redirectTo: callbackUrl });
+export async function signOutAction() {
+  // No-op in demo mode
 }
 
 export async function handleSignOut() {
-  await signOut({ redirectTo: "/auth/signin" });
+  // No-op in demo mode
 }
