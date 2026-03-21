@@ -1,14 +1,16 @@
 "use client";
 
 import { useAtom } from "jotai";
+
+import { PlaygroundButton } from "@/components/playground-kit";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/playground-kit/Button";
 import { cn } from "@/utils/cn";
+
 import { elementsAtom } from "../atoms";
 import { templates } from "../templates/templates";
 import type { WhiteboardElement } from "../types";
@@ -46,22 +48,22 @@ export function TemplateSelector({
           <DialogTitle>Choose a template</DialogTitle>
         </DialogHeader>
 
-        <div className="grid grid-cols-2 gap-4 mt-4">
+        <div className="mt-4 grid grid-cols-2 gap-4">
           {templates.map((template) => (
             <button
               key={template.id}
               onClick={() => handleSelectTemplate(template.id)}
               className={cn(
-                "group relative p-6 rounded-lg border border-border-primary",
+                "group relative cursor-pointer rounded-lg border border-border-primary p-6 text-left",
                 "bg-bg-secondary hover:bg-bg-tertiary",
-                "transition-colors cursor-pointer text-left",
+                "transition-colors",
                 "focus:outline-none focus:ring-2 focus:ring-blue-500",
               )}
             >
               <div className="flex items-start gap-3">
                 <div className="text-4xl">{template.preview}</div>
                 <div className="flex-1">
-                  <h3 className="text-body-lg font-semibold text-text-primary mb-1">
+                  <h3 className="text-body-lg mb-1 font-semibold text-text-primary">
                     {template.name}
                   </h3>
                   <p className="text-body text-text-secondary">
@@ -70,10 +72,14 @@ export function TemplateSelector({
                 </div>
               </div>
 
-              <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Button variant="primary" size="sm" className="w-full">
+              <div className="mt-4 opacity-0 transition-opacity group-hover:opacity-100">
+                <PlaygroundButton
+                  variant="primary"
+                  size="sm"
+                  className="w-full"
+                >
                   Use template
-                </Button>
+                </PlaygroundButton>
               </div>
             </button>
           ))}
@@ -86,9 +92,9 @@ export function TemplateSelector({
             onOpenChange(false);
           }}
           className={cn(
-            "w-full p-4 rounded-lg border border-border-primary",
+            "w-full cursor-pointer rounded-lg border border-border-primary p-4 text-center",
             "bg-bg-secondary hover:bg-bg-tertiary",
-            "transition-colors cursor-pointer text-center",
+            "transition-colors",
             "focus:outline-none focus:ring-2 focus:ring-blue-500",
           )}
         >

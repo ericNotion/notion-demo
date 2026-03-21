@@ -1,5 +1,6 @@
 import { atom } from "jotai";
-import type { WhiteboardElement, Viewport, Tool } from "./types";
+
+import type { Tool, Viewport, WhiteboardElement } from "./types";
 
 export const elementsAtom = atom<WhiteboardElement[]>([]);
 

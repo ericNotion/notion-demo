@@ -1,21 +1,23 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { useAtom } from "jotai";
 import { motion } from "framer-motion";
-import { Agentation } from "@/components/playground-kit/Agentation";
+import { useAtom } from "jotai";
+import { useEffect, useRef, useState } from "react";
+
+import { Agentation } from "@/components/playground-kit/agentation";
 import { cn } from "@/utils/cn";
-import { Canvas } from "./components/Canvas";
-import { Toolbar } from "./components/Toolbar";
-import { Minimap } from "./components/Minimap";
-import { TemplateSelector } from "./components/TemplateSelector";
-import { InlinePreview } from "./components/InlinePreview";
+
 import {
   elementsAtom,
-  viewportAtom,
-  isMinimapVisibleAtom,
   isInlineViewAtom,
+  isMinimapVisibleAtom,
+  viewportAtom,
 } from "./atoms";
+import { Canvas } from "./components/Canvas";
+import { InlinePreview } from "./components/InlinePreview";
+import { Minimap } from "./components/Minimap";
+import { TemplateSelector } from "./components/TemplateSelector";
+import { Toolbar } from "./components/Toolbar";
 
 export default function WhiteboardPage() {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -92,7 +94,7 @@ export default function WhiteboardPage() {
 
   return (
     <Agentation>
-      <div className="relative w-full h-screen overflow-hidden bg-bg-primary">
+      <div className="relative h-screen w-full overflow-hidden bg-bg-primary">
         {isInlineView ? (
           <div className="p-8">
             <InlinePreview onEnterFullMode={handleEnterFullMode} />
@@ -141,26 +143,25 @@ export default function WhiteboardPage() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 0.3 }}
                 className={cn(
-                  "fixed bottom-4 left-4 px-3 py-2",
-                  "rounded-lg border border-border-primary bg-bg-elevated/95",
-                  "text-caption text-text-tertiary",
+                  "fixed bottom-4 left-4 rounded-lg border border-border-primary bg-bg-elevated/95 px-3 py-2",
                   "shadow-sm-outline",
+                  "text-caption text-text-tertiary",
                 )}
               >
                 <div className="flex items-center gap-4">
                   <span>
-                    <kbd className="px-1.5 py-0.5 rounded bg-bg-tertiary border border-border-primary text-text-secondary">
+                    <kbd className="rounded border border-border-primary bg-bg-tertiary px-1.5 py-0.5 text-text-secondary">
                       Cmd/Ctrl
                     </kbd>
                     {" + "}
-                    <kbd className="px-1.5 py-0.5 rounded bg-bg-tertiary border border-border-primary text-text-secondary">
+                    <kbd className="rounded border border-border-primary bg-bg-tertiary px-1.5 py-0.5 text-text-secondary">
                       0
                     </kbd>{" "}
                     Fit to view
                   </span>
                   <span className="text-border-primary">•</span>
                   <span>
-                    <kbd className="px-1.5 py-0.5 rounded bg-bg-tertiary border border-border-primary text-text-secondary">
+                    <kbd className="rounded border border-border-primary bg-bg-tertiary px-1.5 py-0.5 text-text-secondary">
                       Cmd/Ctrl
                     </kbd>
                     {" + "}

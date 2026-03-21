@@ -1,10 +1,12 @@
 "use client";
 
-import { useAtom } from "jotai";
 import { Icon } from "@nds-icons";
 import { arrowExpandHorizontalIcon } from "@nds-icons/arrowExpandHorizontal/default.icon";
-import { Button } from "@/components/playground-kit/Button";
+import { useAtom } from "jotai";
+
+import { PlaygroundButton } from "@/components/playground-kit";
 import { cn } from "@/utils/cn";
+
 import { elementsAtom, isInlineViewAtom } from "../atoms";
 import type { WhiteboardElement } from "../types";
 
@@ -37,9 +39,8 @@ export function InlinePreview({ onEnterFullMode }: InlinePreviewProps) {
   return (
     <div
       className={cn(
-        "relative w-full h-[300px] rounded-lg overflow-hidden",
+        "group relative h-[300px] w-full cursor-pointer overflow-hidden rounded-lg",
         "border border-border-primary bg-bg-secondary",
-        "cursor-pointer group",
       )}
       onClick={onEnterFullMode}
     >
@@ -66,26 +67,26 @@ export function InlinePreview({ onEnterFullMode }: InlinePreviewProps) {
       <div
         className={cn(
           "absolute inset-0 bg-black/0 group-hover:bg-black/10",
-          "transition-colors duration-150",
           "flex items-center justify-center",
+          "transition-colors duration-150",
         )}
       >
-        <Button
+        <PlaygroundButton
           variant="primary"
           size="md"
           className={cn(
+            "gap-2",
             "opacity-0 group-hover:opacity-100",
             "transition-opacity duration-150",
-            "gap-2",
           )}
         >
           <Icon icon={arrowExpandHorizontalIcon} />
           <span>Open whiteboard</span>
-        </Button>
+        </PlaygroundButton>
       </div>
 
       {/* Label */}
-      <div className="absolute top-3 left-3 px-2 py-1 rounded bg-bg-elevated/90 border border-border-primary">
+      <div className="absolute left-3 top-3 rounded border border-border-primary bg-bg-elevated/90 px-2 py-1">
         <span className="text-caption text-text-secondary">Whiteboard</span>
       </div>
     </div>

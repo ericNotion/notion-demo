@@ -1,17 +1,20 @@
 "use client";
 
 import { useAtom } from "jotai";
-import { elementsAtom, viewportAtom } from "../atoms";
+
 import { cn } from "@/utils/cn";
+
+import { elementsAtom, selectedElementsAtom, viewportAtom } from "../atoms";
 import type { WhiteboardElement } from "../types";
 
 export function Minimap() {
   const [elements] = useAtom(elementsAtom);
-  const [viewport, setViewport] = useAtom(viewportAtom);
+  const [viewport] = useAtom(viewportAtom);
+  const [selectedElements] = useAtom(selectedElementsAtom);
 
   if (elements.length === 0) return null;
 
-  // Calculate bounds of all elements
+  // Calculate bounds
   let minX = Infinity,
     minY = Infinity,
     maxX = -Infinity,
@@ -23,55 +26,48 @@ export function Minimap() {
     maxY = Math.max(maxY, el.y + el.height);
   });
 
-  const contentWidth = maxX - minX;
-  const contentHeight = maxY - minY;
+  const width = maxX - minX;
+  const height = maxY - minY;
+  const scale = Math.min(200 / width, 150 / height);
 
-  // Minimap dimensions
-  const minimapWidth = 200;
-  const minimapHeight = 150;
-  const scale =
-    Math.min(
-      minimapWidth / (contentWidth || 1),
-      minimapHeight / (contentHeight || 1),
-    ) * 0.8;
-
-  const handleMinimapClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMinimapClick = (e: React.MouseEvent<SVGSVGElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / scale + minX;
-    const y = (e.clientY - rect.top) / scale + minY;
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-    setViewport({
-      ...viewport,
-      x: -x + window.innerWidth / 2,
-      y: -y + window.innerHeight / 2,
-    });
+    // Convert minimap coordinates to world coordinates
+    const worldX = (x / scale + minX) * viewport.zoom;
+    const worldY = (y / scale + minY) * viewport.zoom;
+
+    // Center viewport on clicked point
+    // setViewport({
+    //   ...viewport,
+    //   x: window.innerWidth / 2 - worldX,
+    //   y: window.innerHeight / 2 - worldY,
+    // });
   };
 
   return (
     <div
       className={cn(
-        "fixed bottom-4 right-4 z-50",
-        "rounded-lg border border-border-primary bg-bg-elevated",
-        "shadow-md-outline overflow-hidden",
-        "cursor-pointer",
+        "fixed bottom-4 right-4 z-40",
+        "rounded-lg border border-border-primary bg-bg-elevated/95 p-3",
+        "shadow-md-outline",
       )}
-      style={{ width: minimapWidth, height: minimapHeight }}
-      onClick={handleMinimapClick}
     >
       <svg
-        width={minimapWidth}
-        height={minimapHeight}
-        className="w-full h-full"
+        width={width * scale}
+        height={height * scale}
+        className="cursor-pointer"
+        onClick={handleMinimapClick}
       >
-        {/* Background */}
-        <rect width="100%" height="100%" fill="var(--bg-secondary)" />
-
         {/* Elements */}
         {elements.map((el) => {
           const x = (el.x - minX) * scale;
           const y = (el.y - minY) * scale;
           const w = el.width * scale;
           const h = el.height * scale;
+          const color = el.color || "#e3f2fd";
 
           return (
             <rect
@@ -80,30 +76,24 @@ export function Minimap() {
               y={y}
               width={w}
               height={h}
-              fill={el.color || "#3b82f6"}
-              opacity={0.6}
-              rx={2}
+              fill={color}
+              stroke="#999"
+              strokeWidth="0.5"
             />
           );
         })}
 
         {/* Viewport indicator */}
         <rect
-          x={(-viewport.x - minX) * scale}
-          y={(-viewport.y - minY) * scale}
+          x={((-viewport.x / viewport.zoom - minX) * scale)}
+          y={((-viewport.y / viewport.zoom - minY) * scale)}
           width={(window.innerWidth / viewport.zoom) * scale}
           height={(window.innerHeight / viewport.zoom) * scale}
           fill="none"
-          stroke="var(--border-blue-primary)"
-          strokeWidth={2}
-          rx={4}
+          stroke="#3b82f6"
+          strokeWidth="2"
         />
       </svg>
-
-      {/* Label */}
-      <div className="absolute top-2 left-2 text-caption text-text-tertiary pointer-events-none">
-        Map
-      </div>
     </div>
   );
 }
