@@ -1,4 +1,10 @@
-import { findUserByEmail } from "@/lib/notion/users-data";
+const findUserByEmail = (
+  _email: string,
+): {
+  playgroundUsername?: string;
+  notionUserId?: string;
+  githubUsername?: string;
+} | null => null;
 import NextAuth, { Session, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import type { OAuthConfig } from "next-auth/providers";

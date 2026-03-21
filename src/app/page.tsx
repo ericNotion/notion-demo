@@ -1,4 +1,3 @@
-import { getGuides } from "@/lib/notion";
 import { PrototypeTableWrapper } from "@/root/components/PrototypeTableWrapper";
 import { TopBar } from "@/root/components/TopBar";
 import { getAllUserPrototypes, getCurrentUsername } from "@/root/lib/fs-utils";
@@ -15,7 +14,6 @@ export default async function RootIndexPage() {
   const users = await getAllUserPrototypes(appDir);
   const currentUsername = await getCurrentUsername();
   const allowFileOps = allowFileSystemOperations();
-  const guides = await getGuides();
 
   // Flatten all prototypes with their authors
   const allPrototypes: PrototypeWithAuthor[] = [];
@@ -45,7 +43,7 @@ export default async function RootIndexPage() {
           currentUsername={currentUsername}
           allowFileOps={allowFileOps}
           templates={templatesUser?.prototypes}
-          guides={guides}
+          guides={[]}
         />
       </div>
 

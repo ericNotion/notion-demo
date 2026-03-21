@@ -15,8 +15,7 @@
     "prebuild": "bun run scripts/prebuild.ts",
     "icons:build": "bun run src/nds-icons/build.ts",
     "noticons:build": "bun run src/noticons/build.ts",
-    "knip": "knip",
-    "notion:types": "bun run scripts/generate-notion-types.ts"
+    "knip": "knip"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.2.12",
