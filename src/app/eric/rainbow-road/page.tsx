@@ -241,19 +241,23 @@ function RainbowRoadContent() {
                 same sense of wonder to your workspace.
               </p>
               <div className="flex flex-wrap gap-2">
-                {["🏎️ Speed", "⭐ Stars", "🌌 Space", "🎨 Colors", "✨ Magic"].map(
-                  (tag, i) => (
-                    <motion.span
-                      key={tag}
-                      className="rainbow-tag rounded-full px-3 py-1 text-caption"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                    >
-                      {tag}
-                    </motion.span>
-                  ),
-                )}
+                {[
+                  "🏎️ Speed",
+                  "⭐ Stars",
+                  "🌌 Space",
+                  "🎨 Colors",
+                  "✨ Magic",
+                ].map((tag, i) => (
+                  <motion.span
+                    key={tag}
+                    className="rainbow-tag rounded-full px-3 py-1 text-caption"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                  >
+                    {tag}
+                  </motion.span>
+                ))}
               </div>
             </div>
 
@@ -263,9 +267,7 @@ function RainbowRoadContent() {
               transition={{ duration: 0.2 }}
             >
               <div className="mb-3 text-5xl">🚀</div>
-              <h3 className="content-h3 mb-2 font-semibold">
-                Ready to Race?
-              </h3>
+              <h3 className="content-h3 mb-2 font-semibold">Ready to Race?</h3>
               <p className="content-text-block text-secondary">
                 Your workspace has never looked this magical. Start creating in
                 style!
