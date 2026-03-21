@@ -37,19 +37,14 @@ export function FloatingStars() {
             left: `${star.x}%`,
             top: `${star.y}%`,
           }}
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 180, 360],
-            opacity: [0.6, 1, 0.6],
-          }}
-          transition={{
-            duration: 10,
+          animate= y: [0, -20, 0], opacity: [0.3, 1, 0.3] 
+          transition=
+            duration: 5 + star.delay,
             repeat: Infinity,
-            delay: star.delay,
             ease: "easeInOut",
-          }}
+          
         >
-          ⭐
+          \u2B50
         </motion.div>
       ))}
     </div>

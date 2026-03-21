@@ -14,15 +14,8 @@ export function RainbowRoadToggle() {
   return (
     <div className="flex items-center gap-2 px-2">
       <motion.div
-        animate={{
-          rotate: isRainbowMode ? [0, 360] : 0,
-          scale: isRainbowMode ? [1, 1.2, 1] : 1,
-        }}
-        transition={{
-          duration: isRainbowMode ? 2 : 0,
-          repeat: isRainbowMode ? Infinity : 0,
-          ease: "linear",
-        }}
+        animate= rotate: isRainbowMode ? 360 : 0 
+        transition= duration: 0.5 
       >
         <Icon
           icon={isRainbowMode ? starIcon : sparklesIcon}
@@ -35,7 +28,7 @@ export function RainbowRoadToggle() {
           Rainbow Road
         </span>
         <span className="text-caption text-tertiary">
-          {isRainbowMode ? "Cosmic mode active 🌈" : "Enable cosmic theme"}
+          {isRainbowMode ? "Cosmic mode active \uD83C\uDF08" : "Enable cosmic theme"}
         </span>
       </div>
       <Switch checked={isRainbowMode} onCheckedChange={setIsRainbowMode} />
