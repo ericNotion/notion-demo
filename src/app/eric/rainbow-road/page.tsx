@@ -13,6 +13,7 @@ import { pageIcon } from "@nds-icons/page/default.icon";
 import { sparklesIcon } from "@nds-icons/sparkles/default.icon";
 import { starIcon } from "@nds-icons/star/fill.icon";
 import { motion } from "motion/react";
+import "./styles.css";
 
 // Twinkling Star Component
 function TwinklingStar({ delay = 0 }: { delay?: number }) {
@@ -112,32 +113,6 @@ function RainbowRoadSidebar() {
           </CollapsibleGroup>
         </div>
       </div>
-
-      <style jsx>{`
-        .rainbow-divider {
-          background: linear-gradient(
-            90deg,
-            #ff0080,
-            #ff8c00,
-            #ffd700,
-            #00ff00,
-            #00bfff,
-            #8a2be2,
-            #ff0080
-          );
-          background-size: 200% 100%;
-          animation: rainbow-flow 3s linear infinite;
-        }
-
-        @keyframes rainbow-flow {
-          0% {
-            background-position: 0% 50%;
-          }
-          100% {
-            background-position: 200% 50%;
-          }
-        }
-      `}</style>
     </div>
   );
 }
@@ -299,148 +274,6 @@ function RainbowRoadContent() {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .rainbow-text {
-          background: linear-gradient(
-            90deg,
-            #ff0080,
-            #ff8c00,
-            #ffd700,
-            #00ff00,
-            #00bfff,
-            #8a2be2,
-            #ff0080
-          );
-          background-size: 200% 100%;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          animation: rainbow-flow 4s linear infinite;
-        }
-
-        .rainbow-card {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          position: relative;
-          overflow: hidden;
-          backdrop-filter: blur(10px);
-          transition: all 0.3s ease;
-        }
-
-        .rainbow-card::before {
-          content: "";
-          position: absolute;
-          top: -2px;
-          left: -2px;
-          right: -2px;
-          bottom: -2px;
-          background: linear-gradient(
-            90deg,
-            #ff0080,
-            #ff8c00,
-            #ffd700,
-            #00ff00,
-            #00bfff,
-            #8a2be2,
-            #ff0080
-          );
-          background-size: 200% 100%;
-          border-radius: inherit;
-          opacity: 0;
-          z-index: -1;
-          animation: rainbow-flow 3s linear infinite;
-          transition: opacity 0.3s ease;
-        }
-
-        .rainbow-card:hover::before {
-          opacity: 0.3;
-        }
-
-        .rainbow-card:hover {
-          border-color: rgba(255, 255, 255, 0.2);
-          box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
-        }
-
-        .rainbow-tag {
-          background: rgba(138, 43, 226, 0.2);
-          border: 1px solid rgba(138, 43, 226, 0.4);
-          color: #c4b5fd;
-          font-weight: 500;
-        }
-
-        .rainbow-border-bottom {
-          position: relative;
-        }
-
-        .rainbow-border-bottom::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background: linear-gradient(
-            90deg,
-            #ff0080,
-            #ff8c00,
-            #ffd700,
-            #00ff00,
-            #00bfff,
-            #8a2be2,
-            #ff0080
-          );
-          background-size: 200% 100%;
-          animation: rainbow-flow 3s linear infinite;
-        }
-
-        @keyframes rainbow-flow {
-          0% {
-            background-position: 0% 50%;
-          }
-          100% {
-            background-position: 200% 50%;
-          }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        .rainbow-hover {
-          transition: all 0.2s ease;
-          position: relative;
-        }
-
-        .rainbow-hover::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          border-radius: 6px;
-          padding: 1px;
-          background: linear-gradient(
-            90deg,
-            #ff0080,
-            #ff8c00,
-            #ffd700,
-            #00ff00,
-            #00bfff,
-            #8a2be2
-          );
-          -webkit-mask: linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          opacity: 0;
-          transition: opacity 0.2s ease;
-        }
-
-        .rainbow-hover:hover::before {
-          opacity: 0.6;
-        }
-
-        .rainbow-hover:hover {
-          box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
-        }
-      `}</style>
     </div>
   );
 }
