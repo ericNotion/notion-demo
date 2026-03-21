@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { useRef, useState, useEffect } from 'react';
-import { useAtom } from 'jotai';
-import { motion } from 'framer-motion';
-import { Agentation } from '@/components/playground-kit/Agentation';
-import { cn } from '@/utils/cn';
-import { Canvas } from './components/Canvas';
-import { Toolbar } from './components/Toolbar';
-import { Minimap } from './components/Minimap';
-import { TemplateSelector } from './components/TemplateSelector';
-import { InlinePreview } from './components/InlinePreview';
+import { useRef, useState, useEffect } from "react";
+import { useAtom } from "jotai";
+import { motion } from "framer-motion";
+import { Agentation } from "@/components/playground-kit/Agentation";
+import { cn } from "@/utils/cn";
+import { Canvas } from "./components/Canvas";
+import { Toolbar } from "./components/Toolbar";
+import { Minimap } from "./components/Minimap";
+import { TemplateSelector } from "./components/TemplateSelector";
+import { InlinePreview } from "./components/InlinePreview";
 import {
   elementsAtom,
   viewportAtom,
   isMinimapVisibleAtom,
   isInlineViewAtom,
-} from './atoms';
+} from "./atoms";
 
 export default function WhiteboardPage() {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -31,15 +31,18 @@ export default function WhiteboardPage() {
       setIsMobile(window.innerWidth < 768);
     };
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const handleFitToView = () => {
     if (elements.length === 0) return;
 
     // Calculate bounds
-    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    let minX = Infinity,
+      minY = Infinity,
+      maxX = -Infinity,
+      maxY = -Infinity;
     elements.forEach((el) => {
       minX = Math.min(minX, el.x);
       minY = Math.min(minY, el.y);
@@ -69,8 +72,8 @@ export default function WhiteboardPage() {
     const handleFitToViewEvent = () => {
       handleFitToView();
     };
-    window.addEventListener('fitToView', handleFitToViewEvent);
-    return () => window.removeEventListener('fitToView', handleFitToViewEvent);
+    window.addEventListener("fitToView", handleFitToViewEvent);
+    return () => window.removeEventListener("fitToView", handleFitToViewEvent);
   }, [elements]);
 
   const handleEnterFullMode = () => {
@@ -100,7 +103,7 @@ export default function WhiteboardPage() {
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
             >
               <Toolbar
                 canvasRef={canvasRef}
@@ -119,7 +122,7 @@ export default function WhiteboardPage() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
               >
                 <Minimap />
               </motion.div>
@@ -138,10 +141,10 @@ export default function WhiteboardPage() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 0.3 }}
                 className={cn(
-                  'fixed bottom-4 left-4 px-3 py-2',
-                  'rounded-lg border border-border-primary bg-bg-elevated/95',
-                  'text-caption text-text-tertiary',
-                  'shadow-sm-outline'
+                  "fixed bottom-4 left-4 px-3 py-2",
+                  "rounded-lg border border-border-primary bg-bg-elevated/95",
+                  "text-caption text-text-tertiary",
+                  "shadow-sm-outline",
                 )}
               >
                 <div className="flex items-center gap-4">
@@ -149,11 +152,10 @@ export default function WhiteboardPage() {
                     <kbd className="px-1.5 py-0.5 rounded bg-bg-tertiary border border-border-primary text-text-secondary">
                       Cmd/Ctrl
                     </kbd>
-                    {' + '}
+                    {" + "}
                     <kbd className="px-1.5 py-0.5 rounded bg-bg-tertiary border border-border-primary text-text-secondary">
                       0
-                    </kbd>
-                    {' '}
+                    </kbd>{" "}
                     Fit to view
                   </span>
                   <span className="text-border-primary">•</span>
@@ -161,7 +163,7 @@ export default function WhiteboardPage() {
                     <kbd className="px-1.5 py-0.5 rounded bg-bg-tertiary border border-border-primary text-text-secondary">
                       Cmd/Ctrl
                     </kbd>
-                    {' + '}
+                    {" + "}
                     scroll to zoom
                   </span>
                 </div>

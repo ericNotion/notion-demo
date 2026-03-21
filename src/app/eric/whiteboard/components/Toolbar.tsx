@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { useAtom } from 'jotai';
-import { Icon } from '@nds-icons';
-import { squareAndArrowDownIcon } from '@nds-icons/squareAndArrowDown/default.icon';
-import { duplicateIcon } from '@nds-icons/duplicate/default.icon';
-import { templatesIcon } from '@nds-icons/templates/default.icon';
-import { peekCenterIcon } from '@nds-icons/peekCenter/default.icon';
-import { mapIcon } from '@nds-icons/map/default.icon';
-import { Button } from '@/components/playground-kit/Button';
+import { useAtom } from "jotai";
+import { Icon } from "@nds-icons";
+import { squareAndArrowDownIcon } from "@nds-icons/squareAndArrowDown/default.icon";
+import { duplicateIcon } from "@nds-icons/duplicate/default.icon";
+import { templatesIcon } from "@nds-icons/templates/default.icon";
+import { peekCenterIcon } from "@nds-icons/peekCenter/default.icon";
+import { mapIcon } from "@nds-icons/map/default.icon";
+import { Button } from "@/components/playground-kit/Button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { cn } from '@/utils/cn';
-import { selectedToolAtom, isMinimapVisibleAtom, elementsAtom } from '../atoms';
-import { exportCanvas, copySelectionAsImage } from '../lib/export';
-import type { ExportFormat } from '../types';
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/utils/cn";
+import { selectedToolAtom, isMinimapVisibleAtom, elementsAtom } from "../atoms";
+import { exportCanvas, copySelectionAsImage } from "../lib/export";
+import type { ExportFormat } from "../types";
 
 interface ToolbarProps {
   canvasRef: React.RefObject<HTMLDivElement>;
@@ -48,10 +48,10 @@ export function Toolbar({
     return (
       <div
         className={cn(
-          'fixed top-4 left-1/2 -translate-x-1/2 z-40',
-          'flex items-center gap-1 p-1',
-          'rounded-lg border border-border-primary bg-bg-elevated',
-          'shadow-md-outline'
+          "fixed top-4 left-1/2 -translate-x-1/2 z-40",
+          "flex items-center gap-1 p-1",
+          "rounded-lg border border-border-primary bg-bg-elevated",
+          "shadow-md-outline",
         )}
       >
         <Button
@@ -79,13 +79,13 @@ export function Toolbar({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => handleExport('png')}>
+            <DropdownMenuItem onClick={() => handleExport("png")}>
               Export as PNG
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleExport('svg')}>
+            <DropdownMenuItem onClick={() => handleExport("svg")}>
               Export as SVG
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleExport('pdf')}>
+            <DropdownMenuItem onClick={() => handleExport("pdf")}>
               Export as PDF
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -97,10 +97,10 @@ export function Toolbar({
   return (
     <div
       className={cn(
-        'fixed top-4 left-1/2 -translate-x-1/2 z-40',
-        'flex items-center gap-2 px-3 py-2',
-        'rounded-lg border border-border-primary bg-bg-elevated',
-        'shadow-md-outline'
+        "fixed top-4 left-1/2 -translate-x-1/2 z-40",
+        "flex items-center gap-2 px-3 py-2",
+        "rounded-lg border border-border-primary bg-bg-elevated",
+        "shadow-md-outline",
       )}
     >
       {/* Templates */}
@@ -117,12 +117,7 @@ export function Toolbar({
       <div className="w-px h-6 bg-border-primary" />
 
       {/* Fit to view */}
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={onFitToView}
-        className="gap-2"
-      >
+      <Button variant="ghost" size="sm" onClick={onFitToView} className="gap-2">
         <Icon icon={peekCenterIcon} />
         <span className="text-body">Fit to view</span>
       </Button>
@@ -138,13 +133,13 @@ export function Toolbar({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => handleExport('png')}>
+          <DropdownMenuItem onClick={() => handleExport("png")}>
             Export as PNG
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => handleExport('svg')}>
+          <DropdownMenuItem onClick={() => handleExport("svg")}>
             Export as SVG
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => handleExport('pdf')}>
+          <DropdownMenuItem onClick={() => handleExport("pdf")}>
             Export as PDF
           </DropdownMenuItem>
           <DropdownMenuItem onClick={handleCopyAsImage}>
@@ -157,7 +152,7 @@ export function Toolbar({
 
       {/* Toggle minimap */}
       <Button
-        variant={isMinimapVisible ? 'ghost' : 'plain'}
+        variant={isMinimapVisible ? "ghost" : "plain"}
         size="sm"
         onClick={() => setIsMinimapVisible(!isMinimapVisible)}
         className="gap-2"

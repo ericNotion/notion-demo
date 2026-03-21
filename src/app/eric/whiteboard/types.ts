@@ -1,6 +1,6 @@
 export type WhiteboardElement = {
   id: string;
-  type: 'shape' | 'sticky' | 'text' | 'connector' | 'image' | 'freehand';
+  type: "shape" | "sticky" | "text" | "connector" | "image" | "freehand";
   x: number;
   y: number;
   width: number;
@@ -8,7 +8,7 @@ export type WhiteboardElement = {
   rotation?: number;
   color?: string;
   content?: string;
-  shapeType?: 'rectangle' | 'circle' | 'diamond' | 'triangle';
+  shapeType?: "rectangle" | "circle" | "diamond" | "triangle";
   connectorPoints?: { x: number; y: number }[];
   imageUrl?: string;
 };
@@ -24,9 +24,16 @@ export type Template = {
   name: string;
   description: string;
   preview: string;
-  elements: Omit<WhiteboardElement, 'id'>[];
+  elements: Omit<WhiteboardElement, "id">[];
 };
 
-export type Tool = 'select' | 'shape' | 'sticky' | 'text' | 'connector' | 'freehand' | 'image';
+export type Tool =
+  | "select"
+  | "shape"
+  | "sticky"
+  | "text"
+  | "connector"
+  | "freehand"
+  | "image";
 
-export type ExportFormat = 'png' | 'svg' | 'pdf';
+export type ExportFormat = "png" | "svg" | "pdf";

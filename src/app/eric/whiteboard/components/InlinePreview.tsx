@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useAtom } from 'jotai';
-import { Icon } from '@nds-icons';
-import { arrowExpandHorizontalIcon } from '@nds-icons/arrowExpandHorizontal/default.icon';
-import { Button } from '@/components/playground-kit/Button';
-import { cn } from '@/utils/cn';
-import { elementsAtom, isInlineViewAtom } from '../atoms';
-import type { WhiteboardElement } from '../types';
+import { useAtom } from "jotai";
+import { Icon } from "@nds-icons";
+import { arrowExpandHorizontalIcon } from "@nds-icons/arrowExpandHorizontal/default.icon";
+import { Button } from "@/components/playground-kit/Button";
+import { cn } from "@/utils/cn";
+import { elementsAtom, isInlineViewAtom } from "../atoms";
+import type { WhiteboardElement } from "../types";
 
 interface InlinePreviewProps {
   onEnterFullMode: () => void;
@@ -19,7 +19,10 @@ export function InlinePreview({ onEnterFullMode }: InlinePreviewProps) {
   if (!isInlineView) return null;
 
   // Calculate bounds
-  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  let minX = Infinity,
+    minY = Infinity,
+    maxX = -Infinity,
+    maxY = -Infinity;
   elements.forEach((el) => {
     minX = Math.min(minX, el.x);
     minY = Math.min(minY, el.y);
@@ -34,9 +37,9 @@ export function InlinePreview({ onEnterFullMode }: InlinePreviewProps) {
   return (
     <div
       className={cn(
-        'relative w-full h-[300px] rounded-lg overflow-hidden',
-        'border border-border-primary bg-bg-secondary',
-        'cursor-pointer group'
+        "relative w-full h-[300px] rounded-lg overflow-hidden",
+        "border border-border-primary bg-bg-secondary",
+        "cursor-pointer group",
       )}
       onClick={onEnterFullMode}
     >
@@ -62,18 +65,18 @@ export function InlinePreview({ onEnterFullMode }: InlinePreviewProps) {
       {/* Overlay */}
       <div
         className={cn(
-          'absolute inset-0 bg-black/0 group-hover:bg-black/10',
-          'transition-colors duration-150',
-          'flex items-center justify-center'
+          "absolute inset-0 bg-black/0 group-hover:bg-black/10",
+          "transition-colors duration-150",
+          "flex items-center justify-center",
         )}
       >
         <Button
           variant="primary"
           size="md"
           className={cn(
-            'opacity-0 group-hover:opacity-100',
-            'transition-opacity duration-150',
-            'gap-2'
+            "opacity-0 group-hover:opacity-100",
+            "transition-opacity duration-150",
+            "gap-2",
           )}
         >
           <Icon icon={arrowExpandHorizontalIcon} />
@@ -104,39 +107,69 @@ function PreviewElement({
   const y = (element.y - offsetY) * scale;
   const w = element.width * scale;
   const h = element.height * scale;
-  const color = element.color || '#e3f2fd';
+  const color = element.color || "#e3f2fd";
 
-  if (element.type === 'shape') {
-    if (element.shapeType === 'circle') {
+  if (element.type === "shape") {
+    if (element.shapeType === "circle") {
       const cx = x + w / 2;
       const cy = y + h / 2;
       const r = Math.min(w, h) / 2;
       return (
-        <circle cx={cx} cy={cy} r={r} fill={color} stroke="#1976d2" strokeWidth="1" />
+        <circle
+          cx={cx}
+          cy={cy}
+          r={r}
+          fill={color}
+          stroke="#1976d2"
+          strokeWidth="1"
+        />
       );
-    } else if (element.shapeType === 'diamond') {
+    } else if (element.shapeType === "diamond") {
       const cx = x + w / 2;
       const cy = y + h / 2;
       const points = `${cx},${y} ${x + w},${cy} ${cx},${y + h} ${x},${cy}`;
       return (
-        <polygon points={points} fill={color} stroke="#1976d2" strokeWidth="1" />
+        <polygon
+          points={points}
+          fill={color}
+          stroke="#1976d2"
+          strokeWidth="1"
+        />
       );
     }
     return (
-      <rect x={x} y={y} width={w} height={h} fill={color} stroke="#1976d2" strokeWidth="1" rx="2" />
+      <rect
+        x={x}
+        y={y}
+        width={w}
+        height={h}
+        fill={color}
+        stroke="#1976d2"
+        strokeWidth="1"
+        rx="2"
+      />
     );
-  } else if (element.type === 'sticky') {
+  } else if (element.type === "sticky") {
     return (
-      <rect x={x} y={y} width={w} height={h} fill={color} stroke="#f9a825" strokeWidth="1" rx="2" />
+      <rect
+        x={x}
+        y={y}
+        width={w}
+        height={h}
+        fill={color}
+        stroke="#f9a825"
+        strokeWidth="1"
+        rx="2"
+      />
     );
-  } else if (element.type === 'connector' && element.connectorPoints) {
+  } else if (element.type === "connector" && element.connectorPoints) {
     const pathData = element.connectorPoints
       .map((p, i) => {
         const px = (p.x - offsetX) * scale;
         const py = (p.y - offsetY) * scale;
-        return `${i === 0 ? 'M' : 'L'} ${px} ${py}`;
+        return `${i === 0 ? "M" : "L"} ${px} ${py}`;
       })
-      .join(' ');
+      .join(" ");
     return <path d={pathData} stroke="#666" strokeWidth="1" fill="none" />;
   }
 

@@ -1,11 +1,16 @@
-'use client';
+"use client";
 
-import { useAtom } from 'jotai';
-import { useRef, useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/utils/cn';
-import { elementsAtom, viewportAtom, isDraggingAtom, selectedElementsAtom } from '../atoms';
-import type { WhiteboardElement } from '../types';
+import { useAtom } from "jotai";
+import { useRef, useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/utils/cn";
+import {
+  elementsAtom,
+  viewportAtom,
+  isDraggingAtom,
+  selectedElementsAtom,
+} from "../atoms";
+import type { WhiteboardElement } from "../types";
 
 interface CanvasProps {
   canvasRef: React.RefObject<HTMLDivElement>;
@@ -16,7 +21,9 @@ export function Canvas({ canvasRef }: CanvasProps) {
   const [viewport, setViewport] = useAtom(viewportAtom);
   const [isDragging, setIsDragging] = useAtom(isDraggingAtom);
   const [selectedElements] = useAtom(selectedElementsAtom);
-  const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
+  const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(
+    null,
+  );
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button !== 1 && !e.metaKey && !e.ctrlKey) return; // Only middle button or cmd/ctrl + click for panning
@@ -49,7 +56,7 @@ export function Canvas({ canvasRef }: CanvasProps) {
       e.preventDefault();
       const delta = -e.deltaY * 0.001;
       const newZoom = Math.max(0.1, Math.min(3, viewport.zoom + delta));
-      
+
       setViewport({
         ...viewport,
         zoom: newZoom,
@@ -59,23 +66,23 @@ export function Canvas({ canvasRef }: CanvasProps) {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === '0') {
+      if ((e.metaKey || e.ctrlKey) && e.key === "0") {
         e.preventDefault();
         // This will be handled by the parent component
-        window.dispatchEvent(new CustomEvent('fitToView'));
+        window.dispatchEvent(new CustomEvent("fitToView"));
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   return (
     <div
       ref={canvasRef}
       className={cn(
-        'relative w-full h-full overflow-hidden bg-bg-primary',
-        isDragging && 'cursor-grabbing'
+        "relative w-full h-full overflow-hidden bg-bg-primary",
+        isDragging && "cursor-grabbing",
       )}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
@@ -100,7 +107,7 @@ export function Canvas({ canvasRef }: CanvasProps) {
       <div
         style={{
           transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
-          transformOrigin: '0 0',
+          transformOrigin: "0 0",
         }}
       >
         <AnimatePresence>
@@ -118,9 +125,12 @@ export function Canvas({ canvasRef }: CanvasProps) {
       {elements.length === 0 && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="text-center text-text-tertiary">
-            <p className="text-body-lg mb-2">Start with a template or blank canvas</p>
+            <p className="text-body-lg mb-2">
+              Start with a template or blank canvas
+            </p>
             <p className="text-body">
-              Pan with middle mouse or Cmd/Ctrl + drag • Zoom with Cmd/Ctrl + scroll
+              Pan with middle mouse or Cmd/Ctrl + drag • Zoom with Cmd/Ctrl +
+              scroll
             </p>
           </div>
         </div>
@@ -136,13 +146,13 @@ function CanvasElement({
   element: WhiteboardElement;
   isSelected: boolean;
 }) {
-  if (element.type === 'shape') {
+  if (element.type === "shape") {
     return <ShapeElement element={element} isSelected={isSelected} />;
-  } else if (element.type === 'sticky') {
+  } else if (element.type === "sticky") {
     return <StickyElement element={element} isSelected={isSelected} />;
-  } else if (element.type === 'text') {
+  } else if (element.type === "text") {
     return <TextElement element={element} isSelected={isSelected} />;
-  } else if (element.type === 'connector') {
+  } else if (element.type === "connector") {
     return <ConnectorElement element={element} isSelected={isSelected} />;
   }
   return null;
@@ -155,18 +165,18 @@ function ShapeElement({
   element: WhiteboardElement;
   isSelected: boolean;
 }) {
-  const color = element.color || '#e3f2fd';
+  const color = element.color || "#e3f2fd";
 
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.8 }}
-      transition={{ duration: 0.15, ease: 'easeOut' }}
+      transition={{ duration: 0.15, ease: "easeOut" }}
       className={cn(
-        'absolute flex items-center justify-center',
-        'border-2 cursor-pointer',
-        isSelected ? 'border-blue-500' : 'border-blue-400'
+        "absolute flex items-center justify-center",
+        "border-2 cursor-pointer",
+        isSelected ? "border-blue-500" : "border-blue-400",
       )}
       style={{
         left: element.x,
@@ -174,14 +184,16 @@ function ShapeElement({
         width: element.width,
         height: element.height,
         backgroundColor: color,
-        borderRadius: element.shapeType === 'circle' ? '50%' : '4px',
-        transform: element.shapeType === 'diamond' ? 'rotate(45deg)' : undefined,
+        borderRadius: element.shapeType === "circle" ? "50%" : "4px",
+        transform:
+          element.shapeType === "diamond" ? "rotate(45deg)" : undefined,
       }}
     >
       <div
         className="text-body font-medium text-center px-2"
         style={{
-          transform: element.shapeType === 'diamond' ? 'rotate(-45deg)' : undefined,
+          transform:
+            element.shapeType === "diamond" ? "rotate(-45deg)" : undefined,
         }}
       >
         {element.content}
@@ -197,17 +209,17 @@ function StickyElement({
   element: WhiteboardElement;
   isSelected: boolean;
 }) {
-  const color = element.color || '#fff9c4';
+  const color = element.color || "#fff9c4";
 
   return (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.15, ease: 'easeOut' }}
+      transition={{ duration: 0.15, ease: "easeOut" }}
       className={cn(
-        'absolute p-3 rounded-md border-2 cursor-pointer',
-        isSelected ? 'border-yellow-600' : 'border-yellow-500'
+        "absolute p-3 rounded-md border-2 cursor-pointer",
+        isSelected ? "border-yellow-600" : "border-yellow-500",
       )}
       style={{
         left: element.x,
@@ -238,8 +250,8 @@ function TextElement({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.15 }}
       className={cn(
-        'absolute text-body-lg font-semibold cursor-pointer',
-        isSelected && 'outline outline-2 outline-blue-500'
+        "absolute text-body-lg font-semibold cursor-pointer",
+        isSelected && "outline outline-2 outline-blue-500",
       )}
       style={{
         left: element.x,
@@ -260,10 +272,13 @@ function ConnectorElement({
   element: WhiteboardElement;
   isSelected: boolean;
 }) {
-  if (!element.connectorPoints || element.connectorPoints.length < 2) return null;
+  if (!element.connectorPoints || element.connectorPoints.length < 2)
+    return null;
 
   const points = element.connectorPoints;
-  const pathData = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+  const pathData = points
+    .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`)
+    .join(" ");
 
   return (
     <motion.svg
@@ -275,8 +290,14 @@ function ConnectorElement({
       style={{
         left: Math.min(...points.map((p) => p.x)) - 10,
         top: Math.min(...points.map((p) => p.y)) - 10,
-        width: Math.max(...points.map((p) => p.x)) - Math.min(...points.map((p) => p.x)) + 20,
-        height: Math.max(...points.map((p) => p.y)) - Math.min(...points.map((p) => p.y)) + 20,
+        width:
+          Math.max(...points.map((p) => p.x)) -
+          Math.min(...points.map((p) => p.x)) +
+          20,
+        height:
+          Math.max(...points.map((p) => p.y)) -
+          Math.min(...points.map((p) => p.y)) +
+          20,
       }}
     >
       <defs>
@@ -293,7 +314,7 @@ function ConnectorElement({
       </defs>
       <path
         d={pathData}
-        stroke={isSelected ? '#3b82f6' : '#666'}
+        stroke={isSelected ? "#3b82f6" : "#666"}
         strokeWidth="2"
         fill="none"
         markerEnd="url(#arrowhead)"

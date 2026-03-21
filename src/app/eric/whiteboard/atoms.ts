@@ -1,5 +1,5 @@
-import { atom } from 'jotai';
-import type { WhiteboardElement, Viewport, Tool } from './types';
+import { atom } from "jotai";
+import type { WhiteboardElement, Viewport, Tool } from "./types";
 
 export const elementsAtom = atom<WhiteboardElement[]>([]);
 
@@ -9,7 +9,7 @@ export const viewportAtom = atom<Viewport>({
   zoom: 1,
 });
 
-export const selectedToolAtom = atom<Tool>('select');
+export const selectedToolAtom = atom<Tool>("select");
 
 export const selectedElementsAtom = atom<string[]>([]);
 
