@@ -28,6 +28,8 @@ interface PageTopBarProps {
   permissionLabel?: string;
   /** Additional class names */
   className?: string;
+  /** Optional right accessory to render before the buttons */
+  rightAccessory?: React.ReactNode;
 }
 
 function AtomTitleDisplay({ titleAtom }: { titleAtom: Atom<string> }) {
@@ -52,6 +54,7 @@ export function PageTopBar({
   isStarred = false,
   permissionLabel = "Private",
   className,
+  rightAccessory,
 }: PageTopBarProps) {
   return (
     <div className={cn("flex h-10 shrink-0 items-center pr-2 pl-4", className)}>
@@ -70,6 +73,7 @@ export function PageTopBar({
       </Button>
       <div className="grow" />
       <div className="flex shrink-0 items-center gap-1">
+        {rightAccessory}
         <Button variant="ghost" onClick={onShare}>
           Share
         </Button>

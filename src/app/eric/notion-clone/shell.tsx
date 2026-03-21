@@ -31,6 +31,7 @@ import { plusIcon } from "@nds-icons/plus/default.icon";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CreateAgentModal } from "./components/CreateAgentModal";
+import { DarkModeToggle } from "./components/DarkModeToggle";
 import {
   agents,
   chatGroups,
@@ -336,7 +337,7 @@ export function NotionShell({
         minWidth={240}
       >
         <div className="bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
-          <PageTopBar title={title} />
+          <PageTopBar title={title} rightAccessory={<DarkModeToggle />} />
           <div className="flex-1 overflow-y-auto">{children}</div>
         </div>
       </SlipperySidebarLayout>
