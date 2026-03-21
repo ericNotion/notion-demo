@@ -122,11 +122,9 @@ export function ReusableDatabase<T extends { id: string }>({
         </div>
       </div>
 
-      {/* Embedded database container with proper styling */}
-      <div className="bg-primary border-primary rounded-lg border shadow-sm">
-        {/* Table */}
-        <div className="overflow-hidden">
-          <table className="w-full border-collapse">
+      {/* Table */}
+      <div className="overflow-hidden">
+        <table className="w-full border-collapse">
             {/* Table Header */}
             <thead>
               <tr className="border-primary border-b">
@@ -190,7 +188,6 @@ export function ReusableDatabase<T extends { id: string }>({
             </button>
           </div>
         </div>
-      </div>
     </div>
   );
 }

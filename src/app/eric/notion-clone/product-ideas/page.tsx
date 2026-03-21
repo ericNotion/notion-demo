@@ -239,7 +239,7 @@ export default function Page() {
           Ideas from the team, ranked by votes. Add yours below.
         </p>
 
-        <div className="mt-8">
+        <div className="mt-8 bg-primary border-primary rounded-lg border shadow-sm overflow-hidden">
           <div className="flex items-center gap-2">
             <div className="flex-1">
               <ViewSwitcher

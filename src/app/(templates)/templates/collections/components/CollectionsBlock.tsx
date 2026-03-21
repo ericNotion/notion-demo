@@ -38,10 +38,8 @@ export function CollectionsBlock({
   className,
 }: CollectionsBlockProps) {
   return (
-    <div className="bg-primary border-primary rounded-lg border shadow-sm">
-      {/* Embedded database container with proper styling */}
-      <div className="overflow-auto p-4">
-        <div className={className}>
+    <div className="overflow-auto">
+      <div className={className}>
           {/* Table Header */}
           <div className="flex">
             {properties.map((property) => (
@@ -94,7 +92,6 @@ export function CollectionsBlock({
             <span>New Page</span>
           </Button>
         </div>
-      </div>
     </div>
   );
 }

@@ -151,13 +151,16 @@ export default function Collections() {
             <Icon icon={checkmarkCircleFillIcon} color="redPrimary" size="xl" />
             <span className="text-3xl font-bold">Collections</span>
           </div>
-          <CollectionsViewHeader
-            views={["Table", "Board", "Form"]}
-            className="px-24"
-            activeView={activeView}
-            onViewChange={setActiveView}
-          />
-          <div className="px-24">{renderView()}</div>
+          <div className="px-24">
+            <CollectionsViewHeader
+              views={["Table", "Board", "Form"]}
+              activeView={activeView}
+              onViewChange={setActiveView}
+            />
+            <div className="bg-primary border-primary rounded-lg border shadow-sm overflow-hidden">
+              {renderView()}
+            </div>
+          </div>
         </div>
       </div>
     </div>
