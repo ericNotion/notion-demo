@@ -431,12 +431,12 @@ export function BlockEditor({
 
     if (e.key === "Backspace") {
       const text = (e.currentTarget.textContent || "").trim();
-      
+
       // Close slash command if we're deleting the slash
       if (slashCommand?.isOpen && text.length === 0) {
         setSlashCommand(null);
       }
-      
+
       if (text.length === 0 && index > 0) {
         e.preventDefault();
         // Delete this block and focus previous
