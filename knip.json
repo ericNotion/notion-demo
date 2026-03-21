@@ -1,0 +1,15 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "src/app/**/page.tsx",
+    "src/app/**/layout.tsx",
+    "src/app/**/route.ts",
+    "src/app/globals.css",
+    "src/app/theme.css",
+    "src/components/**/*.{ts,tsx}",
+    "src/hooks/**/*.{ts,tsx}",
+    "scripts/**/*.ts"
+  ],
+  "project": ["src/**/*.{ts,tsx,js,jsx}", "scripts/**/*.ts"],
+  "ignore": ["src/nds-icons/**", ".claude/**"]
+}

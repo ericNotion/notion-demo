@@ -1,0 +1,11 @@
+# Codex MCP Server Configuration
+# See https://developers.openai.com/codex/mcp/ for more information
+
+[mcp_servers.notion-dev]
+url = "https://mcp-dev.notion.com/mcp"
+
+[mcp_servers.notion]
+url = "https://mcp.notion.com/mcp"
+
+[mcp_servers.figma]
+url = "https://mcp.figma.com/mcp"

@@ -1,0 +1,99 @@
+// src/nds-icons/SvgIcon.tsx
+import { jsxDEV } from "react/jsx-dev-runtime";
+function SvgIcon({
+  children,
+  viewBox,
+  style,
+  className,
+  label
+}) {
+  return /* @__PURE__ */ jsxDEV("svg", {
+    ...label !== undefined ? { "aria-label": label } : { "aria-hidden": true },
+    role: "graphics-symbol",
+    viewBox,
+    style: {
+      width: "100%",
+      height: "100%",
+      display: "block",
+      fill: "inherit",
+      flexShrink: 0,
+      ...style
+    },
+    className,
+    children
+  }, undefined, false, undefined, this);
+}
+
+// src/nds-icons/iconUtils.tsx
+import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
+var iconGroupVariantNames = [
+  "fillSmall",
+  "small",
+  "fill",
+  "default"
+];
+var logoVariantNames = ["default", "darkMode"];
+var deprecatedIconGroupVariantNames = [
+  "micro",
+  "mini",
+  "small",
+  "default",
+  "large",
+  "extraLarge",
+  "max"
+];
+var iconVariantNames = [
+  ...iconGroupVariantNames,
+  ...deprecatedIconGroupVariantNames,
+  ...logoVariantNames
+];
+var ICON_SIZE = {
+  xxs: 12,
+  xs: 14,
+  sm: 16,
+  default: 20,
+  lg: 22,
+  xl: 32
+};
+var ICON_SIZE_FOR_VARIANT = {
+  default: ICON_SIZE.default,
+  small: ICON_SIZE.sm,
+  fill: ICON_SIZE.default,
+  fillSmall: ICON_SIZE.sm,
+  darkMode: ICON_SIZE.default,
+  micro: 14,
+  mini: 14,
+  large: 24,
+  max: 28,
+  extraLarge: 36
+};
+function createIcon(name, iconDefinition) {
+  const { viewBox, svg } = iconDefinition;
+  const finalViewBox = viewBox ?? `0 0 ${ICON_SIZE.default} ${ICON_SIZE.default}`;
+  const iconFunction = (style, className) => {
+    const finalClassName = className ? `${name} ${className}` : name;
+    return /* @__PURE__ */ jsxDEV2(SvgIcon, {
+      viewBox: finalViewBox,
+      className: finalClassName,
+      style,
+      children: svg
+    }, undefined, false, undefined, this);
+  };
+  return Object.assign(iconFunction, {
+    __iconDefinition: { ...iconDefinition, viewBox: finalViewBox }
+  });
+}
+
+// src/nds-icons/src/heart/default.icon.tsx
+import { jsxDEV as jsxDEV3 } from "react/jsx-dev-runtime";
+var iconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: /* @__PURE__ */ jsxDEV3("path", {
+    d: "M10.016 17.634a.6.6 0 0 1-.142-.017.5.5 0 0 1-.177-.053C9.399 17.41 2.4 13.72 2.4 7.729c0-2.27 1.251-4.16 3.114-4.704 1.587-.461 3.246.161 4.486 1.64 1.24-1.478 2.9-2.101 4.485-1.64 1.863.543 3.115 2.434 3.115 4.704 0 5.992-6.999 9.681-7.297 9.835a.6.6 0 0 1-.287.07m-3.45-13.51q-.353 0-.702.101C4.54 4.611 3.65 6.02 3.65 7.73c0 4.613 5.104 7.851 6.35 8.573 1.246-.722 6.35-3.96 6.35-8.573 0-1.71-.89-3.118-2.214-3.504-1.287-.375-2.637.31-3.61 1.833-.229.36-.823.36-1.053 0-.796-1.248-1.846-1.934-2.908-1.934"
+  }, undefined, false, undefined, this)
+};
+var heartIcon = createIcon("heart", iconDefinition);
+export {
+  iconDefinition,
+  heartIcon
+};

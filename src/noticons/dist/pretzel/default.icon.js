@@ -1,0 +1,103 @@
+// src/nds-icons/SvgIcon.tsx
+import { jsxDEV } from "react/jsx-dev-runtime";
+function SvgIcon({
+  children,
+  viewBox,
+  style,
+  className,
+  label
+}) {
+  return /* @__PURE__ */ jsxDEV("svg", {
+    ...label !== undefined ? { "aria-label": label } : { "aria-hidden": true },
+    role: "graphics-symbol",
+    viewBox,
+    style: {
+      width: "100%",
+      height: "100%",
+      display: "block",
+      fill: "inherit",
+      flexShrink: 0,
+      ...style
+    },
+    className,
+    children
+  }, undefined, false, undefined, this);
+}
+
+// src/nds-icons/iconUtils.tsx
+import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
+var iconGroupVariantNames = [
+  "fillSmall",
+  "small",
+  "fill",
+  "default"
+];
+var logoVariantNames = ["default", "darkMode"];
+var deprecatedIconGroupVariantNames = [
+  "micro",
+  "mini",
+  "small",
+  "default",
+  "large",
+  "extraLarge",
+  "max"
+];
+var iconVariantNames = [
+  ...iconGroupVariantNames,
+  ...deprecatedIconGroupVariantNames,
+  ...logoVariantNames
+];
+var ICON_SIZE = {
+  xxs: 12,
+  xs: 14,
+  sm: 16,
+  default: 20,
+  lg: 22,
+  xl: 32
+};
+var ICON_SIZE_FOR_VARIANT = {
+  default: ICON_SIZE.default,
+  small: ICON_SIZE.sm,
+  fill: ICON_SIZE.default,
+  fillSmall: ICON_SIZE.sm,
+  darkMode: ICON_SIZE.default,
+  micro: 14,
+  mini: 14,
+  large: 24,
+  max: 28,
+  extraLarge: 36
+};
+function createIcon(name, iconDefinition) {
+  const { viewBox, svg } = iconDefinition;
+  const finalViewBox = viewBox ?? `0 0 ${ICON_SIZE.default} ${ICON_SIZE.default}`;
+  const iconFunction = (style, className) => {
+    const finalClassName = className ? `${name} ${className}` : name;
+    return /* @__PURE__ */ jsxDEV2(SvgIcon, {
+      viewBox: finalViewBox,
+      className: finalClassName,
+      style,
+      children: svg
+    }, undefined, false, undefined, this);
+  };
+  return Object.assign(iconFunction, {
+    __iconDefinition: { ...iconDefinition, viewBox: finalViewBox }
+  });
+}
+
+// src/nds-icons/Icon.tsx
+"use client";
+// src/noticons/src/pretzel/default.icon.tsx
+import { jsxDEV as jsxDEV3, Fragment } from "react/jsx-dev-runtime";
+var iconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: /* @__PURE__ */ jsxDEV3(Fragment, {
+    children: /* @__PURE__ */ jsxDEV3("path", {
+      d: "M17.1906 12.5031C17.7875 11.3062 18.125 9.95312 18.125 8.66875C18.125 5.40625 16.2125 3.125 13.475 3.125C11.9125 3.125 10.7719 3.875 10 4.77188C9.22813 3.87188 8.0875 3.125 6.525 3.125C3.7875 3.125 1.875 5.40313 1.875 8.66875C1.875 9.95312 2.2125 11.3062 2.80937 12.5031C2.28125 12.8437 2.08125 13.5375 2.36875 14.1125C2.67812 14.7312 3.42812 14.9812 4.04688 14.6719L4.25938 14.5656C5.3875 15.7281 7.20937 16.875 10.0031 16.875C12.7969 16.875 14.6156 15.7281 15.7469 14.5656L15.9594 14.6719C16.575 14.9812 17.3281 14.7312 17.6375 14.1125C17.925 13.5375 17.7281 12.8437 17.1969 12.5031H17.1906ZM4.375 8.66875C4.375 7.26562 4.9375 5.625 6.525 5.625C7.96562 5.625 8.59062 7.075 8.75 7.52812V9.525L5.04062 11.3781C4.57812 10.4594 4.375 9.47813 4.375 8.66875ZM10 14.375C8.60938 14.375 7.51563 13.9719 6.67813 13.3563L10 11.6937L13.3219 13.3563C12.4844 13.975 11.3906 14.375 10 14.375ZM14.9594 11.3781L11.25 9.525V7.53125C11.4125 7.06875 12.0375 5.62813 13.475 5.62813C15.0625 5.62813 15.625 7.26875 15.625 8.67188C15.625 9.48125 15.4187 10.4625 14.9594 11.3812V11.3781Z"
+    }, undefined, false, undefined, this)
+  }, undefined, false, undefined, this)
+};
+var pretzelIcon = createIcon("pretzel", iconDefinition);
+export {
+  pretzelIcon,
+  iconDefinition
+};

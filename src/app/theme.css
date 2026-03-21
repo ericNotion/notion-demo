@@ -1,0 +1,1536 @@
+@import "./palette.css";
+
+@theme static {
+  /* Typography */
+  --text-title-xl: 26px;
+  --text-title-lg: 22px;
+  --text-title: 20px;
+  --text-title-sm: 17px;
+  --text-body-lg: 16px;
+  --text-body: 14px;
+  --text-body-sm: 13px;
+  --text-caption: 12px;
+  --text-caption-sm: 10px;
+
+  /* Neutral */
+  --text-color-primary: light-dark(
+    var(--palette-gray-130),
+    var(--palette-gray-20)
+  );
+  --text-color-secondary: light-dark(
+    var(--palette-gray-90),
+    var(--palette-gray-60)
+  );
+  --text-color-tertiary: light-dark(
+    var(--palette-gray-60),
+    var(--palette-gray-90)
+  );
+  --text-color-disabled: light-dark(
+    var(--palette-gray-40),
+    var(--palette-gray-110)
+  );
+  --text-color-accent-primary: light-dark(
+    var(--palette-gray-80),
+    var(--palette-gray-80)
+  );
+  --text-color-inverse-primary: light-dark(
+    var(--palette-gray-20),
+    var(--palette-gray-20)
+  );
+  --text-color-inverse-secondary: light-dark(
+    var(--palette-gray-60),
+    var(--palette-gray-60)
+  );
+
+  --icon-color-primary: light-dark(
+    var(--palette-gray-110),
+    var(--palette-gray-30)
+  );
+  --icon-color-secondary: light-dark(
+    var(--palette-gray-80),
+    var(--palette-gray-60)
+  );
+  --icon-color-tertiary: light-dark(
+    var(--palette-gray-60),
+    var(--palette-gray-90)
+  );
+  --icon-color-disabled: light-dark(
+    var(--palette-gray-40),
+    var(--palette-gray-110)
+  );
+  --icon-color-accent-primary: light-dark(
+    var(--palette-gray-100),
+    var(--palette-gray-80)
+  );
+  --icon-color-inverse-primary: light-dark(
+    var(--palette-gray-20),
+    var(--palette-gray-20)
+  );
+  --icon-color-inverse-secondary: light-dark(
+    var(--palette-gray-60),
+    var(--palette-gray-60)
+  );
+
+  --border-color-primary: light-dark(
+    var(--palette-gray-30),
+    var(--palette-gray-120)
+  );
+  --border-color-primary-translucent: light-dark(
+    var(--palette-translucent-gray-30),
+    var(--palette-translucent-gray-120)
+  );
+  --border-color-secondary: light-dark(
+    var(--palette-gray-20),
+    var(--palette-gray-130)
+  );
+  --border-color-secondary-translucent: light-dark(
+    var(--palette-translucent-gray-20),
+    var(--palette-translucent-gray-130)
+  );
+  --border-color-inverse-primary: light-dark(
+    var(--palette-gray-100),
+    var(--palette-gray-100)
+  );
+  --border-color-accent-primary: light-dark(
+    var(--palette-gray-80),
+    var(--palette-gray-80)
+  );
+  --border-color-strong: light-dark(
+    var(--palette-gray-40),
+    var(--palette-gray-100)
+  );
+
+  --background-color-primary: light-dark(
+    var(--palette-gray-0),
+    var(--palette-gray-150)
+  );
+  --background-color-secondary: light-dark(
+    var(--palette-gray-10),
+    var(--palette-gray-140)
+  );
+  --background-color-secondary-translucent: light-dark(
+    var(--palette-translucent-gray-10),
+    var(--palette-translucent-gray-140)
+  );
+  --background-color-tertiary: light-dark(
+    var(--palette-gray-20),
+    var(--palette-gray-120)
+  );
+  --background-color-tertiary-translucent: light-dark(
+    var(--palette-translucent-gray-20),
+    var(--palette-translucent-gray-130)
+  );
+  --background-color-elevated: light-dark(
+    var(--palette-gray-0),
+    var(--palette-gray-140)
+  );
+  --background-color-accent-primary: light-dark(
+    var(--palette-gray-130),
+    var(--palette-gray-120)
+  );
+  --background-color-accent-secondary: light-dark(
+    var(--palette-gray-70),
+    var(--palette-gray-70)
+  );
+
+  /* Gray colors */
+  --text-color-gray-primary: light-dark(
+    var(--palette-gray-110),
+    var(--palette-gray-30)
+  );
+  --text-color-gray-secondary: light-dark(
+    var(--palette-gray-90),
+    var(--palette-gray-90)
+  );
+  --text-color-gray-tertiary: light-dark(
+    var(--palette-gray-60),
+    var(--palette-gray-100)
+  );
+  --text-color-gray-disabled: light-dark(
+    var(--palette-gray-40),
+    var(--palette-gray-110)
+  );
+  --text-color-gray-accent-primary: light-dark(
+    var(--palette-gray-80),
+    var(--palette-gray-80)
+  );
+  --text-color-gray-inverse-primary: light-dark(
+    var(--palette-gray-10),
+    var(--palette-gray-10)
+  );
+  --text-color-gray-inverse-secondary: light-dark(
+    var(--palette-gray-40),
+    var(--palette-gray-40)
+  );
+
+  --icon-color-gray-primary: light-dark(
+    var(--palette-gray-130),
+    var(--palette-gray-20)
+  );
+  --icon-color-gray-secondary: light-dark(
+    var(--palette-gray-90),
+    var(--palette-gray-90)
+  );
+  --icon-color-gray-tertiary: light-dark(
+    var(--palette-gray-60),
+    var(--palette-gray-100)
+  );
+  --icon-color-gray-disabled: light-dark(
+    var(--palette-gray-40),
+    var(--palette-gray-110)
+  );
+  --icon-color-gray-accent-primary: light-dark(
+    var(--palette-gray-80),
+    var(--palette-gray-80)
+  );
+  --icon-color-gray-inverse-primary: light-dark(
+    var(--palette-gray-10),
+    var(--palette-gray-10)
+  );
+  --icon-color-gray-inverse-secondary: light-dark(
+    var(--palette-gray-40),
+    var(--palette-gray-40)
+  );
+
+  --border-color-gray-primary: light-dark(
+    var(--palette-gray-30),
+    var(--palette-gray-120)
+  );
+  --border-color-gray-primary-translucent: light-dark(
+    var(--palette-translucent-gray-30),
+    var(--palette-translucent-gray-120)
+  );
+  --border-color-gray-secondary: light-dark(
+    var(--palette-gray-20),
+    var(--palette-gray-130)
+  );
+  --border-color-gray-secondary-translucent: light-dark(
+    var(--palette-translucent-gray-20),
+    var(--palette-translucent-gray-130)
+  );
+  --border-color-gray-inverse-primary: light-dark(
+    var(--palette-gray-100),
+    var(--palette-gray-100)
+  );
+  --border-color-gray-accent-primary: light-dark(
+    var(--palette-gray-80),
+    var(--palette-gray-80)
+  );
+  --border-color-gray-strong: light-dark(
+    var(--palette-gray-40),
+    var(--palette-gray-100)
+  );
+
+  --background-color-gray-primary: light-dark(
+    var(--palette-gray-10),
+    var(--palette-gray-140)
+  );
+  --background-color-gray-primary-translucent: light-dark(
+    var(--palette-translucent-gray-10),
+    var(--palette-translucent-gray-140)
+  );
+  --background-color-gray-secondary: light-dark(
+    var(--palette-gray-20),
+    var(--palette-gray-120)
+  );
+  --background-color-gray-secondary-translucent: light-dark(
+    var(--palette-translucent-gray-20),
+    var(--palette-translucent-gray-120)
+  );
+  --background-color-gray-tertiary: light-dark(
+    var(--palette-gray-30),
+    var(--palette-gray-100)
+  );
+  --background-color-gray-tertiary-translucent: light-dark(
+    var(--palette-translucent-gray-30),
+    var(--palette-translucent-gray-100)
+  );
+  --background-color-gray-elevated: light-dark(
+    var(--palette-gray-0),
+    var(--palette-gray-130)
+  );
+  --background-color-gray-accent-primary: light-dark(
+    var(--palette-gray-80),
+    var(--palette-gray-80)
+  );
+  --background-color-gray-accent-secondary: light-dark(
+    var(--palette-gray-70),
+    var(--palette-gray-70)
+  );
+
+  /* Red colors */
+  --text-color-red-primary: light-dark(
+    var(--palette-red-110),
+    var(--palette-red-20)
+  );
+  --text-color-red-secondary: light-dark(
+    var(--palette-red-90),
+    var(--palette-red-90)
+  );
+  --text-color-red-tertiary: light-dark(
+    var(--palette-red-60),
+    var(--palette-red-100)
+  );
+  --text-color-red-disabled: light-dark(
+    var(--palette-red-40),
+    var(--palette-red-110)
+  );
+  --text-color-red-accent-primary: light-dark(
+    var(--palette-red-80),
+    var(--palette-red-80)
+  );
+  --text-color-red-inverse-primary: light-dark(
+    var(--palette-red-10),
+    var(--palette-red-10)
+  );
+  --text-color-red-inverse-secondary: light-dark(
+    var(--palette-red-40),
+    var(--palette-red-40)
+  );
+
+  --icon-color-red-primary: light-dark(
+    var(--palette-red-110),
+    var(--palette-red-20)
+  );
+  --icon-color-red-secondary: light-dark(
+    var(--palette-red-90),
+    var(--palette-red-60)
+  );
+  --icon-color-red-tertiary: light-dark(
+    var(--palette-red-60),
+    var(--palette-red-90)
+  );
+  --icon-color-red-disabled: light-dark(
+    var(--palette-red-40),
+    var(--palette-red-110)
+  );
+  --icon-color-red-accent-primary: light-dark(
+    var(--palette-red-80),
+    var(--palette-red-80)
+  );
+  --icon-color-red-inverse-primary: light-dark(
+    var(--palette-red-10),
+    var(--palette-red-10)
+  );
+  --icon-color-red-inverse-secondary: light-dark(
+    var(--palette-red-40),
+    var(--palette-red-40)
+  );
+
+  --border-color-red-primary: light-dark(
+    var(--palette-red-30),
+    var(--palette-red-120)
+  );
+  --border-color-red-primary-translucent: light-dark(
+    var(--palette-translucent-red-40),
+    var(--palette-translucent-red-120)
+  );
+  --border-color-red-secondary: light-dark(
+    var(--palette-red-20),
+    var(--palette-red-130)
+  );
+  --border-color-red-secondary-translucent: light-dark(
+    var(--palette-translucent-red-20),
+    var(--palette-translucent-red-130)
+  );
+  --border-color-red-inverse-primary: light-dark(
+    var(--palette-red-100),
+    var(--palette-red-100)
+  );
+  --border-color-red-accent-primary: light-dark(
+    var(--palette-red-80),
+    var(--palette-red-80)
+  );
+  --border-color-red-strong: light-dark(
+    var(--palette-red-40),
+    var(--palette-red-100)
+  );
+
+  --background-color-red-primary: light-dark(
+    var(--palette-red-10),
+    var(--palette-red-140)
+  );
+  --background-color-red-primary-translucent: light-dark(
+    var(--palette-translucent-red-10),
+    var(--palette-translucent-red-140)
+  );
+  --background-color-red-secondary: light-dark(
+    var(--palette-red-20),
+    var(--palette-red-120)
+  );
+  --background-color-red-secondary-translucent: light-dark(
+    var(--palette-translucent-red-20),
+    var(--palette-translucent-red-120)
+  );
+  --background-color-red-tertiary: light-dark(
+    var(--palette-red-30),
+    var(--palette-red-100)
+  );
+  --background-color-red-tertiary-translucent: light-dark(
+    var(--palette-translucent-red-30),
+    var(--palette-translucent-red-100)
+  );
+  --background-color-red-elevated: light-dark(
+    var(--palette-red-0),
+    var(--palette-red-130)
+  );
+  --background-color-red-accent-primary: light-dark(
+    var(--palette-red-80),
+    var(--palette-red-80)
+  );
+  --background-color-red-accent-secondary: light-dark(
+    var(--palette-red-70),
+    var(--palette-red-80)
+  );
+
+  /* Orange */
+  --text-color-orange-primary: light-dark(
+    var(--palette-orange-110),
+    var(--palette-orange-20)
+  );
+  --text-color-orange-secondary: light-dark(
+    var(--palette-orange-90),
+    var(--palette-orange-90)
+  );
+  --text-color-orange-tertiary: light-dark(
+    var(--palette-orange-60),
+    var(--palette-orange-100)
+  );
+  --text-color-orange-disabled: light-dark(
+    var(--palette-orange-40),
+    var(--palette-orange-110)
+  );
+  --text-color-orange-accent-primary: light-dark(
+    var(--palette-orange-80),
+    var(--palette-orange-80)
+  );
+  --text-color-orange-inverse-primary: light-dark(
+    var(--palette-orange-10),
+    var(--palette-orange-10)
+  );
+  --text-color-orange-inverse-secondary: light-dark(
+    var(--palette-orange-40),
+    var(--palette-orange-40)
+  );
+
+  --icon-color-orange-primary: light-dark(
+    var(--palette-orange-110),
+    var(--palette-orange-20)
+  );
+  --icon-color-orange-secondary: light-dark(
+    var(--palette-orange-90),
+    var(--palette-orange-60)
+  );
+  --icon-color-orange-tertiary: light-dark(
+    var(--palette-orange-60),
+    var(--palette-orange-90)
+  );
+  --icon-color-orange-disabled: light-dark(
+    var(--palette-orange-40),
+    var(--palette-orange-110)
+  );
+  --icon-color-orange-accent-primary: light-dark(
+    var(--palette-orange-80),
+    var(--palette-orange-80)
+  );
+  --icon-color-orange-inverse-primary: light-dark(
+    var(--palette-orange-10),
+    var(--palette-orange-10)
+  );
+  --icon-color-orange-inverse-secondary: light-dark(
+    var(--palette-orange-40),
+    var(--palette-orange-40)
+  );
+
+  --border-color-orange-primary: light-dark(
+    var(--palette-orange-30),
+    var(--palette-orange-120)
+  );
+  --border-color-orange-primary-translucent: light-dark(
+    var(--palette-translucent-orange-40),
+    var(--palette-translucent-orange-120)
+  );
+  --border-color-orange-secondary: light-dark(
+    var(--palette-orange-20),
+    var(--palette-orange-130)
+  );
+  --border-color-orange-secondary-translucent: light-dark(
+    var(--palette-translucent-orange-20),
+    var(--palette-translucent-orange-130)
+  );
+  --border-color-orange-inverse-primary: light-dark(
+    var(--palette-orange-100),
+    var(--palette-orange-100)
+  );
+  --border-color-orange-accent-primary: light-dark(
+    var(--palette-orange-80),
+    var(--palette-orange-80)
+  );
+  --border-color-orange-strong: light-dark(
+    var(--palette-orange-40),
+    var(--palette-orange-100)
+  );
+
+  --background-color-orange-primary: light-dark(
+    var(--palette-orange-10),
+    var(--palette-orange-140)
+  );
+  --background-color-orange-primary-translucent: light-dark(
+    var(--palette-translucent-orange-10),
+    var(--palette-translucent-orange-140)
+  );
+  --background-color-orange-secondary: light-dark(
+    var(--palette-orange-20),
+    var(--palette-orange-120)
+  );
+  --background-color-orange-secondary-translucent: light-dark(
+    var(--palette-translucent-orange-20),
+    var(--palette-translucent-orange-120)
+  );
+  --background-color-orange-tertiary: light-dark(
+    var(--palette-orange-30),
+    var(--palette-orange-100)
+  );
+  --background-color-orange-tertiary-translucent: light-dark(
+    var(--palette-translucent-orange-30),
+    var(--palette-translucent-orange-100)
+  );
+  --background-color-orange-elevated: light-dark(
+    var(--palette-orange-0),
+    var(--palette-orange-130)
+  );
+  --background-color-orange-accent-primary: light-dark(
+    var(--palette-orange-80),
+    var(--palette-orange-80)
+  );
+  --background-color-orange-accent-secondary: light-dark(
+    var(--palette-orange-70),
+    var(--palette-orange-70)
+  );
+
+  /* Yellow */
+  --text-color-yellow-primary: light-dark(
+    var(--palette-yellow-110),
+    var(--palette-yellow-20)
+  );
+  --text-color-yellow-secondary: light-dark(
+    var(--palette-yellow-90),
+    var(--palette-yellow-90)
+  );
+  --text-color-yellow-tertiary: light-dark(
+    var(--palette-yellow-60),
+    var(--palette-yellow-100)
+  );
+  --text-color-yellow-disabled: light-dark(
+    var(--palette-yellow-40),
+    var(--palette-yellow-110)
+  );
+  --text-color-yellow-accent-primary: light-dark(
+    var(--palette-yellow-80),
+    var(--palette-yellow-80)
+  );
+  --text-color-yellow-inverse-primary: light-dark(
+    var(--palette-yellow-10),
+    var(--palette-yellow-10)
+  );
+  --text-color-yellow-inverse-secondary: light-dark(
+    var(--palette-yellow-40),
+    var(--palette-yellow-40)
+  );
+
+  --icon-color-yellow-primary: light-dark(
+    var(--palette-yellow-110),
+    var(--palette-yellow-20)
+  );
+  --icon-color-yellow-secondary: light-dark(
+    var(--palette-yellow-90),
+    var(--palette-yellow-60)
+  );
+  --icon-color-yellow-tertiary: light-dark(
+    var(--palette-yellow-60),
+    var(--palette-yellow-90)
+  );
+  --icon-color-yellow-disabled: light-dark(
+    var(--palette-yellow-40),
+    var(--palette-yellow-110)
+  );
+  --icon-color-yellow-accent-primary: light-dark(
+    var(--palette-yellow-80),
+    var(--palette-yellow-80)
+  );
+  --icon-color-yellow-inverse-primary: light-dark(
+    var(--palette-yellow-10),
+    var(--palette-yellow-10)
+  );
+  --icon-color-yellow-inverse-secondary: light-dark(
+    var(--palette-yellow-40),
+    var(--palette-yellow-60)
+  );
+
+  --border-color-yellow-primary: light-dark(
+    var(--palette-yellow-30),
+    var(--palette-yellow-120)
+  );
+  --border-color-yellow-primary-translucent: light-dark(
+    var(--palette-translucent-yellow-40),
+    var(--palette-translucent-yellow-120)
+  );
+  --border-color-yellow-secondary: light-dark(
+    var(--palette-yellow-20),
+    var(--palette-yellow-130)
+  );
+  --border-color-yellow-secondary-translucent: light-dark(
+    var(--palette-translucent-yellow-20),
+    var(--palette-translucent-yellow-130)
+  );
+  --border-color-yellow-inverse-primary: light-dark(
+    var(--palette-yellow-100),
+    var(--palette-yellow-100)
+  );
+  --border-color-yellow-accent-primary: light-dark(
+    var(--palette-yellow-80),
+    var(--palette-yellow-80)
+  );
+  --border-color-yellow-strong: light-dark(
+    var(--palette-yellow-40),
+    var(--palette-yellow-100)
+  );
+
+  --background-color-yellow-primary: light-dark(
+    var(--palette-yellow-10),
+    var(--palette-yellow-140)
+  );
+  --background-color-yellow-primary-translucent: light-dark(
+    var(--palette-translucent-yellow-10),
+    var(--palette-translucent-yellow-140)
+  );
+  --background-color-yellow-secondary: light-dark(
+    var(--palette-yellow-20),
+    var(--palette-yellow-120)
+  );
+  --background-color-yellow-secondary-translucent: light-dark(
+    var(--palette-translucent-yellow-20),
+    var(--palette-translucent-yellow-120)
+  );
+  --background-color-yellow-tertiary: light-dark(
+    var(--palette-yellow-30),
+    var(--palette-yellow-100)
+  );
+  --background-color-yellow-tertiary-translucent: light-dark(
+    var(--palette-translucent-yellow-30),
+    var(--palette-translucent-yellow-100)
+  );
+  --background-color-yellow-elevated: light-dark(
+    var(--palette-yellow-0),
+    var(--palette-yellow-130)
+  );
+  --background-color-yellow-accent-primary: light-dark(
+    var(--palette-yellow-80),
+    var(--palette-yellow-80)
+  );
+  --background-color-yellow-accent-secondary: light-dark(
+    var(--palette-yellow-70),
+    var(--palette-yellow-70)
+  );
+
+  /* Green */
+  --text-color-green-primary: light-dark(
+    var(--palette-green-110),
+    var(--palette-green-20)
+  );
+  --text-color-green-secondary: light-dark(
+    var(--palette-green-90),
+    var(--palette-green-90)
+  );
+  --text-color-green-tertiary: light-dark(
+    var(--palette-green-60),
+    var(--palette-green-100)
+  );
+  --text-color-green-disabled: light-dark(
+    var(--palette-green-40),
+    var(--palette-green-110)
+  );
+  --text-color-green-accent-primary: light-dark(
+    var(--palette-green-80),
+    var(--palette-green-80)
+  );
+  --text-color-green-inverse-primary: light-dark(
+    var(--palette-green-10),
+    var(--palette-green-10)
+  );
+  --text-color-green-inverse-secondary: light-dark(
+    var(--palette-green-40),
+    var(--palette-green-40)
+  );
+
+  --icon-color-green-primary: light-dark(
+    var(--palette-green-110),
+    var(--palette-green-20)
+  );
+  --icon-color-green-secondary: light-dark(
+    var(--palette-green-90),
+    var(--palette-green-60)
+  );
+  --icon-color-green-tertiary: light-dark(
+    var(--palette-green-60),
+    var(--palette-green-90)
+  );
+  --icon-color-green-disabled: light-dark(
+    var(--palette-green-40),
+    var(--palette-green-110)
+  );
+  --icon-color-green-accent-primary: light-dark(
+    var(--palette-green-80),
+    var(--palette-green-80)
+  );
+  --icon-color-green-inverse-primary: light-dark(
+    var(--palette-green-10),
+    var(--palette-green-10)
+  );
+  --icon-color-green-inverse-secondary: light-dark(
+    var(--palette-green-40),
+    var(--palette-green-40)
+  );
+
+  --border-color-green-primary: light-dark(
+    var(--palette-green-30),
+    var(--palette-green-120)
+  );
+  --border-color-green-primary-translucent: light-dark(
+    var(--palette-translucent-green-40),
+    var(--palette-translucent-green-120)
+  );
+  --border-color-green-secondary: light-dark(
+    var(--palette-green-20),
+    var(--palette-green-130)
+  );
+  --border-color-green-secondary-translucent: light-dark(
+    var(--palette-translucent-green-20),
+    var(--palette-translucent-green-130)
+  );
+  --border-color-green-inverse-primary: light-dark(
+    var(--palette-green-100),
+    var(--palette-green-100)
+  );
+  --border-color-green-accent-primary: light-dark(
+    var(--palette-green-80),
+    var(--palette-green-80)
+  );
+  --border-color-green-strong: light-dark(
+    var(--palette-green-40),
+    var(--palette-green-100)
+  );
+
+  --background-color-green-primary: light-dark(
+    var(--palette-green-10),
+    var(--palette-green-140)
+  );
+  --background-color-green-primary-translucent: light-dark(
+    var(--palette-translucent-green-10),
+    var(--palette-translucent-green-140)
+  );
+  --background-color-green-secondary: light-dark(
+    var(--palette-green-20),
+    var(--palette-green-120)
+  );
+  --background-color-green-secondary-translucent: light-dark(
+    var(--palette-translucent-green-20),
+    var(--palette-translucent-green-120)
+  );
+  --background-color-green-tertiary: light-dark(
+    var(--palette-green-30),
+    var(--palette-green-100)
+  );
+  --background-color-green-tertiary-translucent: light-dark(
+    var(--palette-translucent-green-30),
+    var(--palette-translucent-green-100)
+  );
+  --background-color-green-elevated: light-dark(
+    var(--palette-green-0),
+    var(--palette-green-130)
+  );
+  --background-color-green-accent-primary: light-dark(
+    var(--palette-green-80),
+    var(--palette-green-80)
+  );
+  --background-color-green-accent-secondary: light-dark(
+    var(--palette-green-70),
+    var(--palette-green-70)
+  );
+
+  /* Teal */
+  --text-color-teal-primary: light-dark(
+    var(--palette-teal-110),
+    var(--palette-teal-20)
+  );
+  --text-color-teal-secondary: light-dark(
+    var(--palette-teal-90),
+    var(--palette-teal-90)
+  );
+  --text-color-teal-tertiary: light-dark(
+    var(--palette-teal-60),
+    var(--palette-teal-100)
+  );
+  --text-color-teal-disabled: light-dark(
+    var(--palette-teal-40),
+    var(--palette-teal-110)
+  );
+  --text-color-teal-accent-primary: light-dark(
+    var(--palette-teal-80),
+    var(--palette-teal-80)
+  );
+  --text-color-teal-inverse-primary: light-dark(
+    var(--palette-teal-10),
+    var(--palette-teal-10)
+  );
+  --text-color-teal-inverse-secondary: light-dark(
+    var(--palette-teal-40),
+    var(--palette-teal-40)
+  );
+
+  --icon-color-teal-primary: light-dark(
+    var(--palette-teal-110),
+    var(--palette-teal-20)
+  );
+  --icon-color-teal-secondary: light-dark(
+    var(--palette-teal-90),
+    var(--palette-teal-60)
+  );
+  --icon-color-teal-tertiary: light-dark(
+    var(--palette-teal-60),
+    var(--palette-teal-90)
+  );
+  --icon-color-teal-disabled: light-dark(
+    var(--palette-teal-40),
+    var(--palette-teal-110)
+  );
+  --icon-color-teal-accent-primary: light-dark(
+    var(--palette-teal-80),
+    var(--palette-teal-80)
+  );
+  --icon-color-teal-inverse-primary: light-dark(
+    var(--palette-teal-10),
+    var(--palette-teal-10)
+  );
+  --icon-color-teal-inverse-secondary: light-dark(
+    var(--palette-teal-40),
+    var(--palette-teal-40)
+  );
+
+  --border-color-teal-primary: light-dark(
+    var(--palette-teal-30),
+    var(--palette-teal-120)
+  );
+  --border-color-teal-primary-translucent: light-dark(
+    var(--palette-translucent-teal-40),
+    var(--palette-translucent-teal-120)
+  );
+  --border-color-teal-secondary: light-dark(
+    var(--palette-teal-20),
+    var(--palette-teal-130)
+  );
+  --border-color-teal-secondary-translucent: light-dark(
+    var(--palette-translucent-teal-20),
+    var(--palette-translucent-teal-130)
+  );
+  --border-color-teal-inverse-primary: light-dark(
+    var(--palette-teal-100),
+    var(--palette-teal-100)
+  );
+  --border-color-teal-accent-primary: light-dark(
+    var(--palette-teal-80),
+    var(--palette-teal-80)
+  );
+  --border-color-teal-strong: light-dark(
+    var(--palette-teal-40),
+    var(--palette-teal-100)
+  );
+
+  --background-color-teal-primary: light-dark(
+    var(--palette-teal-10),
+    var(--palette-teal-140)
+  );
+  --background-color-teal-primary-translucent: light-dark(
+    var(--palette-translucent-teal-10),
+    var(--palette-translucent-teal-140)
+  );
+  --background-color-teal-secondary: light-dark(
+    var(--palette-teal-20),
+    var(--palette-teal-120)
+  );
+  --background-color-teal-secondary-translucent: light-dark(
+    var(--palette-translucent-teal-20),
+    var(--palette-translucent-teal-120)
+  );
+  --background-color-teal-tertiary: light-dark(
+    var(--palette-teal-30),
+    var(--palette-teal-100)
+  );
+  --background-color-teal-tertiary-translucent: light-dark(
+    var(--palette-translucent-teal-30),
+    var(--palette-translucent-teal-100)
+  );
+  --background-color-teal-elevated: light-dark(
+    var(--palette-teal-0),
+    var(--palette-teal-130)
+  );
+  --background-color-teal-accent-primary: light-dark(
+    var(--palette-teal-80),
+    var(--palette-teal-80)
+  );
+  --background-color-teal-accent-secondary: light-dark(
+    var(--palette-teal-70),
+    var(--palette-teal-70)
+  );
+
+  /* Blue */
+  --text-color-blue-primary: light-dark(
+    var(--palette-blue-110),
+    var(--palette-blue-20)
+  );
+  --text-color-blue-secondary: light-dark(
+    var(--palette-blue-90),
+    var(--palette-blue-90)
+  );
+  --text-color-blue-tertiary: light-dark(
+    var(--palette-blue-60),
+    var(--palette-blue-100)
+  );
+  --text-color-blue-disabled: light-dark(
+    var(--palette-blue-40),
+    var(--palette-blue-110)
+  );
+  --text-color-blue-accent-primary: light-dark(
+    var(--palette-blue-80),
+    var(--palette-blue-80)
+  );
+  --text-color-blue-inverse-primary: light-dark(
+    var(--palette-blue-10),
+    var(--palette-blue-10)
+  );
+  --text-color-blue-inverse-secondary: light-dark(
+    var(--palette-blue-40),
+    var(--palette-blue-40)
+  );
+
+  --icon-color-blue-primary: light-dark(
+    var(--palette-blue-110),
+    var(--palette-blue-20)
+  );
+  --icon-color-blue-secondary: light-dark(
+    var(--palette-blue-90),
+    var(--palette-blue-60)
+  );
+  --icon-color-blue-tertiary: light-dark(
+    var(--palette-blue-60),
+    var(--palette-blue-90)
+  );
+  --icon-color-blue-disabled: light-dark(
+    var(--palette-blue-40),
+    var(--palette-blue-110)
+  );
+  --icon-color-blue-accent-primary: light-dark(
+    var(--palette-blue-80),
+    var(--palette-blue-80)
+  );
+  --icon-color-blue-inverse-primary: light-dark(
+    var(--palette-blue-10),
+    var(--palette-blue-10)
+  );
+  --icon-color-blue-inverse-secondary: light-dark(
+    var(--palette-blue-40),
+    var(--palette-blue-40)
+  );
+
+  --border-color-blue-primary: light-dark(
+    var(--palette-blue-30),
+    var(--palette-blue-120)
+  );
+  --border-color-blue-primary-translucent: light-dark(
+    var(--palette-translucent-blue-40),
+    var(--palette-translucent-blue-120)
+  );
+  --border-color-blue-secondary: light-dark(
+    var(--palette-blue-20),
+    var(--palette-blue-130)
+  );
+  --border-color-blue-secondary-translucent: light-dark(
+    var(--palette-translucent-blue-20),
+    var(--palette-translucent-blue-130)
+  );
+  --border-color-blue-inverse-primary: light-dark(
+    var(--palette-blue-100),
+    var(--palette-blue-100)
+  );
+  --border-color-blue-accent-primary: light-dark(
+    var(--palette-blue-80),
+    var(--palette-blue-80)
+  );
+  --border-color-blue-strong: light-dark(
+    var(--palette-blue-40),
+    var(--palette-blue-100)
+  );
+
+  --background-color-blue-primary: light-dark(
+    var(--palette-blue-10),
+    var(--palette-blue-140)
+  );
+  --background-color-blue-primary-translucent: light-dark(
+    var(--palette-translucent-blue-10),
+    var(--palette-translucent-blue-140)
+  );
+  --background-color-blue-secondary: light-dark(
+    var(--palette-blue-20),
+    var(--palette-blue-120)
+  );
+  --background-color-blue-secondary-translucent: light-dark(
+    var(--palette-translucent-blue-20),
+    var(--palette-translucent-blue-120)
+  );
+  --background-color-blue-tertiary: light-dark(
+    var(--palette-blue-30),
+    var(--palette-blue-100)
+  );
+  --background-color-blue-tertiary-translucent: light-dark(
+    var(--palette-translucent-blue-30),
+    var(--palette-translucent-blue-100)
+  );
+  --background-color-blue-elevated: light-dark(
+    var(--palette-blue-0),
+    var(--palette-blue-130)
+  );
+  --background-color-blue-accent-primary: light-dark(
+    var(--palette-blue-80),
+    var(--palette-blue-80)
+  );
+  --background-color-blue-accent-secondary: light-dark(
+    var(--palette-blue-70),
+    var(--palette-blue-70)
+  );
+
+  /* Purple */
+  --text-color-purple-primary: light-dark(
+    var(--palette-purple-110),
+    var(--palette-purple-20)
+  );
+  --text-color-purple-secondary: light-dark(
+    var(--palette-purple-90),
+    var(--palette-purple-90)
+  );
+  --text-color-purple-tertiary: light-dark(
+    var(--palette-purple-60),
+    var(--palette-purple-100)
+  );
+  --text-color-purple-disabled: light-dark(
+    var(--palette-purple-40),
+    var(--palette-purple-110)
+  );
+  --text-color-purple-accent-primary: light-dark(
+    var(--palette-purple-80),
+    var(--palette-purple-80)
+  );
+  --text-color-purple-inverse-primary: light-dark(
+    var(--palette-purple-10),
+    var(--palette-purple-10)
+  );
+  --text-color-purple-inverse-secondary: light-dark(
+    var(--palette-purple-40),
+    var(--palette-purple-40)
+  );
+
+  --icon-color-purple-primary: light-dark(
+    var(--palette-purple-110),
+    var(--palette-purple-20)
+  );
+  --icon-color-purple-secondary: light-dark(
+    var(--palette-purple-90),
+    var(--palette-purple-90)
+  );
+  --icon-color-purple-tertiary: light-dark(
+    var(--palette-purple-60),
+    var(--palette-purple-90)
+  );
+  --icon-color-purple-disabled: light-dark(
+    var(--palette-purple-40),
+    var(--palette-purple-110)
+  );
+  --icon-color-purple-accent-primary: light-dark(
+    var(--palette-purple-80),
+    var(--palette-purple-80)
+  );
+  --icon-color-purple-inverse-primary: light-dark(
+    var(--palette-purple-10),
+    var(--palette-purple-10)
+  );
+  --icon-color-purple-inverse-secondary: light-dark(
+    var(--palette-purple-40),
+    var(--palette-purple-40)
+  );
+
+  --border-color-purple-primary: light-dark(
+    var(--palette-purple-30),
+    var(--palette-purple-120)
+  );
+  --border-color-purple-primary-translucent: light-dark(
+    var(--palette-translucent-purple-40),
+    var(--palette-translucent-purple-120)
+  );
+  --border-color-purple-secondary: light-dark(
+    var(--palette-purple-20),
+    var(--palette-purple-130)
+  );
+  --border-color-purple-secondary-translucent: light-dark(
+    var(--palette-translucent-purple-20),
+    var(--palette-translucent-purple-130)
+  );
+  --border-color-purple-inverse-primary: light-dark(
+    var(--palette-purple-100),
+    var(--palette-purple-100)
+  );
+  --border-color-purple-accent-primary: light-dark(
+    var(--palette-purple-80),
+    var(--palette-purple-80)
+  );
+  --border-color-purple-strong: light-dark(
+    var(--palette-purple-40),
+    var(--palette-purple-100)
+  );
+
+  --background-color-purple-primary: light-dark(
+    var(--palette-purple-10),
+    var(--palette-purple-140)
+  );
+  --background-color-purple-primary-translucent: light-dark(
+    var(--palette-translucent-purple-10),
+    var(--palette-translucent-purple-140)
+  );
+  --background-color-purple-secondary: light-dark(
+    var(--palette-purple-20),
+    var(--palette-purple-120)
+  );
+  --background-color-purple-secondary-translucent: light-dark(
+    var(--palette-translucent-purple-20),
+    var(--palette-translucent-purple-120)
+  );
+  --background-color-purple-tertiary: light-dark(
+    var(--palette-purple-30),
+    var(--palette-purple-100)
+  );
+  --background-color-purple-tertiary-translucent: light-dark(
+    var(--palette-translucent-purple-30),
+    var(--palette-translucent-purple-100)
+  );
+  --background-color-purple-elevated: light-dark(
+    var(--palette-purple-0),
+    var(--palette-purple-130)
+  );
+  --background-color-purple-accent-primary: light-dark(
+    var(--palette-purple-80),
+    var(--palette-purple-80)
+  );
+  --background-color-purple-accent-secondary: light-dark(
+    var(--palette-purple-70),
+    var(--palette-purple-70)
+  );
+
+  /* Pink */
+  --text-color-pink-primary: light-dark(
+    var(--palette-pink-110),
+    var(--palette-pink-20)
+  );
+  --text-color-pink-secondary: light-dark(
+    var(--palette-pink-90),
+    var(--palette-pink-90)
+  );
+  --text-color-pink-tertiary: light-dark(
+    var(--palette-pink-60),
+    var(--palette-pink-100)
+  );
+  --text-color-pink-disabled: light-dark(
+    var(--palette-pink-40),
+    var(--palette-pink-110)
+  );
+  --text-color-pink-accent-primary: light-dark(
+    var(--palette-pink-80),
+    var(--palette-pink-80)
+  );
+  --text-color-pink-inverse-primary: light-dark(
+    var(--palette-pink-10),
+    var(--palette-pink-10)
+  );
+  --text-color-pink-inverse-secondary: light-dark(
+    var(--palette-pink-40),
+    var(--palette-pink-40)
+  );
+
+  --icon-color-pink-primary: light-dark(
+    var(--palette-pink-110),
+    var(--palette-pink-20)
+  );
+  --icon-color-pink-secondary: light-dark(
+    var(--palette-pink-90),
+    var(--palette-pink-60)
+  );
+  --icon-color-pink-tertiary: light-dark(
+    var(--palette-pink-60),
+    var(--palette-pink-90)
+  );
+  --icon-color-pink-disabled: light-dark(
+    var(--palette-pink-40),
+    var(--palette-pink-110)
+  );
+  --icon-color-pink-accent-primary: light-dark(
+    var(--palette-pink-80),
+    var(--palette-pink-80)
+  );
+  --icon-color-pink-inverse-primary: light-dark(
+    var(--palette-pink-10),
+    var(--palette-pink-10)
+  );
+  --icon-color-pink-inverse-secondary: light-dark(
+    var(--palette-pink-40),
+    var(--palette-pink-40)
+  );
+
+  --border-color-pink-primary: light-dark(
+    var(--palette-pink-30),
+    var(--palette-pink-120)
+  );
+  --border-color-pink-primary-translucent: light-dark(
+    var(--palette-translucent-pink-40),
+    var(--palette-translucent-pink-120)
+  );
+  --border-color-pink-secondary: light-dark(
+    var(--palette-pink-20),
+    var(--palette-pink-130)
+  );
+  --border-color-pink-secondary-translucent: light-dark(
+    var(--palette-translucent-pink-20),
+    var(--palette-translucent-pink-130)
+  );
+  --border-color-pink-inverse-primary: light-dark(
+    var(--palette-pink-100),
+    var(--palette-pink-100)
+  );
+  --border-color-pink-accent-primary: light-dark(
+    var(--palette-pink-80),
+    var(--palette-pink-80)
+  );
+  --border-color-pink-strong: light-dark(
+    var(--palette-pink-40),
+    var(--palette-pink-100)
+  );
+
+  --background-color-pink-primary: light-dark(
+    var(--palette-pink-10),
+    var(--palette-pink-140)
+  );
+  --background-color-pink-primary-translucent: light-dark(
+    var(--palette-translucent-pink-10),
+    var(--palette-translucent-pink-140)
+  );
+  --background-color-pink-secondary: light-dark(
+    var(--palette-pink-20),
+    var(--palette-pink-120)
+  );
+  --background-color-pink-secondary-translucent: light-dark(
+    var(--palette-translucent-pink-20),
+    var(--palette-translucent-pink-120)
+  );
+  --background-color-pink-tertiary: light-dark(
+    var(--palette-pink-30),
+    var(--palette-pink-100)
+  );
+  --background-color-pink-tertiary-translucent: light-dark(
+    var(--palette-translucent-pink-30),
+    var(--palette-translucent-pink-100)
+  );
+  --background-color-pink-elevated: light-dark(
+    var(--palette-pink-0),
+    var(--palette-pink-130)
+  );
+  --background-color-pink-accent-primary: light-dark(
+    var(--palette-pink-80),
+    var(--palette-pink-80)
+  );
+  --background-color-pink-accent-secondary: light-dark(
+    var(--palette-pink-70),
+    var(--palette-pink-70)
+  );
+
+  /* Brown */
+  --text-color-brown-primary: light-dark(
+    var(--palette-brown-110),
+    var(--palette-brown-20)
+  );
+  --text-color-brown-secondary: light-dark(
+    var(--palette-brown-90),
+    var(--palette-brown-90)
+  );
+  --text-color-brown-tertiary: light-dark(
+    var(--palette-brown-60),
+    var(--palette-brown-100)
+  );
+  --text-color-brown-disabled: light-dark(
+    var(--palette-brown-40),
+    var(--palette-brown-110)
+  );
+  --text-color-brown-accent-primary: light-dark(
+    var(--palette-brown-80),
+    var(--palette-brown-80)
+  );
+  --text-color-brown-inverse-primary: light-dark(
+    var(--palette-brown-10),
+    var(--palette-brown-10)
+  );
+  --text-color-brown-inverse-secondary: light-dark(
+    var(--palette-brown-40),
+    var(--palette-brown-40)
+  );
+
+  --icon-color-brown-primary: light-dark(
+    var(--palette-brown-110),
+    var(--palette-brown-20)
+  );
+  --icon-color-brown-secondary: light-dark(
+    var(--palette-brown-90),
+    var(--palette-brown-60)
+  );
+  --icon-color-brown-tertiary: light-dark(
+    var(--palette-brown-60),
+    var(--palette-brown-90)
+  );
+  --icon-color-brown-disabled: light-dark(
+    var(--palette-brown-40),
+    var(--palette-brown-110)
+  );
+  --icon-color-brown-accent-primary: light-dark(
+    var(--palette-brown-80),
+    var(--palette-brown-80)
+  );
+  --icon-color-brown-inverse-primary: light-dark(
+    var(--palette-brown-10),
+    var(--palette-brown-10)
+  );
+  --icon-color-brown-inverse-secondary: light-dark(
+    var(--palette-brown-40),
+    var(--palette-brown-40)
+  );
+
+  --border-color-brown-primary: light-dark(
+    var(--palette-brown-30),
+    var(--palette-brown-120)
+  );
+  --border-color-brown-primary-translucent: light-dark(
+    var(--palette-translucent-brown-40),
+    var(--palette-translucent-brown-120)
+  );
+  --border-color-brown-secondary: light-dark(
+    var(--palette-brown-20),
+    var(--palette-brown-130)
+  );
+  --border-color-brown-secondary-translucent: light-dark(
+    var(--palette-translucent-brown-20),
+    var(--palette-translucent-brown-130)
+  );
+  --border-color-brown-inverse-primary: light-dark(
+    var(--palette-brown-100),
+    var(--palette-brown-100)
+  );
+  --border-color-brown-accent-primary: light-dark(
+    var(--palette-brown-80),
+    var(--palette-brown-80)
+  );
+  --border-color-brown-strong: light-dark(
+    var(--palette-brown-40),
+    var(--palette-brown-100)
+  );
+
+  --background-color-brown-primary: light-dark(
+    var(--palette-brown-10),
+    var(--palette-brown-140)
+  );
+  --background-color-brown-primary-translucent: light-dark(
+    var(--palette-translucent-brown-10),
+    var(--palette-translucent-brown-140)
+  );
+  --background-color-brown-secondary: light-dark(
+    var(--palette-brown-20),
+    var(--palette-brown-120)
+  );
+  --background-color-brown-secondary-translucent: light-dark(
+    var(--palette-translucent-brown-20),
+    var(--palette-translucent-brown-120)
+  );
+  --background-color-brown-tertiary: light-dark(
+    var(--palette-brown-30),
+    var(--palette-brown-100)
+  );
+  --background-color-brown-tertiary-translucent: light-dark(
+    var(--palette-translucent-brown-30),
+    var(--palette-translucent-brown-100)
+  );
+  --background-color-brown-elevated: light-dark(
+    var(--palette-brown-0),
+    var(--palette-brown-130)
+  );
+  --background-color-brown-accent-primary: light-dark(
+    var(--palette-brown-80),
+    var(--palette-brown-80)
+  );
+  --background-color-brown-accent-secondary: light-dark(
+    var(--palette-brown-70),
+    var(--palette-brown-70)
+  );
+
+  /* Shadows */
+  --shadow-sm:
+    0px 4px 12px 0px rgba(25, 25, 25, 0.029),
+    0px 1px 2px 0px rgba(25, 25, 25, 0.019);
+  --shadow-sm-outline:
+    0px 2px 4px 0px rgba(0, 0, 0, 0.039), 0px 0px 0px 1px rgba(42, 28, 0, 0.07);
+  --shadow-md:
+    0px 8px 12px 0px rgba(25, 25, 25, 0.029),
+    0px 2px 6px 0px rgba(25, 25, 25, 0.029);
+  --shadow-md-outline:
+    0px 8px 12px 0px rgba(25, 25, 25, 0.029),
+    0px 2px 6px 0px rgba(25, 25, 25, 0.029),
+    0px 0px 0px 1px rgba(42, 28, 0, 0.07);
+  --shadow-lg:
+    0px 20px 24px 0px rgba(25, 25, 25, 0.05),
+    0px 5px 8px 0px rgba(25, 25, 25, 0.029);
+  --shadow-lg-outline:
+    0px 20px 24px 0px rgba(25, 25, 25, 0.05),
+    0px 5px 8px 0px rgba(25, 25, 25, 0.029),
+    0px 0px 0px 1px rgba(42, 28, 0, 0.07);
+  --shadow-diffuse: 0px 12px 32px 0px rgba(25, 25, 25, 0.029);
+  --shadow-diffuse-outline:
+    0px 12px 32px 0px rgba(25, 25, 25, 0.029),
+    0px 0px 0px 1px rgba(42, 28, 0, 0.07);
+  --shadow-scrim:
+    0px 24px 48px 0px rgba(25, 25, 25, 0.239),
+    0px 4px 12px 0px rgba(25, 25, 25, 0.14);
+  --shadow-scrim-outline:
+    0px 24px 48px 0px rgba(25, 25, 25, 0.239),
+    0px 4px 12px 0px rgba(25, 25, 25, 0.14),
+    0px 0px 0px 1px rgba(42, 28, 0, 0.07);
+
+  /* Miscellaneous */
+  --primary-sidebar-width: 256px;
+  --color-neutral-750: #1c1c1c;
+  --scrollbar-color: light-dark(
+    var(--color-neutral-300),
+    var(--color-neutral-600)
+  );
+
+  /* DEPRECATED */
+  --background-color-main: light-dark(
+    var(--color-white),
+    var(--color-neutral-950)
+  );
+  --background-color-quaternary: light-dark(
+    var(--color-neutral-200),
+    var(--color-neutral-750)
+  );
+}
+
+/* Override shadows in dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Base shadows (dark) */
+    --shadow-sm: 0px 4px 12px 0px rgba(25, 25, 25, 0.4);
+    --shadow-md:
+      0px 8px 12px 0px rgba(25, 25, 25, 0.4),
+      0px 2px 6px 0px rgba(25, 25, 25, 0.4);
+    --shadow-lg:
+      0px 20px 24px 0px rgba(25, 25, 25, 0.4),
+      0px 5px 8px 0px rgba(25, 25, 25, 0.4);
+    --shadow-diffuse: 0px 12px 32px 0px rgba(25, 25, 25, 0.4);
+    --shadow-scrim:
+      0px 24px 48px 0px rgba(25, 25, 25, 0.639),
+      0px 4px 12px 0px rgba(25, 25, 25, 0.56);
+
+    /* Outline variants (dark) */
+    --shadow-sm-outline:
+      0px 4px 12px 0px rgba(25, 25, 25, 0.4),
+      inset 0px 0px 0px 1px rgba(253, 253, 253, 0.074);
+    --shadow-md-outline:
+      0px 8px 12px 0px rgba(25, 25, 25, 0.4),
+      0px 2px 6px 0px rgba(25, 25, 25, 0.4),
+      inset 0px 0px 0px 1px rgba(253, 253, 253, 0.074);
+    --shadow-lg-outline:
+      0px 20px 24px 0px rgba(25, 25, 25, 0.4),
+      0px 5px 8px 0px rgba(25, 25, 25, 0.4),
+      inset 0px 0px 0px 1px rgba(253, 253, 253, 0.074);
+    --shadow-diffuse-outline:
+      0px 12px 32px 0px rgba(25, 25, 25, 0.4),
+      inset 0px 0px 0px 1px rgba(253, 253, 253, 0.074);
+    --shadow-scrim-outline:
+      0px 24px 48px 0px rgba(25, 25, 25, 0.639),
+      0px 4px 12px 0px rgba(25, 25, 25, 0.56),
+      inset 0px 0px 0px 1px rgba(253, 253, 253, 0.074);
+  }
+}
+
+@layer utilities {
+  .content-page-title {
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .content-full-page-database-title {
+    font-size: 32px;
+    line-height: 38.4px;
+    font-weight: 700;
+  }
+
+  .content-inline-database-title {
+    font-size: 22px;
+    line-height: 33px;
+    font-weight: 700;
+  }
+
+  .content-h1 {
+    font-size: 30px;
+    line-height: 39px;
+    font-weight: 600;
+  }
+
+  .content-h2 {
+    font-size: 24px;
+    line-height: 31.2px;
+    font-weight: 600;
+  }
+
+  .content-h3 {
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 600;
+  }
+
+  .content-mention {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+  }
+
+  .content-text-block {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+  }
+
+  .content-simple-table-text {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+  }
+
+  .content-text-block-bold {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+}

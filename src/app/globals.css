@@ -1,0 +1,217 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@import "./theme.css";
+
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  :root {
+    /* Required for light-dark() CSS function to work with Turbopack's Lightning CSS */
+    color-scheme: light dark;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+    font-synthesis-weight: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-color) transparent;
+  }
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--border-color-primary, currentColor);
+  }
+
+  :focus-visible {
+    outline-color: #2383e2;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  @keyframes bounce {
+    from,
+    to {
+      transform: translateY(0);
+      animation-timing-function: ease-in-out;
+    }
+    50% {
+      transform: translateY(-3px);
+      animation-timing-function: ease-in-out;
+    }
+  }
+
+  @keyframes wave-progress {
+    0% {
+      stroke-dashoffset: 80;
+    }
+    100% {
+      stroke-dashoffset: -62000;
+    }
+  }
+
+  @keyframes slide-right-to-left {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  @keyframes slide-right-to-left-alt {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
+
+  @keyframes text-shimmer {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
+
+  @keyframes subtlePulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.4;
+    }
+    50% {
+      transform: scale(1.08);
+      opacity: 0.75;
+    }
+  }
+  @keyframes fadeInIndicator {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeOutIndicator {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+}
+
+@utility animate-shimmer {
+  animation: shimmer 3s linear infinite;
+}
+
+@utility shadow-agent {
+  box-shadow:
+    rgba(0, 0, 0, 0.08) 0px 4px 12px -2px,
+    rgba(84, 72, 49, 0.08) 0px 0px 0px 1px;
+}
+
+@utility shadow-contrast {
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.04),
+    inset 0 0.5px 0 0 rgba(255, 255, 255, 0.04),
+    0 -1px 1px 0px rgba(0, 0, 0, 0.1),
+    0 1px 3px 0px rgba(0, 0, 0, 0.5);
+}
+
+@utility scrollbar-gutter-stable {
+  scrollbar-gutter: "stable";
+}
+
+/* Body text link styling */
+@utility link-body {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--text-color-quaternary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  word-break: break-word;
+}
+
+.link-body:hover {
+  color: var(--text-color-primary);
+}
+
+/* Fill utilities for icons using color="inherit" */
+@utility fill-primary {
+  fill: var(--icon-color-primary);
+}
+
+@utility fill-secondary {
+  fill: var(--icon-color-secondary);
+}
+
+@utility fill-tertiary {
+  fill: var(--icon-color-tertiary);
+}
+
+@utility fill-disabled {
+  fill: var(--icon-color-disabled);
+}
+
+:root {
+  --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
+.dark {
+  --sidebar: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
+@theme inline {
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}

@@ -1,0 +1,5 @@
+@layer base {
+  .debug {
+    border: 1px solid red;
+  }
+}

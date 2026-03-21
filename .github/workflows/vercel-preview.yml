@@ -1,0 +1,156 @@
+name: Vercel Preview Deployment
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: vercel-preview-${{ github.head_ref }}
+  cancel-in-progress: true
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  NEXT_TELEMETRY_DISABLED: 1
+  SVG_BASE_URL: https://pub-eef0cca6006347b0a289d0278153f6c8.r2.dev
+  VERCEL_DASHBOARD_URL: https://vercel.com/notionhq/prototype-playground
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Post Building Comment
+        id: comment
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const sha = context.payload.pull_request.head.sha.substring(0, 7);
+            const svgBase = '${{ env.SVG_BASE_URL }}';
+            const dashboardUrl = '${{ env.VERCEL_DASHBOARD_URL }}';
+
+            const body = `### Vercel Preview Deployment
+
+            [![Building](${svgBase}/preview-building-light.svg)](${dashboardUrl})
+
+            **Commit:** \`${sha}\``;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('Vercel Preview Deployment')
+            );
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body
+              });
+              return botComment.id;
+            } else {
+              const { data: newComment } = await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body
+              });
+              return newComment.id;
+            }
+          result-encoding: string
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
+        with:
+          bun-version: 1.2.0
+
+      - name: Cache bun dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel@50.32.4
+
+      - name: Cache Next.js build
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lockb') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lockb') }}-
+
+      - name: Pull Vercel Environment
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel
+        id: deploy
+        run: |
+          OUTPUT=$(vercel deploy --prebuilt --archive=tgz --token=${{ secrets.VERCEL_TOKEN }} 2>&1)
+          echo "$OUTPUT"
+          DEPLOYMENT_URL=$(echo "$OUTPUT" | grep -Eo 'https://[^ ]+\.vercel\.app' | tail -1)
+          if [ -z "$DEPLOYMENT_URL" ]; then
+            DEPLOYMENT_URL=$(echo "$OUTPUT" | grep -Eo 'https://[^ ]+' | tail -1)
+          fi
+          echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+
+      - name: Update Comment - Success
+        if: success() && steps.comment.outputs.result
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const sha = context.payload.pull_request.head.sha.substring(0, 7);
+            const svgBase = '${{ env.SVG_BASE_URL }}';
+            const deploymentUrl = '${{ steps.deploy.outputs.url }}';
+
+            const body = `### Vercel Preview Deployment
+
+            [![Preview Ready](${svgBase}/preview-ready-light.svg)](${deploymentUrl})
+
+            **Commit:** \`${sha}\``;
+
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: ${{ steps.comment.outputs.result }},
+              body
+            });
+
+      - name: Update Comment - Failure
+        if: failure() && steps.comment.outputs.result
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const sha = context.payload.pull_request.head.sha.substring(0, 7);
+            const svgBase = '${{ env.SVG_BASE_URL }}';
+            const logsUrl = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
+
+            const body = `### Vercel Preview Deployment
+
+            [![Preview Failed](${svgBase}/preview-failed-light.svg)](${logsUrl})
+
+            **Commit:** \`${sha}\``;
+
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: ${{ steps.comment.outputs.result }},
+              body
+            });
