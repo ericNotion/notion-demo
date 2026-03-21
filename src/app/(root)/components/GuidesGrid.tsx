@@ -1,6 +1,12 @@
 "use client";
 
-import type { Guide } from "@/lib/notion";
+type Guide = {
+  id: string;
+  title: string;
+  slug: string;
+  coverUrl?: string;
+  description?: string;
+};
 import Link from "next/link";
 
 interface GuidesGridProps {

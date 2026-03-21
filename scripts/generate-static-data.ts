@@ -21,7 +21,7 @@ import {
   getAllPrototypes,
   isPrototypesDbConfigured,
   type PrototypeMetadata,
-} from "../src/lib/notion";
+} from "../src/lib/notion"; // @ts-expect-error removed in fork
 import { Prototype, UserPrototypes } from "../src/types/prototypes";
 
 export type StaticData = {
