@@ -1,13 +1,22 @@
+import { Icon } from "@nds-icons";
+import type { LoadedIconFunction } from "@nds-icons";
 import Image from "next/image";
 
 interface AgentItemProps {
   name: string;
   color?: string;
   avatar?: string;
+  icon?: LoadedIconFunction;
   onClick?: () => void;
 }
 
-export function AgentItem({ name, color, avatar, onClick }: AgentItemProps) {
+export function AgentItem({
+  name,
+  color,
+  avatar,
+  icon,
+  onClick,
+}: AgentItemProps) {
   return (
     <button
       type="button"
@@ -23,6 +32,8 @@ export function AgentItem({ name, color, avatar, onClick }: AgentItemProps) {
             height={20}
             className="size-5 shrink-0 rounded-full"
           />
+        ) : icon ? (
+          <Icon icon={icon} size={20} color="secondary" />
         ) : (
           <div
             className="size-5 shrink-0 rounded-full"

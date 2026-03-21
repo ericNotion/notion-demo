@@ -233,6 +233,7 @@ function HomeContent({ onNewAgent }: { onNewAgent: () => void }) {
               key={agent.id}
               name={agent.name}
               avatar={agent.avatar || undefined}
+              icon={agent.icon}
               onClick={() =>
                 router.push(`/eric/notion-clone/chat?agent=${agent.id}`)
               }

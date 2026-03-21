@@ -3,6 +3,11 @@ import type {
   InboxNotification,
   MeetingGroup,
 } from "@/components/notion-kit/SlipperySidebar";
+import type { LoadedIconFunction } from "@nds-icons";
+import { checkStackIcon } from "@nds-icons/checkStack/default.icon";
+import { codeIcon } from "@nds-icons/code/default.icon";
+import { paperMicrophoneIcon } from "@nds-icons/paperMicrophone/default.icon";
+import { sparklesIcon } from "@nds-icons/sparkles/default.icon";
 
 const BASE = "/eric/notion-clone";
 
@@ -24,6 +29,7 @@ export type Agent = {
   tools: string[];
   model: string;
   category: "custom" | "workspace" | "notion";
+  icon?: LoadedIconFunction;
 };
 
 export const pages: PageEntry[] = [
@@ -121,6 +127,7 @@ export const agents: Agent[] = [
     tools: ["notionSearch", "createPages"],
     model: "gpt-4.1",
     category: "workspace",
+    icon: paperMicrophoneIcon,
   },
   {
     id: "4",
@@ -133,6 +140,7 @@ export const agents: Agent[] = [
     tools: ["notionSearch"],
     model: "gpt-4.1-mini",
     category: "custom",
+    icon: checkStackIcon,
   },
   {
     id: "5",
@@ -145,6 +153,7 @@ export const agents: Agent[] = [
     tools: ["deepResearch", "webBrowsing"],
     model: "claude-4.5-sonnet",
     category: "custom",
+    icon: codeIcon,
   },
   {
     id: "6",
@@ -157,6 +166,7 @@ export const agents: Agent[] = [
     tools: ["notionSearch", "deepResearch", "webBrowsing", "createPages"],
     model: "auto",
     category: "notion",
+    icon: sparklesIcon,
   },
 ];
 
