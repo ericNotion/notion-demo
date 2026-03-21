@@ -2,11 +2,51 @@
 import { promises as fs } from "fs";
 import path from "path";
 
-import {
-  findUserByPlaygroundUsername,
-  saveUser,
-  type PlaygroundUser,
-} from "../src/lib/notion/users"; // @ts-expect-error removed in fork
+type PlaygroundUser = {
+  playgroundUsername: string;
+  githubUsername: string;
+  notionEmail: string;
+  notionUserId?: string;
+  oauthEmail?: string;
+  oauthProvider?: string;
+};
+
+const usersJsonPath = path.join(process.cwd(), "src/data/users.json");
+
+async function findUserByPlaygroundUsername(
+  username: string,
+): Promise<PlaygroundUser | undefined> {
+  try {
+    const content = await fs.readFile(usersJsonPath, "utf-8");
+    const users: PlaygroundUser[] = JSON.parse(content);
+    return users.find((u) => u.playgroundUsername === username);
+  } catch {
+    return undefined;
+  }
+}
+
+async function saveUser(user: PlaygroundUser): Promise<void> {
+  let users: PlaygroundUser[] = [];
+  try {
+    const content = await fs.readFile(usersJsonPath, "utf-8");
+    users = JSON.parse(content);
+  } catch {
+    // File doesn't exist yet
+  }
+  const idx = users.findIndex(
+    (u) => u.playgroundUsername === user.playgroundUsername,
+  );
+  if (idx >= 0) {
+    users[idx] = user;
+  } else {
+    users.push(user);
+  }
+  await fs.writeFile(
+    usersJsonPath,
+    JSON.stringify(users, null, 2) + "\n",
+    "utf-8",
+  );
+}
 
 // ============================================================
 // Pure helper functions (exported for testing)
