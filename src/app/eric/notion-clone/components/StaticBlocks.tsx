@@ -12,7 +12,7 @@ export function CalloutBlock({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-secondary my-2 flex gap-3 rounded-lg px-4 py-3">
+    <div className="bg-secondary my-2 flex gap-3 rounded-lg px-4 py-3" data-callout="true">
       <span className="shrink-0 text-lg">{icon}</span>
       <div className="text-primary text-[15px] leading-relaxed">{children}</div>
     </div>
@@ -20,7 +20,7 @@ export function CalloutBlock({
 }
 
 export function DividerBlock() {
-  return <hr className="border-primary my-4 border-t" />;
+  return <hr className="border-primary my-4 border-t" data-divider="true" />;
 }
 
 interface InlineDatabaseBlockProps {
@@ -39,7 +39,7 @@ export function InlineDatabaseBlock({
   rows,
 }: InlineDatabaseBlockProps) {
   return (
-    <div className="my-4">
+    <div className="my-4" data-card="true">
       <div className="mb-2 flex items-center gap-2">
         <span className="text-base">{emoji}</span>
         <Link

@@ -77,3 +77,9 @@ export const blocksAtom = atomWithStorage<Block[]>(
 );
 
 export const lastSavedAtom = atom<Date | null>(null);
+
+// Rainbow Road mode - a fun cosmic/neon visual theme
+export const rainbowRoadModeAtom = atomWithStorage<boolean>(
+  "eric-notion-clone-rainbow-road-mode",
+  false,
+);

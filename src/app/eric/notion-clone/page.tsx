@@ -73,7 +73,7 @@ export default function Page() {
     <NotionShell title="Product workspace">
       <div className="mx-auto flex h-full w-full max-w-3xl flex-col px-8">
         <div className="pt-[40px] pb-[4px]">
-          <div className="mb-4 text-[78px] leading-[86px]">📄</div>
+          <div className="emoji-icon mb-4 text-[78px] leading-[86px]">📄</div>
         </div>
         <TitleEditor
           className="content-page-title mx-auto w-full max-w-[710px] px-[2px] pt-[3px] text-3xl font-bold outline-hidden"

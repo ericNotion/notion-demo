@@ -22,6 +22,8 @@ export function SidebarItem({
   return (
     <Link href={href} onClick={onClick}>
       <div
+        data-sidebar-item
+        data-active={isActive}
         className={cn(
           "group/sidebar-item flex h-[30px] items-center gap-2 rounded-md px-2",
           {

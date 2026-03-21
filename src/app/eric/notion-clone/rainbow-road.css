@@ -1,0 +1,409 @@
+/* Rainbow Road Mode - Cosmic Neon Visual Theme */
+
+/* Define rainbow colors as CSS variables */
+.rainbow-road-mode {
+  --rainbow-red: #ff0844;
+  --rainbow-orange: #ff6b35;
+  --rainbow-yellow: #ffec41;
+  --rainbow-green: #00f5a0;
+  --rainbow-cyan: #00d9ff;
+  --rainbow-blue: #4d7cff;
+  --rainbow-purple: #b65cff;
+  --rainbow-pink: #ff2eb4;
+  
+  --rainbow-glow-sm: 0 0 10px currentColor;
+  --rainbow-glow-md: 0 0 20px currentColor, 0 0 30px currentColor;
+  --rainbow-glow-lg: 0 0 30px currentColor, 0 0 60px currentColor, 0 0 90px currentColor;
+}
+
+/* Starfield background */
+.rainbow-road-mode {
+  background: #0a0015;
+  position: relative;
+}
+
+.rainbow-road-mode::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(2px 2px at 60% 70%, white, transparent),
+    radial-gradient(1px 1px at 50% 50%, white, transparent),
+    radial-gradient(1px 1px at 80% 10%, white, transparent),
+    radial-gradient(2px 2px at 90% 60%, white, transparent),
+    radial-gradient(1px 1px at 33% 80%, white, transparent),
+    radial-gradient(1px 1px at 75% 25%, white, transparent);
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  animation: twinkle 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.6;
+    background-position: 0% 0%;
+  }
+  50% {
+    opacity: 0.9;
+    background-position: 100% 100%;
+  }
+}
+
+/* Ensure content is above starfield */
+.rainbow-road-mode > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Rainbow gradient text on headings */
+.rainbow-road-mode h1,
+.rainbow-road-mode h2,
+.rainbow-road-mode h3,
+.rainbow-road-mode .content-page-title,
+.rainbow-road-mode .text-title-xl,
+.rainbow-road-mode .text-title-lg,
+.rainbow-road-mode .text-title,
+.rainbow-road-mode .text-title-sm {
+  background: linear-gradient(
+    90deg,
+    var(--rainbow-red),
+    var(--rainbow-orange),
+    var(--rainbow-yellow),
+    var(--rainbow-green),
+    var(--rainbow-cyan),
+    var(--rainbow-blue),
+    var(--rainbow-purple),
+    var(--rainbow-pink),
+    var(--rainbow-red)
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow-flow 6s linear infinite;
+}
+
+@keyframes rainbow-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+/* Neon glow borders on cards and interactive elements */
+.rainbow-road-mode [class*="border"],
+.rainbow-road-mode [class*="rounded"] {
+  border-color: var(--rainbow-cyan);
+  box-shadow: var(--rainbow-glow-sm);
+}
+
+/* Rainbow gradient borders on hover */
+.rainbow-road-mode button:hover,
+.rainbow-road-mode [role="button"]:hover,
+.rainbow-road-mode a:hover {
+  border-image: linear-gradient(
+    90deg,
+    var(--rainbow-red),
+    var(--rainbow-orange),
+    var(--rainbow-yellow),
+    var(--rainbow-green),
+    var(--rainbow-cyan),
+    var(--rainbow-blue),
+    var(--rainbow-purple)
+  ) 1;
+  animation: rainbow-pulse 2s ease-in-out infinite;
+  box-shadow: var(--rainbow-glow-md);
+}
+
+@keyframes rainbow-pulse {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.3);
+  }
+}
+
+/* Neon sidebar items */
+.rainbow-road-mode [data-sidebar-item]:hover {
+  background: rgba(77, 124, 255, 0.15);
+  box-shadow: 
+    inset 0 0 20px rgba(77, 124, 255, 0.3),
+    0 0 15px rgba(77, 124, 255, 0.4);
+  border-left: 2px solid var(--rainbow-cyan);
+}
+
+/* Active sidebar items get rainbow glow */
+.rainbow-road-mode [data-sidebar-item][data-active="true"] {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 8, 68, 0.2),
+    rgba(77, 124, 255, 0.2),
+    rgba(182, 92, 255, 0.2)
+  );
+  background-size: 200% 100%;
+  animation: rainbow-bg-flow 4s linear infinite;
+  box-shadow: 
+    inset 0 0 30px rgba(182, 92, 255, 0.4),
+    0 0 20px rgba(182, 92, 255, 0.5);
+  border-left: 3px solid var(--rainbow-purple);
+}
+
+@keyframes rainbow-bg-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+/* Glowing accent colors */
+.rainbow-road-mode [class*="bg-blue"],
+.rainbow-road-mode [class*="text-blue"] {
+  filter: brightness(1.4);
+  text-shadow: var(--rainbow-glow-sm);
+}
+
+/* Make sidebar background cosmic */
+.rainbow-road-mode aside,
+.rainbow-road-mode [data-sidebar="true"] {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 0, 21, 0.95) 0%,
+    rgba(26, 0, 51, 0.95) 50%,
+    rgba(10, 0, 21, 0.95) 100%
+  );
+  backdrop-filter: blur(10px);
+}
+
+/* Rainbow border animation for focused inputs */
+.rainbow-road-mode input:focus,
+.rainbow-road-mode textarea:focus,
+.rainbow-road-mode [contenteditable]:focus {
+  outline: 2px solid transparent;
+  border-color: var(--rainbow-cyan);
+  box-shadow: 
+    0 0 20px rgba(0, 217, 255, 0.5),
+    0 0 40px rgba(77, 124, 255, 0.3),
+    inset 0 0 20px rgba(0, 217, 255, 0.1);
+  animation: input-rainbow-glow 3s ease-in-out infinite;
+}
+
+@keyframes input-rainbow-glow {
+  0%, 100% {
+    border-color: var(--rainbow-cyan);
+  }
+  33% {
+    border-color: var(--rainbow-purple);
+  }
+  66% {
+    border-color: var(--rainbow-pink);
+  }
+}
+
+/* Sparkle effect on hover for special elements */
+.rainbow-road-mode .rainbow-sparkle {
+  position: relative;
+  overflow: hidden;
+}
+
+.rainbow-road-mode .rainbow-sparkle::after {
+  content: '✨';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 24px;
+  opacity: 0;
+  animation: sparkle-pop 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sparkle-pop {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* Floating stars animation */
+.rainbow-road-mode .floating-star {
+  position: absolute;
+  animation: float-star 10s ease-in-out infinite;
+  pointer-events: none;
+  font-size: 20px;
+  opacity: 0.8;
+}
+
+@keyframes float-star {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* Rainbow divider */
+.rainbow-road-mode hr,
+.rainbow-road-mode [data-divider="true"] {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--rainbow-red),
+    var(--rainbow-orange),
+    var(--rainbow-yellow),
+    var(--rainbow-green),
+    var(--rainbow-cyan),
+    var(--rainbow-blue),
+    var(--rainbow-purple),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: rainbow-flow 4s linear infinite;
+  border: none;
+  box-shadow: 0 0 10px rgba(77, 124, 255, 0.5);
+}
+
+/* Make the page emoji glow */
+.rainbow-road-mode .emoji-icon {
+  filter: drop-shadow(0 0 20px rgba(255, 236, 65, 0.8));
+  animation: emoji-glow 3s ease-in-out infinite;
+}
+
+@keyframes emoji-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(255, 236, 65, 0.8));
+  }
+  50% {
+    filter: drop-shadow(0 0 40px rgba(255, 107, 53, 1));
+  }
+}
+
+/* Neon button styles */
+.rainbow-road-mode button[data-rainbow-button="true"] {
+  background: linear-gradient(
+    135deg,
+    var(--rainbow-purple),
+    var(--rainbow-pink),
+    var(--rainbow-cyan)
+  );
+  background-size: 200% 200%;
+  animation: rainbow-bg-flow 3s ease infinite;
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 
+    0 0 20px rgba(182, 92, 255, 0.6),
+    0 0 40px rgba(255, 46, 180, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.rainbow-road-mode button[data-rainbow-button="true"]:hover {
+  animation: rainbow-bg-flow 1.5s ease infinite, rainbow-pulse 1s ease-in-out infinite;
+  box-shadow: 
+    0 0 30px rgba(182, 92, 255, 0.8),
+    0 0 60px rgba(255, 46, 180, 0.6),
+    inset 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+/* Card glow effects */
+.rainbow-road-mode [data-card="true"],
+.rainbow-road-mode .card {
+  background: rgba(26, 0, 51, 0.6);
+  border: 1px solid rgba(77, 124, 255, 0.4);
+  box-shadow: 
+    0 4px 20px rgba(77, 124, 255, 0.3),
+    inset 0 0 20px rgba(77, 124, 255, 0.1);
+}
+
+.rainbow-road-mode [data-card="true"]:hover,
+.rainbow-road-mode .card:hover {
+  border-color: var(--rainbow-cyan);
+  box-shadow: 
+    0 8px 40px rgba(0, 217, 255, 0.5),
+    inset 0 0 30px rgba(0, 217, 255, 0.2);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* Database table rainbow styling */
+.rainbow-road-mode table {
+  border-color: rgba(77, 124, 255, 0.4);
+}
+
+.rainbow-road-mode thead {
+  background: linear-gradient(
+    90deg,
+    rgba(77, 124, 255, 0.2),
+    rgba(182, 92, 255, 0.2)
+  );
+  background-size: 200% 100%;
+  animation: rainbow-bg-flow 6s linear infinite;
+}
+
+.rainbow-road-mode tbody tr:hover {
+  background: rgba(0, 217, 255, 0.1);
+  box-shadow: inset 0 0 20px rgba(0, 217, 255, 0.2);
+}
+
+/* Callout block rainbow styling */
+.rainbow-road-mode [data-callout="true"] {
+  background: rgba(182, 92, 255, 0.15);
+  border-left: 4px solid var(--rainbow-purple);
+  box-shadow: 
+    0 4px 20px rgba(182, 92, 255, 0.3),
+    inset 0 0 20px rgba(182, 92, 255, 0.1);
+}
+
+/* Scroll styling */
+.rainbow-road-mode ::-webkit-scrollbar {
+  width: 12px;
+}
+
+.rainbow-road-mode ::-webkit-scrollbar-track {
+  background: rgba(10, 0, 21, 0.8);
+}
+
+.rainbow-road-mode ::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--rainbow-purple),
+    var(--rainbow-cyan)
+  );
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(77, 124, 255, 0.5);
+}
+
+.rainbow-road-mode ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    var(--rainbow-pink),
+    var(--rainbow-blue)
+  );
+  box-shadow: 0 0 20px rgba(182, 92, 255, 0.8);
+}
+
+/* Selection styling */
+.rainbow-road-mode ::selection {
+  background: rgba(182, 92, 255, 0.4);
+  color: white;
+  text-shadow: 0 0 10px rgba(182, 92, 255, 0.8);
+}

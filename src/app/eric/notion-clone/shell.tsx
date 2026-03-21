@@ -20,6 +20,7 @@ import {
 } from "@/components/notion-kit/SlipperySidebar";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { IconButton } from "@/components/ui/icon-button";
+import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
 import { arrowDiagonalUpRightIcon } from "@nds-icons/arrowDiagonalUpRight/default.icon";
 import { calendarAltIcon } from "@nds-icons/calendarAlt/default.icon";
@@ -28,9 +29,13 @@ import { homeIcon } from "@nds-icons/home/default.icon";
 import { inboxIcon } from "@nds-icons/inbox/default.icon";
 import { magnifyingGlassIcon } from "@nds-icons/magnifyingGlass/default.icon";
 import { plusIcon } from "@nds-icons/plus/default.icon";
+import { useAtomValue } from "jotai";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { rainbowRoadModeAtom } from "./atoms";
 import { CreateAgentModal } from "./components/CreateAgentModal";
+import { FloatingStars } from "./components/rainbow-road/FloatingStars";
+import { RainbowRoadToggle } from "./components/rainbow-road/RainbowRoadToggle";
 import {
   agents,
   chatGroups,
@@ -241,6 +246,10 @@ function HomeContent({ onNewAgent }: { onNewAgent: () => void }) {
         </CollapsibleGroup>
       </div>
 
+      <div className="border-secondary mt-4 border-t pt-3">
+        <RainbowRoadToggle />
+      </div>
+
       <FooterLinks />
     </div>
   );
@@ -312,6 +321,7 @@ export function NotionShell({
 }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [createAgentOpen, setCreateAgentOpen] = useState(false);
+  const isRainbowMode = useAtomValue(rainbowRoadModeAtom);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -325,7 +335,8 @@ export function NotionShell({
   }, []);
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className={cn("flex h-screen overflow-hidden", isRainbowMode && "rainbow-road-mode")}>
+      {isRainbowMode && <FloatingStars />}
       <SlipperySidebarLayout
         sidebar={
           <SidebarContent
