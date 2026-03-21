@@ -4,7 +4,6 @@ import { Agentation } from "@/components/playground-kit";
 import { Button } from "@/components/playground-kit";
 import { Icon } from "@nds-icons";
 import { cursorClickIcon } from "@nds-icons/cursorClick/default.icon";
-import { personCircleIcon } from "@nds-icons/personCircle/default.icon";
 import { eyeIcon } from "@nds-icons/eye/default.icon";
 import { pageIcon } from "@nds-icons/page/default.icon";
 import { databaseEmbedIcon } from "@nds-icons/databaseEmbed/default.icon";
@@ -16,8 +15,8 @@ import { arrowUpDownLeftRightIcon } from "@nds-icons/arrowUpDownLeftRight/defaul
 import { composeIcon } from "@nds-icons/compose/default.icon";
 import { addSquareRoundedIcon } from "@nds-icons/addSquareRounded/default.icon";
 import { atom, useAtom, useAtomValue } from "jotai";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { useEffect, useRef } from "react";
 import { cn } from "@/utils/cn";
 
 // Types
