@@ -10,11 +10,12 @@ interface Star {
   delay: number;
 }
 
+const starAnimation = { y: [0, -20, 0], opacity: [0.3, 1, 0.3] };
+
 export function FloatingStars() {
   const [stars, setStars] = useState<Star[]>([]);
 
   useEffect(() => {
-    // Generate random stars
     const generatedStars: Star[] = [];
     for (let i = 0; i < 15; i++) {
       generatedStars.push({
@@ -29,24 +30,29 @@ export function FloatingStars() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-0">
-      {stars.map((star) => (
-        <motion.div
-          key={star.id}
-          className="absolute text-2xl"
-          style={{
-            left: `${star.x}%`,
-            top: `${star.y}%`,
-          }}
-          animate= y: [0, -20, 0], opacity: [0.3, 1, 0.3] 
-          transition=
-            duration: 5 + star.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          
-        >
-          \u2B50
-        </motion.div>
-      ))}
+      {stars.map((star) => {
+        const starTransition = {
+          duration: 10,
+          repeat: Infinity,
+          delay: star.delay,
+          ease: "easeInOut" as const,
+        };
+        const starStyle = {
+          left: `${star.x}%`,
+          top: `${star.y}%`,
+        };
+        return (
+          <motion.div
+            key={star.id}
+            className="absolute text-2xl"
+            style={starStyle}
+            animate={starAnimation}
+            transition={starTransition}
+          >
+            \u2B50
+          </motion.div>
+        );
+      })}
     </div>
   );
 }

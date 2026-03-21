@@ -11,12 +11,12 @@ import { rainbowRoadModeAtom } from "../../atoms";
 export function RainbowRoadToggle() {
   const [isRainbowMode, setIsRainbowMode] = useAtom(rainbowRoadModeAtom);
 
+  const iconAnimation = { rotate: isRainbowMode ? 360 : 0 };
+  const iconTransition = { duration: 0.5 };
+
   return (
     <div className="flex items-center gap-2 px-2">
-      <motion.div
-        animate= rotate: isRainbowMode ? 360 : 0 
-        transition= duration: 0.5 
-      >
+      <motion.div animate={iconAnimation} transition={iconTransition}>
         <Icon
           icon={isRainbowMode ? starIcon : sparklesIcon}
           size={20}
