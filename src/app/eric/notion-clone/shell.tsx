@@ -325,7 +325,7 @@ export function NotionShell({
   }, []);
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen">
       <SlipperySidebarLayout
         sidebar={
           <SidebarContent
