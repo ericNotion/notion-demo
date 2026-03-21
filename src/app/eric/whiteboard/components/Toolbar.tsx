@@ -2,31 +2,42 @@
 
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
-import { circle } from "@nds-icons/circle/default.icon";
-import { cursorClick } from "@nds-icons/cursorClick/default.icon";
-import { duplicate } from "@nds-icons/duplicate/default.icon";
-import { lock } from "@nds-icons/lock/default.icon";
-import { lockOpen } from "@nds-icons/lockOpen/default.icon";
-import { page } from "@nds-icons/page/default.icon";
-import { pencilScribble } from "@nds-icons/pencilScribble/default.icon";
-import { photo } from "@nds-icons/photo/default.icon";
-import { plus } from "@nds-icons/plus/default.icon";
-import { squareDashed } from "@nds-icons/squareDashed/default.icon";
-import { textFormat } from "@nds-icons/textFormat/default.icon";
-import { trash } from "@nds-icons/trash/default.icon";
+import { circleIcon } from "@nds-icons/circle/default.icon";
+import { cursorClickIcon } from "@nds-icons/cursorClick/default.icon";
+import { duplicateIcon } from "@nds-icons/duplicate/default.icon";
+import { lockIcon } from "@nds-icons/lock/default.icon";
+import { lockOpenIcon } from "@nds-icons/lockOpen/default.icon";
+import { pageIcon } from "@nds-icons/page/default.icon";
+import { pencilScribbleIcon } from "@nds-icons/pencilScribble/default.icon";
+import { photoIcon } from "@nds-icons/photo/default.icon";
+import { plusIcon } from "@nds-icons/plus/default.icon";
+import { squareDashedIcon } from "@nds-icons/squareDashed/default.icon";
+import { textFormatIcon } from "@nds-icons/textFormat/default.icon";
+import { trashIcon } from "@nds-icons/trash/default.icon";
 import { useAtom } from "jotai";
+
 import { objectsAtom, selectedToolAtom, type Tool } from "../atoms";
 
-const tools: { id: Tool; label: string; icon: typeof cursorClick; shortcut?: string }[] = [
-  { id: "select", label: "Select", icon: cursorClick, shortcut: "V" },
-  { id: "rectangle", label: "Rectangle", icon: squareDashed, shortcut: "R" },
-  { id: "ellipse", label: "Ellipse", icon: circle, shortcut: "E" },
-  { id: "sticky-note", label: "Sticky Note", icon: page, shortcut: "S" },
-  { id: "connector", label: "Connector", icon: plus, shortcut: "L" },
-  { id: "pen", label: "Pen", icon: pencilScribble, shortcut: "P" },
-  { id: "text", label: "Text", icon: textFormat, shortcut: "T" },
-  { id: "image", label: "Image", icon: photo },
-  { id: "frame", label: "Frame", icon: squareDashed, shortcut: "F" },
+const tools: {
+  id: Tool;
+  label: string;
+  icon: typeof cursorClickIcon;
+  shortcut?: string;
+}[] = [
+  { id: "select", label: "Select", icon: cursorClickIcon, shortcut: "V" },
+  {
+    id: "rectangle",
+    label: "Rectangle",
+    icon: squareDashedIcon,
+    shortcut: "R",
+  },
+  { id: "ellipse", label: "Ellipse", icon: circleIcon, shortcut: "E" },
+  { id: "sticky-note", label: "Sticky Note", icon: pageIcon, shortcut: "S" },
+  { id: "connector", label: "Connector", icon: plusIcon, shortcut: "L" },
+  { id: "pen", label: "Pen", icon: pencilScribbleIcon, shortcut: "P" },
+  { id: "text", label: "Text", icon: textFormatIcon, shortcut: "T" },
+  { id: "image", label: "Image", icon: photoIcon },
+  { id: "frame", label: "Frame", icon: squareDashedIcon, shortcut: "F" },
 ];
 
 export function Toolbar() {
@@ -80,12 +91,12 @@ export function Toolbar() {
                 "bg-blue-secondary text-blue-primary": selectedTool === tool.id,
                 "text-secondary hover:bg-secondary hover:text-primary":
                   selectedTool !== tool.id,
-              }
+              },
             )}
             title={`${tool.label}${tool.shortcut ? ` (${tool.shortcut})` : ""}`}
           >
             <Icon icon={tool.icon} className="h-5 w-5" />
-            
+
             {/* Tooltip */}
             <div className="pointer-events-none absolute bottom-full mb-2 hidden whitespace-nowrap rounded-md bg-elevated px-2 py-1 text-caption text-primary shadow-md-outline group-hover:block">
               {tool.label}
@@ -105,7 +116,7 @@ export function Toolbar() {
             className="group relative flex h-9 w-9 items-center justify-center rounded-md text-secondary transition-colors hover:bg-secondary hover:text-primary"
             title="Duplicate (Ctrl+D)"
           >
-            <Icon icon={duplicate} className="h-5 w-5" />
+            <Icon icon={duplicateIcon} className="h-5 w-5" />
             <div className="pointer-events-none absolute bottom-full mb-2 hidden whitespace-nowrap rounded-md bg-elevated px-2 py-1 text-caption text-primary shadow-md-outline group-hover:block">
               Duplicate
             </div>
@@ -116,7 +127,7 @@ export function Toolbar() {
             className="group relative flex h-9 w-9 items-center justify-center rounded-md text-secondary transition-colors hover:bg-secondary hover:text-primary"
             title="Delete (Del)"
           >
-            <Icon icon={trash} className="h-5 w-5" />
+            <Icon icon={trashIcon} className="h-5 w-5" />
             <div className="pointer-events-none absolute bottom-full mb-2 hidden whitespace-nowrap rounded-md bg-elevated px-2 py-1 text-caption text-primary shadow-md-outline group-hover:block">
               Delete
             </div>
@@ -127,7 +138,7 @@ export function Toolbar() {
             className="group relative flex h-9 w-9 items-center justify-center rounded-md text-secondary transition-colors hover:bg-secondary hover:text-primary"
             title="Lock/Unlock"
           >
-            <Icon icon={lockOpen} className="h-5 w-5" />
+            <Icon icon={lockOpenIcon} className="h-5 w-5" />
             <div className="pointer-events-none absolute bottom-full mb-2 hidden whitespace-nowrap rounded-md bg-elevated px-2 py-1 text-caption text-primary shadow-md-outline group-hover:block">
               Lock
             </div>
