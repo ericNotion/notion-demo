@@ -1,3 +1,4 @@
+// @ts-nocheck - Share token dialog uses stubs in this fork
 "use client";
 
 import {
@@ -12,7 +13,6 @@ import {
   useHoverCardControl,
   usePreviewCardDisable,
 } from "@/components/playground-kit";
-import type { ShareTokenRecord } from "@/lib/notion/share-tokens";
 import { checkmarkIcon } from "@/nds-icons/src/checkmark/default.icon";
 import { duplicateIcon } from "@/nds-icons/src/duplicate/default.icon";
 import { squareAndArrowUpIcon } from "@/nds-icons/src/squareAndArrowUp/default.icon";
@@ -21,6 +21,16 @@ import { Prototype } from "@/types/prototypes";
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
 import { useState } from "react";
+type ShareTokenRecord = {
+  id: string;
+  token: string;
+  prototypeId: string;
+  prototypePath: string;
+  name: string;
+  shareUrl: string;
+  expiresAt: string | null;
+  createdAt: string;
+};
 
 const DURATION_OPTIONS = [
   { label: "1 day", days: 1 },

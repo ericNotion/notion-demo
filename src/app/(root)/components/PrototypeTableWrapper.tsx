@@ -3,7 +3,6 @@
 import { PlaygroundButton } from "@/components/playground-kit";
 import { useIsProduction } from "@/hooks/usePreviewProductionMode";
 import { useProductionUsername } from "@/hooks/useProductionUsername";
-import type { Guide } from "@/lib/notion";
 import { LinkExternalDialog } from "@/root/components/LinkExternalDialog";
 import { NDSTable } from "@/root/components/NDSTable";
 import { PrototypeTable } from "@/root/components/PrototypeTable";
@@ -12,6 +11,7 @@ import { UsernamePromptDialog } from "@/root/components/UsernamePromptDialog";
 import { Prototype } from "@/types/prototypes";
 import { getLatestVersions } from "@/utils/versionGrouping";
 import { useCallback, useMemo, useRef, useState } from "react";
+type Guide = { id: string; title: string; slug: string; coverUrl?: string };
 
 type PrototypeWithAuthor = Prototype & { username: string };
 

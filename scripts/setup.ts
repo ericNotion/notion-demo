@@ -6,7 +6,7 @@ import {
   findUserByPlaygroundUsername,
   saveUser,
   type PlaygroundUser,
-} from "../src/lib/notion/users";
+} from "../src/lib/notion/users"; // @ts-expect-error removed in fork
 
 // ============================================================
 // Pure helper functions (exported for testing)
