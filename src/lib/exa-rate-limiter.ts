@@ -43,7 +43,8 @@ class ExaRateLimiter {
   private MAX_RETRIES: number;
   private RETRY_DELAY: number;
   private stats: RateLimiterStats;
-  private exa: Exa;
+  private exa: Exa | null = null;
+  private apiKey?: string;
 
   constructor(
     options: {
@@ -56,7 +57,7 @@ class ExaRateLimiter {
     this.MIN_INTERVAL = options.minInterval ?? 500; // 500ms = 2 requests per second
     this.MAX_RETRIES = options.maxRetries ?? 3;
     this.RETRY_DELAY = options.retryDelay ?? 1000;
-    this.exa = new Exa(options.apiKey || process.env.EXA_API_KEY);
+    this.apiKey = options.apiKey;
 
     this.stats = {
       totalRequests: 0,
@@ -67,6 +68,13 @@ class ExaRateLimiter {
       averageRequestTime: 0,
       lastRequestTime: 0,
     };
+  }
+
+  private getExa(): Exa {
+    if (!this.exa) {
+      this.exa = new Exa(this.apiKey || process.env.EXA_API_KEY);
+    }
+    return this.exa;
   }
 
   async search(query: string): Promise<ExaResult> {
@@ -117,7 +125,7 @@ class ExaRateLimiter {
         this.lastRequestTime = Date.now();
         this.stats.lastRequestTime = this.lastRequestTime;
 
-        const result = await this.exa.answer(item.query);
+        const result = await this.getExa().answer(item.query);
 
         // Update stats
         const requestTime = Date.now() - startTime;
