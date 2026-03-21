@@ -7,7 +7,7 @@ import {
   useAtom,
   useSetAtom,
 } from "jotai";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   type Block,
   type ListBlock,
@@ -17,6 +17,10 @@ import {
   lastSavedAtom,
 } from "./atoms";
 import "./contenteditable.css";
+import {
+  createSlashCommandOptions,
+  SlashCommandMenu,
+} from "./SlashCommandMenu";
 
 // Block styles
 const blockStyles = {
@@ -118,6 +122,16 @@ export function BlockEditor({
   const editorRootRef = useRef<HTMLDivElement | null>(null);
   const hasFocusedInitiallyRef = useRef(false);
 
+  // Slash command state
+  const [slashCommand, setSlashCommand] = useState<{
+    isOpen: boolean;
+    blockId: string;
+    blockIndex: number;
+    filterText: string;
+    selectedIndex: number;
+    position: { top: number; left: number };
+  } | null>(null);
+
   // On mount, populate contentEditable DOM with initial text from state
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -177,6 +191,41 @@ export function BlockEditor({
       ),
     );
     markSaved();
+  }
+
+  function handleParagraphInput(
+    e: React.FormEvent<HTMLDivElement>,
+    block: ParagraphBlock,
+    blockIndex: number,
+  ) {
+    const text = e.currentTarget.textContent || "";
+    updateParagraph(block.id, text);
+
+    // Detect slash command
+    if (text.startsWith("/")) {
+      const el = blockRefs.current[block.id];
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const filterText = text.slice(1); // Remove the leading "/"
+
+        setSlashCommand({
+          isOpen: true,
+          blockId: block.id,
+          blockIndex,
+          filterText,
+          selectedIndex: 0,
+          position: {
+            top: rect.bottom + window.scrollY + 4,
+            left: rect.left + window.scrollX,
+          },
+        });
+      }
+    } else {
+      // Close slash command if text doesn't start with "/"
+      if (slashCommand?.blockId === block.id) {
+        setSlashCommand(null);
+      }
+    }
   }
 
   function updateListItem(blockId: string, itemId: string, text: string) {
@@ -254,15 +303,120 @@ export function BlockEditor({
     });
   }
 
+  function handleSlashCommandTransform(
+    blockIndex: number,
+    blockType: "paragraph" | "h1" | "h2" | "h3" | "ul",
+  ) {
+    const block = blocks[blockIndex];
+    if (!block || block.type === "ul") return;
+
+    // Remove the slash command text from the block
+    const el = blockRefs.current[block.id];
+    if (el) {
+      el.textContent = "";
+    }
+
+    // Transform the block
+    if (blockType === "ul") {
+      setBlocks((prev) => {
+        const newBlock: ListBlock = {
+          id: createBlockId(),
+          type: "ul",
+          items: [{ id: createBlockId("li"), text: "" }],
+        };
+        const next = [...prev];
+        next.splice(blockIndex, 1, newBlock);
+        return next;
+      });
+      requestAnimationFrame(() => {
+        const entries = Object.entries(listItemRefs.current);
+        if (entries.length > 0) {
+          focusElementAtEnd(entries[entries.length - 1][1]);
+        }
+      });
+    } else {
+      setBlocks((prev) => {
+        const newBlock: ParagraphBlock = {
+          id: createBlockId(),
+          type: blockType,
+          text: "",
+        };
+        const next = [...prev];
+        next.splice(blockIndex, 1, newBlock);
+        return next;
+      });
+      requestAnimationFrame(() => {
+        const entries = Object.entries(blockRefs.current);
+        if (entries.length > 0) {
+          focusElementAtEnd(entries[entries.length - 1][1]);
+        }
+      });
+    }
+
+    // Close the menu
+    setSlashCommand(null);
+    markSaved();
+  }
+
   function onParagraphKeyDown(
     e: React.KeyboardEvent<HTMLDivElement>,
     block: ParagraphBlock,
     index: number,
   ) {
+    // Handle slash command menu navigation
+    if (slashCommand?.isOpen && slashCommand.blockId === block.id) {
+      const options = createSlashCommandOptions((type) =>
+        handleSlashCommandTransform(index, type),
+      );
+
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setSlashCommand((prev) =>
+          prev
+            ? {
+                ...prev,
+                selectedIndex: Math.min(prev.selectedIndex + 1, options.length - 1),
+              }
+            : null,
+        );
+        return;
+      }
+
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setSlashCommand((prev) =>
+          prev
+            ? {
+                ...prev,
+                selectedIndex: Math.max(prev.selectedIndex - 1, 0),
+              }
+            : null,
+        );
+        return;
+      }
+
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const selectedOption = options[slashCommand.selectedIndex];
+        if (selectedOption) {
+          selectedOption.onSelect();
+        }
+        return;
+      }
+
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setSlashCommand(null);
+        return;
+      }
+    }
+
     if (e.key === "Enter") {
       const el = blockRefs.current[block.id];
       if (el && isCaretAtEnd(el)) {
         e.preventDefault();
+        // Close slash command if open
+        setSlashCommand(null);
         // Create new block below
         const newBlock: ParagraphBlock = {
           id: createBlockId(),
@@ -277,6 +431,12 @@ export function BlockEditor({
 
     if (e.key === "Backspace") {
       const text = (e.currentTarget.textContent || "").trim();
+      
+      // Close slash command if we're deleting the slash
+      if (slashCommand?.isOpen && text.length === 0) {
+        setSlashCommand(null);
+      }
+      
       if (text.length === 0 && index > 0) {
         e.preventDefault();
         // Delete this block and focus previous
@@ -512,6 +672,11 @@ export function BlockEditor({
     }
   }
 
+  // Create slash command options
+  const slashCommandOptions = createSlashCommandOptions((type) =>
+    slashCommand ? handleSlashCommandTransform(slashCommand.blockIndex, type) : undefined,
+  );
+
   return (
     <div className={className}>
       <div
@@ -582,15 +747,29 @@ export function BlockEditor({
                         ? "Heading 2"
                         : "Heading 3"
                 }
-                onInput={(e) =>
-                  updateParagraph(block.id, e.currentTarget.textContent || "")
-                }
+                onInput={(e) => handleParagraphInput(e, block, blockIndex)}
                 onKeyDown={(e) => onParagraphKeyDown(e, block, blockIndex)}
               />
             </div>
           );
         })}
       </div>
+
+      {/* Slash command menu */}
+      {slashCommand?.isOpen && (
+        <SlashCommandMenu
+          options={slashCommandOptions}
+          selectedIndex={slashCommand.selectedIndex}
+          filterText={slashCommand.filterText}
+          position={slashCommand.position}
+          onSelect={(index) => {
+            setSlashCommand((prev) =>
+              prev ? { ...prev, selectedIndex: index } : null,
+            );
+          }}
+          onClose={() => setSlashCommand(null)}
+        />
+      )}
     </div>
   );
 }
