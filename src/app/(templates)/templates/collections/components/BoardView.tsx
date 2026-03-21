@@ -60,6 +60,8 @@ const statusColumns = [
   },
 ];
 
+const columnStyle = { width: `calc((100% - 1.5rem) / 3)`, minWidth: 220 };
+
 function renderCardProperty(value: CellValue, property: Property) {
   switch (property.type) {
     case "Title":
@@ -184,78 +186,86 @@ export function BoardView({
   };
 
   return (
-    <div className={cn("flex overflow-auto pb-6", className)}>
-      <div className="flex gap-3 overflow-x-auto">
-        {statusColumns.map((column) => (
-          <div
-            key={column.id}
-            className="flex-shrink-0"
-            style={{ width: "280px" }}
-          >
-            {/* Column Content with Header Inside */}
+    <div
+      className={cn(
+        "bg-primary border-primary rounded-lg border shadow-sm",
+        className,
+      )}
+    >
+      {/* Embedded database container with proper styling */}
+      <div className="overflow-x-auto p-4">
+        <div className="flex gap-3">
+          {statusColumns.map((column) => (
             <div
-              className={cn(
-                "min-h-[200px] rounded-xl p-3 transition-all",
-                column.bgColor,
-              )}
-              onDragOver={(e) => handleDragOver(e, column.id)}
-              onDragLeave={handleDragLeave}
-              onDrop={(e) => handleDrop(e, column.id)}
+              key={column.id}
+              className="flex-shrink-0"
+              style={columnStyle}
             >
-              {/* Column Header Inside Colored Area */}
-              <div className="mb-3 flex items-center gap-2">
-                {/* Tag matching Figma */}
-                <div
+              {/* Column Content with Header Inside */}
+              <div
+                className={cn(
+                  "min-h-[200px] rounded-xl p-3 transition-all",
+                  column.bgColor,
+                )}
+                onDragOver={(e) => handleDragOver(e, column.id)}
+                onDragLeave={handleDragLeave}
+                onDrop={(e) => handleDrop(e, column.id)}
+              >
+                {/* Column Header Inside Colored Area */}
+                <div className="mb-3 flex items-center gap-2">
+                  {/* Tag matching Figma */}
+                  <div
+                    className={cn(
+                      "flex h-6 items-center gap-1 rounded-md px-1.5 text-sm font-medium",
+                      column.tagBg,
+                      column.tagText,
+                    )}
+                  >
+                    {column.name}
+                  </div>
+                  {/* Count */}
+                  <span className={cn("text-sm font-medium", column.countColor)}>
+                    {groupedRows[column.id].length}
+                  </span>
+                </div>
+                {groupedRows[column.id].map((row) => (
+                  <BoardCard
+                    key={row.id}
+                    row={row}
+                    properties={properties}
+                    onDragStart={handleDragStart}
+                    isDragging={draggedRow?.id === row.id}
+                  />
+                ))}
+
+                {/* Add New Card Button - Matching Figma exactly */}
+                <Button
+                  variant="outline"
+                  size="sm"
                   className={cn(
-                    "flex h-6 items-center gap-1 rounded-md px-1.5 text-sm font-medium",
-                    column.tagBg,
+                    "hover:bg-secondary h-8 w-full gap-1.5 rounded-lg border bg-transparent p-3",
+                    column.buttonBorderColor,
                     column.tagText,
                   )}
                 >
-                  {column.name}
-                </div>
-                {/* Count */}
-                <span className={cn("text-sm font-medium", column.countColor)}>
-                  {groupedRows[column.id].length}
-                </span>
+                  <Icon
+                    icon={plusSmallIcon}
+                    size="sm"
+                    className={column.tagText}
+                  />
+                  <span className="text-sm">New Page</span>
+                </Button>
               </div>
-              {groupedRows[column.id].map((row) => (
-                <BoardCard
-                  key={row.id}
-                  row={row}
-                  properties={properties}
-                  onDragStart={handleDragStart}
-                  isDragging={draggedRow?.id === row.id}
-                />
-              ))}
-
-              {/* Add New Card Button - Matching Figma exactly */}
-              <Button
-                variant="outline"
-                size="sm"
-                className={cn(
-                  "hover:bg-secondary h-8 w-full gap-1.5 rounded-lg border bg-transparent p-3",
-                  column.buttonBorderColor,
-                  column.tagText,
-                )}
-              >
-                <Icon
-                  icon={plusSmallIcon}
-                  size="sm"
-                  className={column.tagText}
-                />
-                <span className="text-sm">New Page</span>
-              </Button>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {/* Drag end handler */}
-      <div
-        onDragEnd={handleDragEnd}
-        className="pointer-events-none absolute inset-0"
-      />
+        {/* Drag end handler */}
+        <div
+          onDragEnd={handleDragEnd}
+          className="pointer-events-none absolute inset-0"
+        />
+      </div>
     </div>
   );
 }
