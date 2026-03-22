@@ -256,7 +256,7 @@ export default function Page() {
           Track launches, owners, and blockers across the team.
         </p>
 
-        <div className="mt-8">
+        <div className="mt-4">
           <ViewSwitcher
             activeView={view}
             onViewChange={setView}

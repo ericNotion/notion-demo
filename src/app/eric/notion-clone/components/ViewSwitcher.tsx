@@ -22,7 +22,7 @@ export function ViewSwitcher({
   onViewChange,
 }: ViewSwitcherProps) {
   return (
-    <div className="flex items-center gap-1 py-0.5">
+    <div className="flex items-center gap-1">
       {views.map((view) => (
         <button
           key={view.id}

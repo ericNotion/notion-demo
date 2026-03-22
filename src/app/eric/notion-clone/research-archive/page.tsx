@@ -242,7 +242,7 @@ export default function Page() {
           Customer interviews, tagged takeaways, and reusable findings.
         </p>
 
-        <div className="mt-8">
+        <div className="mt-4">
           <ViewSwitcher activeView={view} onViewChange={setView} />
 
           {view === "table" ? (
