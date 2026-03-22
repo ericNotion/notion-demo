@@ -1,7 +1,12 @@
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
-export type SlipperySidebarTab = "home" | "chats" | "meetings" | "inbox";
+export type SlipperySidebarTab =
+  | "home"
+  | "chats"
+  | "meetings"
+  | "inbox"
+  | "library";
 
 export const slipperySidebarTabAtom = atomWithStorage<SlipperySidebarTab>(
   "slippery-slope-selected-tab",

@@ -9,6 +9,7 @@ import {
   EventItem,
   FooterLinks,
   InboxContent,
+  LibraryContent,
   MeetingsContent,
   QuickActionBar,
   SidebarCTA,
@@ -22,6 +23,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { IconButton } from "@/components/ui/icon-button";
 import { Icon } from "@nds-icons";
 import { arrowDiagonalUpRightIcon } from "@nds-icons/arrowDiagonalUpRight/default.icon";
+import { bookshelfIcon } from "@nds-icons/bookshelf/default.icon";
 import { calendarAltIcon } from "@nds-icons/calendarAlt/default.icon";
 import { chatBubbleIcon } from "@nds-icons/chatBubble/default.icon";
 import { homeIcon } from "@nds-icons/home/default.icon";
@@ -274,6 +276,9 @@ function SidebarContent({
       </SlipperySidebar.Tab>
       <SlipperySidebar.Tab id="inbox" label="Inbox" icon={inboxIcon} count={2}>
         <InboxContent notifications={inboxNotifications} />
+      </SlipperySidebar.Tab>
+      <SlipperySidebar.Tab id="library" label="Library" icon={bookshelfIcon}>
+        <LibraryContent />
       </SlipperySidebar.Tab>
     </SlipperySidebar>
   );

@@ -181,6 +181,7 @@ export { EventItem } from "./EventItem";
 export { FooterLinks } from "./FooterLinks";
 export { InboxContent } from "./InboxContent";
 export type { InboxNotification } from "./InboxContent";
+export { LibraryContent } from "./LibraryContent";
 export { SlipperySidebarLayout } from "./Layout";
 export { MeetingsContent } from "./MeetingsContent";
 export type { MeetingEvent, MeetingGroup } from "./MeetingsContent";
