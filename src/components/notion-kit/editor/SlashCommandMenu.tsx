@@ -119,7 +119,7 @@ export function SlashCommandMenu({
   return (
     <div
       ref={menuRef}
-      className="bg-elevated shadow-md-outline animate-in fade-in zoom-in-95 fixed z-50 w-[300px] overflow-hidden rounded-lg duration-150"
+      className="bg-elevated shadow-md-outline animate-in fade-in zoom-in-95 absolute z-50 w-[300px] overflow-hidden rounded-lg duration-150"
       style={{ top: `${position.top}px`, left: `${position.left}px` }}
     >
       <div className="max-h-[400px] overflow-y-auto p-2">
