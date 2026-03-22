@@ -1,4 +1,5 @@
 import { cn } from "@/utils/cn";
+import Image from "next/image";
 
 export type AgentIconName =
   | "alarm"
@@ -75,9 +76,11 @@ export function AgentIcon({
         backgroundColor: AGENT_COLORS[color],
       }}
     >
-      <img
+      <Image
         src={src}
         alt={icon}
+        width={size}
+        height={size}
         className="absolute inset-[5%] size-[90%] object-contain"
         draggable={false}
       />

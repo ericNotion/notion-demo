@@ -3,21 +3,6 @@
 const TRIGRAMS = ["☰", "☱", "☲", "☳", "☴", "☵", "☶", "☷"];
 
 /**
- * Obscures text by replacing characters with random I Ching trigrams.
- * Preserves spaces for readability.
- */
-function obscureText(text: string): string {
-  return text
-    .split("")
-    .filter((char) => char !== " ")
-    .slice(0, 16)
-    .map(() => {
-      return TRIGRAMS[Math.floor(Math.random() * TRIGRAMS.length)];
-    })
-    .join("");
-}
-
-/**
  * Creates a seeded obscured version of text that's consistent
  * (same input always produces same output).
  * Uses I Ching trigrams with pseudo-random selection based on

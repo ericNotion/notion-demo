@@ -3,12 +3,10 @@
 import { xMarkSmallIcon } from "@/nds-icons/src/xMark/small.icon";
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
-import { Atom, atom, useAtom } from "jotai";
+import { Atom, useAtom } from "jotai";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import React from "react";
 import { useHotkeys } from "react-hotkeys-hook";
-
-const panelMinimizedAtom = atom(false);
 
 export function StateConfigPanel({
   title = "State",
@@ -563,7 +561,3 @@ export function PanelNumberInput({
     </div>
   );
 }
-
-const panelAtoms = {
-  minimized: panelMinimizedAtom,
-};

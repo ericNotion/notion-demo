@@ -553,7 +553,7 @@ async function promptForNotionEmail(): Promise<{
 const positionalArgs = process.argv
   .slice(2)
   .filter((arg) => !arg.startsWith("--"));
-const argUsername = positionalArgs[0];
+const argUsername = positionalArgs[0] ?? "eric";
 
 const appDir = path.join(process.cwd(), "src/app");
 
@@ -967,20 +967,20 @@ export async function setupUser() {
     return;
   }
 
-  // If username was provided as argument, check if it's unique
+  // If username was provided as argument, check if it already exists
   let username: string;
   if (argUsername) {
     const usernameDir = argUsername.toLowerCase();
-    const userDir = path.join(appDir, usernameDir);
-    try {
-      await fs.access(userDir);
-      console.error(
-        ` ❌ A user with the username '${argUsername}' already exists. Please pick a unique username.`,
-      );
-      username = await promptForUniqueUsername();
-    } catch {
-      username = argUsername;
+    const existingArgUser = await findUserByPlaygroundUsername(usernameDir);
+    if (existingArgUser) {
+      // User already fully set up — just ensure config files exist
+      await ensurePlaygroundConfig(argUsername);
+      await ensureUserDirectory(argUsername);
+      await ensureClaudeLocalFile(argUsername);
+      console.log(` 👋 Welcome back, ${argUsername}!\n\n`);
+      return;
     }
+    username = argUsername;
   } else {
     username = await promptForUniqueUsername();
   }
