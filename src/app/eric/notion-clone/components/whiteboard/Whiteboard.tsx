@@ -32,6 +32,7 @@ interface WhiteboardProps {
 
 export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
   const [tool, setTool] = useState<Tool>("select");
+  const [strokeColor, setStrokeColor] = useState("#000000");
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [viewOffset, setViewOffset] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -150,7 +151,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
           x: point.x,
           y: point.y,
           text: "Text",
-          color: "#000000",
+          color: strokeColor,
         };
         const newShapes = [...shapes, newShape];
         onChange(newShapes);
@@ -174,7 +175,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
         }
       }
     },
-    [tool, shapes, onChange, screenToSVG, addToHistory, isSpaceDown],
+    [tool, shapes, onChange, screenToSVG, addToHistory, isSpaceDown, strokeColor],
   );
 
   const handlePointerMove = useCallback(
@@ -218,7 +219,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
           x: 0,
           y: 0,
           path: currentPath,
-          color: "#000000",
+          color: strokeColor,
           strokeWidth: 2,
         };
         const newShapes = [...shapes, newShape];
@@ -242,7 +243,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
           y,
           width,
           height,
-          color: "#000000",
+          color: strokeColor,
           strokeWidth: 2,
         };
         const newShapes = [...shapes, newShape];
@@ -263,6 +264,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
       onChange,
       screenToSVG,
       addToHistory,
+      strokeColor,
     ],
   );
 
@@ -282,6 +284,17 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
     { id: "arrow", icon: arrowStraightRightIcon, label: "Arrow" },
     { id: "text", icon: textCursorIBeamIcon, label: "Text" },
     { id: "eraser", icon: eraserLineDashedIcon, label: "Eraser" },
+  ];
+
+  const colors = [
+    { value: "#000000", label: "Black" },
+    { value: "#6B7280", label: "Gray" },
+    { value: "#EF4444", label: "Red" },
+    { value: "#F97316", label: "Orange" },
+    { value: "#EAB308", label: "Yellow" },
+    { value: "#22C55E", label: "Green" },
+    { value: "#3B82F6", label: "Blue" },
+    { value: "#8B5CF6", label: "Purple" },
   ];
 
   return (
@@ -308,6 +321,22 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
               color={tool === t.id ? "inverse" : "secondary"}
             />
           </Button>
+        ))}
+        <div className="border-primary mx-1 w-px" />
+        {colors.map((color) => (
+          <button
+            key={color.value}
+            type="button"
+            onClick={() => setStrokeColor(color.value)}
+            className={cn(
+              "size-5 rounded-full border-2 transition-all",
+              strokeColor === color.value
+                ? "ring-2 ring-offset-1 ring-blue-500"
+                : "border-gray-300",
+            )}
+            style={{ backgroundColor: color.value }}
+            title={color.label}
+          />
         ))}
         <div className="border-primary mx-1 w-px" />
         <Button
@@ -444,7 +473,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
           {isDrawing && tool === "pen" && currentPath && (
             <path
               d={currentPath}
-              stroke="#000000"
+              stroke={strokeColor}
               strokeWidth={2}
               fill="none"
               strokeLinecap="round"
@@ -461,7 +490,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
                     y={startPoint.y}
                     width={0}
                     height={0}
-                    stroke="#000000"
+                    stroke={strokeColor}
                     strokeWidth={2}
                     fill="none"
                     opacity={0.5}
@@ -473,7 +502,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
                     cy={startPoint.y}
                     rx={0}
                     ry={0}
-                    stroke="#000000"
+                    stroke={strokeColor}
                     strokeWidth={2}
                     fill="none"
                     opacity={0.5}
@@ -485,7 +514,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
                     y1={startPoint.y}
                     x2={startPoint.x}
                     y2={startPoint.y}
-                    stroke="#000000"
+                    stroke={strokeColor}
                     strokeWidth={2}
                     markerEnd="url(#arrowhead)"
                     opacity={0.5}
