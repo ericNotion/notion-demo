@@ -238,7 +238,7 @@ export default function Page() {
           Ideas from the team, ranked by votes. Add yours below.
         </p>
 
-        <div className="mt-8">
+        <div className="mt-2">
           <ViewSwitcher
             activeView={view}
             onViewChange={setView}
