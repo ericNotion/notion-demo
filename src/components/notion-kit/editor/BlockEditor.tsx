@@ -10,6 +10,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import {
   type Block,
+  type CalloutBlock,
   type ListBlock,
   type ParagraphBlock,
   blocksAtom,
@@ -32,6 +33,7 @@ const blockStyles = {
     h2: "pt-[22px] pb-[6px]",
     h3: "pt-[16px] pb-[6px]",
     ul: "pt-[6px] pb-[6px]",
+    callout: "pt-[6px] pb-[6px]",
   },
   element: {
     paragraph:
@@ -167,7 +169,9 @@ export function BlockEditor({
   function updateParagraph(blockId: string, text: string) {
     setBlocks((prev) =>
       prev.map((b) =>
-        b.id === blockId && b.type !== "ul" ? { ...b, text } : b,
+        b.id === blockId && b.type !== "ul" 
+          ? { ...b, text } 
+          : b,
       ),
     );
     markSaved();
@@ -215,6 +219,13 @@ export function BlockEditor({
           id: createBlockId(),
           type: "ul",
           items: [{ id: createBlockId("li"), text: "" }],
+        };
+      } else if (blockType === "callout") {
+        next[blockIndex] = { 
+          id: createBlockId(), 
+          type: "callout", 
+          text: "", 
+          icon: "💡" 
         };
       } else {
         next[blockIndex] = { id: createBlockId(), type: blockType, text: "" };
@@ -271,7 +282,7 @@ export function BlockEditor({
 
   function handleParagraphInput(
     e: React.FormEvent<HTMLDivElement>,
-    block: ParagraphBlock,
+    block: ParagraphBlock | CalloutBlock,
     blockIndex: number,
   ) {
     const text = e.currentTarget.textContent || "";
@@ -288,7 +299,7 @@ export function BlockEditor({
 
   function onParagraphKeyDown(
     e: React.KeyboardEvent<HTMLDivElement>,
-    block: ParagraphBlock,
+    block: ParagraphBlock | CalloutBlock,
     index: number,
   ) {
     if (slashMenu && slashMenu.blockId === block.id) {
@@ -561,6 +572,28 @@ export function BlockEditor({
                     </li>
                   ))}
                 </ul>
+              </div>
+            );
+          }
+
+          if (block.type === "callout") {
+            return (
+              <div key={block.id} className={blockStyles.container.callout}>
+                <div className="bg-secondary my-2 flex gap-3 rounded-lg px-4 py-3">
+                  <span className="shrink-0 text-lg">{block.icon || "💡"}</span>
+                  <div
+                    ref={(el) => {
+                      blockRefs.current[block.id] = el;
+                    }}
+                    contentEditable
+                    suppressContentEditableWarning
+                    className="editable-placeholder content-text-block text-primary flex-1 text-[15px] leading-relaxed outline-none focus:ring-0"
+                    data-block-id={block.id}
+                    data-placeholder="Callout text..."
+                    onInput={(e) => handleParagraphInput(e, block, blockIndex)}
+                    onKeyDown={(e) => onParagraphKeyDown(e, block, blockIndex)}
+                  />
+                </div>
               </div>
             );
           }

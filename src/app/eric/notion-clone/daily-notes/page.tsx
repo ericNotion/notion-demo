@@ -7,12 +7,17 @@ import {
 } from "@/components/notion-kit/editor/atoms";
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import { CalloutBlock } from "../components/StaticBlocks";
 import { NotionShell } from "../shell";
 
 const titleAtom = atomWithStorage("eric-nc-daily-notes-title", "Daily notes");
 const lastSavedAtom = atom<Date | null>(null);
 const blocksAtom = atomWithStorage<Block[]>("eric-nc-daily-notes-blocks", [
+  {
+    id: createBlockId(),
+    type: "callout",
+    text: "Jot down what you worked on each day. Quick bullets work best — keep it lightweight.",
+    icon: "✏️",
+  },
   { id: createBlockId(), type: "h2", text: "Wednesday, March 19" },
   {
     id: createBlockId(),
@@ -70,13 +75,7 @@ export default function Page() {
           lastSavedAtom={lastSavedAtom}
           placeholder="Untitled"
         />
-        <div className="mx-auto mt-2 w-full max-w-[710px]">
-          <CalloutBlock icon="✏️">
-            Jot down what you worked on each day. Quick bullets work best — keep
-            it lightweight.
-          </CalloutBlock>
-        </div>
-        <div className="mt-4 flex-1">
+        <div className="mt-2 flex-1">
           <BlockEditor
             className="mx-auto w-full max-w-[710px]"
             blocksAtom={blocksAtom}
