@@ -18,11 +18,13 @@ import {
 } from "./atoms";
 import "./contenteditable.css";
 import {
-  createSlashCommandOptions,
-  SlashCommandMenu,
-} from "./SlashCommandMenu";
+  focusAtEnd,
+  focusAtStart,
+  isCaretAtEnd,
+  isCaretAtStart,
+} from "./selection";
+import { filterCommands, SlashCommandMenu } from "./SlashCommandMenu";
 
-// Block styles
 const blockStyles = {
   container: {
     paragraph: "pt-[6px] pb-[6px]",
@@ -39,71 +41,42 @@ const blockStyles = {
     h3: "editable-placeholder content-h3 font-bold outline-none focus:ring-0 px-[2px] py-[0px]",
   },
   list: {
-    ul: "list-disc ps-6",
+    container: "list-disc ps-6",
     item: "outline-none focus:ring-0 editable-placeholder",
   },
 };
 
-// Helper functions
-function focusElementAtEnd(el: HTMLElement | null) {
-  if (!el) return;
-  el.focus();
-  const range = document.createRange();
-  range.selectNodeContents(el);
-  range.collapse(false);
-  const sel = window.getSelection();
-  sel?.removeAllRanges();
-  sel?.addRange(range);
-}
+const placeholders: Record<ParagraphBlock["type"], string> = {
+  h1: "Heading 1",
+  h2: "Heading 2",
+  h3: "Heading 3",
+  paragraph: "",
+};
 
-function focusElementAtStart(el: HTMLElement | null) {
-  if (!el) return;
-  el.focus();
-  const range = document.createRange();
-  range.selectNodeContents(el);
-  range.collapse(true);
-  const sel = window.getSelection();
-  sel?.removeAllRanges();
-  sel?.addRange(range);
-}
+// To add a new markdown shortcut, add an entry here.
+const markdownShortcuts: Record<string, Block["type"]> = {
+  "#": "h1",
+  "##": "h2",
+  "###": "h3",
+  "-": "ul",
+};
 
-function isCaretAtStart(element: HTMLElement): boolean {
-  const selection = window.getSelection();
-  if (!selection || selection.rangeCount === 0 || !selection.isCollapsed) {
-    return false;
-  }
-  const range = selection.getRangeAt(0);
-  if (!element.contains(range.startContainer)) return false;
-  const probe = document.createRange();
-  probe.selectNodeContents(element);
-  probe.setEnd(range.startContainer, range.startOffset);
-  return probe.toString().length === 0;
-}
-
-function isCaretAtEnd(element: HTMLElement): boolean {
-  const selection = window.getSelection();
-  if (!selection || selection.rangeCount === 0 || !selection.isCollapsed) {
-    return false;
-  }
-  const range = selection.getRangeAt(0);
-  if (!element.contains(range.endContainer)) return false;
-  const probe = document.createRange();
-  probe.selectNodeContents(element);
-  probe.setStart(range.endContainer, range.endOffset);
-  return probe.toString().length === 0;
+interface SlashMenuState {
+  blockId: string;
+  blockIndex: number;
+  filterText: string;
+  selectedIndex: number;
+  position: { top: number; left: number };
 }
 
 interface BlockEditorProps {
   className?: string;
-  /** Custom blocks atom - defaults to shared blocksAtom */
   blocksAtom?: WritableAtom<
     Block[],
     [Block[] | ((prev: Block[]) => Block[])],
     void
   >;
-  /** Custom lastSaved atom - defaults to shared lastSavedAtom */
   lastSavedAtom?: PrimitiveAtom<Date | null>;
-  /** Placeholder text for empty paragraphs */
   paragraphPlaceholder?: string;
 }
 
@@ -116,69 +89,76 @@ export function BlockEditor({
   const setLastSaved = useSetAtom(customLastSavedAtom ?? lastSavedAtom);
   const [blocks, setBlocks] = useAtom(customBlocksAtom ?? blocksAtom);
 
-  // Refs for blocks and list items for focusing
   const blockRefs = useRef<Record<string, HTMLElement | null>>({});
   const listItemRefs = useRef<Record<string, HTMLElement | null>>({});
   const editorRootRef = useRef<HTMLDivElement | null>(null);
   const hasFocusedInitiallyRef = useRef(false);
 
-  // Slash command state
-  const [slashCommand, setSlashCommand] = useState<{
-    isOpen: boolean;
-    blockId: string;
-    blockIndex: number;
-    filterText: string;
-    selectedIndex: number;
-    position: { top: number; left: number };
-  } | null>(null);
+  const [slashMenu, setSlashMenu] = useState<SlashMenuState | null>(null);
 
-  // On mount, populate contentEditable DOM with initial text from state
+  // --- Focus helpers ---
+
+  function getBlockEndEl(block: Block): HTMLElement | null {
+    if (block.type === "ul") {
+      const lastItem = block.items[block.items.length - 1];
+      return listItemRefs.current[lastItem.id] || null;
+    }
+    return blockRefs.current[block.id] || null;
+  }
+
+  function getBlockStartEl(block: Block): HTMLElement | null {
+    if (block.type === "ul") {
+      return listItemRefs.current[block.items[0].id] || null;
+    }
+    return blockRefs.current[block.id] || null;
+  }
+
+  function focusPrevBlock(index: number) {
+    const prev = blocks[index - 1];
+    if (prev) focusAtEnd(getBlockEndEl(prev));
+  }
+
+  function focusNextBlock(index: number) {
+    const next = blocks[index + 1];
+    if (next) focusAtStart(getBlockStartEl(next));
+  }
+
+  // --- Lifecycle ---
+
   useEffect(() => {
     requestAnimationFrame(() => {
       blocks.forEach((blk) => {
         if (blk.type === "ul") {
           blk.items.forEach((it) => {
             const el = listItemRefs.current[it.id];
-            if (el && el.textContent !== it.text) {
-              el.textContent = it.text;
-            }
+            if (el && el.textContent !== it.text) el.textContent = it.text;
           });
         } else {
           const el = blockRefs.current[blk.id];
-          if (el && el.textContent !== blk.text) {
-            el.textContent = blk.text;
-          }
+          if (el && el.textContent !== blk.text) el.textContent = blk.text;
         }
       });
     });
   }, [blocks]);
 
-  // Focus the trailing empty paragraph on mount
   useEffect(() => {
     if (hasFocusedInitiallyRef.current) return;
     requestAnimationFrame(() => {
       if (blocks.length === 0) return;
-      let focused = false;
       for (let i = blocks.length - 1; i >= 0; i--) {
         const b = blocks[i];
         if (b.type !== "ul" && (b.text ?? "") === "") {
-          focusElementAtEnd(blockRefs.current[b.id] || null);
-          focused = true;
-          break;
+          focusAtEnd(blockRefs.current[b.id] || null);
+          hasFocusedInitiallyRef.current = true;
+          return;
         }
       }
-      if (!focused) {
-        const first = blocks[0];
-        if (first.type === "ul") {
-          const firstItem = first.items[0];
-          focusElementAtEnd(listItemRefs.current[firstItem.id] || null);
-        } else {
-          focusElementAtEnd(blockRefs.current[first.id] || null);
-        }
-      }
+      focusAtEnd(getBlockEndEl(blocks[0]));
       hasFocusedInitiallyRef.current = true;
     });
   }, [blocks]);
+
+  // --- Block operations ---
 
   function markSaved() {
     setLastSaved(new Date());
@@ -191,41 +171,6 @@ export function BlockEditor({
       ),
     );
     markSaved();
-  }
-
-  function handleParagraphInput(
-    e: React.FormEvent<HTMLDivElement>,
-    block: ParagraphBlock,
-    blockIndex: number,
-  ) {
-    const text = e.currentTarget.textContent || "";
-    updateParagraph(block.id, text);
-
-    // Detect slash command
-    if (text.startsWith("/")) {
-      const el = blockRefs.current[block.id];
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        const filterText = text.slice(1); // Remove the leading "/"
-
-        setSlashCommand({
-          isOpen: true,
-          blockId: block.id,
-          blockIndex,
-          filterText,
-          selectedIndex: 0,
-          position: {
-            top: rect.bottom + window.scrollY + 4,
-            left: rect.left + window.scrollX,
-          },
-        });
-      }
-    } else {
-      // Close slash command if text doesn't start with "/"
-      if (slashCommand?.blockId === block.id) {
-        setSlashCommand(null);
-      }
-    }
   }
 
   function updateListItem(blockId: string, itemId: string, text: string) {
@@ -242,171 +187,144 @@ export function BlockEditor({
   }
 
   function insertBlockAfter(index: number, newBlock: Block) {
-    setBlocks((prev) => {
-      const next = [
-        ...prev.slice(0, index + 1),
-        newBlock,
-        ...prev.slice(index + 1),
-      ];
-      return next;
-    });
-    // Focus after React commit
+    setBlocks((prev) => [
+      ...prev.slice(0, index + 1),
+      newBlock,
+      ...prev.slice(index + 1),
+    ]);
     requestAnimationFrame(() => {
       if (newBlock.type === "ul") {
-        const firstItem = newBlock.items[0];
-        focusElementAtEnd(listItemRefs.current[firstItem.id] || null);
+        focusAtEnd(listItemRefs.current[newBlock.items[0].id] || null);
       } else {
-        focusElementAtEnd(blockRefs.current[newBlock.id] || null);
+        focusAtEnd(blockRefs.current[newBlock.id] || null);
       }
     });
   }
 
-  function transformShortcut(
-    blockIndex: number,
-    target: HTMLElement,
-    shortcut: "h1" | "h2" | "h3" | "ul",
-  ) {
+  function removeBlock(index: number) {
+    setBlocks((prev) => prev.filter((_, i) => i !== index));
+    markSaved();
+  }
+
+  function transformBlock(blockIndex: number, blockType: Block["type"]) {
     setBlocks((prev) => {
-      const before = prev[blockIndex];
-      if (!before) return prev;
-      if (shortcut === "ul") {
-        const newBlock: ListBlock = {
+      if (!prev[blockIndex]) return prev;
+      const next = [...prev];
+      if (blockType === "ul") {
+        next[blockIndex] = {
           id: createBlockId(),
           type: "ul",
           items: [{ id: createBlockId("li"), text: "" }],
         };
-        const next = [...prev];
-        next.splice(blockIndex, 1, newBlock);
-        return next;
+      } else {
+        next[blockIndex] = { id: createBlockId(), type: blockType, text: "" };
       }
-      const newBlock: ParagraphBlock = {
-        id: createBlockId(),
-        type: shortcut,
-        text: "",
-      };
-      const next = [...prev];
-      next.splice(blockIndex, 1, newBlock);
       return next;
     });
     requestAnimationFrame(() => {
-      if (shortcut === "ul") {
-        const entries = Object.entries(listItemRefs.current);
-        focusElementAtEnd(
-          entries.length ? entries[entries.length - 1][1] : target,
-        );
-      } else {
-        const entries = Object.entries(blockRefs.current);
-        focusElementAtEnd(
-          entries.length ? entries[entries.length - 1][1] : target,
-        );
-      }
+      const refs =
+        blockType === "ul" ? listItemRefs.current : blockRefs.current;
+      const entries = Object.entries(refs);
+      if (entries.length > 0) focusAtEnd(entries[entries.length - 1][1]);
+    });
+    markSaved();
+  }
+
+  // --- Slash menu ---
+
+  function openSlashMenu(
+    blockId: string,
+    blockIndex: number,
+    filterText: string,
+  ) {
+    const el = blockRefs.current[blockId];
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    setSlashMenu({
+      blockId,
+      blockIndex,
+      filterText,
+      selectedIndex: 0,
+      position: {
+        top: rect.bottom + window.scrollY + 4,
+        left: rect.left + window.scrollX,
+      },
     });
   }
 
-  function handleSlashCommandTransform(
-    blockIndex: number,
-    blockType: "paragraph" | "h1" | "h2" | "h3" | "ul",
-  ) {
+  function closeSlashMenu() {
+    setSlashMenu(null);
+  }
+
+  function executeSlashCommand(blockIndex: number, blockType: Block["type"]) {
     const block = blocks[blockIndex];
     if (!block || block.type === "ul") return;
-
-    // Remove the slash command text from the block
     const el = blockRefs.current[block.id];
-    if (el) {
-      el.textContent = "";
-    }
-
-    // Transform the block
-    if (blockType === "ul") {
-      setBlocks((prev) => {
-        const newBlock: ListBlock = {
-          id: createBlockId(),
-          type: "ul",
-          items: [{ id: createBlockId("li"), text: "" }],
-        };
-        const next = [...prev];
-        next.splice(blockIndex, 1, newBlock);
-        return next;
-      });
-      requestAnimationFrame(() => {
-        const entries = Object.entries(listItemRefs.current);
-        if (entries.length > 0) {
-          focusElementAtEnd(entries[entries.length - 1][1]);
-        }
-      });
-    } else {
-      setBlocks((prev) => {
-        const newBlock: ParagraphBlock = {
-          id: createBlockId(),
-          type: blockType,
-          text: "",
-        };
-        const next = [...prev];
-        next.splice(blockIndex, 1, newBlock);
-        return next;
-      });
-      requestAnimationFrame(() => {
-        const entries = Object.entries(blockRefs.current);
-        if (entries.length > 0) {
-          focusElementAtEnd(entries[entries.length - 1][1]);
-        }
-      });
-    }
-
-    // Close the menu
-    setSlashCommand(null);
-    markSaved();
+    if (el) el.textContent = "";
+    transformBlock(blockIndex, blockType);
+    closeSlashMenu();
   }
+
+  // --- Input handlers ---
+
+  function handleParagraphInput(
+    e: React.FormEvent<HTMLDivElement>,
+    block: ParagraphBlock,
+    blockIndex: number,
+  ) {
+    const text = e.currentTarget.textContent || "";
+    updateParagraph(block.id, text);
+
+    if (text.startsWith("/")) {
+      openSlashMenu(block.id, blockIndex, text.slice(1));
+    } else if (slashMenu?.blockId === block.id) {
+      closeSlashMenu();
+    }
+  }
+
+  // --- Keyboard handlers ---
 
   function onParagraphKeyDown(
     e: React.KeyboardEvent<HTMLDivElement>,
     block: ParagraphBlock,
     index: number,
   ) {
-    // Handle slash command menu navigation
-    if (slashCommand?.isOpen && slashCommand.blockId === block.id) {
-      const options = createSlashCommandOptions((type) =>
-        handleSlashCommandTransform(index, type),
-      );
+    if (slashMenu && slashMenu.blockId === block.id) {
+      const filtered = filterCommands(slashMenu.filterText);
 
       if (e.key === "ArrowDown") {
         e.preventDefault();
-        setSlashCommand((prev) =>
+        setSlashMenu((prev) =>
           prev
             ? {
                 ...prev,
-                selectedIndex: Math.min(prev.selectedIndex + 1, options.length - 1),
+                selectedIndex: Math.min(
+                  prev.selectedIndex + 1,
+                  filtered.length - 1,
+                ),
               }
             : null,
         );
         return;
       }
-
       if (e.key === "ArrowUp") {
         e.preventDefault();
-        setSlashCommand((prev) =>
+        setSlashMenu((prev) =>
           prev
-            ? {
-                ...prev,
-                selectedIndex: Math.max(prev.selectedIndex - 1, 0),
-              }
+            ? { ...prev, selectedIndex: Math.max(prev.selectedIndex - 1, 0) }
             : null,
         );
         return;
       }
-
       if (e.key === "Enter") {
         e.preventDefault();
-        const selectedOption = options[slashCommand.selectedIndex];
-        if (selectedOption) {
-          selectedOption.onSelect();
-        }
+        const cmd = filtered[slashMenu.selectedIndex];
+        if (cmd) executeSlashCommand(index, cmd.blockType);
         return;
       }
-
       if (e.key === "Escape") {
         e.preventDefault();
-        setSlashCommand(null);
+        closeSlashMenu();
         return;
       }
     }
@@ -415,15 +333,12 @@ export function BlockEditor({
       const el = blockRefs.current[block.id];
       if (el && isCaretAtEnd(el)) {
         e.preventDefault();
-        // Close slash command if open
-        setSlashCommand(null);
-        // Create new block below
-        const newBlock: ParagraphBlock = {
+        closeSlashMenu();
+        insertBlockAfter(index, {
           id: createBlockId(),
           type: "paragraph",
           text: "",
-        };
-        insertBlockAfter(index, newBlock);
+        });
         markSaved();
         return;
       }
@@ -431,27 +346,11 @@ export function BlockEditor({
 
     if (e.key === "Backspace") {
       const text = (e.currentTarget.textContent || "").trim();
-      
-      // Close slash command if we're deleting the slash
-      if (slashCommand?.isOpen && text.length === 0) {
-        setSlashCommand(null);
-      }
-      
+      if (slashMenu && text.length === 0) closeSlashMenu();
       if (text.length === 0 && index > 0) {
         e.preventDefault();
-        // Delete this block and focus previous
-        const prev = blocks[index - 1];
-        if (prev) {
-          if (prev.type === "ul") {
-            const lastItem = prev.items[prev.items.length - 1];
-            focusElementAtEnd(listItemRefs.current[lastItem.id] || null);
-          } else {
-            focusElementAtEnd(blockRefs.current[prev.id] || null);
-          }
-        }
-        // Remove current block
-        setBlocks((prevBlocks) => prevBlocks.filter((_, i) => i !== index));
-        markSaved();
+        focusPrevBlock(index);
+        removeBlock(index);
         return;
       }
     }
@@ -460,15 +359,7 @@ export function BlockEditor({
       const el = blockRefs.current[block.id];
       if (el && isCaretAtStart(el)) {
         e.preventDefault();
-        const prev = blocks[index - 1];
-        if (prev) {
-          if (prev.type === "ul") {
-            const lastItem = prev.items[prev.items.length - 1];
-            focusElementAtEnd(listItemRefs.current[lastItem.id] || null);
-          } else {
-            focusElementAtEnd(blockRefs.current[prev.id] || null);
-          }
-        }
+        focusPrevBlock(index);
       }
     }
 
@@ -476,43 +367,17 @@ export function BlockEditor({
       const el = blockRefs.current[block.id];
       if (el && isCaretAtEnd(el)) {
         e.preventDefault();
-        const next = blocks[index + 1];
-        if (next) {
-          if (next.type === "ul") {
-            const firstItem = next.items[0];
-            focusElementAtStart(listItemRefs.current[firstItem.id] || null);
-          } else {
-            focusElementAtStart(blockRefs.current[next.id] || null);
-          }
-        }
+        focusNextBlock(index);
       }
     }
 
-    // Shortcuts: only when content is exactly marker and we press Space
     if (e.key === " " || e.code === "Space") {
       const text = (e.currentTarget.textContent || "").trim();
-      if (text === "#") {
+      const shortcutType = markdownShortcuts[text];
+      if (shortcutType) {
         e.preventDefault();
         e.stopPropagation();
-        transformShortcut(index, e.currentTarget, "h1");
-        return;
-      }
-      if (text === "##") {
-        e.preventDefault();
-        e.stopPropagation();
-        transformShortcut(index, e.currentTarget, "h2");
-        return;
-      }
-      if (text === "###") {
-        e.preventDefault();
-        e.stopPropagation();
-        transformShortcut(index, e.currentTarget, "h3");
-        return;
-      }
-      if (text === "-") {
-        e.preventDefault();
-        e.stopPropagation();
-        transformShortcut(index, e.currentTarget, "ul");
+        transformBlock(index, shortcutType);
         return;
       }
     }
@@ -526,43 +391,29 @@ export function BlockEditor({
     itemId: string,
   ) {
     if (e.key === "ArrowUp") {
-      const el = listItemRefs.current[itemId]!;
+      const el = listItemRefs.current[itemId];
       if (el && isCaretAtStart(el)) {
         e.preventDefault();
         if (itemIndex > 0) {
-          const prevItem = block.items[itemIndex - 1];
-          focusElementAtEnd(listItemRefs.current[prevItem.id] || null);
+          focusAtEnd(
+            listItemRefs.current[block.items[itemIndex - 1].id] || null,
+          );
         } else {
-          const prevBlock = blocks[blockIndex - 1];
-          if (prevBlock) {
-            if (prevBlock.type === "ul") {
-              const lastItem = prevBlock.items[prevBlock.items.length - 1];
-              focusElementAtEnd(listItemRefs.current[lastItem.id] || null);
-            } else {
-              focusElementAtEnd(blockRefs.current[prevBlock.id] || null);
-            }
-          }
+          focusPrevBlock(blockIndex);
         }
       }
     }
 
     if (e.key === "ArrowDown") {
-      const el = listItemRefs.current[itemId]!;
+      const el = listItemRefs.current[itemId];
       if (el && isCaretAtEnd(el)) {
         e.preventDefault();
         if (itemIndex < block.items.length - 1) {
-          const nextItem = block.items[itemIndex + 1];
-          focusElementAtStart(listItemRefs.current[nextItem.id] || null);
+          focusAtStart(
+            listItemRefs.current[block.items[itemIndex + 1].id] || null,
+          );
         } else {
-          const nextBlock = blocks[blockIndex + 1];
-          if (nextBlock) {
-            if (nextBlock.type === "ul") {
-              const firstItem = nextBlock.items[0];
-              focusElementAtStart(listItemRefs.current[firstItem.id] || null);
-            } else {
-              focusElementAtStart(blockRefs.current[nextBlock.id] || null);
-            }
-          }
+          focusNextBlock(blockIndex);
         }
       }
     }
@@ -570,48 +421,42 @@ export function BlockEditor({
     if (e.key === "Enter") {
       e.preventDefault();
       const text = (e.currentTarget.textContent || "").trim();
+
       if (text.length === 0) {
-        // Exit list: create paragraph block after the list
         setBlocks((prev) => {
-          const before = prev[blockIndex] as ListBlock;
-          const newItems = before.items.filter((it) => it.id !== itemId);
-          const nextBlocks = [...prev];
-          if (newItems.length === 0) {
-            // Remove entire list block and insert paragraph
-            const paragraph: ParagraphBlock = {
+          const list = prev[blockIndex] as ListBlock;
+          const remaining = list.items.filter((it) => it.id !== itemId);
+          const next = [...prev];
+          if (remaining.length === 0) {
+            next.splice(blockIndex, 1, {
               id: createBlockId(),
               type: "paragraph",
               text: "",
-            };
-            nextBlocks.splice(blockIndex, 1, paragraph);
+            });
           } else {
-            // Replace list with updated items, then insert paragraph block after
-            nextBlocks[blockIndex] = { ...before, items: newItems };
-            nextBlocks.splice(blockIndex + 1, 0, {
+            next[blockIndex] = { ...list, items: remaining };
+            next.splice(blockIndex + 1, 0, {
               id: createBlockId(),
               type: "paragraph",
               text: "",
             });
           }
-          return nextBlocks;
+          return next;
         });
         markSaved();
         requestAnimationFrame(() => {
           const entries = Object.entries(blockRefs.current);
-          focusElementAtEnd(
-            entries.length ? entries[entries.length - 1][1] : null,
-          );
+          focusAtEnd(entries.length ? entries[entries.length - 1][1] : null);
         });
         return;
       }
-      // Insert a new list item below
+
       setBlocks((prev) =>
         prev.map((b, idx) => {
           if (idx !== blockIndex || b.type !== "ul") return b;
-          const newItem = { id: createBlockId("li"), text: "" };
           const newItems = [
             ...b.items.slice(0, itemIndex + 1),
-            newItem,
+            { id: createBlockId("li"), text: "" },
             ...b.items.slice(itemIndex + 1),
           ];
           return { ...b, items: newItems };
@@ -620,9 +465,7 @@ export function BlockEditor({
       markSaved();
       requestAnimationFrame(() => {
         const entries = Object.entries(listItemRefs.current);
-        focusElementAtEnd(
-          entries.length ? entries[entries.length - 1][1] : null,
-        );
+        focusAtEnd(entries.length ? entries[entries.length - 1][1] : null);
       });
       return;
     }
@@ -631,37 +474,30 @@ export function BlockEditor({
       const text = (e.currentTarget.textContent || "").trim();
       if (text.length === 0) {
         e.preventDefault();
-        const isOnlyItem = block.items.length === 1;
         const focusPrev = () => {
           if (itemIndex > 0) {
-            const prevItem = block.items[itemIndex - 1];
-            focusElementAtEnd(listItemRefs.current[prevItem.id] || null);
+            focusAtEnd(
+              listItemRefs.current[block.items[itemIndex - 1].id] || null,
+            );
             return;
           }
           const prevBlock = blocks[blockIndex - 1];
           if (prevBlock) {
-            if (prevBlock.type === "ul") {
-              const lastItem = prevBlock.items[prevBlock.items.length - 1];
-              focusElementAtEnd(listItemRefs.current[lastItem.id] || null);
-            } else {
-              focusElementAtEnd(blockRefs.current[prevBlock.id] || null);
-            }
-          } else if (!isOnlyItem) {
+            focusAtEnd(getBlockEndEl(prevBlock));
+          } else if (block.items.length > 1) {
             const nextItem = block.items[itemIndex + 1];
-            if (nextItem) {
-              focusElementAtEnd(listItemRefs.current[nextItem.id] || null);
-            }
+            if (nextItem) focusAtEnd(listItemRefs.current[nextItem.id] || null);
           }
         };
 
         setBlocks((prev) => {
-          const before = prev[blockIndex] as ListBlock;
-          const newItems = before.items.filter((_, i) => i !== itemIndex);
+          const list = prev[blockIndex] as ListBlock;
+          const remaining = list.items.filter((_, i) => i !== itemIndex);
           const next = [...prev];
-          if (newItems.length === 0) {
+          if (remaining.length === 0) {
             next.splice(blockIndex, 1);
           } else {
-            next[blockIndex] = { ...before, items: newItems };
+            next[blockIndex] = { ...list, items: remaining };
           }
           return next;
         });
@@ -672,10 +508,7 @@ export function BlockEditor({
     }
   }
 
-  // Create slash command options
-  const slashCommandOptions = createSlashCommandOptions((type) =>
-    slashCommand ? handleSlashCommandTransform(slashCommand.blockIndex, type) : undefined,
-  );
+  // --- Render ---
 
   return (
     <div className={className}>
@@ -688,7 +521,10 @@ export function BlockEditor({
             return (
               <div
                 key={block.id}
-                className={cn(blockStyles.container.ul, blockStyles.list.ul)}
+                className={cn(
+                  blockStyles.container.ul,
+                  blockStyles.list.container,
+                )}
               >
                 <ul className="list-disc ps-6">
                   {block.items.map((item, itemIndex) => (
@@ -727,7 +563,6 @@ export function BlockEditor({
             );
           }
 
-          // Paragraph, h1, h2, h3
           return (
             <div key={block.id} className={blockStyles.container[block.type]}>
               <div
@@ -741,11 +576,7 @@ export function BlockEditor({
                 data-placeholder={
                   block.type === "paragraph"
                     ? paragraphPlaceholder
-                    : block.type === "h1"
-                      ? "Heading 1"
-                      : block.type === "h2"
-                        ? "Heading 2"
-                        : "Heading 3"
+                    : placeholders[block.type]
                 }
                 onInput={(e) => handleParagraphInput(e, block, blockIndex)}
                 onKeyDown={(e) => onParagraphKeyDown(e, block, blockIndex)}
@@ -755,19 +586,20 @@ export function BlockEditor({
         })}
       </div>
 
-      {/* Slash command menu */}
-      {slashCommand?.isOpen && (
+      {slashMenu && (
         <SlashCommandMenu
-          options={slashCommandOptions}
-          selectedIndex={slashCommand.selectedIndex}
-          filterText={slashCommand.filterText}
-          position={slashCommand.position}
-          onSelect={(index) => {
-            setSlashCommand((prev) =>
+          filterText={slashMenu.filterText}
+          selectedIndex={slashMenu.selectedIndex}
+          position={slashMenu.position}
+          onSelect={(blockType) =>
+            executeSlashCommand(slashMenu.blockIndex, blockType)
+          }
+          onHover={(index) =>
+            setSlashMenu((prev) =>
               prev ? { ...prev, selectedIndex: index } : null,
-            );
-          }}
-          onClose={() => setSlashCommand(null)}
+            )
+          }
+          onClose={closeSlashMenu}
         />
       )}
     </div>

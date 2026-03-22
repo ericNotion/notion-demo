@@ -18,7 +18,7 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import { chatStateAtom } from "./atoms";
 
-function SimpleToolsDropdown({
+export function SimpleToolsDropdown({
   side = "bottom",
   align = "start",
 }: {

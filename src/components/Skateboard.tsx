@@ -189,7 +189,7 @@ export function Skateboard({
     }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [menuLevel, isHidden, disableGlobalShortcut]);
+  }, [menuLevel, isHidden, isExpanded, disableGlobalShortcut]);
 
   // Focus input when expanded - use rAF loop to catch element as soon as it mounts
   useEffect(() => {
@@ -262,7 +262,7 @@ export function Skateboard({
     observer.observe(content);
 
     return () => observer.disconnect();
-  }, [isExpanded, menuLevel, inputValue, menuItems]);
+  }, [isExpanded, isChatting, menuLevel, inputValue, menuItems]);
 
   // Sync DOM focus with focusedIndex state
   useEffect(() => {

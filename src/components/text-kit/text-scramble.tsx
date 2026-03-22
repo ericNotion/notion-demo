@@ -31,12 +31,10 @@ export function TextScramble({
     Component as keyof JSX.IntrinsicElements,
   );
   const [displayText, setDisplayText] = useState(children);
-  const [isAnimating, setIsAnimating] = useState(false);
   const text = children;
 
-  const scramble = async () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
+  useEffect(() => {
+    if (!trigger) return;
 
     const steps = duration / speed;
     let step = 0;
@@ -65,17 +63,12 @@ export function TextScramble({
       if (step > steps) {
         clearInterval(interval);
         setDisplayText(text);
-        setIsAnimating(false);
         onScrambleComplete?.();
       }
     }, speed * 1000);
-  };
 
-  useEffect(() => {
-    if (!trigger) return;
-
-    scramble();
-  }, [trigger]);
+    return () => clearInterval(interval);
+  }, [trigger, duration, speed, text, characterSet, onScrambleComplete]);
 
   return (
     <MotionComponent className={className} {...props}>

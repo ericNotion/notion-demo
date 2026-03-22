@@ -15,13 +15,8 @@ export async function GET() {
   } catch {
     // .playground file doesn't exist - expected in production
   }
-  if (!username) {
-    return new Response(JSON.stringify({ error: "No username found" }), {
-      status: 400,
-    });
-  }
-
-  return new Response(JSON.stringify({ username, sourcePath }), {
-    status: 200,
-  });
+  return new Response(
+    JSON.stringify({ username: username ?? "eric", sourcePath }),
+    { status: 200 },
+  );
 }
