@@ -8,6 +8,7 @@ import { arrowUTurnDownLeftIcon } from "@nds-icons/arrowUTurnDownLeft/default.ic
 import { circleIcon } from "@nds-icons/circle/default.icon";
 import { cursorClickIcon } from "@nds-icons/cursorClick/default.icon";
 import { pencilIcon } from "@nds-icons/pencil/default.icon";
+import { rectangleOnRectangleTiltIcon } from "@nds-icons/rectangleOnRectangleTilt/default.icon";
 import { rectangleSplit4Icon } from "@nds-icons/rectangleSplit4/default.icon";
 import { textAlignLeftIcon } from "@nds-icons/textAlignLeft/default.icon";
 import { trashIcon } from "@nds-icons/trash/default.icon";
@@ -28,6 +29,7 @@ const toolIcons: Record<Tool, typeof pencilIcon> = {
   rectangle: rectangleSplit4Icon,
   ellipse: circleIcon,
   text: textAlignLeftIcon,
+  sticky: rectangleOnRectangleTiltIcon,
   eraser: trashIcon,
 };
 
@@ -37,6 +39,7 @@ const toolLabels: Record<Tool, string> = {
   rectangle: "Rectangle",
   ellipse: "Ellipse",
   text: "Text",
+  sticky: "Sticky Note",
   eraser: "Eraser",
 };
 
@@ -49,7 +52,7 @@ export function WhiteboardToolbar({
   const [selectedTool, setSelectedTool] = useAtom(whiteboardToolAtom);
   const [selectedColor, setSelectedColor] = useAtom(whiteboardColorAtom);
 
-  const tools: Tool[] = ["select", "pen", "rectangle", "ellipse", "text", "eraser"];
+  const tools: Tool[] = ["select", "pen", "rectangle", "ellipse", "text", "sticky", "eraser"];
 
   return (
     <div className="bg-secondary shadow-sm-outline flex items-center gap-1 rounded-md border border-primary p-1">

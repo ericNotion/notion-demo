@@ -4,7 +4,7 @@ import { cn } from "@/utils/cn";
 import { useAtom } from "jotai";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { whiteboardColorAtom, whiteboardToolAtom } from "./atoms";
-import type { Point, WhiteboardElement } from "./types";
+import { STICKY_COLORS, type Point, type WhiteboardElement } from "./types";
 import { WhiteboardToolbar } from "./WhiteboardToolbar";
 
 interface WhiteboardProps {
@@ -29,6 +29,10 @@ export function Whiteboard({
   const [historyIndex, setHistoryIndex] = useState(0);
   const [selectedTool] = useAtom(whiteboardToolAtom);
   const [selectedColor] = useAtom(whiteboardColorAtom);
+  const [draggedElement, setDraggedElement] = useState<string | null>(null);
+  const [dragOffset, setDragOffset] = useState<Point>({ x: 0, y: 0 });
+  const lastClickTimeRef = useRef<number>(0);
+  const lastClickedElementRef = useRef<string | null>(null);
 
   const saveToHistory = useCallback((newElements: WhiteboardElement[]) => {
     setHistory((prev) => {
@@ -72,11 +76,63 @@ export function Whiteboard({
     return `wb-el-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
   };
 
+  const isPointInSticky = useCallback((point: Point, element: WhiteboardElement): boolean => {
+    if (element.type !== "sticky") return false;
+    const x = element.x || 0;
+    const y = element.y || 0;
+    const width = element.width || 150;
+    const height = element.height || 100;
+    return point.x >= x && point.x <= x + width && point.y >= y && point.y <= y + height;
+  }, []);
+
+  const findStickyAtPoint = useCallback((point: Point): WhiteboardElement | null => {
+    // Search from end to start to get topmost sticky
+    for (let i = elements.length - 1; i >= 0; i--) {
+      if (elements[i].type === "sticky" && isPointInSticky(point, elements[i])) {
+        return elements[i];
+      }
+    }
+    return null;
+  }, [elements, isPointInSticky]);
+
   const handleMouseDown = useCallback(
     (e: React.MouseEvent<HTMLCanvasElement>) => {
-      if (selectedTool === "select") return;
-
       const pos = getMousePos(e);
+      const now = Date.now();
+
+      if (selectedTool === "select") {
+        const sticky = findStickyAtPoint(pos);
+        if (sticky) {
+          // Check for double-click
+          if (
+            lastClickedElementRef.current === sticky.id &&
+            now - lastClickTimeRef.current < 300
+          ) {
+            // Double-click: edit text
+            const newText = prompt("Edit sticky note text:", sticky.text || "");
+            if (newText !== null) {
+              const newElements = elements.map((el) =>
+                el.id === sticky.id ? { ...el, text: newText } : el,
+              );
+              onChange(newElements);
+              saveToHistory(newElements);
+            }
+            lastClickedElementRef.current = null;
+            lastClickTimeRef.current = 0;
+          } else {
+            // Single click: start dragging
+            setDraggedElement(sticky.id);
+            setDragOffset({
+              x: pos.x - (sticky.x || 0),
+              y: pos.y - (sticky.y || 0),
+            });
+            lastClickedElementRef.current = sticky.id;
+            lastClickTimeRef.current = now;
+          }
+        }
+        return;
+      }
+
       setIsDrawing(true);
 
       if (selectedTool === "pen") {
@@ -121,16 +177,44 @@ export function Whiteboard({
           onChange(newElements);
           saveToHistory(newElements);
         }
+      } else if (selectedTool === "sticky") {
+        const text = prompt("Enter sticky note text:");
+        if (text) {
+          const newElement: WhiteboardElement = {
+            id: createElementId(),
+            type: "sticky",
+            x: pos.x,
+            y: pos.y,
+            width: 150,
+            height: 100,
+            text,
+            color: STICKY_COLORS[0], // Default yellow
+          };
+          const newElements = [...elements, newElement];
+          onChange(newElements);
+          saveToHistory(newElements);
+        }
       }
     },
-    [selectedTool, selectedColor, elements, getMousePos, onChange, saveToHistory],
+    [selectedTool, selectedColor, elements, getMousePos, onChange, saveToHistory, findStickyAtPoint],
   );
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLCanvasElement>) => {
-      if (!isDrawing || !currentElement) return;
-
       const pos = getMousePos(e);
+
+      // Handle dragging sticky notes
+      if (draggedElement) {
+        const newElements = elements.map((el) =>
+          el.id === draggedElement
+            ? { ...el, x: pos.x - dragOffset.x, y: pos.y - dragOffset.y }
+            : el,
+        );
+        onChange(newElements);
+        return;
+      }
+
+      if (!isDrawing || !currentElement) return;
 
       if (selectedTool === "pen" && currentElement.type === "pen") {
         setCurrentElement({
@@ -155,18 +239,22 @@ export function Whiteboard({
         });
       }
     },
-    [isDrawing, currentElement, selectedTool, getMousePos],
+    [isDrawing, currentElement, selectedTool, getMousePos, draggedElement, elements, onChange, dragOffset],
   );
 
   const handleMouseUp = useCallback(() => {
-    if (isDrawing && currentElement && selectedTool !== "text") {
+    if (draggedElement) {
+      saveToHistory(elements);
+      setDraggedElement(null);
+    }
+    if (isDrawing && currentElement && selectedTool !== "text" && selectedTool !== "sticky") {
       const newElements = [...elements, currentElement];
       onChange(newElements);
       saveToHistory(newElements);
       setCurrentElement(null);
     }
     setIsDrawing(false);
-  }, [isDrawing, currentElement, elements, selectedTool, onChange, saveToHistory]);
+  }, [isDrawing, currentElement, elements, selectedTool, onChange, saveToHistory, draggedElement]);
 
   const drawElement = useCallback((ctx: CanvasRenderingContext2D, element: WhiteboardElement) => {
     ctx.strokeStyle = element.color;
@@ -205,6 +293,64 @@ export function Whiteboard({
     } else if (element.type === "text" && element.text) {
       ctx.font = "14px sans-serif";
       ctx.fillText(element.text, element.x || 0, element.y || 0);
+    } else if (element.type === "sticky") {
+      const x = element.x || 0;
+      const y = element.y || 0;
+      const width = element.width || 150;
+      const height = element.height || 100;
+      const radius = 8;
+
+      // Draw shadow
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.beginPath();
+      ctx.roundRect(x + 2, y + 2, width, height, radius);
+      ctx.fill();
+
+      // Draw sticky note background
+      ctx.fillStyle = element.color;
+      ctx.beginPath();
+      ctx.roundRect(x, y, width, height, radius);
+      ctx.fill();
+
+      // Draw border
+      ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Draw text
+      if (element.text) {
+        ctx.fillStyle = "#37352F";
+        ctx.font = "13px sans-serif";
+        const padding = 10;
+        const lineHeight = 16;
+        const maxWidth = width - padding * 2;
+        
+        // Simple word wrapping
+        const words = element.text.split(" ");
+        let line = "";
+        let yOffset = y + padding + lineHeight;
+
+        for (let i = 0; i < words.length; i++) {
+          const testLine = line + words[i] + " ";
+          const metrics = ctx.measureText(testLine);
+          
+          if (metrics.width > maxWidth && line !== "") {
+            ctx.fillText(line, x + padding, yOffset);
+            line = words[i] + " ";
+            yOffset += lineHeight;
+            
+            // Stop if we exceed the sticky note height
+            if (yOffset > y + height - padding) break;
+          } else {
+            line = testLine;
+          }
+        }
+        
+        // Draw remaining text
+        if (line.trim() && yOffset <= y + height - padding) {
+          ctx.fillText(line, x + padding, yOffset);
+        }
+      }
     }
   }, []);
 
@@ -252,6 +398,7 @@ export function Whiteboard({
             selectedTool === "rectangle" && "cursor-crosshair",
             selectedTool === "ellipse" && "cursor-crosshair",
             selectedTool === "text" && "cursor-text",
+            selectedTool === "sticky" && "cursor-pointer",
             selectedTool === "eraser" && "cursor-pointer",
             selectedTool === "select" && "cursor-default",
           )}
