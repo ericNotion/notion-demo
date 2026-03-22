@@ -10,6 +10,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import {
   type Block,
+  type CalloutBlock,
   type ListBlock,
   type ParagraphBlock,
   blocksAtom,
@@ -32,6 +33,7 @@ const blockStyles = {
     h2: "pt-[22px] pb-[6px]",
     h3: "pt-[16px] pb-[6px]",
     ul: "pt-[6px] pb-[6px]",
+    callout: "pt-[6px] pb-[6px]",
   },
   element: {
     paragraph:
@@ -39,6 +41,8 @@ const blockStyles = {
     h1: "editable-placeholder content-h1 font-bold outline-none focus:ring-0 px-[2px] py-[0px]",
     h2: "editable-placeholder content-h2 font-bold outline-none focus:ring-0 px-[2px] py-[0px]",
     h3: "editable-placeholder content-h3 font-bold outline-none focus:ring-0 px-[2px] py-[0px]",
+    callout:
+      "editable-placeholder content-text-block outline-none focus:ring-0 px-[2px] py-[0px] flex-1",
   },
   list: {
     container: "list-disc ps-6",
@@ -46,11 +50,12 @@ const blockStyles = {
   },
 };
 
-const placeholders: Record<ParagraphBlock["type"], string> = {
+const placeholders: Record<ParagraphBlock["type"] | "callout", string> = {
   h1: "Heading 1",
   h2: "Heading 2",
   h3: "Heading 3",
   paragraph: "",
+  callout: "Callout text",
 };
 
 // To add a new markdown shortcut, add an entry here.
@@ -173,6 +178,15 @@ export function BlockEditor({
     markSaved();
   }
 
+  function updateCalloutIcon(blockId: string, icon: string) {
+    setBlocks((prev) =>
+      prev.map((b) =>
+        b.id === blockId && b.type === "callout" ? { ...b, icon } : b,
+      ),
+    );
+    markSaved();
+  }
+
   function updateListItem(blockId: string, itemId: string, text: string) {
     setBlocks((prev) =>
       prev.map((b) => {
@@ -215,6 +229,13 @@ export function BlockEditor({
           id: createBlockId(),
           type: "ul",
           items: [{ id: createBlockId("li"), text: "" }],
+        };
+      } else if (blockType === "callout") {
+        next[blockIndex] = {
+          id: createBlockId(),
+          type: "callout",
+          text: "",
+          icon: "💡",
         };
       } else {
         next[blockIndex] = { id: createBlockId(), type: blockType, text: "" };
@@ -265,6 +286,60 @@ export function BlockEditor({
     if (el) el.textContent = "";
     transformBlock(blockIndex, blockType);
     closeSlashMenu();
+  }
+
+  function handleCalloutInput(
+    e: React.FormEvent<HTMLDivElement>,
+    block: CalloutBlock,
+  ) {
+    const text = e.currentTarget.textContent || "";
+    updateParagraph(block.id, text);
+  }
+
+  function onCalloutKeyDown(
+    e: React.KeyboardEvent<HTMLDivElement>,
+    block: CalloutBlock,
+    index: number,
+  ) {
+    if (e.key === "Enter") {
+      const el = blockRefs.current[block.id];
+      if (el && isCaretAtEnd(el)) {
+        e.preventDefault();
+        insertBlockAfter(index, {
+          id: createBlockId(),
+          type: "paragraph",
+          text: "",
+        });
+        markSaved();
+        return;
+      }
+    }
+
+    if (e.key === "Backspace") {
+      const text = (e.currentTarget.textContent || "").trim();
+      if (text.length === 0 && index > 0) {
+        e.preventDefault();
+        focusPrevBlock(index);
+        removeBlock(index);
+        return;
+      }
+    }
+
+    if (e.key === "ArrowUp") {
+      const el = blockRefs.current[block.id];
+      if (el && isCaretAtStart(el)) {
+        e.preventDefault();
+        focusPrevBlock(index);
+      }
+    }
+
+    if (e.key === "ArrowDown") {
+      const el = blockRefs.current[block.id];
+      if (el && isCaretAtEnd(el)) {
+        e.preventDefault();
+        focusNextBlock(index);
+      }
+    }
   }
 
   // --- Input handlers ---
@@ -561,6 +636,36 @@ export function BlockEditor({
                     </li>
                   ))}
                 </ul>
+              </div>
+            );
+          }
+
+          if (block.type === "callout") {
+            return (
+              <div key={block.id} className={blockStyles.container.callout}>
+                <div className="bg-secondary my-2 flex gap-3 rounded-lg px-4 py-3">
+                  <span
+                    className="shrink-0 text-lg cursor-pointer"
+                    onClick={() => {
+                      const newIcon = prompt("Enter emoji icon:", block.icon);
+                      if (newIcon) updateCalloutIcon(block.id, newIcon);
+                    }}
+                  >
+                    {block.icon}
+                  </span>
+                  <div
+                    ref={(el) => {
+                      blockRefs.current[block.id] = el;
+                    }}
+                    contentEditable
+                    suppressContentEditableWarning
+                    className={blockStyles.element.callout}
+                    data-block-id={block.id}
+                    data-placeholder={placeholders.callout}
+                    onInput={(e) => handleCalloutInput(e, block)}
+                    onKeyDown={(e) => onCalloutKeyDown(e, block, blockIndex)}
+                  />
+                </div>
               </div>
             );
           }

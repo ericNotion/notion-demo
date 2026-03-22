@@ -2,6 +2,7 @@
 
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
+import { calloutBlockIcon } from "@nds-icons/calloutBlock/default.icon";
 import { listBulletIcon } from "@nds-icons/listBullet/default.icon";
 import { textAlignLeftIcon } from "@nds-icons/textAlignLeft/default.icon";
 import { textH1ToggleIcon } from "@nds-icons/textH1Toggle/default.icon";
@@ -62,6 +63,14 @@ export const slashCommands: SlashCommand[] = [
     icon: listBulletIcon,
     keywords: ["ul", "list", "bullet", "bullets", "-"],
     blockType: "ul",
+  },
+  {
+    id: "callout",
+    label: "Callout",
+    description: "Highlighted block with icon",
+    icon: calloutBlockIcon,
+    keywords: ["callout", "banner", "info", "note", "tip"],
+    blockType: "callout",
   },
 ];
 
