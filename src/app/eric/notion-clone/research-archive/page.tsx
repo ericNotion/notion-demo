@@ -242,7 +242,7 @@ export default function Page() {
           Customer interviews, tagged takeaways, and reusable findings.
         </p>
 
-        <div className="mt-2">
+        <div className="mt-8">
           <ViewSwitcher activeView={view} onViewChange={setView} />
 
           {view === "table" ? (
@@ -252,9 +252,10 @@ export default function Page() {
               columns={columns}
               data={rows}
               onNew={() => {}}
+              className="mt-0"
             />
           ) : (
-            <div className="mt-4">
+            <div className="mt-0">
               <BoardView
                 columns={boardColumns}
                 items={rows}
