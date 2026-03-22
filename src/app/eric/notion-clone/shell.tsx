@@ -30,7 +30,7 @@ import { inboxIcon } from "@nds-icons/inbox/default.icon";
 import { magnifyingGlassIcon } from "@nds-icons/magnifyingGlass/default.icon";
 import { plusIcon } from "@nds-icons/plus/default.icon";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { useAtom } from "jotai";
 import { CreateAgentModal } from "./components/CreateAgentModal";
 import { RainbowRoadToggle } from "./components/rainbow-road/RainbowRoadToggle";
@@ -318,7 +318,7 @@ export function NotionShell({
   children,
 }: {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [createAgentOpen, setCreateAgentOpen] = useState(false);
@@ -337,26 +337,31 @@ export function NotionShell({
 
   return (
     <RainbowRoadProvider>
-      <div className="flex h-screen overflow-hidden">
-        {isRainbowRoad && <StarField />}
-        <SlipperySidebarLayout
-          sidebar={
-            <div className={isRainbowRoad ? "rainbow-sidebar h-full" : "h-full"}>
-              <SidebarContent
-                onSearch={() => setSearchOpen(true)}
-                onNewAgent={() => setCreateAgentOpen(true)}
-              />
+      <div className="flex h-screen flex-col overflow-hidden">
+        <PrototypeBanner />
+        <div className="flex min-h-0 flex-1 overflow-hidden">
+          {isRainbowRoad && <StarField />}
+          <SlipperySidebarLayout
+            sidebar={
+              <div
+                className={isRainbowRoad ? "rainbow-sidebar h-full" : "h-full"}
+              >
+                <SidebarContent
+                  onSearch={() => setSearchOpen(true)}
+                  onNewAgent={() => setCreateAgentOpen(true)}
+                />
+              </div>
+            }
+            minWidth={240}
+          >
+            <div className="bg-primary relative z-10 flex min-h-0 min-w-0 flex-1 flex-col">
+              <div className={isRainbowRoad ? "rainbow-topbar" : ""}>
+                <PageTopBar title={title} />
+              </div>
+              <div className="flex-1 overflow-y-auto">{children}</div>
             </div>
-          }
-          minWidth={240}
-        >
-          <div className="bg-primary relative z-10 flex min-h-0 min-w-0 flex-1 flex-col">
-            <div className={isRainbowRoad ? "rainbow-topbar" : ""}>
-              <PageTopBar title={title} />
-            </div>
-            <div className="flex-1 overflow-y-auto">{children}</div>
-          </div>
-        </SlipperySidebarLayout>
+          </SlipperySidebarLayout>
+        </div>
         <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
         <CreateAgentModal
           open={createAgentOpen}
@@ -365,30 +370,5 @@ export function NotionShell({
         />
       </div>
     </RainbowRoadProvider>
-    <div className="flex h-screen flex-col overflow-hidden">
-      <PrototypeBanner />
-      <div className="flex min-h-0 flex-1 overflow-hidden">
-        <SlipperySidebarLayout
-          sidebar={
-            <SidebarContent
-              onSearch={() => setSearchOpen(true)}
-              onNewAgent={() => setCreateAgentOpen(true)}
-            />
-          }
-          minWidth={240}
-        >
-          <div className="bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
-            <PageTopBar title={title} />
-            <div className="flex-1 overflow-y-auto">{children}</div>
-          </div>
-        </SlipperySidebarLayout>
-      </div>
-      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
-      <CreateAgentModal
-        open={createAgentOpen}
-        onOpenChange={setCreateAgentOpen}
-        onCreateAgent={() => {}}
-      />
-    </div>
   );
 }
