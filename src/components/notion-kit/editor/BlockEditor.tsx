@@ -238,16 +238,18 @@ export function BlockEditor({
     filterText: string,
   ) {
     const el = blockRefs.current[blockId];
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
+    const container = editorRootRef.current;
+    if (!el || !container) return;
+    const elRect = el.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
     setSlashMenu({
       blockId,
       blockIndex,
       filterText,
       selectedIndex: 0,
       position: {
-        top: rect.bottom + window.scrollY + 4,
-        left: rect.left + window.scrollX,
+        top: elRect.bottom - containerRect.top + 4,
+        left: elRect.left - containerRect.left,
       },
     });
   }
@@ -584,24 +586,24 @@ export function BlockEditor({
             </div>
           );
         })}
-      </div>
 
-      {slashMenu && (
-        <SlashCommandMenu
-          filterText={slashMenu.filterText}
-          selectedIndex={slashMenu.selectedIndex}
-          position={slashMenu.position}
-          onSelect={(blockType) =>
-            executeSlashCommand(slashMenu.blockIndex, blockType)
-          }
-          onHover={(index) =>
-            setSlashMenu((prev) =>
-              prev ? { ...prev, selectedIndex: index } : null,
-            )
-          }
-          onClose={closeSlashMenu}
-        />
-      )}
+        {slashMenu && (
+          <SlashCommandMenu
+            filterText={slashMenu.filterText}
+            selectedIndex={slashMenu.selectedIndex}
+            position={slashMenu.position}
+            onSelect={(blockType) =>
+              executeSlashCommand(slashMenu.blockIndex, blockType)
+            }
+            onHover={(index) =>
+              setSlashMenu((prev) =>
+                prev ? { ...prev, selectedIndex: index } : null,
+              )
+            }
+            onClose={closeSlashMenu}
+          />
+        )}
+      </div>
     </div>
   );
 }
