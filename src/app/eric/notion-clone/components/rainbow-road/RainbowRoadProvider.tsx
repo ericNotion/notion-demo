@@ -1,14 +1,10 @@
 "use client";
 
 import { useAtom } from "jotai";
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { rainbowRoadAtom } from "./atoms";
 
-export function RainbowRoadProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function RainbowRoadProvider({ children }: { children: ReactNode }) {
   const [isRainbowRoad] = useAtom(rainbowRoadAtom);
 
   useEffect(() => {
