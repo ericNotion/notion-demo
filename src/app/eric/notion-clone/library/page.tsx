@@ -112,16 +112,16 @@ export default function LibraryPage() {
           </div>
 
           <div className="flex items-center gap-2">
-            <Button variant="primary" size="sm">
-              <Icon icon={plusIcon} size={16} />
-              New teamspace
-            </Button>
             <IconButton variant="ghost" size="sm">
               <Icon icon={magnifyingGlassIcon} size={20} color="secondary" />
             </IconButton>
             <IconButton variant="ghost" size="sm">
               <Icon icon={filterIcon} size={20} color="secondary" />
             </IconButton>
+            <Button variant="primary" size="sm">
+              <Icon icon={plusIcon} size={14} className="text-white" />
+              New teamspace
+            </Button>
           </div>
         </div>
 
