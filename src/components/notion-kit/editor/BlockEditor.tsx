@@ -7,11 +7,13 @@ import {
   useAtom,
   useSetAtom,
 } from "jotai";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import {
   type Block,
   type ListBlock,
   type ParagraphBlock,
+  type WhiteboardBlock,
   blocksAtom,
   createBlockId,
   lastSavedAtom,
@@ -25,6 +27,19 @@ import {
 } from "./selection";
 import { filterCommands, SlashCommandMenu } from "./SlashCommandMenu";
 
+const DynamicWhiteboard = dynamic(
+  () =>
+    import("@/app/eric/notion-clone/components/whiteboard").then((mod) => ({
+      default: mod.Whiteboard,
+    })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[500px] bg-secondary rounded-lg animate-pulse" />
+    ),
+  },
+);
+
 const blockStyles = {
   container: {
     paragraph: "pt-[6px] pb-[6px]",
@@ -32,6 +47,7 @@ const blockStyles = {
     h2: "pt-[22px] pb-[6px]",
     h3: "pt-[16px] pb-[6px]",
     ul: "pt-[6px] pb-[6px]",
+    whiteboard: "py-2",
   },
   element: {
     paragraph:
@@ -99,6 +115,9 @@ export function BlockEditor({
   // --- Focus helpers ---
 
   function getBlockEndEl(block: Block): HTMLElement | null {
+    if (block.type === "whiteboard") {
+      return null;
+    }
     if (block.type === "ul") {
       const lastItem = block.items[block.items.length - 1];
       return listItemRefs.current[lastItem.id] || null;
@@ -107,6 +126,9 @@ export function BlockEditor({
   }
 
   function getBlockStartEl(block: Block): HTMLElement | null {
+    if (block.type === "whiteboard") {
+      return null;
+    }
     if (block.type === "ul") {
       return listItemRefs.current[block.items[0].id] || null;
     }
@@ -128,6 +150,9 @@ export function BlockEditor({
   useEffect(() => {
     requestAnimationFrame(() => {
       blocks.forEach((blk) => {
+        if (blk.type === "whiteboard") {
+          return;
+        }
         if (blk.type === "ul") {
           blk.items.forEach((it) => {
             const el = listItemRefs.current[it.id];
@@ -147,7 +172,7 @@ export function BlockEditor({
       if (blocks.length === 0) return;
       for (let i = blocks.length - 1; i >= 0; i--) {
         const b = blocks[i];
-        if (b.type !== "ul" && (b.text ?? "") === "") {
+        if (b.type !== "ul" && b.type !== "whiteboard" && (b.text ?? "") === "") {
           focusAtEnd(blockRefs.current[b.id] || null);
           hasFocusedInitiallyRef.current = true;
           return;
@@ -210,7 +235,12 @@ export function BlockEditor({
     setBlocks((prev) => {
       if (!prev[blockIndex]) return prev;
       const next = [...prev];
-      if (blockType === "ul") {
+      if (blockType === "whiteboard") {
+        next[blockIndex] = {
+          id: createBlockId(),
+          type: "whiteboard",
+        };
+      } else if (blockType === "ul") {
         next[blockIndex] = {
           id: createBlockId(),
           type: "ul",
@@ -519,6 +549,33 @@ export function BlockEditor({
         ref={editorRootRef}
       >
         {blocks.map((block, blockIndex) => {
+          if (block.type === "whiteboard") {
+            return (
+              <div
+                key={block.id}
+                className={blockStyles.container.whiteboard}
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "ArrowUp") {
+                    e.preventDefault();
+                    focusPrevBlock(blockIndex);
+                  }
+                  if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    focusNextBlock(blockIndex);
+                  }
+                  if (e.key === "Backspace") {
+                    e.preventDefault();
+                    focusPrevBlock(blockIndex);
+                    removeBlock(blockIndex);
+                  }
+                }}
+              >
+                <DynamicWhiteboard />
+              </div>
+            );
+          }
+
           if (block.type === "ul") {
             return (
               <div
