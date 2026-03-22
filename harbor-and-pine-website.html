@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harbor & Pine - Buy Less, Buy Better</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #FAF8F3;
+            --sand: #E8DCC4;
+            --pale-blue: #D4E4E8;
+            --driftwood: #A69B8D;
+            --sage: #B5C4A1;
+            --warm-white: #FFFEF9;
+            --text-dark: #3D3D3D;
+            --text-light: #6B6B6B;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--warm-white);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 254, 249, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            border-bottom: 1px solid rgba(166, 155, 141, 0.1);
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            background: linear-gradient(135deg, var(--pale-blue) 0%, var(--sand) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(181, 196, 161, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .tagline {
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--text-dark);
+            color: var(--warm-white);
+            text-decoration: none;
+            border-radius: 2px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--text-dark);
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--cream);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            padding: 2rem;
+            background-color: var(--warm-white);
+            border-radius: 4px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .value-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Products Section */
+        .products {
+            background-color: var(--warm-white);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background-color: var(--cream);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.02);
+        }
+
+        .product-image {
+            height: 300px;
+            background: linear-gradient(135deg, var(--sand) 0%, var(--pale-blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .product-card:nth-child(1) .product-image {
+            background: linear-gradient(135deg, var(--sage) 0%, var(--pale-blue) 100%);
+        }
+
+        .product-card:nth-child(2) .product-image {
+            background: linear-gradient(135deg, var(--sand) 0%, var(--driftwood) 100%);
+        }
+
+        .product-card:nth-child(3) .product-image {
+            background: linear-gradient(135deg, var(--pale-blue) 0%, var(--sage) 100%);
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-info p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Difference Section */
+        .difference {
+            background-color: var(--pale-blue);
+        }
+
+        .difference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .difference-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .difference-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .difference-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .difference-item p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--cream);
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--sand);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--warm-white);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(232, 220, 196, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: rgba(232, 220, 196, 0.2);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(232, 220, 196, 0.2);
+            text-align: center;
+            color: var(--sand);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+
+            .product-grid,
+            .difference-grid,
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">Harbor & Pine</a>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#difference">Philosophy</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Harbor & Pine</h1>
+            <p class="tagline">Buy less, buy better.</p>
+            <a href="#products" class="cta-button">Explore Our Collection</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="section-title">Coastal Simplicity, Thoughtfully Made</h2>
+        <p class="section-subtitle">
+            We create beautifully simple essentials for home and body—small-batch pieces 
+            crafted with intention, designed to last, and made with respect for our planet.
+        </p>
+        <div class="about-content">
+            <div class="value-card">
+                <h3>Our Story</h3>
+                <p>
+                    Founded in 2019 in Portland, Oregon, Harbor & Pine was born from a simple belief: 
+                    that the things we bring into our homes should be as thoughtful as they are beautiful. 
+                    We're a small team of ~15 makers and dreamers committed to coastal-inspired living.
+                </p>
+            </div>
+            <div class="value-card">
+                <h3>Our Values</h3>
+                <p>
+                    We believe in coastal simplicity, sustainable sourcing, and small-batch craft. 
+                    Every piece we create is designed to bring calm and intentionality to your daily rituals—
+                    from the moment you wake to the moment you rest.
+                </p>
+            </div>
+            <div class="value-card">
+                <h3>Our Mission</h3>
+                <p>
+                    In a world of excess, we champion intentional living. We create products that encourage 
+                    you to buy less and buy better—choosing quality over quantity, and mindfulness over mass production.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <h2 class="section-title">Our Collections</h2>
+        <p class="section-subtitle">
+            Discover our thoughtfully curated collections, each piece designed to bring 
+            tranquility and beauty to your everyday moments.
+        </p>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">🛏️</div>
+                <div class="product-info">
+                    <h3>Home Textiles</h3>
+                    <p>
+                        Organic linen bedding, hand-woven throws, and cotton towels that get softer 
+                        with every wash. Made from sustainably sourced natural fibers, each piece brings 
+                        effortless elegance to your living spaces.
+                    </p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🏺</div>
+                <div class="product-info">
+                    <h3>Handcrafted Goods</h3>
+                    <p>
+                        Small-batch ceramics, stoneware, and home accessories crafted by local artisans. 
+                        Each piece is one-of-a-kind, celebrating the beauty of imperfection and the 
+                        warmth of human touch.
+                    </p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🕯️</div>
+                <div class="product-info">
+                    <h3>Scent & Bath</h3>
+                    <p>
+                        Botanical candles, natural soaps, and bath salts made with essential oils and 
+                        plant-based ingredients. Transform your self-care routine into a moment of 
+                        coastal calm and rejuvenation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Makes Us Different -->
+    <section id="difference" class="difference">
+        <h2 class="section-title">What Makes Us Different</h2>
+        <p class="section-subtitle">
+            Our commitment to quality, sustainability, and craftsmanship sets us apart 
+            in a world of fast fashion and disposable goods.
+        </p>
+        <div class="difference-grid">
+            <div class="difference-item">
+                <span class="difference-icon">🌾</span>
+                <h3>Materials-First Sourcing</h3>
+                <p>
+                    We start with the finest natural materials—organic linen, hand-harvested botanicals, 
+                    and sustainably sourced clay—ensuring every product is as kind to the earth as it is beautiful.
+                </p>
+            </div>
+            <div class="difference-item">
+                <span class="difference-icon">✋</span>
+                <h3>Small-Batch Production</h3>
+                <p>
+                    Every piece is made in limited quantities, allowing us to maintain the highest standards 
+                    of quality and craftsmanship while minimizing waste and environmental impact.
+                </p>
+            </div>
+            <div class="difference-item">
+                <span class="difference-icon">♻️</span>
+                <h3>Circular Philosophy</h3>
+                <p>
+                    From biodegradable packaging to products designed to last a lifetime, we're committed 
+                    to closing the loop and creating a more sustainable future for all.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Harbor & Pine</h4>
+                <p>Beautifully simple essentials</p>
+                <p>for home and body.</p>
+                <p style="margin-top: 1rem; font-style: italic;">"Buy less, buy better."</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Portland, Oregon</p>
+                <p>hello@harborandpine.com</p>
+                <p>(503) 555-0123</p>
+            </div>
+            <div class="footer-section">
+                <h4>Shop</h4>
+                <a href="#products">Home Textiles</a>
+                <a href="#products">Handcrafted Goods</a>
+                <a href="#products">Scent & Bath</a>
+                <a href="#about">Our Story</a>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="Pinterest">📌</a>
+                    <a href="#" title="Facebook">👍</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Harbor & Pine. All rights reserved. | Crafted with intention in Portland, Oregon.</p>
+        </div>
+    </footer>
+</body>
+</html>
