@@ -1,5 +1,6 @@
 "use client";
 
+import { Whiteboard } from "@/app/eric/notion-clone/components/Whiteboard";
 import { cn } from "@/utils/cn";
 import {
   type PrimitiveAtom,
@@ -12,6 +13,7 @@ import {
   type Block,
   type ListBlock,
   type ParagraphBlock,
+  type WhiteboardBlock,
   blocksAtom,
   createBlockId,
   lastSavedAtom,
@@ -32,6 +34,7 @@ const blockStyles = {
     h2: "pt-[22px] pb-[6px]",
     h3: "pt-[16px] pb-[6px]",
     ul: "pt-[6px] pb-[6px]",
+    whiteboard: "pt-[12px] pb-[12px]",
   },
   element: {
     paragraph:
@@ -186,6 +189,18 @@ export function BlockEditor({
     markSaved();
   }
 
+  function updateWhiteboard(
+    blockId: string,
+    strokes: WhiteboardBlock["strokes"],
+  ) {
+    setBlocks((prev) =>
+      prev.map((b) =>
+        b.id === blockId && b.type === "whiteboard" ? { ...b, strokes } : b,
+      ),
+    );
+    markSaved();
+  }
+
   function insertBlockAfter(index: number, newBlock: Block) {
     setBlocks((prev) => [
       ...prev.slice(0, index + 1),
@@ -215,6 +230,12 @@ export function BlockEditor({
           id: createBlockId(),
           type: "ul",
           items: [{ id: createBlockId("li"), text: "" }],
+        };
+      } else if (blockType === "whiteboard") {
+        next[blockIndex] = {
+          id: createBlockId(),
+          type: "whiteboard",
+          strokes: [],
         };
       } else {
         next[blockIndex] = { id: createBlockId(), type: blockType, text: "" };
@@ -559,6 +580,17 @@ export function BlockEditor({
                     </li>
                   ))}
                 </ul>
+              </div>
+            );
+          }
+
+          if (block.type === "whiteboard") {
+            return (
+              <div key={block.id} className={blockStyles.container.whiteboard}>
+                <Whiteboard
+                  strokes={block.strokes}
+                  onChange={(strokes) => updateWhiteboard(block.id, strokes)}
+                />
               </div>
             );
           }
