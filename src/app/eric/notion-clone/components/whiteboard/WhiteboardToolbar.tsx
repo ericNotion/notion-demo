@@ -114,7 +114,7 @@ export function WhiteboardToolbar() {
             "h-4 w-4 shrink-0 rounded-full cursor-pointer transition-all",
             strokeColor === color.value && "ring-2 ring-offset-1 ring-blue-500"
           )}
-          style= backgroundColor: color.value 
+          style={{ backgroundColor: color.value }}
           title={color.label}
         />
       ))}
