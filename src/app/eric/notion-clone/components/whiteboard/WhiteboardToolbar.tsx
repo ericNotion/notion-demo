@@ -12,7 +12,7 @@ import { pencilScribbleIcon } from "@nds-icons/pencilScribble/default.icon";
 import { squareDashedIcon } from "@nds-icons/squareDashed/default.icon";
 import { textCursorIBeamIcon } from "@nds-icons/textCursorIBeam/default.icon";
 import { useAtom } from "jotai";
-import { currentToolAtom, elementsAtom, selectedElementIdsAtom } from "./atoms";
+import { currentToolAtom, elementsAtom, selectedElementIdsAtom, strokeColorAtom } from "./atoms";
 import type { Tool } from "./types";
 
 const tools: Array<{ id: Tool; icon: any; label: string }> = [
@@ -25,10 +25,22 @@ const tools: Array<{ id: Tool; icon: any; label: string }> = [
   { id: "eraser", icon: eraserLineDashedIcon, label: "Eraser" },
 ];
 
+const colors = [
+  { value: "#1f1f1f", label: "Black" },
+  { value: "#dc2626", label: "Red" },
+  { value: "#ea580c", label: "Orange" },
+  { value: "#ca8a04", label: "Yellow" },
+  { value: "#16a34a", label: "Green" },
+  { value: "#2563eb", label: "Blue" },
+  { value: "#7c3aed", label: "Purple" },
+  { value: "#db2777", label: "Pink" },
+];
+
 export function WhiteboardToolbar() {
   const [currentTool, setCurrentTool] = useAtom(currentToolAtom);
   const [elements, setElements] = useAtom(elementsAtom);
   const [selectedIds, setSelectedIds] = useAtom(selectedElementIdsAtom);
+  const [strokeColor, setStrokeColor] = useAtom(strokeColorAtom);
 
   const handleConvertToPage = () => {
     if (selectedIds.size === 0) {
@@ -52,6 +64,24 @@ export function WhiteboardToolbar() {
     }
   };
 
+  const handleColorChange = (color: string) => {
+    setStrokeColor(color);
+    
+    if (selectedIds.size > 0) {
+      setElements((prev) =>
+        prev.map((el) => {
+          if (!selectedIds.has(el.id)) return el;
+          
+          if (el.type === "rectangle" || el.type === "circle") {
+            return { ...el, color, fill: undefined };
+          }
+          
+          return { ...el, color };
+        })
+      );
+    }
+  };
+
   return (
     <div className="bg-elevated border-secondary absolute left-1/2 top-4 z-10 flex -translate-x-1/2 items-center gap-1 rounded-lg border px-2 py-1.5 shadow-md-outline">
       {tools.map((tool) => (
@@ -71,6 +101,22 @@ export function WhiteboardToolbar() {
             color={currentTool === tool.id ? undefined : "secondary"}
           />
         </button>
+      ))}
+
+      <Separator orientation="vertical" className="mx-1 h-6" />
+
+      {colors.map((color) => (
+        <button
+          key={color.value}
+          type="button"
+          onClick={() => handleColorChange(color.value)}
+          className={cn(
+            "h-4 w-4 rounded-full cursor-pointer transition-all",
+            strokeColor === color.value && "ring-2 ring-offset-1 ring-blue-500"
+          )}
+          style={{ backgroundColor: color.value }}
+          title={color.label}
+        />
       ))}
 
       <Separator orientation="vertical" className="mx-1 h-6" />
