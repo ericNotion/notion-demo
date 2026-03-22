@@ -3,6 +3,7 @@
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
 import { listBulletIcon } from "@nds-icons/listBullet/default.icon";
+import { pencilScribbleIcon } from "@nds-icons/pencilScribble/default.icon";
 import { textAlignLeftIcon } from "@nds-icons/textAlignLeft/default.icon";
 import { textH1ToggleIcon } from "@nds-icons/textH1Toggle/default.icon";
 import { textH2ToggleIcon } from "@nds-icons/textH2Toggle/default.icon";
@@ -62,6 +63,14 @@ export const slashCommands: SlashCommand[] = [
     icon: listBulletIcon,
     keywords: ["ul", "list", "bullet", "bullets", "-"],
     blockType: "ul",
+  },
+  {
+    id: "whiteboard",
+    label: "Whiteboard",
+    description: "Interactive drawing canvas",
+    icon: pencilScribbleIcon,
+    keywords: ["whiteboard", "draw", "canvas", "sketch", "diagram"],
+    blockType: "whiteboard",
   },
 ];
 
