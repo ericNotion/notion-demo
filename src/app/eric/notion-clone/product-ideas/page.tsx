@@ -238,7 +238,7 @@ export default function Page() {
           Ideas from the team, ranked by votes. Add yours below.
         </p>
 
-        <div className="mt-4">
+        <div className="mt-8">
           <ViewSwitcher
             activeView={view}
             onViewChange={setView}
@@ -267,10 +267,10 @@ export default function Page() {
               columns={columns}
               data={filtered}
               onNew={() => {}}
-              className="mt-0"
+              className="-mt-4"
             />
           ) : (
-            <div className="mt-0">
+            <div className="-mt-4">
               <BoardView
                 columns={boardColumns}
                 items={filtered}
