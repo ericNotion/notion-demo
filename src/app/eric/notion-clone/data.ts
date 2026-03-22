@@ -63,6 +63,13 @@ export const pages: PageEntry[] = [
     kind: "page",
   },
   {
+    emoji: "🖍️",
+    label: "Whiteboard",
+    href: `${BASE}/whiteboard`,
+    section: "private",
+    kind: "page",
+  },
+  {
     emoji: "📋",
     label: "Product handbook",
     href: `${BASE}/product-handbook`,
