@@ -39,8 +39,8 @@ export function ViewSwitcher({
   filterActive,
 }: ViewSwitcherProps) {
   return (
-    <div className="flex flex-col border-b border-[var(--theme-colors-border-primary)]">
-      {/* View tabs row */}
+    <div className="flex items-center justify-between pb-3">
+      {/* Left side: View tabs as pills */}
       <div className="flex items-center gap-1 px-2 py-1.5">
         {views.map((view) => (
           <Button
@@ -66,39 +66,37 @@ export function ViewSwitcher({
         ))}
       </div>
 
-      {/* Toolbar row */}
-      <div className="flex items-center justify-between px-2 py-1.5">
-        <div className="flex items-center gap-0.5">
-          <IconButton
-            variant="ghost"
-            size="sm"
-            onClick={onFilterClick}
-            className={cn(filterActive && "text-blue-500")}
-          >
-            <Icon
-              icon={filterIcon}
-              size={16}
-              color={filterActive ? "bluePrimary" : "secondary"}
-            />
-          </IconButton>
-          <IconButton variant="ghost" size="sm">
-            <Icon icon={arrowUpDownIcon} size={16} color="secondary" />
-          </IconButton>
-          <IconButton variant="ghost" size="sm">
-            <Icon icon={lightningIcon} size={16} color="secondary" />
-          </IconButton>
-          <IconButton variant="ghost" size="sm">
-            <Icon icon={magnifyingGlassIcon} size={16} color="secondary" />
-          </IconButton>
-          <IconButton variant="ghost" size="sm">
-            <Icon icon={arrowExpandDiagonalIcon} size={16} color="secondary" />
-          </IconButton>
-          <IconButton variant="ghost" size="sm">
-            <Icon icon={slidersIcon} size={16} color="secondary" />
-          </IconButton>
-        </div>
+      {/* Right side: Action icons + New button */}
+      <div className="flex items-center gap-0.5 px-2 py-1.5">
+        <IconButton
+          variant="ghost"
+          size="sm"
+          onClick={onFilterClick}
+          className={cn(filterActive && "text-blue-500")}
+        >
+          <Icon
+            icon={filterIcon}
+            size={16}
+            color={filterActive ? "bluePrimary" : "secondary"}
+          />
+        </IconButton>
+        <IconButton variant="ghost" size="sm">
+          <Icon icon={arrowUpDownIcon} size={16} color="secondary" />
+        </IconButton>
+        <IconButton variant="ghost" size="sm">
+          <Icon icon={lightningIcon} size={16} color="secondary" />
+        </IconButton>
+        <IconButton variant="ghost" size="sm">
+          <Icon icon={magnifyingGlassIcon} size={16} color="secondary" />
+        </IconButton>
+        <IconButton variant="ghost" size="sm">
+          <Icon icon={arrowExpandDiagonalIcon} size={16} color="secondary" />
+        </IconButton>
+        <IconButton variant="ghost" size="sm">
+          <Icon icon={slidersIcon} size={16} color="secondary" />
+        </IconButton>
 
-        {/* New button on the right */}
+        {/* New button - Primary blue with dropdown */}
         <Button
           variant="primary"
           shape="pill"
