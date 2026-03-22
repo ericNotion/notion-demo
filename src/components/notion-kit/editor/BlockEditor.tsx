@@ -12,6 +12,7 @@ import {
   type Block,
   type ListBlock,
   type ParagraphBlock,
+  type WhiteboardBlock,
   blocksAtom,
   createBlockId,
   lastSavedAtom,
@@ -24,6 +25,7 @@ import {
   isCaretAtStart,
 } from "./selection";
 import { filterCommands, SlashCommandMenu } from "./SlashCommandMenu";
+import { Whiteboard } from "./whiteboard/Whiteboard";
 
 const blockStyles = {
   container: {
@@ -186,6 +188,18 @@ export function BlockEditor({
     markSaved();
   }
 
+  function updateWhiteboard(
+    blockId: string,
+    elements: WhiteboardBlock["elements"],
+  ) {
+    setBlocks((prev) =>
+      prev.map((b) =>
+        b.id === blockId && b.type === "whiteboard" ? { ...b, elements } : b,
+      ),
+    );
+    markSaved();
+  }
+
   function insertBlockAfter(index: number, newBlock: Block) {
     setBlocks((prev) => [
       ...prev.slice(0, index + 1),
@@ -215,6 +229,14 @@ export function BlockEditor({
           id: createBlockId(),
           type: "ul",
           items: [{ id: createBlockId("li"), text: "" }],
+        };
+      } else if (blockType === "whiteboard") {
+        next[blockIndex] = {
+          id: createBlockId(),
+          type: "whiteboard",
+          elements: [],
+          width: 800,
+          height: 400,
         };
       } else {
         next[blockIndex] = { id: createBlockId(), type: blockType, text: "" };
@@ -260,7 +282,7 @@ export function BlockEditor({
 
   function executeSlashCommand(blockIndex: number, blockType: Block["type"]) {
     const block = blocks[blockIndex];
-    if (!block || block.type === "ul") return;
+    if (!block || block.type === "ul" || block.type === "whiteboard") return;
     const el = blockRefs.current[block.id];
     if (el) el.textContent = "";
     transformBlock(blockIndex, blockType);
@@ -561,6 +583,20 @@ export function BlockEditor({
                     </li>
                   ))}
                 </ul>
+              </div>
+            );
+          }
+
+          if (block.type === "whiteboard") {
+            return (
+              <div key={block.id}>
+                <Whiteboard
+                  blockId={block.id}
+                  elements={block.elements}
+                  width={block.width}
+                  height={block.height}
+                  onChange={(elements) => updateWhiteboard(block.id, elements)}
+                />
               </div>
             );
           }

@@ -14,7 +14,27 @@ export interface ListBlock {
   items: { id: string; text: string }[];
 }
 
-export type Block = ParagraphBlock | ListBlock;
+export interface WhiteboardElement {
+  id: string;
+  type: "pen" | "rectangle" | "ellipse" | "text";
+  points?: { x: number; y: number }[];
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  text?: string;
+  color: string;
+}
+
+export interface WhiteboardBlock {
+  id: string;
+  type: "whiteboard";
+  elements: WhiteboardElement[];
+  width: number;
+  height: number;
+}
+
+export type Block = ParagraphBlock | ListBlock | WhiteboardBlock;
 
 // Helper to create IDs
 export function createBlockId(prefix: string = "blk"): string {
