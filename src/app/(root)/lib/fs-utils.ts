@@ -162,9 +162,7 @@ export async function getAllUserPrototypes(
 /**
  * Get current username - reads from .playground file in development
  */
-export async function getCurrentUsername(): Promise<string | undefined> {
-  // Always read from .playground file (development behavior)
-  // In production, this file won't exist and will return undefined
+export async function getCurrentUsername(): Promise<string> {
   const configFile = getPlaygroundConfigPath();
   try {
     const buf = await fs.readFile(configFile);
@@ -174,7 +172,7 @@ export async function getCurrentUsername(): Promise<string | undefined> {
       return match[1].trim();
     }
   } catch {}
-  return undefined;
+  return "eric";
 }
 
 type PrototypeMetadata = {

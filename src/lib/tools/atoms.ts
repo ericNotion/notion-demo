@@ -11,8 +11,6 @@ export type ToolInvocationState = {
   timestamp: number; // To maintain order
 };
 
-type ToolInvocation = Record<string, ToolInvocationState>;
-
 // Store all tool invocations in a Map for better performance
 export const toolInvocationsAtom = atom<Map<string, ToolInvocationState>>(
   new Map(),
@@ -51,20 +49,6 @@ export const unsavedToolInvocationsGroupedByNameAtom = atom<
   return grouped;
 });
 
-// Accept all unsaved invocations
-const acceptAllUnsavedToolInvocationsAtom = atom(null, (get, set) => {
-  const toolInvocations = get(toolInvocationsAtom);
-  const newInvocations = new Map(toolInvocations);
-
-  for (const [id, state] of newInvocations) {
-    if (!state.saved && !state.discarded) {
-      newInvocations.set(id, { ...state, saved: true });
-    }
-  }
-
-  set(toolInvocationsAtom, newInvocations);
-});
-
 // Accept invocations by tool name
 export const acceptUnsavedToolCallInvocationsByNameAtom = atom(
   null,
@@ -96,20 +80,6 @@ export const acceptUnsavedToolCallInvocationByIdAtom = atom(
     }
   },
 );
-
-// Discard all unsaved invocations
-const discardAllUnsavedToolInvocationsAtom = atom(null, (get, set) => {
-  const toolInvocations = get(toolInvocationsAtom);
-  const newInvocations = new Map(toolInvocations);
-
-  for (const [id, state] of newInvocations) {
-    if (!state.saved && !state.discarded) {
-      newInvocations.set(id, { ...state, discarded: true });
-    }
-  }
-
-  set(toolInvocationsAtom, newInvocations);
-});
 
 // Discard invocations by tool name
 export const discardUnsavedToolCallInvocationsByNameAtom = atom(

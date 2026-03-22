@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
 import { Icon } from "@nds-icons";
 import { plusIcon } from "@nds-icons/plus/default.icon";
-function SimpleChatTopBar() {
+export function SimpleChatTopBar() {
   function newChat() {
     window.location.reload();
   }

@@ -17,17 +17,6 @@ export function isProduction(): boolean {
 }
 
 /**
- * Check if we're using static export mode
- * This is true when building for static export or when running the built static app
- */
-function isStaticMode(): boolean {
-  return (
-    process.env.NEXT_PUBLIC_STATIC_EXPORT === "true" ||
-    (isProduction() && !process.env.VERCEL_URL)
-  );
-}
-
-/**
  * Check if file system operations should be allowed
  * Only allowed in development mode
  */

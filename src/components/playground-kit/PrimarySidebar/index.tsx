@@ -26,7 +26,7 @@ export function PrimarySidebar({
   children,
   globalItems,
   displayHeader = true,
-  displayNewButton = true,
+  displayNewButton: _displayNewButton = true,
   displayFooter = true,
 }: {
   children?: React.ReactNode;

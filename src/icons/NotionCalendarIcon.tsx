@@ -1,8 +1,9 @@
+import Image from "next/image";
 import { IconProps } from "./types";
 
 export function NotionCalendarIcon({ size = 20 }: IconProps) {
   return (
-    <img
+    <Image
       src="/img/notionCalendar.png"
       alt="Notion Calendar"
       width={size}

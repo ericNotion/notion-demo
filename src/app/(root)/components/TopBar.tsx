@@ -17,7 +17,6 @@ import {
 import { useProductionUsername } from "@/hooks/useProductionUsername";
 import { useSession } from "@/hooks/useSession";
 import { handleSignOut } from "@/lib/auth/actions";
-import { ellipsisFillIcon } from "@/nds-icons/src/ellipsis/fill.icon";
 import { anonymizeModeAtom } from "@/root/atoms/anonymizeModeAtom";
 import { commandMenuOpenAtom } from "@/root/atoms/commandMenuOpenAtom";
 import { CreatePrototypeButtonLink } from "@/root/components/CreatePrototypeButtonLink";
