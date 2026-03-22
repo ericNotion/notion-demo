@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Harbor &amp; Pine — Coastal living, simplified</title>
+    <style>
+      :root {
+        --bg: #fbfaf8;
+        --text: #2d2a26;
+        --muted: #6d675f;
+        --card: #ffffff;
+        --border: rgba(45, 42, 38, 0.12);
+        --accent: #2f6f7a;
+        --accent-2: #c9d8d7;
+        --radius: 14px;
+        --max: 1080px;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.4;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      .container { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; }
+
+      header {
+        position: sticky;
+        top: 0;
+        background: rgba(251, 250, 248, 0.78);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+        gap: 18px;
+      }
+      .brand { font-weight: 650; letter-spacing: 0.02em; }
+      .nav-links { display: flex; gap: 14px; color: var(--muted); font-size: 14px; }
+      .nav-actions { display: flex; gap: 10px; align-items: center; }
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        height: 38px; padding: 0 14px; border-radius: 999px;
+        border: 1px solid var(--border); background: var(--card);
+        font-size: 14px; color: var(--text);
+      }
+      .btn.primary { background: var(--accent); color: white; border-color: transparent; }
+
+      .hero { padding: 28px 0 12px; }
+      .hero-card {
+        border: 1px solid var(--border); border-radius: var(--radius);
+        overflow: hidden; background: var(--card);
+      }
+      .hero-media {
+        height: clamp(260px, 42vw, 520px);
+        background: linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.25)),
+          url("https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=2400&q=80") center/cover no-repeat;
+      }
+      .hero-content {
+        padding: 18px 18px 22px; display: grid;
+        grid-template-columns: 1.2fr 0.8fr; gap: 18px;
+      }
+      h1 { margin: 0; font-size: clamp(26px, 2.8vw, 40px); letter-spacing: -0.01em; }
+      .lead { margin: 8px 0 0; color: var(--muted); font-size: 16px; max-width: 60ch; }
+      .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+      .pillars {
+        border-left: 1px solid var(--border); padding-left: 18px;
+        display: grid; gap: 10px; align-content: start;
+      }
+      .pill {
+        border: 1px solid var(--border); border-radius: 999px;
+        padding: 8px 12px; background: #ffffff; font-size: 13px; color: var(--muted);
+      }
+
+      .section { padding: 28px 0; }
+      .section h2 { margin: 0 0 14px; font-size: 18px; color: var(--text); }
+      .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+      .tile {
+        grid-column: span 4; border: 1px solid var(--border);
+        border-radius: var(--radius); overflow: hidden;
+        background: var(--card); min-height: 220px; display: grid;
+      }
+      .tile .img { background: var(--accent-2); }
+      .tile .meta { padding: 14px; }
+      .tile .kicker { color: var(--muted); font-size: 13px; }
+      .tile .title { margin-top: 6px; font-size: 16px; font-weight: 600; }
+
+      .trust { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+      .trust-item {
+        border: 1px solid var(--border); border-radius: 12px;
+        padding: 12px; background: var(--card); color: var(--muted); font-size: 13px;
+      }
+
+      footer {
+        border-top: 1px solid var(--border); padding: 24px 0 40px;
+        color: var(--muted); font-size: 13px;
+      }
+
+      @media (max-width: 880px) {
+        .hero-content { grid-template-columns: 1fr; }
+        .pillars { border-left: none; padding-left: 0; grid-auto-flow: row; }
+        .tile { grid-column: span 12; min-height: 200px; }
+        .trust { grid-template-columns: 1fr 1fr; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <div class="nav">
+          <div class="brand">Harbor &amp; Pine</div>
+          <nav class="nav-links" aria-label="Primary">
+            <a href="#shop">Shop</a>
+            <a href="#story">Our story</a>
+            <a href="#sustainability">Sustainability</a>
+            <a href="#help">Help</a>
+          </nav>
+          <div class="nav-actions">
+            <a class="btn" href="#search">Search</a>
+            <a class="btn" href="#cart">Cart (0)</a>
+            <a class="btn primary" href="#shop">Shop new</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-card">
+            <div class="hero-media" role="img" aria-label="Coastal lifestyle image"></div>
+            <div class="hero-content">
+              <div>
+                <h1>Coastal living, simplified.</h1>
+                <p class="lead">
+                  Small-batch essentials for home and body. Thoughtful materials, quiet design, and
+                  an easy, lived-in calm.
+                </p>
+                <div class="hero-ctas">
+                  <a class="btn primary" href="#shop">Shop bedding</a>
+                  <a class="btn" href="#shop">Shop scent &amp; bath</a>
+                </div>
+              </div>
+              <aside class="pillars" aria-label="Brand pillars">
+                <div class="pill">Sustainable sourcing</div>
+                <div class="pill">Small-batch craft</div>
+                <div class="pill">Coastal simplicity</div>
+                <div class="pill">Intentional living</div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="shop">
+        <div class="container">
+          <h2>Shop by category</h2>
+          <div class="grid">
+            <a class="tile" href="#textiles">
+              <div class="img" style="background:url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=2400&q=80') center/cover;"></div>
+              <div class="meta">
+                <div class="kicker">Home textiles</div>
+                <div class="title">Organic linen that feels lived-in from day one</div>
+              </div>
+            </a>
+            <a class="tile" href="#ceramics">
+              <div class="img" style="background:url('https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=2400&q=80') center/cover;"></div>
+              <div class="meta">
+                <div class="kicker">Handcrafted goods</div>
+                <div class="title">Small-run ceramics with quiet, tactile details</div>
+              </div>
+            </a>
+            <a class="tile" href="#bath">
+              <div class="img" style="background:url('https://images.unsplash.com/photo-1556228724-4b6f2f0a0c84?auto=format&fit=crop&w=2400&q=80') center/cover;"></div>
+              <div class="meta">
+                <div class="kicker">Scent &amp; bath</div>
+                <div class="title">Clean-burning candles and botanical body care</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="sustainability">
+        <div class="container">
+          <h2>Trust signals</h2>
+          <div class="trust">
+            <div class="trust-item">Low-impact dyes and plant-derived ingredients</div>
+            <div class="trust-item">Small-batch production with limited runs</div>
+            <div class="trust-item">Recycled and compostable packaging</div>
+            <div class="trust-item">Easy returns and responsive support</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="story">
+        <div class="container">
+          <h2>Our story</h2>
+          <div style="border:1px solid var(--border);border-radius:var(--radius);background:var(--card);padding:16px;">
+            <p style="margin:0;color:var(--muted);max-width:70ch;">
+              Harbor &amp; Pine makes beautifully simple essentials for home and body—rooted in coastal
+              calm, sustainable sourcing, and small-batch craft. We believe in buying less and buying
+              better.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div>&copy; Harbor &amp; Pine. Coastal living, simplified.</div>
+      </div>
+    </footer>
+  </body>
+</html>
