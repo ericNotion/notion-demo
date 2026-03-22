@@ -2,6 +2,7 @@
 
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
+import { emojiFaceIcon } from "@nds-icons/emojiFace/default.icon";
 import { listBulletIcon } from "@nds-icons/listBullet/default.icon";
 import { textAlignLeftIcon } from "@nds-icons/textAlignLeft/default.icon";
 import { textH1ToggleIcon } from "@nds-icons/textH1Toggle/default.icon";
@@ -19,6 +20,7 @@ interface SlashCommand {
   icon: typeof textAlignLeftIcon;
   keywords: string[];
   blockType: BlockType;
+  text?: string; // Optional pre-filled text content
 }
 
 // To add a new slash command, add an entry here.
@@ -63,6 +65,15 @@ export const slashCommands: SlashCommand[] = [
     keywords: ["ul", "list", "bullet", "bullets", "-"],
     blockType: "ul",
   },
+  {
+    id: "banans",
+    label: "Banans",
+    description: "A bunch of bananas",
+    icon: emojiFaceIcon,
+    keywords: ["banans", "banana", "bananas", "fruit", "emoji"],
+    blockType: "paragraph",
+    text: "🍌🍌🍌🍌🍌🍌🍌🍌🍌🍌🍌🍌🍌🍌🍌🍌🍌🍌🍌🍌",
+  },
 ];
 
 export function filterCommands(filterText: string): SlashCommand[] {
@@ -80,7 +91,7 @@ interface SlashCommandMenuProps {
   filterText: string;
   selectedIndex: number;
   position: { top: number; left: number };
-  onSelect: (blockType: BlockType) => void;
+  onSelect: (blockType: BlockType, text?: string) => void;
   onHover: (index: number) => void;
   onClose: () => void;
 }
@@ -132,7 +143,7 @@ export function SlashCommandMenu({
               "flex w-full items-center gap-3 rounded-md px-2 py-1.5 text-left transition-colors",
               index === selectedIndex ? "bg-tertiary" : "hover:bg-tertiary",
             )}
-            onClick={() => onSelect(cmd.blockType)}
+            onClick={() => onSelect(cmd.blockType, cmd.text)}
             onMouseEnter={() => onHover(index)}
           >
             <div className="flex size-6 shrink-0 items-center justify-center">

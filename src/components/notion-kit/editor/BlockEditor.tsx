@@ -256,12 +256,36 @@ export function BlockEditor({
     setSlashMenu(null);
   }
 
-  function executeSlashCommand(blockIndex: number, blockType: Block["type"]) {
+  function executeSlashCommand(
+    blockIndex: number,
+    blockType: Block["type"],
+    text?: string,
+  ) {
     const block = blocks[blockIndex];
     if (!block || block.type === "ul") return;
     const el = blockRefs.current[block.id];
     if (el) el.textContent = "";
-    transformBlock(blockIndex, blockType);
+
+    // If text content is provided, insert it into the block
+    if (text) {
+      const newBlockId = createBlockId();
+      setBlocks((prev) => {
+        if (!prev[blockIndex]) return prev;
+        const next = [...prev];
+        next[blockIndex] = {
+          id: newBlockId,
+          type: blockType as Exclude<Block["type"], "ul">,
+          text: text,
+        };
+        return next;
+      });
+      requestAnimationFrame(() => {
+        focusAtEnd(blockRefs.current[newBlockId] || null);
+      });
+      markSaved();
+    } else {
+      transformBlock(blockIndex, blockType);
+    }
     closeSlashMenu();
   }
 
@@ -319,7 +343,7 @@ export function BlockEditor({
       if (e.key === "Enter") {
         e.preventDefault();
         const cmd = filtered[slashMenu.selectedIndex];
-        if (cmd) executeSlashCommand(index, cmd.blockType);
+        if (cmd) executeSlashCommand(index, cmd.blockType, cmd.text);
         return;
       }
       if (e.key === "Escape") {
@@ -591,8 +615,8 @@ export function BlockEditor({
           filterText={slashMenu.filterText}
           selectedIndex={slashMenu.selectedIndex}
           position={slashMenu.position}
-          onSelect={(blockType) =>
-            executeSlashCommand(slashMenu.blockIndex, blockType)
+          onSelect={(blockType, text) =>
+            executeSlashCommand(slashMenu.blockIndex, blockType, text)
           }
           onHover={(index) =>
             setSlashMenu((prev) =>
