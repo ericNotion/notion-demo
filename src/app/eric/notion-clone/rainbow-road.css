@@ -1,0 +1,509 @@
+/* 🌈 Rainbow Road Theme for Notion Clone 🌈 */
+
+/* Rainbow gradient keyframes */
+@keyframes rainbow-bg {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes rainbow-border {
+  0% {
+    border-color: #ff0080;
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.6);
+  }
+  14% {
+    border-color: #ff8c00;
+    box-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
+  }
+  28% {
+    border-color: #ffd700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  }
+  42% {
+    border-color: #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+  }
+  57% {
+    border-color: #00bfff;
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.6);
+  }
+  71% {
+    border-color: #8a2be2;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+  }
+  85% {
+    border-color: #ff00ff;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
+  }
+  100% {
+    border-color: #ff0080;
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.6);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))
+      drop-shadow(0 0 16px rgba(0, 191, 255, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(255, 0, 255, 0.8))
+      drop-shadow(0 0 32px rgba(255, 140, 0, 0.5));
+  }
+}
+
+@keyframes float-sparkle {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes rainbow-text {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Base cosmic background - dark space with subtle stars */
+:root {
+  /* Override background colors to dark space theme */
+  --background-color-primary: #0a0a0f !important;
+  --background-color-secondary: #12121a !important;
+  --background-color-tertiary: #1a1a25 !important;
+  --background-color-elevated: #15151f !important;
+  
+  /* Keep text readable with bright neon colors */
+  --text-color-primary: #f0f0ff !important;
+  --text-color-secondary: #c8c8e8 !important;
+  --text-color-tertiary: #9898c8 !important;
+  
+  /* Rainbow border colors */
+  --border-color-primary: rgba(138, 43, 226, 0.3) !important;
+  --border-color-secondary: rgba(0, 191, 255, 0.2) !important;
+  
+  /* Icon colors - vibrant neon */
+  --icon-color-primary: #e0a0ff !important;
+  --icon-color-secondary: #80c0ff !important;
+  --icon-color-tertiary: #ffa0e0 !important;
+}
+
+/* Cosmic background with stars */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(2px 2px at 60% 70%, white, transparent),
+    radial-gradient(1px 1px at 50% 50%, white, transparent),
+    radial-gradient(1px 1px at 80% 10%, white, transparent),
+    radial-gradient(2px 2px at 90% 60%, white, transparent),
+    radial-gradient(1px 1px at 33% 80%, white, transparent),
+    radial-gradient(1px 1px at 15% 55%, white, transparent),
+    #0a0a0f;
+  background-size: 200% 200%;
+  animation: star-twinkle 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.4;
+}
+
+/* Rainbow gradient overlay on main backgrounds */
+.bg-primary,
+[class*="bg-primary"] {
+  background: linear-gradient(
+    135deg,
+    rgba(138, 43, 226, 0.05) 0%,
+    rgba(0, 191, 255, 0.05) 25%,
+    rgba(0, 255, 127, 0.05) 50%,
+    rgba(255, 140, 0, 0.05) 75%,
+    rgba(255, 0, 128, 0.05) 100%
+  ) !important;
+  background-size: 400% 400% !important;
+  animation: rainbow-bg 15s ease infinite !important;
+}
+
+/* Sidebar rainbow gradient */
+aside,
+nav,
+[class*="sidebar"] {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 15, 0.95) 0%,
+    rgba(18, 18, 26, 0.95) 50%,
+    rgba(10, 10, 15, 0.95) 100%
+  ) !important;
+  border-right: 2px solid transparent !important;
+  animation: rainbow-border 8s linear infinite !important;
+}
+
+/* Neon glow on interactive elements */
+button:not([disabled]),
+a,
+[role="button"] {
+  transition: all 0.3s ease !important;
+}
+
+button:not([disabled]):hover,
+a:hover,
+[role="button"]:hover {
+  filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))
+    drop-shadow(0 0 16px rgba(0, 191, 255, 0.4)) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Rainbow glow on focus */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[contenteditable]:focus-visible {
+  outline: 2px solid transparent !important;
+  box-shadow: 
+    0 0 0 2px rgba(138, 43, 226, 0.4),
+    0 0 20px rgba(138, 43, 226, 0.6),
+    0 0 40px rgba(0, 191, 255, 0.4) !important;
+  animation: glow-pulse 2s ease-in-out infinite !important;
+}
+
+/* Page titles with rainbow gradient text */
+.content-page-title,
+h1,
+h2,
+h3 {
+  background: linear-gradient(
+    90deg,
+    #ff0080,
+    #ff8c00,
+    #ffd700,
+    #00ff00,
+    #00bfff,
+    #8a2be2,
+    #ff00ff,
+    #ff0080
+  ) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: rainbow-text 4s linear infinite !important;
+  filter: drop-shadow(0 0 4px rgba(138, 43, 226, 0.3)) !important;
+}
+
+/* Emoji with glow effect */
+.text-base,
+[class*="emoji"],
+span:has(> :only-child):not([class]) {
+  animation: float-sparkle 3s ease-in-out infinite !important;
+}
+
+/* Cards and elevated surfaces with neon borders */
+[class*="rounded"],
+[class*="border"] {
+  border-color: rgba(138, 43, 226, 0.3) !important;
+  box-shadow: 
+    0 0 10px rgba(138, 43, 226, 0.2),
+    0 0 20px rgba(0, 191, 255, 0.1),
+    inset 0 0 60px rgba(138, 43, 226, 0.05) !important;
+}
+
+/* Input fields with rainbow underline */
+input[type="text"],
+input[type="search"],
+textarea,
+[contenteditable] {
+  background: rgba(18, 18, 26, 0.6) !important;
+  border-bottom: 2px solid transparent !important;
+  animation: rainbow-border 6s linear infinite !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px;
+  background: rgba(10, 10, 15, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #8a2be2,
+    #00bfff,
+    #00ff7f,
+    #ff8c00,
+    #ff0080
+  );
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+}
+
+/* Dialog/Modal backgrounds */
+[role="dialog"],
+.modal,
+[class*="DialogContent"] {
+  background: linear-gradient(
+    135deg,
+    rgba(18, 18, 26, 0.95) 0%,
+    rgba(26, 26, 37, 0.95) 100%
+  ) !important;
+  border: 2px solid transparent !important;
+  animation: rainbow-border 8s linear infinite !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+/* Hover states with rainbow shimmer */
+[class*="hover"]:hover,
+button:not([disabled]):hover {
+  background: linear-gradient(
+    90deg,
+    rgba(138, 43, 226, 0.1),
+    rgba(0, 191, 255, 0.1),
+    rgba(0, 255, 127, 0.1),
+    rgba(255, 140, 0, 0.1)
+  ) !important;
+  background-size: 200% 100% !important;
+  animation: rainbow-bg 2s ease infinite !important;
+}
+
+/* Selected/Active states */
+[aria-selected="true"],
+[data-active="true"],
+.active,
+[class*="active"] {
+  background: linear-gradient(
+    90deg,
+    rgba(138, 43, 226, 0.2),
+    rgba(0, 191, 255, 0.2)
+  ) !important;
+  border-left: 3px solid #8a2be2 !important;
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.4) !important;
+}
+
+/* Badges and counts */
+[class*="badge"],
+[class*="count"],
+span[class*="rounded-full"] {
+  background: linear-gradient(135deg, #ff0080, #8a2be2) !important;
+  box-shadow: 0 0 10px rgba(255, 0, 128, 0.6) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* Top bar with cosmic gradient */
+[class*="PageTopBar"],
+header {
+  background: linear-gradient(
+    90deg,
+    rgba(18, 18, 26, 0.95) 0%,
+    rgba(26, 18, 35, 0.95) 50%,
+    rgba(18, 18, 26, 0.95) 100%
+  ) !important;
+  border-bottom: 2px solid transparent !important;
+  animation: rainbow-border 10s linear infinite !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Database tables with neon grid */
+table,
+[class*="table"] {
+  border-collapse: separate !important;
+  border-spacing: 2px !important;
+}
+
+table td,
+table th,
+[class*="table"] td,
+[class*="table"] th {
+  border: 1px solid rgba(138, 43, 226, 0.2) !important;
+  background: rgba(18, 18, 26, 0.4) !important;
+}
+
+table th,
+[class*="table"] th {
+  background: linear-gradient(
+    135deg,
+    rgba(138, 43, 226, 0.3),
+    rgba(0, 191, 255, 0.3)
+  ) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Dividers with rainbow gradient */
+hr,
+[class*="divider"],
+.DividerBlock {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #8a2be2,
+    #00bfff,
+    #00ff7f,
+    #ff8c00,
+    #ff0080,
+    transparent
+  ) !important;
+  height: 2px !important;
+  border: none !important;
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.5) !important;
+}
+
+/* Callout blocks with neon glow */
+[class*="callout"],
+.CalloutBlock {
+  background: linear-gradient(
+    135deg,
+    rgba(138, 43, 226, 0.1),
+    rgba(0, 191, 255, 0.1)
+  ) !important;
+  border-left: 4px solid transparent !important;
+  animation: rainbow-border 6s linear infinite !important;
+  padding: 16px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.2) !important;
+}
+
+/* Sidebar items glow on hover */
+[class*="SidebarItem"]:hover,
+nav a:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(138, 43, 226, 0.15),
+    rgba(0, 191, 255, 0.15)
+  ) !important;
+  box-shadow: 
+    0 0 15px rgba(138, 43, 226, 0.3),
+    inset 0 0 30px rgba(138, 43, 226, 0.1) !important;
+}
+
+/* Search dialog with cosmic backdrop */
+[class*="DialogContent"] input {
+  background: rgba(26, 26, 37, 0.8) !important;
+  border: 2px solid rgba(138, 43, 226, 0.3) !important;
+  color: #f0f0ff !important;
+}
+
+/* Placeholder text */
+::placeholder {
+  color: rgba(152, 152, 200, 0.5) !important;
+}
+
+/* Button primary actions */
+button[class*="primary"],
+[class*="Button"][class*="primary"] {
+  background: linear-gradient(135deg, #8a2be2, #00bfff) !important;
+  border: none !important;
+  box-shadow: 
+    0 0 20px rgba(138, 43, 226, 0.5),
+    0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+button[class*="primary"]:hover,
+[class*="Button"][class*="primary"]:hover {
+  box-shadow: 
+    0 0 30px rgba(138, 43, 226, 0.8),
+    0 0 50px rgba(0, 191, 255, 0.5),
+    0 6px 16px rgba(0, 0, 0, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Icon buttons with subtle glow */
+[class*="IconButton"] {
+  transition: all 0.2s ease !important;
+}
+
+[class*="IconButton"]:hover {
+  background: rgba(138, 43, 226, 0.2) !important;
+  box-shadow: 0 0 12px rgba(138, 43, 226, 0.4) !important;
+}
+
+/* Quick action bar */
+[class*="QuickActionBar"] {
+  background: rgba(18, 18, 26, 0.6) !important;
+  border: 1px solid rgba(138, 43, 226, 0.3) !important;
+  box-shadow: 
+    0 0 15px rgba(138, 43, 226, 0.3),
+    inset 0 0 30px rgba(138, 43, 226, 0.05) !important;
+}
+
+/* Event items and meeting cards */
+[class*="EventItem"],
+[class*="MeetingCard"] {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 26, 37, 0.6),
+    rgba(35, 26, 45, 0.6)
+  ) !important;
+  border-left: 3px solid transparent !important;
+  animation: rainbow-border 8s linear infinite !important;
+}
+
+/* Code blocks with matrix-style glow */
+code,
+pre {
+  background: rgba(10, 10, 15, 0.8) !important;
+  border: 1px solid rgba(0, 255, 127, 0.3) !important;
+  color: #00ff7f !important;
+  box-shadow: 
+    0 0 10px rgba(0, 255, 127, 0.2),
+    inset 0 0 20px rgba(0, 255, 127, 0.05) !important;
+  font-family: 'Monaco', 'Courier New', monospace !important;
+}
+
+/* Selection highlight */
+::selection {
+  background: rgba(138, 43, 226, 0.5) !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 8px rgba(138, 43, 226, 0.8) !important;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
