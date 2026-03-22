@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
 import { arrowExpandDiagonalIcon } from "@nds-icons/arrowExpandDiagonal/default.icon";
-import { arrowLineIcon } from "@nds-icons/arrowLine/default.icon";
+import { arrowStraightRightIcon } from "@nds-icons/arrowStraightRight/default.icon";
 import { arrowUTurnUpLeftIcon } from "@nds-icons/arrowUTurnUpLeft/default.icon";
 import { arrowUTurnUpRightIcon } from "@nds-icons/arrowUTurnUpRight/default.icon";
 import { circleIcon } from "@nds-icons/circle/default.icon";
@@ -44,6 +44,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
   );
   const [history, setHistory] = useState<WhiteboardShape[][]>([shapes]);
   const [historyIndex, setHistoryIndex] = useState(0);
+  const [isSpaceDown, setIsSpaceDown] = useState(false);
 
   const svgRef = useRef<SVGSVGElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
@@ -70,6 +71,9 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === " " || e.code === "Space") {
+        setIsSpaceDown(true);
+      }
       if ((e.metaKey || e.ctrlKey) && e.key === "z") {
         e.preventDefault();
         if (e.shiftKey) {
@@ -79,8 +83,17 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
         }
       }
     };
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (e.key === " " || e.code === "Space") {
+        setIsSpaceDown(false);
+      }
+    };
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
   }, [undo, redo]);
 
   const screenToSVG = useCallback(
@@ -100,7 +113,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
     (e: React.PointerEvent<SVGSVGElement>) => {
       const point = screenToSVG(e.clientX, e.clientY);
 
-      if (e.buttons === 4 || (e.buttons === 1 && e.spaceKey)) {
+      if (e.buttons === 4 || (e.buttons === 1 && isSpaceDown)) {
         setIsPanning(true);
         panStartRef.current = { x: e.clientX, y: e.clientY };
         return;
@@ -161,7 +174,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
         }
       }
     },
-    [tool, shapes, onChange, screenToSVG, addToHistory],
+    [tool, shapes, onChange, screenToSVG, addToHistory, isSpaceDown],
   );
 
   const handlePointerMove = useCallback(
@@ -266,7 +279,7 @@ export function Whiteboard({ shapes, onChange }: WhiteboardProps) {
     { id: "pen", icon: pencilIcon, label: "Pen" },
     { id: "rectangle", icon: rectangleOnRectangleIcon, label: "Rectangle" },
     { id: "ellipse", icon: circleIcon, label: "Ellipse" },
-    { id: "arrow", icon: arrowLineIcon, label: "Arrow" },
+    { id: "arrow", icon: arrowStraightRightIcon, label: "Arrow" },
     { id: "text", icon: textCursorIBeamIcon, label: "Text" },
     { id: "eraser", icon: eraserLineDashedIcon, label: "Eraser" },
   ];
