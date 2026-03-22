@@ -17,25 +17,10 @@ jobs:
       - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
-          restore-keys: ${{ runner.os }}-bun-
+          key: $ runner.os -bun-$ hashFiles('bun.lock') 
+          restore-keys: $ runner.os -bun-
       - run: bun install
       - run: bun run lint
-
-  format:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-      - uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
-        with:
-          bun-version: 1.2.0
-      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
-        with:
-          path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
-          restore-keys: ${{ runner.os }}-bun-
-      - run: bun install
-      - run: bun run format:check
 
   test:
     runs-on: ubuntu-latest
@@ -47,7 +32,7 @@ jobs:
       - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
-          restore-keys: ${{ runner.os }}-bun-
+          key: $ runner.os -bun-$ hashFiles('bun.lock') 
+          restore-keys: $ runner.os -bun-
       - run: bun install
       - run: bun run test

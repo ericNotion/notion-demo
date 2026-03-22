@@ -36,6 +36,7 @@ import { CreateAgentModal } from "./components/CreateAgentModal";
 import { RainbowRoadToggle } from "./components/rainbow-road/RainbowRoadToggle";
 import { RainbowRoadProvider } from "./components/rainbow-road/RainbowRoadProvider";
 import { rainbowRoadAtom } from "./components/rainbow-road/atoms";
+import { PrototypeBanner } from "./components/PrototypeBanner";
 import {
   agents,
   chatGroups,
@@ -364,5 +365,30 @@ export function NotionShell({
         />
       </div>
     </RainbowRoadProvider>
+    <div className="flex h-screen flex-col overflow-hidden">
+      <PrototypeBanner />
+      <div className="flex min-h-0 flex-1 overflow-hidden">
+        <SlipperySidebarLayout
+          sidebar={
+            <SidebarContent
+              onSearch={() => setSearchOpen(true)}
+              onNewAgent={() => setCreateAgentOpen(true)}
+            />
+          }
+          minWidth={240}
+        >
+          <div className="bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
+            <PageTopBar title={title} />
+            <div className="flex-1 overflow-y-auto">{children}</div>
+          </div>
+        </SlipperySidebarLayout>
+      </div>
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
+      <CreateAgentModal
+        open={createAgentOpen}
+        onOpenChange={setCreateAgentOpen}
+        onCreateAgent={() => {}}
+      />
+    </div>
   );
 }
