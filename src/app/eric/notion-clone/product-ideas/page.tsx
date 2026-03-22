@@ -242,8 +242,6 @@ export default function Page() {
           <ViewSwitcher
             activeView={view}
             onViewChange={setView}
-            onFilterClick={() => setFilterOpen(!filterOpen)}
-            filterActive={activeFilters.size > 0}
           />
 
           {filterOpen && (
