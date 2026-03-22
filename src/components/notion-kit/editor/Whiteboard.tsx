@@ -283,7 +283,7 @@ export function Whiteboard({ data, onChange }: WhiteboardProps) {
                   ? "ring-primary ring-2 ring-offset-2"
                   : "hover:ring-primary hover:ring-1 hover:ring-offset-1",
               )}
-              style= backgroundColor: c.value 
+              style={{ backgroundColor: c.value }}
               onClick={() => setColor(c.value)}
               aria-label={c.name}
             />
