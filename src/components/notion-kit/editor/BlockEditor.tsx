@@ -10,8 +10,11 @@ import {
 import { useEffect, useRef, useState } from "react";
 import {
   type Block,
+  type DrawingStroke,
   type ListBlock,
   type ParagraphBlock,
+  type StickyNote,
+  type WhiteboardBlock,
   blocksAtom,
   createBlockId,
   lastSavedAtom,
@@ -24,6 +27,7 @@ import {
   isCaretAtStart,
 } from "./selection";
 import { filterCommands, SlashCommandMenu } from "./SlashCommandMenu";
+import { Whiteboard } from "./Whiteboard";
 
 const blockStyles = {
   container: {
@@ -216,6 +220,13 @@ export function BlockEditor({
           type: "ul",
           items: [{ id: createBlockId("li"), text: "" }],
         };
+      } else if (blockType === "whiteboard") {
+        next[blockIndex] = {
+          id: createBlockId(),
+          type: "whiteboard",
+          stickyNotes: [],
+          strokes: [],
+        };
       } else {
         next[blockIndex] = { id: createBlockId(), type: blockType, text: "" };
       }
@@ -260,7 +271,7 @@ export function BlockEditor({
 
   function executeSlashCommand(blockIndex: number, blockType: Block["type"]) {
     const block = blocks[blockIndex];
-    if (!block || block.type === "ul") return;
+    if (!block || block.type === "ul" || block.type === "whiteboard") return;
     const el = blockRefs.current[block.id];
     if (el) el.textContent = "";
     transformBlock(blockIndex, blockType);
@@ -510,6 +521,32 @@ export function BlockEditor({
     }
   }
 
+  // --- Whiteboard handlers ---
+
+  function updateWhiteboard(
+    blockId: string,
+    stickyNotes: StickyNote[],
+    strokes: DrawingStroke[],
+  ) {
+    setBlocks((prev) =>
+      prev.map((b) =>
+        b.id === blockId && b.type === "whiteboard"
+          ? { ...b, stickyNotes, strokes }
+          : b,
+      ),
+    );
+    markSaved();
+  }
+
+  function convertStickyToTask(blockIndex: number, text: string) {
+    const newBlock: Block = {
+      id: createBlockId(),
+      type: "ul",
+      items: [{ id: createBlockId("li"), text }],
+    };
+    insertBlockAfter(blockIndex, newBlock);
+  }
+
   // --- Render ---
 
   return (
@@ -561,6 +598,22 @@ export function BlockEditor({
                     </li>
                   ))}
                 </ul>
+              </div>
+            );
+          }
+
+          if (block.type === "whiteboard") {
+            return (
+              <div key={block.id} className="pt-[6px] pb-[6px]">
+                <Whiteboard
+                  block={block}
+                  onChange={(stickyNotes, strokes) =>
+                    updateWhiteboard(block.id, stickyNotes, strokes)
+                  }
+                  onConvertToTask={(text) =>
+                    convertStickyToTask(blockIndex, text)
+                  }
+                />
               </div>
             );
           }
