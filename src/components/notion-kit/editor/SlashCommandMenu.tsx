@@ -7,6 +7,7 @@ import { textAlignLeftIcon } from "@nds-icons/textAlignLeft/default.icon";
 import { textH1ToggleIcon } from "@nds-icons/textH1Toggle/default.icon";
 import { textH2ToggleIcon } from "@nds-icons/textH2Toggle/default.icon";
 import { textH3Icon } from "@nds-icons/textH3/default.icon";
+import { viewBoardIcon } from "@nds-icons/viewBoard/default.icon";
 import { useEffect, useRef } from "react";
 import type { Block } from "./atoms";
 
@@ -62,6 +63,14 @@ export const slashCommands: SlashCommand[] = [
     icon: listBulletIcon,
     keywords: ["ul", "list", "bullet", "bullets", "-"],
     blockType: "ul",
+  },
+  {
+    id: "whiteboard",
+    label: "Whiteboard",
+    description: "Infinite canvas for drawing",
+    icon: viewBoardIcon,
+    keywords: ["whiteboard", "canvas", "draw", "sketch", "board"],
+    blockType: "whiteboard",
   },
 ];
 

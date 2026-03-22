@@ -12,10 +12,13 @@ import {
   type Block,
   type ListBlock,
   type ParagraphBlock,
+  type WhiteboardBlock,
+  type WhiteboardShape,
   blocksAtom,
   createBlockId,
   lastSavedAtom,
 } from "./atoms";
+import { Whiteboard } from "@/app/eric/notion-clone/components/whiteboard/Whiteboard";
 import "./contenteditable.css";
 import {
   focusAtEnd,
@@ -103,12 +106,18 @@ export function BlockEditor({
       const lastItem = block.items[block.items.length - 1];
       return listItemRefs.current[lastItem.id] || null;
     }
+    if (block.type === "whiteboard") {
+      return null;
+    }
     return blockRefs.current[block.id] || null;
   }
 
   function getBlockStartEl(block: Block): HTMLElement | null {
     if (block.type === "ul") {
       return listItemRefs.current[block.items[0].id] || null;
+    }
+    if (block.type === "whiteboard") {
+      return null;
     }
     return blockRefs.current[block.id] || null;
   }
@@ -133,6 +142,8 @@ export function BlockEditor({
             const el = listItemRefs.current[it.id];
             if (el && el.textContent !== it.text) el.textContent = it.text;
           });
+        } else if (blk.type === "whiteboard") {
+          // Skip whiteboard blocks
         } else {
           const el = blockRefs.current[blk.id];
           if (el && el.textContent !== blk.text) el.textContent = blk.text;
@@ -147,7 +158,7 @@ export function BlockEditor({
       if (blocks.length === 0) return;
       for (let i = blocks.length - 1; i >= 0; i--) {
         const b = blocks[i];
-        if (b.type !== "ul" && (b.text ?? "") === "") {
+        if (b.type !== "ul" && b.type !== "whiteboard" && (b.text ?? "") === "") {
           focusAtEnd(blockRefs.current[b.id] || null);
           hasFocusedInitiallyRef.current = true;
           return;
@@ -167,7 +178,7 @@ export function BlockEditor({
   function updateParagraph(blockId: string, text: string) {
     setBlocks((prev) =>
       prev.map((b) =>
-        b.id === blockId && b.type !== "ul" ? { ...b, text } : b,
+        b.id === blockId && b.type !== "ul" && b.type !== "whiteboard" ? { ...b, text } : b,
       ),
     );
     markSaved();
@@ -182,6 +193,15 @@ export function BlockEditor({
           items: b.items.map((it) => (it.id === itemId ? { ...it, text } : it)),
         };
       }),
+    );
+    markSaved();
+  }
+
+  function updateWhiteboard(blockId: string, shapes: WhiteboardShape[]) {
+    setBlocks((prev) =>
+      prev.map((b) =>
+        b.id === blockId && b.type === "whiteboard" ? { ...b, shapes } : b,
+      ),
     );
     markSaved();
   }
@@ -216,16 +236,26 @@ export function BlockEditor({
           type: "ul",
           items: [{ id: createBlockId("li"), text: "" }],
         };
+      } else if (blockType === "whiteboard") {
+        next[blockIndex] = {
+          id: createBlockId(),
+          type: "whiteboard",
+          shapes: [],
+        };
       } else {
         next[blockIndex] = { id: createBlockId(), type: blockType, text: "" };
       }
       return next;
     });
     requestAnimationFrame(() => {
-      const refs =
-        blockType === "ul" ? listItemRefs.current : blockRefs.current;
-      const entries = Object.entries(refs);
-      if (entries.length > 0) focusAtEnd(entries[entries.length - 1][1]);
+      if (blockType === "whiteboard") {
+        // No focus needed for whiteboard
+      } else {
+        const refs =
+          blockType === "ul" ? listItemRefs.current : blockRefs.current;
+        const entries = Object.entries(refs);
+        if (entries.length > 0) focusAtEnd(entries[entries.length - 1][1]);
+      }
     });
     markSaved();
   }
@@ -561,6 +591,17 @@ export function BlockEditor({
                     </li>
                   ))}
                 </ul>
+              </div>
+            );
+          }
+
+          if (block.type === "whiteboard") {
+            return (
+              <div key={block.id} className="pt-[6px] pb-[6px]">
+                <Whiteboard
+                  shapes={block.shapes}
+                  onChange={(shapes) => updateWhiteboard(block.id, shapes)}
+                />
               </div>
             );
           }
