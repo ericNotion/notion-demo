@@ -15,7 +15,6 @@ import { peopleIcon } from "@nds-icons/people/default.icon";
 import { viewBoardIcon } from "@nds-icons/viewBoard/default.icon";
 import { useState } from "react";
 import { BoardView, type BoardColumn } from "../components/BoardView";
-import { DatabaseSettingsPopover } from "../components/DatabaseSettingsPopover";
 import { FilterBar } from "../components/FilterBar";
 import { ViewSwitcher, type ViewType } from "../components/ViewSwitcher";
 import { NotionShell } from "../shell";
@@ -257,22 +256,11 @@ export default function Page() {
           Track launches, owners, and blockers across the team.
         </p>
 
-        <div className="mt-8">
-          <div className="flex items-center gap-2">
-            <div className="flex-1">
-              <ViewSwitcher
-                activeView={view}
-                onViewChange={setView}
-                onFilterClick={() => setFilterOpen(!filterOpen)}
-                filterActive={activeFilters.size > 0}
-              />
-            </div>
-            <DatabaseSettingsPopover
-              properties={propertyDefs}
-              activeView={view}
-              onViewChange={setView}
-            />
-          </div>
+        <div className="mt-4">
+          <ViewSwitcher
+            activeView={view}
+            onViewChange={setView}
+          />
 
           {filterOpen && (
             <FilterBar
@@ -297,9 +285,10 @@ export default function Page() {
               columns={columns}
               data={filtered}
               onNew={() => {}}
+              className="mt-0"
             />
           ) : (
-            <div className="mt-4">
+            <div className="mt-0">
               <BoardView
                 columns={boardColumns}
                 items={filtered}
