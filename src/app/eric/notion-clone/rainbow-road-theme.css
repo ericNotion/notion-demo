@@ -1,0 +1,425 @@
+/* Rainbow Road Theme - Mario Kart Inspired */
+
+/* Custom Rainbow Gradient Keyframes */
+@keyframes rainbow-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes rainbow-border-rotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes shooting-star {
+  0% {
+    transform: translateX(-100px) translateY(-100px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(1000px) translateY(1000px);
+    opacity: 0;
+  }
+}
+
+/* Rainbow gradient utilities */
+.rainbow-gradient {
+  background: linear-gradient(
+    90deg,
+    #ff0000 0%,
+    #ff7700 14%,
+    #ffff00 28%,
+    #00ff00 42%,
+    #0099ff 56%,
+    #6600ff 70%,
+    #cc00ff 84%,
+    #ff0000 100%
+  );
+  background-size: 200% 200%;
+  animation: rainbow-shift 8s ease infinite;
+}
+
+.rainbow-text {
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff7700,
+    #ffff00,
+    #00ff00,
+    #0099ff,
+    #6600ff,
+    #cc00ff,
+    #ff0000
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow-shift 6s linear infinite;
+}
+
+.rainbow-border {
+  position: relative;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.rainbow-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff7700,
+    #ffff00,
+    #00ff00,
+    #0099ff,
+    #6600ff,
+    #cc00ff,
+    #ff0000
+  );
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rainbow-shift 8s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.neon-glow {
+  box-shadow:
+    0 0 5px rgba(255, 0, 255, 0.5),
+    0 0 10px rgba(0, 255, 255, 0.3),
+    0 0 15px rgba(255, 255, 0, 0.2);
+}
+
+.neon-glow-strong {
+  box-shadow:
+    0 0 10px rgba(255, 0, 255, 0.8),
+    0 0 20px rgba(0, 255, 255, 0.6),
+    0 0 30px rgba(255, 255, 0, 0.4),
+    0 0 40px rgba(255, 0, 0, 0.2);
+}
+
+/* Override theme colors for Rainbow Road */
+:root {
+  /* Deep space background */
+  --background-color-primary: #0a0a0f;
+  --background-color-secondary: #12121a;
+  --background-color-secondary-translucent: rgba(18, 18, 26, 0.8);
+  --background-color-tertiary: #1a1a28;
+  --background-color-tertiary-translucent: rgba(26, 26, 40, 0.8);
+  --background-color-elevated: #151520;
+  --background-color-accent-primary: #2a2a3f;
+  --background-color-accent-secondary: #3a3a55;
+
+  /* Bright text for contrast */
+  --text-color-primary: #ffffff;
+  --text-color-secondary: #c0c0d0;
+  --text-color-tertiary: #8888aa;
+  --text-color-disabled: #555570;
+  --text-color-accent-primary: #e0e0ff;
+  --text-color-inverse-primary: #ffffff;
+  --text-color-inverse-secondary: #c0c0d0;
+
+  /* Icon colors */
+  --icon-color-primary: #ffffff;
+  --icon-color-secondary: #c0c0d0;
+  --icon-color-tertiary: #8888aa;
+  --icon-color-disabled: #555570;
+  --icon-color-accent-primary: #e0e0ff;
+  --icon-color-inverse-primary: #ffffff;
+  --icon-color-inverse-secondary: #c0c0d0;
+
+  /* Rainbow borders */
+  --border-color-primary: #4a4a6a;
+  --border-color-primary-translucent: rgba(74, 74, 106, 0.5);
+  --border-color-secondary: #3a3a55;
+  --border-color-secondary-translucent: rgba(58, 58, 85, 0.5);
+  --border-color-inverse-primary: #ffffff;
+  --border-color-accent-primary: #ff00ff;
+  --border-color-strong: #6a6a8a;
+
+  /* Scrollbar */
+  --scrollbar-color: rgba(138, 138, 200, 0.5);
+
+  /* Focus outline */
+  --focus-ring-color: #ff00ff;
+}
+
+/* Special styling for interactive elements */
+button:hover:not(:disabled) {
+  box-shadow:
+    0 0 8px rgba(255, 0, 255, 0.3),
+    0 0 12px rgba(0, 255, 255, 0.2);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Input fields with neon glow on focus */
+input:focus,
+textarea:focus {
+  box-shadow:
+    0 0 0 2px rgba(255, 0, 255, 0.5),
+    0 0 15px rgba(255, 0, 255, 0.3);
+  border-color: #ff00ff !important;
+}
+
+/* Links with rainbow underline */
+a:hover {
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff7700,
+    #ffff00,
+    #00ff00,
+    #0099ff,
+    #6600ff,
+    #cc00ff
+  );
+  background-size: 200% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  animation: rainbow-shift 3s linear infinite;
+}
+
+/* Special classes for rainbow elements */
+.rainbow-sidebar {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(26, 26, 40, 0.95) 0%,
+    rgba(18, 18, 26, 0.98) 100%
+  );
+  border-right: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.rainbow-sidebar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -1px;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    #ff0000,
+    #ff7700,
+    #ffff00,
+    #00ff00,
+    #0099ff,
+    #6600ff,
+    #cc00ff,
+    #ff0000
+  );
+  background-size: 100% 400%;
+  animation: rainbow-shift 10s linear infinite;
+}
+
+.rainbow-topbar {
+  position: relative;
+  background: rgba(18, 18, 26, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.rainbow-topbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff7700,
+    #ffff00,
+    #00ff00,
+    #0099ff,
+    #6600ff,
+    #cc00ff,
+    #ff0000
+  );
+  background-size: 400% 100%;
+  animation: rainbow-shift 12s linear infinite;
+}
+
+/* Card hover effects with neon glow */
+.rainbow-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(74, 74, 106, 0.5);
+}
+
+.rainbow-card:hover {
+  border-color: #ff00ff;
+  box-shadow:
+    0 0 15px rgba(255, 0, 255, 0.4),
+    0 0 25px rgba(0, 255, 255, 0.2),
+    0 4px 20px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(255, 0, 255, 0.4);
+  color: #ffffff;
+}
+
+/* Backdrop for modals/dialogs */
+[data-state="open"] {
+  backdrop-filter: blur(8px);
+}
+
+/* Custom focus ring */
+:focus-visible {
+  outline: 2px solid #ff00ff !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 12px rgba(255, 0, 255, 0.6);
+}
+
+/* Additional rainbow styling for buttons and interactive elements */
+.rainbow-button {
+  position: relative;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.2),
+    rgba(255, 119, 0, 0.2),
+    rgba(255, 255, 0, 0.2),
+    rgba(0, 255, 0, 0.2),
+    rgba(0, 153, 255, 0.2),
+    rgba(102, 0, 255, 0.2),
+    rgba(204, 0, 255, 0.2)
+  );
+  background-size: 200% 100%;
+  transition: all 0.3s ease;
+}
+
+.rainbow-button:hover {
+  animation: rainbow-shift 2s linear infinite;
+  box-shadow:
+    0 0 15px rgba(255, 0, 255, 0.5),
+    0 0 25px rgba(0, 255, 255, 0.3);
+}
+
+/* Emoji glow effect */
+.emoji-glow {
+  filter: drop-shadow(0 0 8px rgba(255, 200, 255, 0.6));
+  animation: star-twinkle 3s ease-in-out infinite;
+}
+
+/* Database table hover with rainbow */
+tbody tr:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 255, 0.05),
+    rgba(0, 255, 255, 0.05)
+  ) !important;
+}
+
+/* Sidebar items with subtle rainbow on hover */
+.rainbow-sidebar button:hover,
+.rainbow-sidebar a:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 255, 0.08),
+    rgba(0, 255, 255, 0.08)
+  ) !important;
+}
+
+/* Badge/pill rainbow variants */
+.badge-rainbow {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 255, 0.3),
+    rgba(0, 255, 255, 0.3)
+  );
+  border: 1px solid rgba(255, 0, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+/* Tab active state with rainbow underline */
+button[data-state="active"],
+[aria-selected="true"] {
+  position: relative;
+}
+
+button[data-state="active"]::after,
+[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    #ff00ff,
+    #00ffff,
+    #ff00ff
+  );
+  animation: rainbow-shift 3s linear infinite;
+  border-radius: 2px;
+}
+
+/* Scrollbar styling for rainbow theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(26, 26, 40, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 255, 0.5),
+    rgba(0, 255, 255, 0.5)
+  );
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 255, 0.8),
+    rgba(0, 255, 255, 0.8)
+  );
+}

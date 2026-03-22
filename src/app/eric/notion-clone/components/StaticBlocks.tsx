@@ -23,7 +23,7 @@ export function CalloutBlock({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-secondary my-2 flex gap-3 rounded-lg px-4 py-3">
+    <div className="rainbow-card bg-secondary neon-glow my-2 flex gap-3 rounded-lg px-4 py-3">
       <span className="shrink-0 text-lg">{icon}</span>
       <div className="text-primary text-[15px] leading-relaxed">{children}</div>
     </div>
@@ -90,7 +90,7 @@ export function InlineDatabaseBlock({
         <span className="text-[22px]">{emoji}</span>
         <Link
           href={href}
-          className="text-primary content-inline-database-title font-bold hover:underline"
+          className="rainbow-text content-inline-database-title font-bold hover:underline"
         >
           {title}
         </Link>
@@ -148,7 +148,7 @@ export function InlineDatabaseBlock({
       </div>
 
       {/* Table */}
-      <div className="bg-primary overflow-hidden rounded-md">
+      <div className="rainbow-card bg-primary overflow-hidden rounded-md">
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-secondary border-b">

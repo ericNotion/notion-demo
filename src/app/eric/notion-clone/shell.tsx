@@ -2,6 +2,7 @@
 
 import { PageTopBar } from "@/components/notion-kit/PageTopBar";
 import { PrimarySidebarHeader } from "@/components/notion-kit/PrimarySidebar/Header";
+import { StarField } from "./components/StarField";
 import {
   AgentItem,
   ChatContent,
@@ -74,7 +75,7 @@ function SearchDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%] top-[15%] max-w-xl translate-y-0 gap-0 overflow-hidden p-0">
+      <DialogContent className="rainbow-card neon-glow data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%] top-[15%] max-w-xl translate-y-0 gap-0 overflow-hidden p-0">
         <DialogTitle className="sr-only">Search</DialogTitle>
         <div className="border-secondary flex items-center gap-3 border-b px-4 py-3">
           <Icon icon={magnifyingGlassIcon} size={20} color="secondary" />
@@ -326,17 +327,22 @@ export function NotionShell({
 
   return (
     <div className="flex h-screen overflow-hidden">
+      <StarField />
       <SlipperySidebarLayout
         sidebar={
-          <SidebarContent
-            onSearch={() => setSearchOpen(true)}
-            onNewAgent={() => setCreateAgentOpen(true)}
-          />
+          <div className="rainbow-sidebar h-full">
+            <SidebarContent
+              onSearch={() => setSearchOpen(true)}
+              onNewAgent={() => setCreateAgentOpen(true)}
+            />
+          </div>
         }
         minWidth={240}
       >
-        <div className="bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
-          <PageTopBar title={title} />
+        <div className="bg-primary relative z-10 flex min-h-0 min-w-0 flex-1 flex-col">
+          <div className="rainbow-topbar">
+            <PageTopBar title={title} />
+          </div>
           <div className="flex-1 overflow-y-auto">{children}</div>
         </div>
       </SlipperySidebarLayout>

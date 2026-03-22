@@ -1,5 +1,6 @@
 import { getPrototypePageTitle } from "@/root/lib/fs-utils";
 import { Metadata } from "next";
+import "./rainbow-road-theme.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = await getPrototypePageTitle("eric", "notion-clone");
