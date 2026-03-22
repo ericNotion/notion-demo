@@ -22,3 +22,6 @@ node_modules/
 # Other generated files
 *.min.js
 *.min.css
+
+# GitHub workflows (use yamllint for YAML formatting)
+.github/
