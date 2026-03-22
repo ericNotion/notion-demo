@@ -119,7 +119,7 @@ export default function LibraryPage() {
               <Icon icon={filterIcon} size={20} color="secondary" />
             </IconButton>
             <Button variant="primary" size="sm">
-              <Icon icon={plusIcon} size={14} className="text-white" />
+              <Icon icon={plusIcon} size={14} color="white" />
               New teamspace
             </Button>
           </div>

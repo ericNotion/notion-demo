@@ -33,7 +33,7 @@ export function FooterLinks() {
           type="button"
           onClick={() => {
             if (item.href) {
-              router.push(item.href);
+              router.push(item.href, { scroll: false });
             }
           }}
           className="text-secondary hover:bg-secondary-translucent flex h-[30px] w-full cursor-pointer items-center gap-2 rounded-[6px] px-2 py-1"
