@@ -1,12 +1,12 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Icon } from "@nds-icons";
-import { globeIcon } from "@nds-icons/globe/default.icon";
 import { arrowChevronSingleLeftIcon } from "@nds-icons/arrowChevronSingleLeft/default.icon";
 import { arrowChevronSingleRightIcon } from "@nds-icons/arrowChevronSingleRight/default.icon";
 import { arrowCircleSpinClockwiseIcon } from "@nds-icons/arrowCircleSpinClockwise/default.icon";
+import { globeIcon } from "@nds-icons/globe/default.icon";
 import { xMarkIcon } from "@nds-icons/xMark/default.icon";
-import { Button } from "@/components/playground-kit";
 import { cn } from "@/utils/cn";
 
 interface BrowserToolbarProps {
@@ -34,7 +34,7 @@ export function BrowserToolbar({
       <div className="flex items-center gap-0.5">
         <Button
           variant="ghost"
-          size="xs"
+          size="sm"
           onClick={onBack}
           disabled={!canGoBack}
           className={cn(!canGoBack && "opacity-40")}
@@ -43,14 +43,14 @@ export function BrowserToolbar({
         </Button>
         <Button
           variant="ghost"
-          size="xs"
+          size="sm"
           onClick={onForward}
           disabled={!canGoForward}
           className={cn(!canGoForward && "opacity-40")}
         >
           <Icon icon={arrowChevronSingleRightIcon} color="secondary" />
         </Button>
-        <Button variant="ghost" size="xs" onClick={onRefresh}>
+        <Button variant="ghost" size="sm" onClick={onRefresh}>
           <Icon icon={arrowCircleSpinClockwiseIcon} color="secondary" />
         </Button>
       </div>
@@ -68,7 +68,7 @@ export function BrowserToolbar({
       </div>
 
       {/* Close Button */}
-      <Button variant="ghost" size="xs" onClick={onClose}>
+      <Button variant="ghost" size="sm" onClick={onClose}>
         <Icon icon={xMarkIcon} color="secondary" />
       </Button>
     </div>

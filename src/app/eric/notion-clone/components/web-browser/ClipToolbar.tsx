@@ -1,13 +1,13 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Icon } from "@nds-icons";
+import { duplicateIcon } from "@nds-icons/duplicate/default.icon";
 import { paperClipIcon } from "@nds-icons/paperClip/default.icon";
+import { quoteIcon } from "@nds-icons/quote/default.icon";
 import { sparklesIcon } from "@nds-icons/sparkles/default.icon";
 import { viewTableIcon } from "@nds-icons/viewTable/default.icon";
-import { duplicateIcon } from "@nds-icons/duplicate/default.icon";
-import { quoteIcon } from "@nds-icons/quote/default.icon";
-import { Button } from "@/components/playground-kit";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 
 const fadeSlideInitial = { opacity: 0, y: 4 };
 const fadeSlideAnimate = { opacity: 1, y: 0 };
@@ -47,12 +47,12 @@ export function ClipToolbar({
             <div className="flex-1">
               <div className="flex items-center gap-1">
                 <Button
-                  variant="tint"
+                  variant="primary"
                   size="sm"
                   onClick={onClipSelection}
                   className="gap-1.5"
                 >
-                  <Icon icon={paperClipIcon} color="primary" size="sm" />
+                  <Icon icon={paperClipIcon} color="white" size="sm" />
                   <span className="text-body font-medium">Clip selection</span>
                 </Button>
                 <Button
