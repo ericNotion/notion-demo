@@ -1,0 +1,33 @@
+/* Harbor & Pine Brand Styles */
+:root {
+  --hp-bg: #fbfaf8;
+  --hp-text: #2d2a26;
+  --hp-muted: #6d675f;
+  --hp-card: #ffffff;
+  --hp-border: rgba(45, 42, 38, 0.12);
+  --hp-accent: #2f6f7a;
+  --hp-accent-2: #c9d8d7;
+  --hp-radius: 14px;
+  --hp-max-width: 1080px;
+}
+
+/* Hero media background */
+.hp-hero-media {
+  height: clamp(260px, 42vw, 520px);
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.25)),
+    url("https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=2400&q=80") center/cover no-repeat;
+}
+
+/* Category tile backgrounds */
+.hp-tile-textiles {
+  background: url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=2400&q=80') center/cover;
+}
+
+.hp-tile-ceramics {
+  background: url('https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=2400&q=80') center/cover;
+}
+
+.hp-tile-bath {
+  background: url('https://images.unsplash.com/photo-1556228724-4b6f2f0a0c84?auto=format&fit=crop&w=2400&q=80') center/cover;
+}
