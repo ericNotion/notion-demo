@@ -1,0 +1,65 @@
+/**
+ * Claude Theme
+ * Overrides the default color palette with Claude's warm, inviting brand colors.
+ * Features warm sand/cream backgrounds, terra cotta accents, and soft neutrals.
+ */
+
+:root {
+  /* Warm neutrals (replacing gray with Claude's warm palette) */
+  --palette-gray-0: rgba(255, 253, 250, 1); /* Warm white */
+  --palette-gray-10: rgba(250, 246, 240, 1); /* Cream */
+  --palette-gray-20: rgba(245, 237, 228, 1); /* Light sand */
+  --palette-gray-30: rgba(235, 224, 212, 1); /* Sand */
+  --palette-gray-40: rgba(220, 207, 192, 1); /* Warm gray */
+  --palette-gray-50: rgba(200, 186, 170, 1);
+  --palette-gray-60: rgba(176, 161, 144, 1);
+  --palette-gray-70: rgba(160, 145, 128, 1);
+  --palette-gray-80: rgba(148, 133, 116, 1);
+  --palette-gray-90: rgba(138, 123, 108, 1);
+  --palette-gray-100: rgba(100, 88, 74, 1);
+  --palette-gray-110: rgba(78, 68, 56, 1); /* Dark warm brown */
+  --palette-gray-120: rgba(52, 46, 38, 1);
+  --palette-gray-130: rgba(46, 41, 34, 1);
+  --palette-gray-140: rgba(35, 32, 28, 1); /* Dark background */
+  --palette-gray-150: rgba(28, 26, 22, 1); /* Darkest */
+
+  /* Claude accent (replacing blue with warm brown/terra cotta) */
+  --palette-blue-0: rgba(255, 253, 250, 1);
+  --palette-blue-10: rgba(253, 248, 242, 1);
+  --palette-blue-20: rgba(250, 238, 224, 1);
+  --palette-blue-30: rgba(243, 225, 204, 1);
+  --palette-blue-40: rgba(234, 210, 182, 1);
+  --palette-blue-50: rgba(220, 192, 158, 1);
+  --palette-blue-60: rgba(206, 172, 132, 1);
+  --palette-blue-70: rgba(212, 148, 90, 1); /* Claude orange */
+  --palette-blue-80: rgba(196, 133, 70, 1); /* Primary accent */
+  --palette-blue-90: rgba(180, 120, 62, 1);
+  --palette-blue-100: rgba(130, 90, 52, 1);
+  --palette-blue-110: rgba(107, 76, 43, 1);
+  --palette-blue-120: rgba(78, 58, 36, 1);
+  --palette-blue-130: rgba(62, 48, 32, 1);
+  --palette-blue-140: rgba(38, 33, 26, 1);
+  --palette-blue-150: rgba(30, 27, 22, 1);
+
+  /* Translucent Blue (now warm brown/terra cotta translucent) */
+  --palette-translucent-blue-10: rgba(196, 133, 70, 0.043);
+  --palette-translucent-blue-20: rgba(196, 133, 70, 0.09);
+  --palette-translucent-blue-30: rgba(196, 133, 70, 0.172);
+  --palette-translucent-blue-40: rgba(196, 133, 70, 0.258);
+  --palette-translucent-blue-100: rgba(212, 148, 90, 0.495);
+  --palette-translucent-blue-110: rgba(212, 148, 90, 0.386);
+  --palette-translucent-blue-120: rgba(212, 148, 90, 0.239);
+  --palette-translucent-blue-130: rgba(212, 148, 90, 0.173);
+  --palette-translucent-blue-140: rgba(196, 133, 70, 0.061);
+
+  /* Translucent Gray (warmer translucent grays) */
+  --palette-translucent-gray-10: rgba(100, 88, 74, 0.031);
+  --palette-translucent-gray-20: rgba(100, 88, 74, 0.07);
+  --palette-translucent-gray-30: rgba(100, 88, 74, 0.11);
+  --palette-translucent-gray-40: rgba(100, 88, 74, 0.188);
+  --palette-translucent-gray-100: rgba(250, 246, 240, 0.304);
+  --palette-translucent-gray-110: rgba(245, 237, 228, 0.209);
+  --palette-translucent-gray-120: rgba(250, 246, 240, 0.1);
+  --palette-translucent-gray-130: rgba(250, 246, 240, 0.082);
+  --palette-translucent-gray-140: rgba(250, 246, 240, 0.03);
+}
