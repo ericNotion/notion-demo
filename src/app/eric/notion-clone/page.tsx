@@ -5,6 +5,8 @@ import {
   createBlockId,
   type Block,
 } from "@/components/notion-kit/editor/atoms";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/utils/cn";
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import {
@@ -94,6 +96,20 @@ export default function Page() {
               Start by exploring the sidebar to find docs, databases, and AI
               tools. Use <strong>⌘K</strong> to search across all pages.
             </CalloutBlock>
+
+            <div className="my-4">
+              <Button
+                variant="primary"
+                size="md"
+                className={cn(
+                  "bg-pink-accent-primary text-inverse-primary",
+                  "hover:opacity-90",
+                  "transition-opacity",
+                )}
+              >
+                Pink Button
+              </Button>
+            </div>
 
             <DividerBlock />
 
