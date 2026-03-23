@@ -5,6 +5,10 @@ import { checkmarkIcon } from "@nds-icons/checkmark/default.icon";
 import { linkIcon } from "@nds-icons/link/default.icon";
 import { motion, AnimatePresence } from "motion/react";
 
+const toastInitial = { opacity: 0, y: -20 };
+const toastAnimate = { opacity: 1, y: 0 };
+const toastTransition = { duration: 0.3 };
+
 interface ClipNotificationProps {
   visible: boolean;
   url: string;
@@ -31,10 +35,10 @@ export function ClipNotification({
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial= opacity: 0, y: -20 
-          animate= opacity: 1, y: 0 
-          exit= opacity: 0, y: -20 
-          transition= duration: 0.3 
+          initial={toastInitial}
+          animate={toastAnimate}
+          exit={toastInitial}
+          transition={toastTransition}
           className="pointer-events-none fixed left-1/2 top-16 z-50 -translate-x-1/2"
         >
           <div className="flex items-center gap-3 rounded-lg border border-primary bg-elevated px-4 py-3 shadow-lg-outline">

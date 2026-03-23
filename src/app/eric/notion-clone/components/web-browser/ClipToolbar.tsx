@@ -9,6 +9,12 @@ import { quoteIcon } from "@nds-icons/quote/default.icon";
 import { Button } from "@/components/playground-kit";
 import { motion, AnimatePresence } from "motion/react";
 
+const fadeSlideInitial = { opacity: 0, y: 4 };
+const fadeSlideAnimate = { opacity: 1, y: 0 };
+const fadeInitial = { opacity: 0 };
+const fadeAnimate = { opacity: 1 };
+const quickTransition = { duration: 0.15 };
+
 interface ClipToolbarProps {
   hasSelection?: boolean;
   onClipSelection?: () => void;
@@ -32,10 +38,10 @@ export function ClipToolbar({
         {hasSelection ? (
           <motion.div
             key="with-selection"
-            initial= opacity: 0, y: 4 
-            animate= opacity: 1, y: 0 
-            exit= opacity: 0, y: 4 
-            transition= duration: 0.15 
+            initial={fadeSlideInitial}
+            animate={fadeSlideAnimate}
+            exit={fadeSlideInitial}
+            transition={quickTransition}
             className="flex items-center gap-2"
           >
             <div className="flex-1">
@@ -94,10 +100,10 @@ export function ClipToolbar({
         ) : (
           <motion.div
             key="no-selection"
-            initial= opacity: 0 
-            animate= opacity: 1 
-            exit= opacity: 0 
-            transition= duration: 0.15 
+            initial={fadeInitial}
+            animate={fadeAnimate}
+            exit={fadeInitial}
+            transition={quickTransition}
             className="flex items-center justify-center py-1"
           >
             <p className="text-caption text-tertiary">
