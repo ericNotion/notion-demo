@@ -1,132 +1,77 @@
-/* Halloween Theme — scoped to .halloween-theme */
+/* Halloween Theme - Spooky overrides for semantic tokens */
+.halloween,
+.halloween * {
+  /* Backgrounds: haunted dark purple-black */
+  --background-color-primary: #1a0e2e;
+  --background-color-secondary: #241535;
+  --background-color-tertiary: #2e1a40;
+  --background-color-elevated: #2a1638;
+  --background-color-accent-primary: #ff6b1a;
+  --background-color-accent-secondary: #9b59b6;
 
-.halloween-theme {
-  /* Force dark color scheme for spooky feel */
-  color-scheme: dark;
-
-  /* ─── Backgrounds ─── */
-  --background-color-primary: #0d0015;
-  --background-color-secondary: #1a0a2e;
-  --background-color-tertiary: #2d1545;
-  --background-color-elevated: #1f0c35;
-  --background-color-elevated-hover: #2d1545;
-  --bg-color: #0d0015;
-  --bg-color-secondary: #1a0a2e;
-  --bg-color-hover: #1f0c35;
-  --bg-color-active: #2d1545;
-
-  /* ─── Text ─── */
+  /* Text: ghostly cream and misty grays */
   --text-color-primary: #f0e6d3;
-  --text-color-secondary: #c4a882;
-  --text-color-tertiary: #8b7355;
-  --text-color-primary-against-dark-background: #f0e6d3;
-  --text-primary: #f0e6d3;
-  --text-secondary: #c4a882;
-  --text-tertiary: #8b7355;
+  --text-color-secondary: #c4b8d4;
+  --text-color-tertiary: #8a7a9e;
+  --text-color-disabled: #5a4d6e;
+  --text-color-accent-primary: #ff8c42;
+  --text-color-inverse-primary: #1a0e2e;
 
-  /* ─── Borders ─── */
-  --border-color-primary: #3a1f5c;
-  --border-color-secondary: #2a1045;
-  --border-color-focus-ring: #ff6b00;
-  --divider-color: #2a1045;
+  /* Icons */
+  --icon-color-primary: #f0e6d3;
+  --icon-color-secondary: #c4b8d4;
+  --icon-color-tertiary: #8a7a9e;
+  --icon-color-disabled: #5a4d6e;
 
-  /* ─── Accent — Pumpkin Orange ─── */
-  --accent-color-primary: #ff6b00;
-  --accent-color-primary-hover: #ff8c33;
-  --accent-color-primary-active: #e55f00;
-  --accent-text: #ff8c33;
-  --text-color-accent: #ff8c33;
-  --background-color-accent: rgba(255, 107, 0, 0.15);
+  /* Borders: dark purple tints */
+  --border-color-primary: #3d2a54;
+  --border-color-secondary: #2e1a40;
+  --border-color-strong: #5a3d7a;
 
-  /* ─── Semantic surface overrides ─── */
-  --card-bg: #1a0a2e;
-  --card-bg-hover: #2d1545;
-  --sidebar-bg: #0d0015;
-  --sidebar-text: #f0e6d3;
-  --sidebar-text-secondary: #c4a882;
-  --sidebar-hover: rgba(255, 107, 0, 0.08);
-  --sidebar-active: rgba(255, 107, 0, 0.12);
+  /* Orange accent tokens */
+  --background-color-orange-primary: rgba(255, 107, 26, 0.15);
+  --background-color-orange-secondary: rgba(255, 107, 26, 0.25);
+  --text-color-orange-primary: #ff8c42;
+  --border-color-orange-primary: #ff6b1a;
 
-  /* ─── Scrollbar ─── */
-  --scrollbar-thumb: #3a1f5c;
-  --scrollbar-track: transparent;
+  /* Purple accent tokens */
+  --background-color-purple-primary: rgba(155, 89, 182, 0.15);
+  --background-color-purple-secondary: rgba(155, 89, 182, 0.25);
+  --text-color-purple-primary: #bb8fd9;
+  --border-color-purple-primary: #9b59b6;
 
-  /* ─── Selection ─── */
-  --selection-bg: rgba(255, 107, 0, 0.25);
-  --text-selection-color: rgba(255, 107, 0, 0.3);
+  /* Red/blood tokens */
+  --background-color-red-primary: rgba(180, 30, 30, 0.2);
+  --text-color-red-primary: #e74c3c;
+  --border-color-red-primary: #c0392b;
 
-  /* ─── Shadows (eerie orange glow) ─── */
-  --shadow-elevation-low: 0 1px 3px rgba(255, 107, 0, 0.08);
-  --shadow-elevation-medium: 0 4px 12px rgba(255, 107, 0, 0.1);
+  /* Green/eerie tokens */
+  --background-color-green-primary: rgba(46, 204, 113, 0.15);
+  --text-color-green-primary: #2ecc71;
 
-  /* ─── Status colors (halloweenified) ─── */
-  --color-green: #4caf50;
-  --color-red: #cc2222;
-  --color-yellow: #ff9800;
-  --color-blue: #6a5acd;
-  --color-purple: #9b59b6;
-  --color-orange: #ff6b00;
-}
+  /* Blue tokens with purple tint */
+  --background-color-blue-primary: rgba(100, 80, 200, 0.15);
+  --text-color-blue-primary: #a78bfa;
+  --border-color-blue-primary: #7c3aed;
 
-/* ─── Halloween decorative banner ─── */
-.halloween-banner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 6px 16px;
-  background: linear-gradient(135deg, #1a0a2e 0%, #2d1545 50%, #1a0a2e 100%);
-  border-bottom: 1px solid #3a1f5c;
-  font-size: 13px;
-  color: #ff8c33;
-  letter-spacing: 0.02em;
-  font-weight: 500;
-  user-select: none;
-}
+  /* Shadows: spookier, deeper */
+  --shadow-sm: 0px 4px 12px 0px rgba(15, 5, 25, 0.5);
+  --shadow-md: 0px 8px 16px 0px rgba(15, 5, 25, 0.5),
+    0px 2px 6px 0px rgba(15, 5, 25, 0.4);
+  --shadow-lg: 0px 20px 30px 0px rgba(15, 5, 25, 0.6),
+    0px 5px 10px 0px rgba(15, 5, 25, 0.4);
+  --shadow-sm-outline: 0px 4px 12px rgba(15, 5, 25, 0.5),
+    inset 0 0 0 1px rgba(155, 89, 182, 0.15);
+  --shadow-md-outline: 0px 8px 16px rgba(15, 5, 25, 0.5),
+    0px 2px 6px rgba(15, 5, 25, 0.4),
+    inset 0 0 0 1px rgba(155, 89, 182, 0.15);
+  --shadow-lg-outline: 0px 20px 30px rgba(15, 5, 25, 0.6),
+    0px 5px 10px rgba(15, 5, 25, 0.4),
+    inset 0 0 0 1px rgba(155, 89, 182, 0.15);
 
-.halloween-banner .halloween-emoji {
-  font-size: 15px;
-  animation: halloween-float 3s ease-in-out infinite;
-}
+  /* Scrollbar */
+  --scrollbar-color: #3d2a54;
 
-.halloween-banner .halloween-emoji:nth-child(2) {
-  animation-delay: 0.5s;
-}
-
-.halloween-banner .halloween-emoji:nth-child(odd) {
-  animation-delay: 1s;
-}
-
-@keyframes halloween-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-
-/* ─── Subtle cobweb corner decoration ─── */
-.halloween-cobweb {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 80px;
-  height: 80px;
-  pointer-events: none;
-  opacity: 0.12;
-  background: radial-gradient(ellipse at top right, #c4a882 0%, transparent 70%);
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cpath d='M80 0 Q60 20 80 40 Q60 20 40 0 Q20 20 0 0 Q20 20 0 40 Q20 20 40 40 Q60 60 80 80' stroke='white' fill='none' stroke-width='0.5'/%3E%3C/svg%3E");
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cpath d='M80 0 Q60 20 80 40 Q60 20 40 0 Q20 20 0 0 Q20 20 0 40 Q20 20 40 40 Q60 60 80 80' stroke='white' fill='none' stroke-width='0.5'/%3E%3C/svg%3E");
-}
-
-/* ─── Halloween sidebar emoji accents ─── */
-.halloween-sidebar-accent {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 12px;
-  font-size: 11px;
-  color: #8b7355;
-  user-select: none;
-}
-
-.halloween-sidebar-accent span {
-  font-size: 14px;
+  /* Force dark color scheme */
+  color-scheme: dark;
 }

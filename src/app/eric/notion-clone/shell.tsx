@@ -31,7 +31,9 @@ import { plusIcon } from "@nds-icons/plus/default.icon";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CreateAgentModal } from "./components/CreateAgentModal";
+import { HalloweenToggle } from "./components/HalloweenToggle";
 import { PrototypeBanner } from "./components/PrototypeBanner";
+import "./halloween-theme.css";
 import {
   agents,
   chatGroups,
@@ -40,19 +42,6 @@ import {
   pages,
   upcomingEvents,
 } from "./data";
-import "./halloween-theme.css";
-
-function HalloweenBanner() {
-  return (
-    <div className="halloween-banner">
-      <span className="halloween-emoji">🎃</span>
-      <span className="halloween-emoji">🦇</span>
-      <span>Happy Halloween</span>
-      <span className="halloween-emoji">👻</span>
-      <span className="halloween-emoji">🕸️</span>
-    </div>
-  );
-}
 
 function SearchDialog({
   open,
@@ -255,10 +244,6 @@ function HomeContent({ onNewAgent }: { onNewAgent: () => void }) {
         </CollapsibleGroup>
       </div>
 
-      <div className="halloween-sidebar-accent">
-        <span>🎃</span> <span>🦇</span> <span>👻</span> <span>🕷️</span>
-      </div>
-
       <FooterLinks />
     </div>
   );
@@ -343,8 +328,7 @@ export function NotionShell({
   }, []);
 
   return (
-    <div className="halloween-theme flex h-screen flex-col overflow-hidden">
-      <HalloweenBanner />
+    <div className="flex h-screen flex-col overflow-hidden">
       <PrototypeBanner />
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <SlipperySidebarLayout
@@ -356,8 +340,7 @@ export function NotionShell({
           }
           minWidth={240}
         >
-          <div className="bg-primary relative flex min-h-0 min-w-0 flex-1 flex-col">
-            <div className="halloween-cobweb" />
+          <div className="bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
             <PageTopBar title={title} />
             <div className="flex-1 overflow-y-auto">{children}</div>
           </div>
@@ -369,6 +352,7 @@ export function NotionShell({
         onOpenChange={setCreateAgentOpen}
         onCreateAgent={() => {}}
       />
+      <HalloweenToggle />
     </div>
   );
 }
