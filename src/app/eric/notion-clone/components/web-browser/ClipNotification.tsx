@@ -43,7 +43,7 @@ export function ClipNotification({
         >
           <div className="flex items-center gap-3 rounded-lg border border-primary bg-elevated px-4 py-3 shadow-lg-outline">
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-green-primary/10">
-              <Icon icon={checkmarkIcon} color="green-primary" size="sm" />
+              <Icon icon={checkmarkIcon} color="primary" size="sm" />
             </div>
             <div className="flex flex-col gap-0.5">
               <div className="text-body font-medium text-primary">

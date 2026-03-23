@@ -1,7 +1,9 @@
+import type { ReactNode } from "react";
+
 export default function WebBrowserPageLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return children;
 }

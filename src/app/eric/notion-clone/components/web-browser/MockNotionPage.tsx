@@ -71,9 +71,9 @@ export function MockNotionPage() {
             </div>
             <blockquote className="border-l-4 border-blue-primary pl-4">
               <p className="content-text-block italic text-primary">
-                &ldquo;The most successful knowledge management initiatives are those
+                {"\u201C"}The most successful knowledge management initiatives are those
                 that integrate seamlessly into existing workflows and foster a
-                culture of continuous learning and sharing.&rdquo;
+                culture of continuous learning and sharing.{"\u201D"}
               </p>
             </blockquote>
           </div>
@@ -85,7 +85,7 @@ export function MockNotionPage() {
               <div className="group flex items-start gap-2 rounded-sm px-2 py-1 transition-colors hover:bg-tertiary">
                 <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center">
                   <div className="flex h-4 w-4 items-center justify-center rounded-sm bg-blue-primary">
-                    <Icon icon={checkmarkIcon} color="white" size="sm" />
+                    <Icon icon={checkmarkIcon} color="secondary" size="sm" />
                   </div>
                 </div>
                 <span className="content-text-block text-tertiary line-through">

@@ -32,9 +32,9 @@ export function MockWebContent({
           </h1>
           <div className="flex items-center gap-3 text-caption text-secondary">
             <span>March 23, 2026</span>
-            <span>&bull;</span>
+            <span>{"\u2022"}</span>
             <span>8 min read</span>
-            <span>&bull;</span>
+            <span>{"\u2022"}</span>
             <span>Wikipedia</span>
           </div>
         </div>
@@ -125,9 +125,9 @@ export function MockWebContent({
             layout
           >
             <p className="content-text-block italic text-primary">
-              &ldquo;The most successful knowledge management initiatives are those
+              {"\u201C"}The most successful knowledge management initiatives are those
               that integrate seamlessly into existing workflows and foster a
-              culture of continuous learning and sharing.&rdquo;
+              culture of continuous learning and sharing.{"\u201D"}
             </p>
           </motion.blockquote>
 
