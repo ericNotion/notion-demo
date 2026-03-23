@@ -34,29 +34,37 @@ export function HalloweenToggle() {
 
   if (!mounted) return null;
 
+  const buttonStyle: React.CSSProperties = {
+    position: "fixed",
+    bottom: 16,
+    right: 16,
+    zIndex: 9999,
+    fontSize: 24,
+    background: enabled
+      ? "rgba(255, 107, 26, 0.15)"
+      : "rgba(0, 0, 0, 0.05)",
+    border: enabled
+      ? "1px solid rgba(255, 107, 26, 0.3)"
+      : "1px solid rgba(0, 0, 0, 0.1)",
+    cursor: "pointer",
+    padding: "8px",
+    borderRadius: 12,
+    transition: "all 0.2s ease",
+    transform: enabled ? "scale(1.1)" : "scale(1)",
+    filter: enabled
+      ? "drop-shadow(0 0 8px rgba(255, 107, 26, 0.6))"
+      : "none",
+    lineHeight: 1,
+  };
+
   return (
     <button
       onClick={toggle}
       title={enabled ? "Disable Halloween theme" : "Enable Halloween theme"}
-      aria-label={enabled ? "Disable Halloween theme" : "Enable Halloween theme"}
-      style=
-        position: "fixed",
-        bottom: 16,
-        right: 16,
-        zIndex: 9999,
-        fontSize: 24,
-        background: enabled ? "rgba(255, 107, 26, 0.15)" : "rgba(0, 0, 0, 0.05)",
-        border: enabled ? "1px solid rgba(255, 107, 26, 0.3)" : "1px solid rgba(0, 0, 0, 0.1)",
-        cursor: "pointer",
-        padding: "8px",
-        borderRadius: 12,
-        transition: "all 0.2s ease",
-        transform: enabled ? "scale(1.1)" : "scale(1)",
-        filter: enabled
-          ? "drop-shadow(0 0 8px rgba(255, 107, 26, 0.6))"
-          : "none",
-        lineHeight: 1,
-      
+      aria-label={
+        enabled ? "Disable Halloween theme" : "Enable Halloween theme"
+      }
+      style={buttonStyle}
     >
       🎃
     </button>
