@@ -10,6 +10,7 @@ import { cursorClickIcon } from "@nds-icons/cursorClick/default.icon";
 import { pencilIcon } from "@nds-icons/pencil/default.icon";
 import { rectangleOnRectangleTiltIcon } from "@nds-icons/rectangleOnRectangleTilt/default.icon";
 import { rectangleSplit4Icon } from "@nds-icons/rectangleSplit4/default.icon";
+import { squareGrid2X2Icon } from "@nds-icons/squareGrid2X2/default.icon";
 import { textAlignLeftIcon } from "@nds-icons/textAlignLeft/default.icon";
 import { trashIcon } from "@nds-icons/trash/default.icon";
 import { useAtom } from "jotai";
@@ -27,6 +28,7 @@ const toolIcons: Record<Tool, typeof pencilIcon> = {
   select: cursorClickIcon,
   pen: pencilIcon,
   rectangle: rectangleSplit4Icon,
+  square: squareGrid2X2Icon,
   ellipse: circleIcon,
   text: textAlignLeftIcon,
   sticky: rectangleOnRectangleTiltIcon,
@@ -37,6 +39,7 @@ const toolLabels: Record<Tool, string> = {
   select: "Select",
   pen: "Draw",
   rectangle: "Rectangle",
+  square: "Square",
   ellipse: "Ellipse",
   text: "Text",
   sticky: "Sticky Note",
@@ -52,7 +55,7 @@ export function WhiteboardToolbar({
   const [selectedTool, setSelectedTool] = useAtom(whiteboardToolAtom);
   const [selectedColor, setSelectedColor] = useAtom(whiteboardColorAtom);
 
-  const tools: Tool[] = ["select", "pen", "rectangle", "ellipse", "text", "sticky", "eraser"];
+  const tools: Tool[] = ["select", "pen", "rectangle", "square", "ellipse", "text", "sticky", "eraser"];
 
   return (
     <div className="bg-secondary shadow-sm-outline flex items-center gap-1 rounded-md border border-primary p-1">
@@ -91,7 +94,7 @@ export function WhiteboardToolbar({
                 ? "border-blue-accent-primary"
                 : "border-transparent",
             )}
-            style={{ backgroundColor: color }}
+            style= backgroundColor: color 
             aria-label={`Color ${color}`}
           />
         ))}

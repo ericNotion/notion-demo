@@ -1,4 +1,4 @@
-export type Tool = "select" | "pen" | "rectangle" | "ellipse" | "text" | "sticky" | "eraser";
+export type Tool = "select" | "pen" | "rectangle" | "square" | "ellipse" | "text" | "sticky" | "eraser";
 
 export interface Point {
   x: number;
@@ -7,7 +7,7 @@ export interface Point {
 
 export interface WhiteboardElement {
   id: string;
-  type: "pen" | "rectangle" | "ellipse" | "text" | "sticky";
+  type: "pen" | "rectangle" | "square" | "ellipse" | "text" | "sticky";
   points?: Point[];
   x?: number;
   y?: number;

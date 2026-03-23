@@ -152,6 +152,16 @@ export function Whiteboard({
           height: 0,
           color: selectedColor,
         });
+      } else if (selectedTool === "square") {
+        setCurrentElement({
+          id: createElementId(),
+          type: "square",
+          x: pos.x,
+          y: pos.y,
+          width: 0,
+          height: 0,
+          color: selectedColor,
+        });
       } else if (selectedTool === "ellipse") {
         setCurrentElement({
           id: createElementId(),
@@ -229,6 +239,18 @@ export function Whiteboard({
           width: pos.x - startX,
           height: pos.y - startY,
         });
+      } else if (selectedTool === "square" && currentElement.type === "square") {
+        const startX = currentElement.x || 0;
+        const startY = currentElement.y || 0;
+        const width = pos.x - startX;
+        const height = pos.y - startY;
+        // Use the larger dimension to create a perfect square
+        const size = Math.max(Math.abs(width), Math.abs(height));
+        setCurrentElement({
+          ...currentElement,
+          width: width >= 0 ? size : -size,
+          height: height >= 0 ? size : -size,
+        });
       } else if (selectedTool === "ellipse" && currentElement.type === "ellipse") {
         const startX = currentElement.x || 0;
         const startY = currentElement.y || 0;
@@ -271,6 +293,13 @@ export function Whiteboard({
       }
       ctx.stroke();
     } else if (element.type === "rectangle") {
+      ctx.strokeRect(
+        element.x || 0,
+        element.y || 0,
+        element.width || 0,
+        element.height || 0,
+      );
+    } else if (element.type === "square") {
       ctx.strokeRect(
         element.x || 0,
         element.y || 0,
@@ -396,6 +425,7 @@ export function Whiteboard({
             "bg-primary",
             selectedTool === "pen" && "cursor-crosshair",
             selectedTool === "rectangle" && "cursor-crosshair",
+            selectedTool === "square" && "cursor-crosshair",
             selectedTool === "ellipse" && "cursor-crosshair",
             selectedTool === "text" && "cursor-text",
             selectedTool === "sticky" && "cursor-pointer",
