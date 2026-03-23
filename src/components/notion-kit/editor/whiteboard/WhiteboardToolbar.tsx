@@ -46,6 +46,10 @@ const toolLabels: Record<Tool, string> = {
   eraser: "Eraser",
 };
 
+function makeColorStyle(color: string) {
+  return { backgroundColor: color };
+}
+
 export function WhiteboardToolbar({
   onUndo,
   onRedo,
@@ -94,7 +98,7 @@ export function WhiteboardToolbar({
                 ? "border-blue-accent-primary"
                 : "border-transparent",
             )}
-            style= backgroundColor: color 
+            style={makeColorStyle(color)}
             aria-label={`Color ${color}`}
           />
         ))}
