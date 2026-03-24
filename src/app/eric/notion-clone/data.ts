@@ -62,6 +62,17 @@ export const pages: PageEntry[] = [
     lastEdited: "3d ago",
     emojiStorageKey: "eric-nc-research-archive-emoji",
   },
+  {
+    emoji: "🎵",
+    label: "DJ Set Beat Machine",
+    href: `${BASE}/beat-machine`,
+    section: "favorites",
+    kind: "page",
+    createdBy: "You",
+    lastEdited: "just now",
+    emojiStorageKey: "eric-nc-beat-machine-emoji",
+    titleStorageKey: "eric-nc-beat-machine-title",
+  },
   // ── Private ───────────────────────────────────────────────────────────
   {
     emoji: "📝",
