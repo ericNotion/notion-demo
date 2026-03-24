@@ -1,7 +1,5 @@
 # Agent Instructions
 
-This is a **Notion clone prototype** — the main app lives at `src/app/eric/notion-clone/`. When building new features, blocks, or pages, work within that directory and follow the existing patterns.
-
 ## Important restrictions
 
 - **NEVER run `bun dev`** - dev server runs at localhost:4000
@@ -15,21 +13,20 @@ Detailed guidance lives in `.claude/skills/`. Load relevant skills before starti
 
 | Skill                | Use For                                                  |
 | -------------------- | -------------------------------------------------------- |
-| `notion-patterns`    | Notion clone architecture, block types, page registry    |
-| `audio-beats`        | Beat Machine slash menu block with Tone.js               |
-| `node-graph-diagram` | Page Graph slash menu block — interactive SVG node graph |
-| `ui-components`      | 50+ UI components (Button, Dialog, Input, etc.)          |
-| `tailwind-styling`   | Styling, design tokens, colors, dark mode                |
-| `jotai-state`        | State management with atoms, persistence                 |
-| `find-icon`          | Icon search and import paths                             |
-| `swr-data-fetching`  | Data fetching (never use useEffect for network requests) |
-| `api-routes`         | Next.js API route handlers, request/response patterns    |
-| `motion-react`       | React animations with Motion library                     |
-| `state-config-panel` | Debug controls, prototype configuration UI               |
 | `create`             | Create a new prototype directory                         |
+| `brainstorm`         | Brainstorm prototype ideas through conversation          |
 | `figma`              | Build a Figma design into code                           |
 | `deploy`             | Guide through git workflow, PR, and CI                   |
 | `push`               | Quick commit and push changes                            |
+| `ui-components`      | 50+ UI components (Button, Dialog, Input, etc.)          |
+| `api-routes`         | Next.js API route handlers, request/response patterns    |
+| `jotai-state`        | State management with atoms, persistence                 |
+| `swr-data-fetching`  | Data fetching (never use useEffect for network requests) |
+| `tailwind-styling`   | Styling, design tokens, colors, dark mode                |
+| `state-config-panel` | Debug controls, prototype configuration UI               |
+| `find-icon`          | Icon search and import paths                             |
+| `motion-animation`   | Animation with Motion library                            |
+| `motion-react`       | React-specific Motion patterns                           |
 | `agent-browser`      | Browser automation for testing and verification          |
 
 ## Project Structure
@@ -38,12 +35,15 @@ Detailed guidance lives in `.claude/skills/`. Load relevant skills before starti
 src/
 ├── app/
 │   ├── (root)/              # Shared APIs, index page
-│   └── eric/notion-clone/   # The Notion prototype
+│   ├── (templates)/         # Page templates
+│   ├── brian/               # User prototype directories
+│   ├── kathy/               #   (each user has their own)
+│   └── ...                  #   Routes: /username/prototype-name
 ├── components/
 │   ├── ui/                  # ShadCN components (@/components/ui)
-│   ├── notion-kit/          # Notion-style components (editor, sidebar, etc.)
 │   ├── playground-kit/      # Prototype components (@/components/playground-kit)
-│   └── chat-kit/            # Chat UI components
+│   ├── chat-kit/            # Chat UI components
+│   └── notion-kit/          # Notion-style components
 ├── hooks/                   # Custom React hooks
 ├── lib/                     # Shared libraries (Notion, Supabase)
 ├── nds-icons/               # NDS icon library (@nds-icons)
@@ -52,7 +52,14 @@ src/
 └── types/                   # TypeScript type definitions
 ```
 
-**Route:** `/eric/notion-clone` → `src/app/eric/notion-clone/page.tsx`
+**Routes:** `/brian/my-prototype` → `src/app/brian/my-prototype/page.tsx`
+
+### Infrastructure vs Prototypes
+
+This codebase has two modes:
+
+- **Prototypes** (`src/app/{username}/`) - Move fast, iterate quickly. Don't over-engineer.
+- **Infrastructure** (`src/app/(root)/`, `src/components/`, `src/lib/`, `.github/`) - Shared code that needs to be robust. Handle errors, validate inputs, write defensively.
 
 ## File Conventions
 
@@ -74,4 +81,4 @@ bun add -d package-name   # Add dev dependency
 
 ## Technology Stack
 
-Next.js 16 (App Router) · React 19 · TypeScript · Tailwind v4 · Jotai · SWR · Radix UI · Vercel AI SDK · Supabase · Tone.js · d3 · Bun
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind v4 · Jotai · SWR · Radix UI · Vercel AI SDK · Supabase · Bun

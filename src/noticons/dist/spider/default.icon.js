@@ -1,0 +1,103 @@
+// src/nds-icons/SvgIcon.tsx
+import { jsxDEV } from "react/jsx-dev-runtime";
+function SvgIcon({
+  children,
+  viewBox,
+  style,
+  className,
+  label
+}) {
+  return /* @__PURE__ */ jsxDEV("svg", {
+    ...label !== undefined ? { "aria-label": label } : { "aria-hidden": true },
+    role: "graphics-symbol",
+    viewBox,
+    style: {
+      width: "100%",
+      height: "100%",
+      display: "block",
+      fill: "inherit",
+      flexShrink: 0,
+      ...style
+    },
+    className,
+    children
+  }, undefined, false, undefined, this);
+}
+
+// src/nds-icons/iconUtils.tsx
+import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
+var iconGroupVariantNames = [
+  "fillSmall",
+  "small",
+  "fill",
+  "default"
+];
+var logoVariantNames = ["default", "darkMode"];
+var deprecatedIconGroupVariantNames = [
+  "micro",
+  "mini",
+  "small",
+  "default",
+  "large",
+  "extraLarge",
+  "max"
+];
+var iconVariantNames = [
+  ...iconGroupVariantNames,
+  ...deprecatedIconGroupVariantNames,
+  ...logoVariantNames
+];
+var ICON_SIZE = {
+  xxs: 12,
+  xs: 14,
+  sm: 16,
+  default: 20,
+  lg: 22,
+  xl: 32
+};
+var ICON_SIZE_FOR_VARIANT = {
+  default: ICON_SIZE.default,
+  small: ICON_SIZE.sm,
+  fill: ICON_SIZE.default,
+  fillSmall: ICON_SIZE.sm,
+  darkMode: ICON_SIZE.default,
+  micro: 14,
+  mini: 14,
+  large: 24,
+  max: 28,
+  extraLarge: 36
+};
+function createIcon(name, iconDefinition) {
+  const { viewBox, svg } = iconDefinition;
+  const finalViewBox = viewBox ?? `0 0 ${ICON_SIZE.default} ${ICON_SIZE.default}`;
+  const iconFunction = (style, className) => {
+    const finalClassName = className ? `${name} ${className}` : name;
+    return /* @__PURE__ */ jsxDEV2(SvgIcon, {
+      viewBox: finalViewBox,
+      className: finalClassName,
+      style,
+      children: svg
+    }, undefined, false, undefined, this);
+  };
+  return Object.assign(iconFunction, {
+    __iconDefinition: { ...iconDefinition, viewBox: finalViewBox }
+  });
+}
+
+// src/nds-icons/Icon.tsx
+"use client";
+// src/noticons/src/spider/default.icon.tsx
+import { jsxDEV as jsxDEV3, Fragment } from "react/jsx-dev-runtime";
+var iconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: /* @__PURE__ */ jsxDEV3(Fragment, {
+    children: /* @__PURE__ */ jsxDEV3("path", {
+      d: "M16.5969 12.2875L17.8125 14.7219L16.6937 15.2812L15.4781 12.8469C15.3469 12.5844 15.2125 12.5 14.9187 12.5H13.7094C13.6594 12.8938 13.5656 13.2562 13.4281 13.5812L14.0469 14.8156C14.2844 15.2906 14.3781 15.6813 14.3781 16.2125V18.7469H13.1281V16.2125C13.1281 15.8781 13.0812 15.675 12.9312 15.375L12.6125 14.7375C11.9719 15.3062 11.0843 15.625 10.0031 15.625C8.92185 15.625 8.03748 15.3094 7.39373 14.7375L7.07498 15.375C6.92498 15.675 6.8781 15.8781 6.8781 16.2125V18.7469H5.6281V16.2125C5.6281 15.6813 5.72185 15.2906 5.95935 14.8156L6.5781 13.5812C6.4406 13.2531 6.34685 12.8938 6.29685 12.5H5.08748C4.79373 12.5 4.65935 12.5844 4.5281 12.8469L3.31248 15.2812L2.19373 14.7219L3.40935 12.2875C3.7531 11.6 4.31873 11.25 5.08748 11.25H6.25623C6.25623 10.7969 6.31248 10.3813 6.41873 10H4.97498C4.24998 10 3.72185 9.78125 3.20623 9.26875L1.88123 7.94375L2.7656 7.05937L4.0906 8.38438C4.36873 8.6625 4.58435 8.75 4.97498 8.75H7.04685C7.1281 8.65 7.2156 8.55625 7.30623 8.46875L5.23435 6.65625C4.64373 6.14062 4.38123 5.55937 4.38123 4.775V1.25H5.63123V4.775C5.63123 5.2 5.73748 5.4375 6.05935 5.71563L8.13123 7.52812V6.875C8.13123 5.71875 8.84998 5 10.0062 5C11.1625 5 11.8812 5.71875 11.8812 6.875V7.52812L13.9531 5.71563C14.2719 5.4375 14.3812 5.2 14.3812 4.775V1.25H15.6312V4.775C15.6312 5.55937 15.3687 6.14062 14.7781 6.65625L12.7062 8.46875C12.7969 8.55625 12.8844 8.65 12.9656 8.75H15.0375C15.4281 8.75 15.6437 8.65938 15.9219 8.38438L17.2469 7.05937L18.1312 7.94375L16.8062 9.26875C16.2937 9.78125 15.7656 10 15.0375 10H13.5937C13.7 10.3813 13.7562 10.7969 13.7562 11.25H14.925C15.6937 11.25 16.2594 11.6 16.6031 12.2875H16.5969Z"
+    }, undefined, false, undefined, this)
+  }, undefined, false, undefined, this)
+};
+var spiderIcon = createIcon("spider", iconDefinition);
+export {
+  spiderIcon,
+  iconDefinition
+};
