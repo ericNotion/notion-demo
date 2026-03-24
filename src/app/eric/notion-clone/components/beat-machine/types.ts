@@ -1,4 +1,4 @@
-export type DrumType = "kick" | "snare" | "hihat" | "clap";
+export type DrumType = "kick" | "snare" | "hihat" | "clap" | "tom" | "rim";
 
 export interface BeatPattern {
   id: string;
@@ -21,6 +21,8 @@ export const TRACKS: Track[] = [
   { type: "snare", label: "Snare", color: "rgb(251, 146, 60)" },
   { type: "hihat", label: "Hi-hat", color: "rgb(34, 197, 94)" },
   { type: "clap", label: "Clap", color: "rgb(59, 130, 246)" },
+  { type: "tom", label: "Tom", color: "rgb(168, 85, 247)" },
+  { type: "rim", label: "Rim", color: "rgb(236, 72, 153)" },
 ];
 
 export const STEPS = 16;

@@ -30,6 +30,12 @@ export class AudioEngine {
       case "clap":
         this.playClap(now);
         break;
+      case "tom":
+        this.playTom(now);
+        break;
+      case "rim":
+        this.playRim(now);
+        break;
     }
   }
 
@@ -160,6 +166,72 @@ export class AudioEngine {
 
     noise.start(time);
     noise.stop(time + 0.15);
+  }
+
+  private playTom(time: number) {
+    if (!this.audioContext || !this.masterGain) return;
+
+    const osc = this.audioContext.createOscillator();
+    const gain = this.audioContext.createGain();
+
+    osc.frequency.setValueAtTime(200, time);
+    osc.frequency.exponentialRampToValueAtTime(80, time + 0.2);
+
+    gain.gain.setValueAtTime(0.8, time);
+    gain.gain.exponentialRampToValueAtTime(0.01, time + 0.3);
+
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+
+    osc.start(time);
+    osc.stop(time + 0.3);
+  }
+
+  private playRim(time: number) {
+    if (!this.audioContext || !this.masterGain) return;
+
+    const osc = this.audioContext.createOscillator();
+    const gain = this.audioContext.createGain();
+
+    osc.type = "triangle";
+    osc.frequency.setValueAtTime(800, time);
+
+    gain.gain.setValueAtTime(0.6, time);
+    gain.gain.exponentialRampToValueAtTime(0.01, time + 0.05);
+
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+
+    osc.start(time);
+    osc.stop(time + 0.05);
+
+    const noise = this.audioContext.createBufferSource();
+    const noiseGain = this.audioContext.createGain();
+    const filter = this.audioContext.createBiquadFilter();
+
+    const buffer = this.audioContext.createBuffer(
+      1,
+      this.audioContext.sampleRate * 0.03,
+      this.audioContext.sampleRate,
+    );
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < data.length; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+    noise.buffer = buffer;
+
+    filter.type = "highpass";
+    filter.frequency.value = 3000;
+
+    noiseGain.gain.setValueAtTime(0.3, time);
+    noiseGain.gain.exponentialRampToValueAtTime(0.01, time + 0.03);
+
+    noise.connect(filter);
+    filter.connect(noiseGain);
+    noiseGain.connect(this.masterGain);
+
+    noise.start(time);
+    noise.stop(time + 0.03);
   }
 
   cleanup() {

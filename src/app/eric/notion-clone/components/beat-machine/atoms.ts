@@ -8,6 +8,8 @@ const createEmptyPattern = (): Record<DrumType, boolean[]> => ({
   snare: Array(STEPS).fill(false),
   hihat: Array(STEPS).fill(false),
   clap: Array(STEPS).fill(false),
+  tom: Array(STEPS).fill(false),
+  rim: Array(STEPS).fill(false),
 });
 
 export const isPlayingAtom = atom(false);

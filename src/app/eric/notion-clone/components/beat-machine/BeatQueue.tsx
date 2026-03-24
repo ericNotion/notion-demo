@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { useAtom, useSetAtom } from "jotai";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
 import { heartIcon } from "@nds-icons/heart/default.icon";
-import { heartIcon as heartFillIcon } from "@nds-icons/heart/fill.icon";
-import { mediaPlayIcon } from "@nds-icons/mediaPlay/fill.icon";
-import { Button } from "@/components/ui/button";
+import { heartFillIcon } from "@nds-icons/heart/fill.icon";
+import { mediaPlayIcon } from "@nds-icons/mediaPlay/default.icon";
+import { useAtom, useSetAtom } from "jotai";
+import { useState } from "react";
 import { beatPatternAtom, bpmAtom, savedBeatsAtom } from "./atoms";
 import type { BeatPattern } from "./types";
-import { cn } from "@/utils/cn";
 
 export function BeatQueue() {
   const [savedBeats, setSavedBeats] = useAtom(savedBeatsAtom);
@@ -32,6 +32,8 @@ export function BeatQueue() {
         snare: Array(16).fill(false),
         hihat: Array(16).fill(false),
         clap: Array(16).fill(false),
+        tom: Array(16).fill(false),
+        rim: Array(16).fill(false),
       },
       upvotes: 0,
       createdAt: Date.now(),
@@ -51,7 +53,10 @@ export function BeatQueue() {
     setSavedBeats((prev) =>
       prev.map((beat) =>
         beat.id === beatId
-          ? { ...beat, upvotes: beat.upvotes + (upvotedBeats.has(beatId) ? -1 : 1) }
+          ? {
+              ...beat,
+              upvotes: beat.upvotes + (upvotedBeats.has(beatId) ? -1 : 1),
+            }
           : beat,
       ),
     );
@@ -70,7 +75,7 @@ export function BeatQueue() {
 
   return (
     <div className="space-y-4">
-      <div className="bg-secondary rounded-lg p-4 border border-primary">
+      <div className="bg-secondary border-primary rounded-lg border p-4">
         <h3 className="text-title-sm text-primary mb-3">Add to Queue</h3>
         <div className="space-y-2">
           <input
@@ -79,10 +84,10 @@ export function BeatQueue() {
             onChange={(e) => setBeatName(e.target.value)}
             placeholder="Beat name"
             className={cn(
-              "w-full px-3 py-2 text-body text-primary",
-              "bg-tertiary border border-primary rounded-sm",
+              "text-body text-primary w-full px-3 py-2",
+              "bg-tertiary border-primary rounded-sm border",
               "placeholder:text-tertiary",
-              "focus:outline-none focus:ring-2 focus:ring-blue-500",
+              "focus:ring-2 focus:ring-blue-500 focus:outline-none",
             )}
           />
           <input
@@ -91,10 +96,10 @@ export function BeatQueue() {
             onChange={(e) => setAuthorName(e.target.value)}
             placeholder="Your name"
             className={cn(
-              "w-full px-3 py-2 text-body text-primary",
-              "bg-tertiary border border-primary rounded-sm",
+              "text-body text-primary w-full px-3 py-2",
+              "bg-tertiary border-primary rounded-sm border",
               "placeholder:text-tertiary",
-              "focus:outline-none focus:ring-2 focus:ring-blue-500",
+              "focus:ring-2 focus:ring-blue-500 focus:outline-none",
             )}
           />
           <Button
@@ -112,7 +117,7 @@ export function BeatQueue() {
       <div className="space-y-2">
         <h3 className="text-title-sm text-primary">Beat Queue</h3>
         {sortedBeats.length === 0 ? (
-          <div className="bg-secondary rounded-lg p-8 text-center text-secondary">
+          <div className="bg-secondary text-secondary rounded-lg p-8 text-center">
             No beats in queue yet. Be the first to submit!
           </div>
         ) : (
@@ -120,7 +125,7 @@ export function BeatQueue() {
             {sortedBeats.map((beat) => (
               <div
                 key={beat.id}
-                className="bg-secondary rounded-lg p-3 border border-primary flex items-center justify-between"
+                className="bg-secondary border-primary flex items-center justify-between rounded-lg border p-3"
               >
                 <div className="flex-1">
                   <div className="text-body text-primary font-medium">
@@ -134,14 +139,16 @@ export function BeatQueue() {
                   <button
                     onClick={() => handleUpvote(beat.id)}
                     className={cn(
-                      "flex items-center gap-1 px-2 py-1 rounded-sm",
+                      "flex items-center gap-1 rounded-sm px-2 py-1",
                       "hover:bg-tertiary transition-colors",
                       upvotedBeats.has(beat.id) && "text-red-500",
                     )}
                   >
                     <Icon
-                      icon={upvotedBeats.has(beat.id) ? heartFillIcon : heartIcon}
-                      className="w-4 h-4"
+                      icon={
+                        upvotedBeats.has(beat.id) ? heartFillIcon : heartIcon
+                      }
+                      className="h-4 w-4"
                     />
                     <span className="text-caption">{beat.upvotes}</span>
                   </button>

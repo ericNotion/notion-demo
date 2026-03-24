@@ -1,13 +1,13 @@
 "use client";
 
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { Icon } from "@nds-icons";
-import { mediaPlayIcon } from "@nds-icons/mediaPlay/fill.icon";
-import { mediaPauseIcon } from "@nds-icons/mediaPause/fill.icon";
-import { mediaStopIcon } from "@nds-icons/mediaStop/fill.icon";
 import { Button } from "@/components/ui/button";
-import { bpmAtom, currentStepAtom, isPlayingAtom } from "./atoms";
 import { cn } from "@/utils/cn";
+import { Icon } from "@nds-icons";
+import { mediaPauseIcon } from "@nds-icons/mediaPause/default.icon";
+import { mediaPlayIcon } from "@nds-icons/mediaPlay/default.icon";
+import { mediaStopIcon } from "@nds-icons/mediaStop/default.icon";
+import { useAtom, useSetAtom } from "jotai";
+import { bpmAtom, currentStepAtom, isPlayingAtom } from "./atoms";
 
 export function TransportControls() {
   const [isPlaying, setIsPlaying] = useAtom(isPlayingAtom);
@@ -23,7 +23,7 @@ export function TransportControls() {
     <div className="flex items-center gap-4">
       <div className="flex items-center gap-2">
         <Button
-          variant="primary"
+          variant={isPlaying ? "outline" : "primary"}
           size="md"
           onClick={() => setIsPlaying(!isPlaying)}
         >
@@ -45,7 +45,7 @@ export function TransportControls() {
           value={bpm}
           onChange={(e) => setBpm(Number(e.target.value))}
           className={cn(
-            "w-32 h-2 rounded-full appearance-none cursor-pointer",
+            "h-2 w-32 cursor-pointer appearance-none rounded-full",
             "bg-secondary",
             "[&::-webkit-slider-thumb]:appearance-none",
             "[&::-webkit-slider-thumb]:w-4",
@@ -66,9 +66,9 @@ export function TransportControls() {
           value={bpm}
           onChange={(e) => setBpm(Number(e.target.value))}
           className={cn(
-            "w-16 px-2 py-1 text-body text-primary",
-            "bg-secondary border border-primary rounded-sm",
-            "focus:outline-none focus:ring-2 focus:ring-blue-500",
+            "text-body text-primary w-16 px-2 py-1",
+            "bg-secondary border-primary rounded-sm border",
+            "focus:ring-2 focus:ring-blue-500 focus:outline-none",
           )}
         />
       </div>
