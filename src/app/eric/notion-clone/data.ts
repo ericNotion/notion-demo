@@ -102,6 +102,15 @@ export const pages: PageEntry[] = [
     lastEdited: "30m ago",
   },
   {
+    emoji: "🕸️",
+    label: "Graph view",
+    href: `${BASE}/graph`,
+    section: "private",
+    kind: "page",
+    createdBy: "You",
+    lastEdited: "just now",
+  },
+  {
     emoji: "🎙️",
     label: "Sprint retro notes",
     href: `${BASE}/meeting-note/sprint-retro`,
