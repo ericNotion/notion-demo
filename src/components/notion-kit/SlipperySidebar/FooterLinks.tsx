@@ -2,7 +2,6 @@
 
 import { bookshelfIcon } from "@/nds-icons/src/bookshelf/default.icon";
 import { Icon, type LoadedIconFunction } from "@nds-icons";
-import { paperMicrophoneIcon } from "@nds-icons/paperMicrophone/default.icon";
 import { questionMarkCircleIcon } from "@nds-icons/questionMarkCircle/default.icon";
 import { templatesIcon } from "@nds-icons/templates/default.icon";
 import { trashIcon } from "@nds-icons/trash/default.icon";
@@ -15,7 +14,6 @@ interface FooterItem {
 }
 
 const footerItems: FooterItem[] = [
-  { label: "Meetings", icon: paperMicrophoneIcon },
   { label: "Library", icon: bookshelfIcon, href: "/eric/notion-clone/library" },
   { label: "Marketplace", icon: templatesIcon },
   { label: "Help", icon: questionMarkCircleIcon },

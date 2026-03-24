@@ -1,10 +1,11 @@
 "use client";
 
 import {
+  DatabaseToolbar,
   ReusableDatabase,
   type Column as DatabaseColumn,
+  type DatabaseViewTab,
 } from "@/components/playground-kit/ReusableDatabase";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
 import { calendarAltIcon } from "@nds-icons/calendarAlt/default.icon";
@@ -12,15 +13,22 @@ import { collectionIcon } from "@nds-icons/collection/default.icon";
 import { flagIcon } from "@nds-icons/flag/default.icon";
 import { pageIcon } from "@nds-icons/page/default.icon";
 import { peopleIcon } from "@nds-icons/people/default.icon";
+import { starIcon } from "@nds-icons/star/default.icon";
 import { viewBoardIcon } from "@nds-icons/viewBoard/default.icon";
+import { viewTableIcon } from "@nds-icons/viewTable/default.icon";
+import { useAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 import { useState } from "react";
 import { BoardView, type BoardColumn } from "../components/BoardView";
+import { EditableTitle } from "../components/EditableTitle";
+import { EmojiPicker } from "../components/EmojiPicker";
 import { FilterBar } from "../components/FilterBar";
-import { ViewSwitcher, type ViewType } from "../components/ViewSwitcher";
-import { NotionShell } from "../shell";
+import { PagePeekModal, type PageProperty } from "../components/PagePeekModal";
+import { StatusBadge } from "../components/StatusBadge";
 
-type LaunchRow = {
+export type LaunchRow = {
   id: string;
+  slug: string;
   name: string;
   status: "On track" | "In review" | "Blocked" | "Done";
   owner: string;
@@ -28,9 +36,10 @@ type LaunchRow = {
   priority: "High" | "Medium" | "Low";
 };
 
-const rows: LaunchRow[] = [
+export const rows: LaunchRow[] = [
   {
     id: "1",
+    slug: "payments-migration",
     name: "Payments migration",
     status: "In review",
     owner: "Priya Shah",
@@ -39,6 +48,7 @@ const rows: LaunchRow[] = [
   },
   {
     id: "2",
+    slug: "self-serve-onboarding",
     name: "Self-serve onboarding",
     status: "On track",
     owner: "Jordan Lee",
@@ -47,6 +57,7 @@ const rows: LaunchRow[] = [
   },
   {
     id: "3",
+    slug: "customer-health-report",
     name: "Customer health report",
     status: "Blocked",
     owner: "Maya Chen",
@@ -55,6 +66,7 @@ const rows: LaunchRow[] = [
   },
   {
     id: "4",
+    slug: "pricing-faq-refresh",
     name: "Pricing FAQ refresh",
     status: "On track",
     owner: "Evan Soto",
@@ -63,6 +75,7 @@ const rows: LaunchRow[] = [
   },
   {
     id: "5",
+    slug: "api-v2-rollout",
     name: "API v2 rollout",
     status: "Done",
     owner: "Lena Park",
@@ -71,6 +84,7 @@ const rows: LaunchRow[] = [
   },
   {
     id: "6",
+    slug: "mobile-push-notifications",
     name: "Mobile push notifications",
     status: "On track",
     owner: "Ravi Kumar",
@@ -79,6 +93,7 @@ const rows: LaunchRow[] = [
   },
   {
     id: "7",
+    slug: "dashboard-redesign",
     name: "Dashboard redesign",
     status: "In review",
     owner: "Sophie Tran",
@@ -87,6 +102,7 @@ const rows: LaunchRow[] = [
   },
   {
     id: "8",
+    slug: "accessibility-audit",
     name: "Accessibility audit",
     status: "On track",
     owner: "James Wilson",
@@ -95,17 +111,43 @@ const rows: LaunchRow[] = [
   },
 ];
 
-const statusColors: Record<LaunchRow["status"], string> = {
-  "On track": "bg-green-secondary text-green-primary",
-  "In review": "bg-blue-secondary text-blue-accent-primary",
-  Blocked: "bg-red-secondary text-red-secondary",
-  Done: "bg-secondary text-tertiary",
+export const statusStyles: Record<
+  LaunchRow["status"],
+  { dot: string; bg: string; text: string }
+> = {
+  "On track": {
+    dot: "bg-green-600",
+    bg: "bg-green-secondary",
+    text: "text-green-primary",
+  },
+  "In review": {
+    dot: "bg-blue-500",
+    bg: "bg-blue-secondary",
+    text: "text-blue-accent-primary",
+  },
+  Blocked: {
+    dot: "bg-red-500",
+    bg: "bg-red-secondary",
+    text: "text-red-secondary",
+  },
+  Done: { dot: "bg-gray-400", bg: "bg-secondary", text: "text-tertiary" },
 };
 
-const priorityColors: Record<LaunchRow["priority"], string> = {
-  High: "bg-orange-secondary text-orange-secondary",
-  Medium: "bg-secondary text-secondary",
-  Low: "bg-tertiary-translucent text-tertiary",
+export const priorityStyles: Record<
+  LaunchRow["priority"],
+  { dot: string; bg: string; text: string }
+> = {
+  High: {
+    dot: "bg-orange-500",
+    bg: "bg-orange-secondary",
+    text: "text-orange-secondary",
+  },
+  Medium: { dot: "bg-gray-400", bg: "bg-secondary", text: "text-secondary" },
+  Low: {
+    dot: "bg-gray-300",
+    bg: "bg-tertiary-translucent",
+    text: "text-tertiary",
+  },
 };
 
 const boardColumns: BoardColumn[] = [
@@ -129,6 +171,8 @@ const boardColumns: BoardColumn[] = [
   },
   { id: "Done", name: "Done", color: "text-tertiary", bgColor: "bg-secondary" },
 ];
+
+const launchEmojiAtom = atomWithStorage("eric-nc-launch-tracker-emoji", "🚀");
 
 const statusFilters = [
   { id: "On track", label: "On track" },
@@ -158,9 +202,7 @@ const columns: DatabaseColumn<LaunchRow>[] = [
     width: "w-[34%]",
     render: (row) => (
       <div className="flex min-w-0 items-center gap-2">
-        <span className="bg-secondary flex size-6 items-center justify-center rounded-xs text-[13px]">
-          📄
-        </span>
+        <span className="text-[15px]">📄</span>
         <span className="text-primary truncate font-medium">{row.name}</span>
       </div>
     ),
@@ -169,23 +211,23 @@ const columns: DatabaseColumn<LaunchRow>[] = [
     id: "status",
     label: (
       <div className="flex items-center gap-1.5">
-        <Icon icon={viewBoardIcon} color="secondary" size={14} />
+        <Icon icon={starIcon} color="secondary" size={14} />
         <span>Status</span>
       </div>
     ),
     labelText: "Status",
     width: "w-[18%]",
-    render: (row) => (
-      <Badge
-        variant="secondary"
-        className={cn(
-          "rounded-full border-0 px-2.5 py-1 text-[11px] font-medium",
-          statusColors[row.status],
-        )}
-      >
-        {row.status}
-      </Badge>
-    ),
+    render: (row) => {
+      const s = statusStyles[row.status];
+      return (
+        <StatusBadge
+          label={row.status}
+          dotColor={s.dot}
+          bgColor={s.bg}
+          textColor={s.text}
+        />
+      );
+    },
   },
   {
     id: "owner",
@@ -221,45 +263,113 @@ const columns: DatabaseColumn<LaunchRow>[] = [
     ),
     labelText: "Priority",
     width: "w-[16%]",
-    render: (row) => (
-      <Badge
-        variant="secondary"
-        className={cn(
-          "rounded-full border-0 px-2.5 py-1 text-[11px] font-medium",
-          priorityColors[row.priority],
-        )}
-      >
-        {row.priority}
-      </Badge>
-    ),
+    render: (row) => {
+      const p = priorityStyles[row.priority];
+      return (
+        <StatusBadge
+          label={row.priority}
+          dotColor={p.dot}
+          bgColor={p.bg}
+          textColor={p.text}
+        />
+      );
+    },
   },
 ];
 
+export function getLaunchProperties(row: LaunchRow): PageProperty[] {
+  const s = statusStyles[row.status];
+  const p = priorityStyles[row.priority];
+  return [
+    {
+      label: "Status",
+      icon: starIcon,
+      value: (
+        <StatusBadge
+          label={row.status}
+          dotColor={s.dot}
+          bgColor={s.bg}
+          textColor={s.text}
+        />
+      ),
+    },
+    {
+      label: "Owner",
+      icon: peopleIcon,
+      value: <span className="text-primary">{row.owner}</span>,
+    },
+    {
+      label: "Due",
+      icon: calendarAltIcon,
+      value: <span className="text-primary">{row.due}</span>,
+    },
+    {
+      label: "Priority",
+      icon: flagIcon,
+      value: (
+        <StatusBadge
+          label={row.priority}
+          dotColor={p.dot}
+          bgColor={p.bg}
+          textColor={p.text}
+        />
+      ),
+    },
+  ];
+}
+
+const dbViews: DatabaseViewTab[] = [
+  { id: "table", label: "All Tasks", icon: viewTableIcon },
+  { id: "board", label: "By Status", icon: viewBoardIcon },
+];
+
 export default function Page() {
-  const [view, setView] = useState<ViewType>("table");
+  const [view, setView] = useState("table");
   const [activeFilters, setActiveFilters] = useState<Set<string>>(new Set());
   const [filterOpen, setFilterOpen] = useState(false);
+  const [peekRow, setPeekRow] = useState<LaunchRow | null>(null);
+  const [emoji, setEmoji] = useAtom(launchEmojiAtom);
+  const [allRows, setAllRows] = useState(rows);
+
+  const addRow = () => {
+    const id = String(Date.now());
+    const slug = `new-launch-${id}`;
+    const newRow: LaunchRow = {
+      id,
+      slug,
+      name: "",
+      status: "On track",
+      owner: "",
+      due: "",
+      priority: "Medium",
+    };
+    setAllRows((prev) => [...prev, newRow]);
+    setPeekRow(newRow);
+  };
 
   const filtered =
     activeFilters.size > 0
-      ? rows.filter((r) => activeFilters.has(r.status))
-      : rows;
+      ? allRows.filter((r) => activeFilters.has(r.status))
+      : allRows;
 
   return (
-    <NotionShell title="Launch tracker">
+    <>
       <div className="mx-auto w-full max-w-5xl px-8 pt-10 pb-40">
-        <div className="mb-2 text-[78px] leading-[86px]">🚀</div>
-        <h1 className="text-primary text-[40px] font-bold tracking-tight">
-          Launch tracker
-        </h1>
+        <EmojiPicker value={emoji} onChange={setEmoji} />
+        <EditableTitle
+          storageKey="eric-nc-launch-tracker-title"
+          defaultTitle="Launch tracker"
+        />
         <p className="text-secondary mt-2 text-[15px]">
           Track launches, owners, and blockers across the team.
         </p>
 
-        <div className="mt-4">
-          <ViewSwitcher
+        <div className="mt-8">
+          <DatabaseToolbar
+            views={dbViews}
             activeView={view}
             onViewChange={setView}
+            onNew={addRow}
           />
 
           {filterOpen && (
@@ -281,46 +391,51 @@ export default function Page() {
           {view === "table" ? (
             <ReusableDatabase
               title="All launches"
-              icon={collectionIcon}
               columns={columns}
               data={filtered}
-              onNew={() => {}}
-              className="mt-0"
+              showHeader={false}
+              onNew={addRow}
+              onRowClick={setPeekRow}
             />
           ) : (
-            <div className="mt-0">
-              <BoardView
-                columns={boardColumns}
-                items={filtered}
-                groupBy="status"
-                getItemId={(r) => r.id}
-                renderCard={(row) => (
-                  <div>
-                    <p className="text-primary text-sm font-medium">
-                      {row.name}
-                    </p>
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="text-tertiary text-xs">{row.owner}</span>
-                      <Badge
-                        variant="secondary"
-                        className={cn(
-                          "rounded-full border-0 px-1.5 py-0.5 text-[10px] font-medium",
-                          priorityColors[row.priority],
-                        )}
-                      >
-                        {row.priority}
-                      </Badge>
-                    </div>
-                    <span className="text-quaternary mt-1 block text-xs">
-                      {row.due}
-                    </span>
+            <BoardView
+              columns={boardColumns}
+              items={filtered}
+              groupBy="status"
+              getItemId={(r) => r.id}
+              onCardClick={setPeekRow}
+              renderCard={(row) => (
+                <div>
+                  <p className="text-primary text-sm font-medium">{row.name}</p>
+                  <div className="mt-2 flex items-center gap-2">
+                    <span className="text-tertiary text-xs">{row.owner}</span>
+                    <StatusBadge
+                      label={row.priority}
+                      dotColor={priorityStyles[row.priority].dot}
+                      bgColor={priorityStyles[row.priority].bg}
+                    />
                   </div>
-                )}
-              />
-            </div>
+                  <span className="text-quaternary mt-1 block text-xs">
+                    {row.due}
+                  </span>
+                </div>
+              )}
+            />
           )}
         </div>
       </div>
-    </NotionShell>
+
+      {peekRow && (
+        <PagePeekModal
+          open={!!peekRow}
+          onOpenChange={(open) => !open && setPeekRow(null)}
+          title={peekRow.name}
+          icon="📄"
+          properties={getLaunchProperties(peekRow)}
+          href={`/eric/notion-clone/launch-tracker/${peekRow.slug}`}
+          bodyStorageKey={`eric-nc-launch-tracker-${peekRow.slug}`}
+        />
+      )}
+    </>
   );
 }

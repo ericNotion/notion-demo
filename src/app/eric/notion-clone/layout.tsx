@@ -1,5 +1,6 @@
 import { getPrototypePageTitle } from "@/root/lib/fs-utils";
 import { Metadata } from "next";
+import { NotionShell } from "./shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = await getPrototypePageTitle("eric", "notion-clone");
@@ -7,5 +8,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <NotionShell>{children}</NotionShell>;
 }

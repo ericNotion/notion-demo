@@ -15,6 +15,7 @@ interface BoardViewProps<T> {
   groupBy: keyof T;
   renderCard: (item: T) => React.ReactNode;
   getItemId: (item: T) => string;
+  onCardClick?: (item: T) => void;
 }
 
 export function BoardView<T>({
@@ -23,6 +24,7 @@ export function BoardView<T>({
   groupBy,
   renderCard,
   getItemId,
+  onCardClick,
 }: BoardViewProps<T>) {
   const grouped = columns.map((col) => ({
     ...col,
@@ -49,7 +51,11 @@ export function BoardView<T>({
             {col.items.map((item) => (
               <div
                 key={getItemId(item)}
-                className="bg-elevated border-primary-translucent rounded-lg border px-3 py-2.5 shadow-xs transition-shadow hover:shadow-sm"
+                className={cn(
+                  "bg-elevated border-primary-translucent rounded-lg border px-3 py-2.5 shadow-xs transition-shadow hover:shadow-sm",
+                  onCardClick && "cursor-pointer",
+                )}
+                onClick={() => onCardClick?.(item)}
               >
                 {renderCard(item)}
               </div>

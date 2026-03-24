@@ -129,6 +129,8 @@ import { Input } from "@/components/ui/input";
 
 ```tsx
 import { Button } from "@/components/ui/button";
+import { Icon } from "@nds-icons";
+import { plusIcon } from "@nds-icons/plus/default.icon";
 
 // Variants
 <Button variant="primary">Primary</Button>
@@ -156,6 +158,43 @@ import { Button } from "@/components/ui/button";
 
 // With tooltip
 <Button tooltip="Click me">Hover for tooltip</Button>
+```
+
+### Notion-Style Button Patterns (ALWAYS use these)
+
+Primary buttons MUST always use `variant="primary"` which gives white text on blue.
+Never hardcode `stroke="white"` in SVGs inside buttons — use `stroke="currentColor"` so the color inherits.
+
+```tsx
+// ✅ "New" button with dropdown chevron (for database toolbars)
+<Button variant="primary" size="sm" className="gap-1">
+  <span>New</span>
+  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="opacity-80">
+    <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+</Button>
+
+// ✅ "New [thing]" button with plus icon (for page headers)
+<Button variant="primary" size="sm">
+  <Icon icon={plusIcon} size={14} color="white" />
+  New agent
+</Button>
+
+// ✅ Dialog footer buttons
+<DialogFooter>
+  <Button variant="ghost">Cancel</Button>
+  <Button variant="primary">Save</Button>
+</DialogFooter>
+
+// ❌ NEVER do this — hardcoded stroke won't adapt
+<Button variant="primary">
+  <svg><path stroke="white" /></svg>
+</Button>
+
+// ❌ NEVER use className for text color on primary buttons
+<Button variant="primary">
+  <Icon icon={plusIcon} className="text-white" />
+</Button>
 ```
 
 ## Dialog Example

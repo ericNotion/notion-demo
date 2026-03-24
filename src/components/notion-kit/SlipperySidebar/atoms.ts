@@ -17,5 +17,5 @@ export const slipperySidebarOpenAtom = atomWithStorage<boolean>(
 
 export const slipperySidebarWidthAtom = atomWithStorage<number>(
   "slippery-sidebar-width",
-  240,
+  290,
 );

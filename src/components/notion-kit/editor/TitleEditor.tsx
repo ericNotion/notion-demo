@@ -17,6 +17,8 @@ interface TitleEditorProps {
   lastSavedAtom?: PrimitiveAtom<Date | null>;
   /** Placeholder text when title is empty */
   placeholder?: string;
+  /** Called when Enter is pressed in the title */
+  onEnter?: () => void;
 }
 
 export function TitleEditor({
@@ -24,6 +26,7 @@ export function TitleEditor({
   titleAtom: customTitleAtom,
   lastSavedAtom: customLastSavedAtom,
   placeholder = "Untitled",
+  onEnter,
 }: TitleEditorProps) {
   const [title, setTitle] = useAtom(customTitleAtom ?? documentTitleAtom);
   const setLastSaved = useSetAtom(customLastSavedAtom ?? lastSavedAtom);
@@ -48,10 +51,12 @@ export function TitleEditor({
   }
 
   function onKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
-    // Enter at end should move focus to the first content block; prevent newline in title
     if (e.key === "Enter") {
       e.preventDefault();
-      // Focus next focusable contentEditable below if present
+      if (onEnter) {
+        onEnter();
+        return;
+      }
       const walker = document.createTreeWalker(
         document.body,
         NodeFilter.SHOW_ELEMENT,

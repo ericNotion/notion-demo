@@ -11,6 +11,7 @@ export interface InboxNotification {
   action: string;
   pageEmoji: string;
   pageTitle: string;
+  pageHref?: string;
   preview: string;
   previewMention?: string;
   time: string;
@@ -29,12 +30,17 @@ function UserAvatar({ name, color }: { name: string; color: string }) {
 
 function NotificationItem({
   notification,
+  onClick,
 }: {
   notification: InboxNotification;
+  onClick?: () => void;
 }) {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col px-4 py-3.5 pr-3">
+      <div
+        className="hover:bg-secondary-translucent flex cursor-pointer flex-col px-4 py-3.5 pr-3 transition-colors"
+        onClick={onClick}
+      >
         <div className="flex gap-2">
           <UserAvatar
             name={notification.user}
@@ -86,9 +92,13 @@ function NotificationItem({
 
 interface InboxContentProps {
   notifications?: InboxNotification[];
+  onNotificationClick?: (notification: InboxNotification) => void;
 }
 
-export function InboxContent({ notifications }: InboxContentProps) {
+export function InboxContent({
+  notifications,
+  onNotificationClick,
+}: InboxContentProps) {
   if (!notifications || notifications.length === 0) {
     return (
       <div className="flex min-h-[220px] grow flex-col items-center justify-center overflow-hidden px-5 text-center">
@@ -134,7 +144,11 @@ export function InboxContent({ notifications }: InboxContentProps) {
         </div>
       </div>
       {notifications.map((notification) => (
-        <NotificationItem key={notification.id} notification={notification} />
+        <NotificationItem
+          key={notification.id}
+          notification={notification}
+          onClick={() => onNotificationClick?.(notification)}
+        />
       ))}
     </div>
   );
