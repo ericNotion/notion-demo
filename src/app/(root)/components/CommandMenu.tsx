@@ -1,6 +1,5 @@
 "use client";
 
-import { componentsData } from "@/app/(nds)/nds/components-data";
 import { useCurrentUsername } from "@/app/(root)/lib/useCurrentUser";
 import staticData from "@/data/static-data.json";
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
@@ -10,12 +9,9 @@ import { commandMenuPageAtom } from "@/root/atoms/commandMenuPageAtom";
 import { createPrototypeDialogOpenAtom } from "@/root/atoms/createPrototypeDialogOpenAtom";
 import { Prototype, UserPrototypes } from "@/types/prototypes";
 import { Icon, LoadedIconFunction } from "@nds-icons";
-import { codeIcon } from "@nds-icons/code/default.icon";
 import { homeIcon } from "@nds-icons/home/default.icon";
-import { paintPaletteSmallIcon } from "@nds-icons/paintPalette/small.icon";
 import { pencilAndOutlineIcon } from "@nds-icons/pencilAndOutline/default.icon";
 import { plusIcon } from "@nds-icons/plus/default.icon";
-import { textFormatSmallIcon } from "@nds-icons/textFormat/small.icon";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { useVirtualizer } from "@tanstack/react-virtual";
@@ -104,18 +100,6 @@ async function loadIconItems(): Promise<IconItem[]> {
   return iconItems;
 }
 
-type ComponentItem = {
-  id: string;
-  name: string;
-  snippet: string;
-};
-
-const COMPONENT_ITEMS: ComponentItem[] = componentsData.map((c) => ({
-  id: c.slug,
-  name: c.name,
-  snippet: c.snippet,
-}));
-
 export function CommandMenu() {
   const router = useRouter();
   const [open, setOpen] = useAtom(commandMenuOpenAtom);
@@ -137,9 +121,7 @@ export function CommandMenu() {
   useEffect(() => {
     if (open) {
       setSearch("");
-      setPage((prev) =>
-        prev === "icons" || prev === "components" ? prev : "root",
-      );
+      setPage((prev) => (prev === "icons" ? prev : "root"));
     }
   }, [open, setPage]);
 
@@ -216,14 +198,6 @@ export function CommandMenu() {
     });
   }
 
-  function openComponentsMenu() {
-    setPage("components");
-    setSearch("");
-    requestAnimationFrame(() => {
-      inputRef.current?.focus();
-    });
-  }
-
   const prototypes = prototypesData
     ? (prototypesData as UserPrototypes[]).flatMap((user: UserPrototypes) =>
         user.prototypes.map((proto: Prototype) => ({
@@ -265,14 +239,6 @@ export function CommandMenu() {
           ),
       ),
     [search, iconItems],
-  );
-
-  const filteredComponentItems = useMemo(
-    () =>
-      COMPONENT_ITEMS.filter((item) =>
-        item.name.toLowerCase().includes(search.toLowerCase()),
-      ),
-    [search],
   );
 
   const iconVirtualizer = useVirtualizer({
@@ -336,16 +302,9 @@ export function CommandMenu() {
     setPage("root");
   }
 
-  function handleComponentSelect(item: ComponentItem) {
-    copy(item.snippet);
-    setOpen(false);
-    setSearch("");
-    setPage("root");
-  }
-
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (
-      (page === "icons" || page === "components") &&
+      page === "icons" &&
       e.key === "Backspace" &&
       search === "" &&
       document.activeElement === inputRef.current
@@ -395,9 +354,7 @@ export function CommandMenu() {
               placeholder={
                 page === "icons"
                   ? "Search icons..."
-                  : page === "components"
-                    ? "Search components..."
-                    : "Search commands, prototypes..."
+                  : "Search commands, prototypes..."
               }
               autoFocus
               onKeyDown={handleKeyDown}
@@ -448,60 +405,6 @@ export function CommandMenu() {
                           </div>
                         </CommandItem>
                       )}
-                      <CommandItem
-                        value="components"
-                        onSelect={openComponentsMenu}
-                      >
-                        <div className="flex items-center">
-                          <div className="mr-2.5 flex h-5 w-5 items-center justify-center">
-                            <Icon icon={codeIcon} />
-                          </div>
-                          <span className="font-medium">Components</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <KBD>⌘</KBD>
-                          <KBD>⇧</KBD>
-                          <KBD>D</KBD>
-                        </div>
-                      </CommandItem>
-                      <CommandItem
-                        value="nds-colors"
-                        onSelect={() => {
-                          setOpen(false);
-                          setSearch("");
-                          if (cmdKeyPressed.current) {
-                            window.open("/nds/colors", "_blank");
-                          } else {
-                            router.push("/nds/colors");
-                          }
-                        }}
-                      >
-                        <div className="flex items-center">
-                          <div className="mr-2.5 flex h-5 w-5 items-center justify-center">
-                            <Icon icon={paintPaletteSmallIcon} />
-                          </div>
-                          <span className="font-medium">Colors</span>
-                        </div>
-                      </CommandItem>
-                      <CommandItem
-                        value="nds-typography"
-                        onSelect={() => {
-                          setOpen(false);
-                          setSearch("");
-                          if (cmdKeyPressed.current) {
-                            window.open("/nds/typography", "_blank");
-                          } else {
-                            router.push("/nds/typography");
-                          }
-                        }}
-                      >
-                        <div className="flex items-center">
-                          <div className="mr-2.5 flex h-5 w-5 items-center justify-center">
-                            <Icon icon={textFormatSmallIcon} />
-                          </div>
-                          <span className="font-medium">Typography</span>
-                        </div>
-                      </CommandItem>
                       {currentUsername && (
                         <CommandItem
                           value="new-prototype"
@@ -642,24 +545,6 @@ export function CommandMenu() {
                       </CommandGroup>
                     </>
                   )}
-
-                {page === "components" && (
-                  <>
-                    <CommandGroup>
-                      {filteredComponentItems.map((item) => (
-                        <CommandItem
-                          key={item.id}
-                          value={item.id}
-                          onSelect={() => handleComponentSelect(item)}
-                        >
-                          <span className="flex-1 font-medium">
-                            {item.name}
-                          </span>
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </>
-                )}
               </Fragment>
             </Command.List>
           </Command>
