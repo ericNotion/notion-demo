@@ -1,14 +1,8 @@
 "use client";
 
-import {
-  DatabaseToolbar,
-  ReusableDatabase,
-  type Column as DatabaseColumn,
-  type DatabaseViewTab,
-} from "@/components/playground-kit/ReusableDatabase";
+import { type Column as DatabaseColumn } from "@/components/playground-kit/ReusableDatabase";
 import { Icon } from "@nds-icons";
 import { calendarAltIcon } from "@nds-icons/calendarAlt/default.icon";
-import { collectionIcon } from "@nds-icons/collection/default.icon";
 import { numberIcon } from "@nds-icons/number/default.icon";
 import { pageIcon } from "@nds-icons/page/default.icon";
 import { peopleIcon } from "@nds-icons/people/default.icon";
@@ -16,13 +10,11 @@ import { priceTagIcon } from "@nds-icons/priceTag/default.icon";
 import { starIcon } from "@nds-icons/star/default.icon";
 import { viewBoardIcon } from "@nds-icons/viewBoard/default.icon";
 import { viewTableIcon } from "@nds-icons/viewTable/default.icon";
-import { useAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
-import { useState } from "react";
-import { BoardView, type BoardColumn } from "../components/BoardView";
-import { EditableTitle } from "../components/EditableTitle";
-import { EmojiPicker } from "../components/EmojiPicker";
-import { PagePeekModal, type PageProperty } from "../components/PagePeekModal";
+import {
+  DatabasePage,
+  type DatabasePageConfig,
+  type PageProperty,
+} from "../components/DatabasePage";
 import { StatusBadge } from "../components/StatusBadge";
 
 export type ResearchRow = {
@@ -151,11 +143,6 @@ function MultiSelectTag({ tag }: { tag: string }) {
   );
 }
 
-const researchEmojiAtom = atomWithStorage(
-  "eric-nc-research-archive-emoji",
-  "📊",
-);
-
 function MultiSelectCell({ tags }: { tags: string[] }) {
   return (
     <div className="flex flex-wrap gap-1">
@@ -166,41 +153,36 @@ function MultiSelectCell({ tags }: { tags: string[] }) {
   );
 }
 
-const boardColumns: BoardColumn[] = [
-  {
-    id: "Interview",
-    name: "Interview",
-    color: "text-purple-secondary",
-    bgColor: "bg-purple-secondary",
-  },
-  {
-    id: "Survey",
-    name: "Survey",
-    color: "text-blue-accent-primary",
-    bgColor: "bg-blue-secondary",
-  },
-  {
-    id: "Usability test",
-    name: "Usability test",
-    color: "text-green-primary",
-    bgColor: "bg-green-secondary",
-  },
-  {
-    id: "Competitive analysis",
-    name: "Competitive analysis",
-    color: "text-orange-secondary",
-    bgColor: "bg-orange-secondary",
-  },
-];
-
-const propertyDefs = [
-  { id: "title", name: "Title", type: "Title" },
-  { id: "type", name: "Type", type: "Select" },
-  { id: "researcher", name: "Researcher", type: "Person" },
-  { id: "date", name: "Date", type: "Date" },
-  { id: "insights", name: "Insights", type: "Number" },
-  { id: "tags", name: "Tags", type: "Multi-select" },
-];
+export function getResearchProperties(row: ResearchRow): PageProperty[] {
+  const t = typeStyles[row.type];
+  return [
+    {
+      label: "Type",
+      icon: starIcon,
+      value: <StatusBadge label={row.type} dotColor={t.dot} bgColor={t.bg} />,
+    },
+    {
+      label: "Researcher",
+      icon: peopleIcon,
+      value: <span className="text-primary">{row.researcher}</span>,
+    },
+    {
+      label: "Date",
+      icon: calendarAltIcon,
+      value: <span className="text-primary">{row.date}</span>,
+    },
+    {
+      label: "Insights",
+      icon: numberIcon,
+      value: <span className="text-primary">{row.insights}</span>,
+    },
+    {
+      label: "Tags",
+      icon: priceTagIcon,
+      value: <MultiSelectCell tags={row.tags} />,
+    },
+  ];
+}
 
 const columns: DatabaseColumn<ResearchRow>[] = [
   {
@@ -284,54 +266,18 @@ const columns: DatabaseColumn<ResearchRow>[] = [
   },
 ];
 
-export function getResearchProperties(row: ResearchRow): PageProperty[] {
-  const t = typeStyles[row.type];
-  return [
-    {
-      label: "Type",
-      icon: starIcon,
-      value: <StatusBadge label={row.type} dotColor={t.dot} bgColor={t.bg} />,
-    },
-    {
-      label: "Researcher",
-      icon: peopleIcon,
-      value: <span className="text-primary">{row.researcher}</span>,
-    },
-    {
-      label: "Date",
-      icon: calendarAltIcon,
-      value: <span className="text-primary">{row.date}</span>,
-    },
-    {
-      label: "Insights",
-      icon: numberIcon,
-      value: <span className="text-primary">{row.insights}</span>,
-    },
-    {
-      label: "Tags",
-      icon: priceTagIcon,
-      value: <MultiSelectCell tags={row.tags} />,
-    },
-  ];
-}
-
-const dbViews: DatabaseViewTab[] = [
-  { id: "table", label: "All Research", icon: viewTableIcon },
-  { id: "board", label: "By Type", icon: viewBoardIcon },
-];
-
-export default function Page() {
-  const [view, setView] = useState("table");
-  const [peekRow, setPeekRow] = useState<ResearchRow | null>(null);
-  const [emoji, setEmoji] = useAtom(researchEmojiAtom);
-  const [allRows, setAllRows] = useState(rows);
-
-  const addRow = () => {
-    const id = String(Date.now());
-    const slug = `new-research-${id}`;
-    const newRow: ResearchRow = {
-      id,
-      slug,
+const config: DatabasePageConfig<ResearchRow> = {
+  defaultEmoji: "📊",
+  emojiStorageKey: "eric-nc-research-archive-emoji",
+  titleStorageKey: "eric-nc-research-archive-title",
+  defaultTitle: "Research archive",
+  description: "Customer interviews, tagged takeaways, and reusable findings.",
+  initialRows: rows,
+  createRow: () => {
+    const now = Date.now();
+    return {
+      id: String(now),
+      slug: `new-research-${now}`,
       title: "",
       type: "Interview",
       researcher: "",
@@ -339,78 +285,60 @@ export default function Page() {
       insights: 0,
       tags: [],
     };
-    setAllRows((prev) => [...prev, newRow]);
-    setPeekRow(newRow);
-  };
-
-  return (
-    <>
-      <div className="mx-auto w-full max-w-5xl px-8 pt-10 pb-40">
-        <EmojiPicker value={emoji} onChange={setEmoji} />
-        <EditableTitle
-          storageKey="eric-nc-research-archive-title"
-          defaultTitle="Research archive"
-        />
-        <p className="text-secondary mt-2 text-[15px]">
-          Customer interviews, tagged takeaways, and reusable findings.
-        </p>
-
-        <div className="mt-8">
-          <DatabaseToolbar
-            views={dbViews}
-            activeView={view}
-            onViewChange={setView}
-            onNew={addRow}
-          />
-
-          {view === "table" ? (
-            <ReusableDatabase
-              title="All research"
-              columns={columns}
-              data={allRows}
-              showHeader={false}
-              onNew={addRow}
-              onRowClick={setPeekRow}
-            />
-          ) : (
-            <BoardView
-              columns={boardColumns}
-              items={allRows}
-              groupBy="type"
-              getItemId={(r) => r.id}
-              onCardClick={setPeekRow}
-              renderCard={(row) => (
-                <div>
-                  <p className="text-primary text-sm font-medium">
-                    {row.title}
-                  </p>
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="text-tertiary text-xs">
-                      {row.researcher}
-                    </span>
-                    <span className="text-quaternary text-xs">{row.date}</span>
-                  </div>
-                  <div className="mt-1.5">
-                    <MultiSelectCell tags={row.tags} />
-                  </div>
-                </div>
-              )}
-            />
-          )}
-        </div>
+  },
+  tableColumns: columns,
+  tableTitle: "All research",
+  boardColumns: [
+    {
+      id: "Interview",
+      name: "Interview",
+      color: "text-purple-secondary",
+      bgColor: "bg-purple-secondary",
+    },
+    {
+      id: "Survey",
+      name: "Survey",
+      color: "text-blue-accent-primary",
+      bgColor: "bg-blue-secondary",
+    },
+    {
+      id: "Usability test",
+      name: "Usability test",
+      color: "text-green-primary",
+      bgColor: "bg-green-secondary",
+    },
+    {
+      id: "Competitive analysis",
+      name: "Competitive analysis",
+      color: "text-orange-secondary",
+      bgColor: "bg-orange-secondary",
+    },
+  ],
+  groupByField: "type",
+  views: [
+    { id: "table", label: "All Research", icon: viewTableIcon },
+    { id: "board", label: "By Type", icon: viewBoardIcon },
+  ],
+  getProperties: getResearchProperties,
+  getTitle: (row) => row.title,
+  titleField: "title",
+  renderBoardCard: (row) => (
+    <div>
+      <p className="text-primary text-sm font-medium">{row.title}</p>
+      <div className="mt-2 flex items-center gap-2">
+        <span className="text-tertiary text-xs">{row.researcher}</span>
+        <span className="text-quaternary text-xs">{row.date}</span>
       </div>
+      <div className="mt-1.5">
+        <MultiSelectCell tags={row.tags} />
+      </div>
+    </div>
+  ),
+  detailHrefPrefix: "/eric/notion-clone/research-archive",
+  bodyStorageKeyPrefix: "eric-nc-research-archive",
+  peekIcon: "📊",
+};
 
-      {peekRow && (
-        <PagePeekModal
-          open={!!peekRow}
-          onOpenChange={(open) => !open && setPeekRow(null)}
-          title={peekRow.title}
-          icon="📊"
-          properties={getResearchProperties(peekRow)}
-          href={`/eric/notion-clone/research-archive/${peekRow.slug}`}
-          bodyStorageKey={`eric-nc-research-archive-${peekRow.slug}`}
-        />
-      )}
-    </>
-  );
+export default function Page() {
+  return <DatabasePage config={config} />;
 }

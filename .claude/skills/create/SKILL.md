@@ -150,6 +150,10 @@ After creating the scaffold and researching existing components:
 3. **Prioritize existing components** - prioritize reusing existing components when possible; you can always ask the user for clarification if you're unsure if they want something new or to reuse something that already exists
 4. Follow the codebase conventions from CLAUDE.md (Tailwind, function declarations, etc.)
 
+## Notion Clone Pages vs Standalone Prototypes
+
+This `/create` skill is for **standalone prototypes** (`src/app/<username>/<slug>/`). If instead you need to add a page **within the Notion clone** (`src/app/eric/notion-clone/`), use the `notion-patterns` skill instead — it covers adding pages to `data.ts`, using `ContentPage`/`DatabasePage` components, and adding custom block types.
+
 ## Reference Code
 
 For implementation patterns, refer to:

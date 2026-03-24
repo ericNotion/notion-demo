@@ -1,20 +1,16 @@
 "use client";
 
-import { notFound, useParams } from "next/navigation";
-import { DatabasePageView } from "../../components/DatabasePageView";
+import { DatabaseDetailPage } from "../../components/DatabaseDetailPage";
 import { getIdeaProperties, rows } from "../page";
 
 export default function IdeaItemPage() {
-  const { slug } = useParams<{ slug: string }>();
-  const row = rows.find((r) => r.slug === slug);
-  if (!row) return notFound();
-
   return (
-    <DatabasePageView
+    <DatabaseDetailPage
+      rows={rows}
+      getTitle={(r) => r.title}
+      getProperties={getIdeaProperties}
       icon="💡"
-      title={row.title}
-      properties={getIdeaProperties(row)}
-      bodyStorageKey={`eric-nc-product-ideas-${slug}`}
+      bodyStorageKeyPrefix="eric-nc-product-ideas"
     />
   );
 }

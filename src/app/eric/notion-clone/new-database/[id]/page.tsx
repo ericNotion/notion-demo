@@ -6,27 +6,18 @@ import {
   type Column as DatabaseColumn,
   type DatabaseViewTab,
 } from "@/components/playground-kit/ReusableDatabase";
+import { createAtomCache } from "@/utils/createAtomCache";
 import { Icon } from "@nds-icons";
 import { pageIcon } from "@nds-icons/page/default.icon";
 import { viewTableIcon } from "@nds-icons/viewTable/default.icon";
 import { useAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { EditableTitle } from "../../components/EditableTitle";
 import { EmojiPicker } from "../../components/EmojiPicker";
 import { PagePeekModal } from "../../components/PagePeekModal";
 
-const emojiAtoms = new Map<
-  string,
-  ReturnType<typeof atomWithStorage<string | null>>
->();
-function getEmojiAtom(key: string) {
-  if (!emojiAtoms.has(key)) {
-    emojiAtoms.set(key, atomWithStorage<string | null>(key, null));
-  }
-  return emojiAtoms.get(key)!;
-}
+const getEmojiAtom = createAtomCache<string | null>();
 
 type Row = {
   id: string;
@@ -66,7 +57,7 @@ export default function Page() {
   const [peekRow, setPeekRow] = useState<Row | null>(null);
   const [hoveringTitle, setHoveringTitle] = useState(false);
   const emojiAtom = useMemo(
-    () => getEmojiAtom(`eric-nc-new-database-${id}-emoji`),
+    () => getEmojiAtom(`eric-nc-new-database-${id}-emoji`, null),
     [id],
   );
   const [emoji, setEmoji] = useAtom(emojiAtom);

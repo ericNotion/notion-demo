@@ -4,7 +4,7 @@ import { atomWithStorage } from "jotai/utils";
 // Block types
 export interface ParagraphBlock {
   id: string;
-  type: "paragraph" | "h1" | "h2" | "h3";
+  type: "paragraph" | "h1" | "h2" | "h3" | "h4";
   text: string;
 }
 

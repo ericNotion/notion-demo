@@ -25,6 +25,7 @@ interface PagePeekModalProps {
   properties: PageProperty[];
   href?: string;
   bodyStorageKey?: string;
+  onTitleChange?: (title: string) => void;
 }
 
 export function PagePeekModal({
@@ -35,6 +36,7 @@ export function PagePeekModal({
   properties,
   href,
   bodyStorageKey,
+  onTitleChange,
 }: PagePeekModalProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [editableTitle, setEditableTitle] = useState(title);
@@ -139,7 +141,10 @@ export function PagePeekModal({
             <input
               type="text"
               value={editableTitle}
-              onChange={(e) => setEditableTitle(e.target.value)}
+              onChange={(e) => {
+                setEditableTitle(e.target.value);
+                onTitleChange?.(e.target.value);
+              }}
               placeholder="Untitled"
               className="text-primary placeholder:text-quaternary w-full bg-transparent text-[32px] font-bold tracking-tight outline-hidden"
             />

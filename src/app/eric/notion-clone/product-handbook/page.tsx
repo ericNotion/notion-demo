@@ -7,11 +7,16 @@ import {
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import { ContentPage } from "../components/ContentPage";
-import { CalloutBlock } from "../components/StaticBlocks";
 
 const titleAtom = atomWithStorage("eric-nc-handbook-title", "Product handbook");
 const lastSavedAtom = atom<Date | null>(null);
 const blocksAtom = atomWithStorage<Block[]>("eric-nc-handbook-blocks", [
+  {
+    id: createBlockId(),
+    type: "callout",
+    icon: "📅",
+    text: "This handbook is reviewed and updated at the start of each quarter. Last update: Q1 2026.",
+  },
   {
     id: createBlockId(),
     type: "paragraph",
@@ -59,11 +64,6 @@ export default function Page() {
       titleAtom={titleAtom}
       blocksAtom={blocksAtom}
       lastSavedAtom={lastSavedAtom}
-    >
-      <CalloutBlock icon="📅">
-        This handbook is reviewed and updated at the start of each quarter. Last
-        update: Q1 2026.
-      </CalloutBlock>
-    </ContentPage>
+    />
   );
 }
