@@ -43,13 +43,6 @@ Skills teach Claude project-specific patterns. Load relevant skills before start
 | `motion-animation` | Motion library fundamentals                       |
 | `motion-react`     | React-specific Motion patterns, Radix integration |
 
-### Block Types (Slash Menu Blocks)
-
-| Skill                | Description                                                      |
-| -------------------- | ---------------------------------------------------------------- |
-| `audio-beats`        | Beat Machine block — step sequencer with Tone.js, queue system   |
-| `node-graph-diagram` | Page Graph block — interactive SVG node graph of workspace pages |
-
 ### Browser & Testing
 
 | Skill           | Description                                              |

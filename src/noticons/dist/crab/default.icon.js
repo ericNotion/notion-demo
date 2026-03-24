@@ -1,0 +1,103 @@
+// src/nds-icons/SvgIcon.tsx
+import { jsxDEV } from "react/jsx-dev-runtime";
+function SvgIcon({
+  children,
+  viewBox,
+  style,
+  className,
+  label
+}) {
+  return /* @__PURE__ */ jsxDEV("svg", {
+    ...label !== undefined ? { "aria-label": label } : { "aria-hidden": true },
+    role: "graphics-symbol",
+    viewBox,
+    style: {
+      width: "100%",
+      height: "100%",
+      display: "block",
+      fill: "inherit",
+      flexShrink: 0,
+      ...style
+    },
+    className,
+    children
+  }, undefined, false, undefined, this);
+}
+
+// src/nds-icons/iconUtils.tsx
+import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
+var iconGroupVariantNames = [
+  "fillSmall",
+  "small",
+  "fill",
+  "default"
+];
+var logoVariantNames = ["default", "darkMode"];
+var deprecatedIconGroupVariantNames = [
+  "micro",
+  "mini",
+  "small",
+  "default",
+  "large",
+  "extraLarge",
+  "max"
+];
+var iconVariantNames = [
+  ...iconGroupVariantNames,
+  ...deprecatedIconGroupVariantNames,
+  ...logoVariantNames
+];
+var ICON_SIZE = {
+  xxs: 12,
+  xs: 14,
+  sm: 16,
+  default: 20,
+  lg: 22,
+  xl: 32
+};
+var ICON_SIZE_FOR_VARIANT = {
+  default: ICON_SIZE.default,
+  small: ICON_SIZE.sm,
+  fill: ICON_SIZE.default,
+  fillSmall: ICON_SIZE.sm,
+  darkMode: ICON_SIZE.default,
+  micro: 14,
+  mini: 14,
+  large: 24,
+  max: 28,
+  extraLarge: 36
+};
+function createIcon(name, iconDefinition) {
+  const { viewBox, svg } = iconDefinition;
+  const finalViewBox = viewBox ?? `0 0 ${ICON_SIZE.default} ${ICON_SIZE.default}`;
+  const iconFunction = (style, className) => {
+    const finalClassName = className ? `${name} ${className}` : name;
+    return /* @__PURE__ */ jsxDEV2(SvgIcon, {
+      viewBox: finalViewBox,
+      className: finalClassName,
+      style,
+      children: svg
+    }, undefined, false, undefined, this);
+  };
+  return Object.assign(iconFunction, {
+    __iconDefinition: { ...iconDefinition, viewBox: finalViewBox }
+  });
+}
+
+// src/nds-icons/Icon.tsx
+"use client";
+// src/noticons/src/crab/default.icon.tsx
+import { jsxDEV as jsxDEV3, Fragment } from "react/jsx-dev-runtime";
+var iconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: /* @__PURE__ */ jsxDEV3(Fragment, {
+    children: /* @__PURE__ */ jsxDEV3("path", {
+      d: "M15.3125 11.25H16.9812C17.5187 11.25 17.9281 11.0813 18.3062 10.7L19.3719 9.63438L18.4875 8.75L17.4219 9.81563C17.275 9.9625 17.1844 10 16.9781 10H15.9344L17.2187 7.43438C17.4031 7.06563 17.4969 6.6625 17.4969 6.25C17.4969 3.75 14.6156 1.875 12.8094 1.875C11.1656 1.875 10.6219 2.8125 10.6219 2.8125L12.0281 3.51562L11.5594 4.45312L15.6 6.475L14.6687 8.33437C14.0375 6.94688 12.4781 6.25 9.99373 6.25C7.50935 6.25 5.9531 6.94688 5.31873 8.33437L4.38748 6.475L8.4281 4.45312L7.95935 3.51562L9.3656 2.8125C9.3656 2.8125 8.82185 1.875 7.1781 1.875C5.37185 1.875 2.4906 3.75 2.4906 6.25C2.4906 6.6625 2.58748 7.06563 2.76873 7.43438L4.0531 10H3.00935C2.8031 10 2.71248 9.9625 2.5656 9.81563L1.49998 8.75L0.615601 9.63438L1.68123 10.7C2.06248 11.0813 2.46873 11.25 3.00623 11.25H4.67498L5.01248 11.925C5.1156 12.1281 5.22185 12.3188 5.33435 12.5H4.25623C3.71873 12.5 3.30935 12.6687 2.93123 13.05L1.8656 14.1156L2.74998 15L3.8156 13.9344C3.96248 13.7875 4.0531 13.75 4.25935 13.75H6.3531C6.55623 13.9312 6.76873 14.0969 6.99373 14.2375L6.0281 14.7219C5.3406 15.0656 4.9906 15.6312 4.9906 16.4V17.5031H6.2406V16.4C6.2406 16.1062 6.32498 15.9719 6.58748 15.8406L8.5531 14.8563C8.99685 14.95 9.47498 15 9.9906 15C10.5062 15 10.9844 14.95 11.4281 14.8563L13.3937 15.8406C13.6562 15.9719 13.7406 16.1062 13.7406 16.4V17.5031H14.9906V16.4C14.9906 15.6312 14.6406 15.0656 13.9531 14.7219L12.9875 14.2375C13.2125 14.0969 13.425 13.9312 13.6281 13.75H15.7219C15.9281 13.75 16.0187 13.7875 16.1656 13.9344L17.2312 15L18.1156 14.1156L17.05 13.05C16.6687 12.6687 16.2625 12.5 15.725 12.5H14.6468C14.7593 12.3188 14.8656 12.1281 14.9687 11.925L15.3062 11.25H15.3125Z"
+    }, undefined, false, undefined, this)
+  }, undefined, false, undefined, this)
+};
+var crabIcon = createIcon("crab", iconDefinition);
+export {
+  iconDefinition,
+  crabIcon
+};

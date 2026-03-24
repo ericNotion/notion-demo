@@ -1,0 +1,18 @@
+import React from "react";
+
+import {
+  createIcon,
+  type IconDefinition,
+  type LoadedIconFunction,
+} from "@nds-icons";
+
+export const iconDefinition: IconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: (
+    <>
+      <path d="M13.75 5.88125V5C13.75 3.45625 12.7937 2.5 11.25 2.5H8.75C7.20625 2.5 6.25 3.45625 6.25 5V5.88125C3.73125 6.24687 2.5 6.875 2.5 6.875V8.125H17.5V6.875C17.5 6.875 16.2688 6.24687 13.75 5.88125ZM8.125 5.68438V4.99687C8.125 4.4875 8.24062 4.37187 8.75 4.37187H11.25C11.7594 4.37187 11.875 4.4875 11.875 4.99687V5.68438C11.2937 5.64688 10.6719 5.62187 10 5.62187C9.32812 5.62187 8.70625 5.64375 8.125 5.68438ZM2.5 9.37187H17.5V11.2469H16.25V14.9969C16.25 16.5406 15.2937 17.4969 13.75 17.4969H6.25C4.70625 17.4969 3.75 16.5406 3.75 14.9969V11.2469H2.5V9.37187Z" />
+    </>
+  ),
+};
+
+export const potIcon: LoadedIconFunction = createIcon("pot", iconDefinition);

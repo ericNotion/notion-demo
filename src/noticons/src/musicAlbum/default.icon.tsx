@@ -1,0 +1,21 @@
+import React from "react";
+
+import {
+  createIcon,
+  type IconDefinition,
+  type LoadedIconFunction,
+} from "@nds-icons";
+
+export const iconDefinition: IconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: (
+    <>
+      <path d="M1.875 16.875H15.625V3.125H1.875V16.875ZM5.625 12.0844C5.85313 12.0844 6.05937 12.1125 6.25 12.1594V6.87813L12.5 5.00313V12.4C12.5 13.3656 11.7812 13.9625 10.625 13.9625C9.46875 13.9625 8.75 13.3656 8.75 12.4C8.75 11.4344 9.46875 10.8375 10.625 10.8375C10.8531 10.8375 11.0594 10.8656 11.25 10.9125V8.50625L7.5 9.63125V13.6531C7.5 14.6187 6.78125 15.2156 5.625 15.2156C4.46875 15.2156 3.75 14.6187 3.75 13.6531C3.75 12.6875 4.46875 12.0906 5.625 12.0906V12.0844ZM19.375 10C19.375 12.0437 18.3906 13.85 16.875 14.9906V5.00625C18.3906 6.14688 19.375 7.95625 19.375 9.99687V10Z" />
+    </>
+  ),
+};
+
+export const musicAlbumIcon: LoadedIconFunction = createIcon(
+  "musicAlbum",
+  iconDefinition,
+);

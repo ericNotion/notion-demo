@@ -1,0 +1,103 @@
+// src/nds-icons/SvgIcon.tsx
+import { jsxDEV } from "react/jsx-dev-runtime";
+function SvgIcon({
+  children,
+  viewBox,
+  style,
+  className,
+  label
+}) {
+  return /* @__PURE__ */ jsxDEV("svg", {
+    ...label !== undefined ? { "aria-label": label } : { "aria-hidden": true },
+    role: "graphics-symbol",
+    viewBox,
+    style: {
+      width: "100%",
+      height: "100%",
+      display: "block",
+      fill: "inherit",
+      flexShrink: 0,
+      ...style
+    },
+    className,
+    children
+  }, undefined, false, undefined, this);
+}
+
+// src/nds-icons/iconUtils.tsx
+import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
+var iconGroupVariantNames = [
+  "fillSmall",
+  "small",
+  "fill",
+  "default"
+];
+var logoVariantNames = ["default", "darkMode"];
+var deprecatedIconGroupVariantNames = [
+  "micro",
+  "mini",
+  "small",
+  "default",
+  "large",
+  "extraLarge",
+  "max"
+];
+var iconVariantNames = [
+  ...iconGroupVariantNames,
+  ...deprecatedIconGroupVariantNames,
+  ...logoVariantNames
+];
+var ICON_SIZE = {
+  xxs: 12,
+  xs: 14,
+  sm: 16,
+  default: 20,
+  lg: 22,
+  xl: 32
+};
+var ICON_SIZE_FOR_VARIANT = {
+  default: ICON_SIZE.default,
+  small: ICON_SIZE.sm,
+  fill: ICON_SIZE.default,
+  fillSmall: ICON_SIZE.sm,
+  darkMode: ICON_SIZE.default,
+  micro: 14,
+  mini: 14,
+  large: 24,
+  max: 28,
+  extraLarge: 36
+};
+function createIcon(name, iconDefinition) {
+  const { viewBox, svg } = iconDefinition;
+  const finalViewBox = viewBox ?? `0 0 ${ICON_SIZE.default} ${ICON_SIZE.default}`;
+  const iconFunction = (style, className) => {
+    const finalClassName = className ? `${name} ${className}` : name;
+    return /* @__PURE__ */ jsxDEV2(SvgIcon, {
+      viewBox: finalViewBox,
+      className: finalClassName,
+      style,
+      children: svg
+    }, undefined, false, undefined, this);
+  };
+  return Object.assign(iconFunction, {
+    __iconDefinition: { ...iconDefinition, viewBox: finalViewBox }
+  });
+}
+
+// src/nds-icons/Icon.tsx
+"use client";
+// src/noticons/src/stethoscope/default.icon.tsx
+import { jsxDEV as jsxDEV3, Fragment } from "react/jsx-dev-runtime";
+var iconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: /* @__PURE__ */ jsxDEV3(Fragment, {
+    children: /* @__PURE__ */ jsxDEV3("path", {
+      d: "M16.875 12.9125V13.4375C16.875 16.2844 15.0344 18.125 12.1875 18.125C9.34063 18.125 7.5 16.2844 7.5 13.4375V12.9938C6.84375 12.8031 6.30938 12.3969 5.88438 11.7594L3.25 7.80937C2.75312 7.0625 2.5 6.25 2.5 5.4625C2.5 3.67187 3.89062 1.875 6.425 1.875H6.875V3.75H6.425C4.35937 3.75 4.375 5.4125 4.375 5.46562C4.375 5.88438 4.52187 6.33437 4.8125 6.76562L7.44688 10.7156C7.71562 11.1188 7.95625 11.2469 8.44063 11.2469C8.925 11.2469 9.16563 11.1188 9.43438 10.7156L12.0687 6.76562C12.3594 6.33125 12.5063 5.88438 12.5063 5.46562C12.5063 5.4125 12.5187 3.75 10.4562 3.75H10.0063V1.875H10.4562C13 1.875 14.3813 3.675 14.3813 5.4625C14.3813 6.25 14.1281 7.0625 13.6312 7.80937L10.9969 11.7594C10.5719 12.3969 10.0344 12.8031 9.38125 12.9938V13.4375C9.38125 15.225 10.4062 16.25 12.1938 16.25C13.9812 16.25 15.0063 15.225 15.0063 13.4375V12.9125C14.2688 12.5625 13.7563 11.8094 13.7563 10.9375C13.7563 9.72813 14.7344 8.75 15.9438 8.75C17.1531 8.75 18.1313 9.72813 18.1313 10.9375C18.1313 11.8094 17.6188 12.5594 16.8813 12.9125H16.875Z"
+    }, undefined, false, undefined, this)
+  }, undefined, false, undefined, this)
+};
+var stethoscopeIcon = createIcon("stethoscope", iconDefinition);
+export {
+  stethoscopeIcon,
+  iconDefinition
+};

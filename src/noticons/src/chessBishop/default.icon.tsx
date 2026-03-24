@@ -1,0 +1,21 @@
+import React from "react";
+
+import {
+  createIcon,
+  type IconDefinition,
+  type LoadedIconFunction,
+} from "@nds-icons";
+
+export const iconDefinition: IconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: (
+    <>
+      <path d="M16.25 15.625V17.5H3.75V15.625H6.76562L5.69375 13.4781C5.44375 12.9812 5.31563 12.4312 5.31563 11.875C5.31563 11.3187 5.44375 10.7687 5.69375 10.2719L8.4375 4.78436C8.24062 4.48749 8.12813 4.13436 8.12813 3.75311C8.12813 2.71874 8.96875 1.87811 10.0031 1.87811C11.0375 1.87811 11.8781 2.71874 11.8781 3.75311C11.8781 4.78749 11.1 5.56249 10.1156 5.62186L7.6125 10.6281H9.00938L10.8844 6.87811H12.6125L14.3094 10.275C14.5594 10.7719 14.6875 11.3219 14.6875 11.8781C14.6875 12.4344 14.5594 12.9844 14.3094 13.4812L13.2375 15.6281H16.2531L16.25 15.625Z" />
+    </>
+  ),
+};
+
+export const chessBishopIcon: LoadedIconFunction = createIcon(
+  "chessBishop",
+  iconDefinition,
+);

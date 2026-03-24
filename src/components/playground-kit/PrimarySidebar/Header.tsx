@@ -29,7 +29,7 @@ export function PrimarySidebarHeader() {
         <DropdownMenuTrigger asChild>
           <button className="hover:bg-tertiary flex items-center gap-2 rounded-md px-2 py-1">
             <Image
-              src="/eric/notion.jpg"
+              src="/img/notion.jpg"
               alt="Notion logo"
               width={40}
               height={40}

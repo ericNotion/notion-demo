@@ -23,7 +23,7 @@ export function PrimarySidebarHeader({
       <div className="flex items-center justify-between px-2">
         <button className="hover:bg-tertiary flex items-center gap-2 rounded-md px-2 py-1">
           <Image
-            src="/eric/notion.jpg"
+            src="/img/notion.jpg"
             alt="Notion logo"
             width={40}
             height={40}
