@@ -13,7 +13,16 @@ import {
 const gridStyle = { gridTemplateColumns: "repeat(16, minmax(0, 1fr))" };
 const dimTextStyle = { color: "rgba(255,255,255,0.25)" };
 
-function getStepStyle(isActive: boolean, isCurrent: boolean, step: number, color: string) {
+function getTrackLabelStyle(track: TrackName) {
+  return { color: TRACK_COLORS[track] };
+}
+
+function getStepStyle(
+  isActive: boolean,
+  isCurrent: boolean,
+  step: number,
+  color: string,
+) {
   return {
     background: isActive
       ? color
@@ -72,7 +81,7 @@ export function StepSequencer() {
         <div key={track} className="flex items-center">
           <div
             className="w-[72px] shrink-0 pr-3 text-right font-mono text-[11px] font-bold tracking-wider"
-            style= color: TRACK_COLORS[track] 
+            style={getTrackLabelStyle(track)}
           >
             {TRACK_LABELS[track]}
           </div>
