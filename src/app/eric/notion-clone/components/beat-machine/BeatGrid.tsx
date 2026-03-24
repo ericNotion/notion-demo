@@ -44,14 +44,10 @@ export function BeatGrid() {
                         : "border-secondary bg-tertiary",
                     isCurrent && "ring-2 ring-blue-500",
                   )}
-                  style={{
-                    backgroundColor: isActive ? track.color : undefined,
-                  }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  animate={{
-                    opacity: isCurrent ? 1 : isActive ? 0.9 : 0.6,
-                  }}
+                  style= backgroundColor: isActive ? track.color : undefined 
+                  whileHover= scale: 1.1 
+                  whileTap= scale: 0.95 
+                  animate= opacity: isActive ? 1 : 0.6 
                 />
               );
             })}
