@@ -4,7 +4,7 @@ import { atomWithStorage } from "jotai/utils";
 // Block types
 export interface ParagraphBlock {
   id: string;
-  type: "paragraph" | "h1" | "h2" | "h3";
+  type: "paragraph" | "h1" | "h2" | "h3" | "h4";
   text: string;
 }
 
@@ -14,7 +14,31 @@ export interface ListBlock {
   items: { id: string; text: string }[];
 }
 
-export type Block = ParagraphBlock | ListBlock;
+export interface CalloutBlock {
+  id: string;
+  type: "callout";
+  text: string;
+  icon: string;
+}
+
+export interface DividerBlock {
+  id: string;
+  type: "divider";
+}
+
+export interface DatabaseBlock {
+  id: string;
+  type: "database";
+  title: string;
+  emoji?: string;
+}
+
+export type Block =
+  | ParagraphBlock
+  | ListBlock
+  | CalloutBlock
+  | DividerBlock
+  | DatabaseBlock;
 
 // Helper to create IDs
 export function createBlockId(prefix: string = "blk"): string {

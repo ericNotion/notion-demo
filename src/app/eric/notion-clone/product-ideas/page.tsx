@@ -1,23 +1,24 @@
 "use client";
 
-import {
-  ReusableDatabase,
-  type Column as DatabaseColumn,
-} from "@/components/playground-kit/ReusableDatabase";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/utils/cn";
+import { type Column as DatabaseColumn } from "@/components/playground-kit/ReusableDatabase";
 import { Icon } from "@nds-icons";
-import { collectionIcon } from "@nds-icons/collection/default.icon";
+import { flagIcon } from "@nds-icons/flag/default.icon";
+import { numberIcon } from "@nds-icons/number/default.icon";
 import { pageIcon } from "@nds-icons/page/default.icon";
 import { peopleIcon } from "@nds-icons/people/default.icon";
-import { useState } from "react";
-import { BoardView, type BoardColumn } from "../components/BoardView";
-import { FilterBar } from "../components/FilterBar";
-import { ViewSwitcher, type ViewType } from "../components/ViewSwitcher";
-import { NotionShell } from "../shell";
+import { starIcon } from "@nds-icons/star/default.icon";
+import { viewBoardIcon } from "@nds-icons/viewBoard/default.icon";
+import { viewTableIcon } from "@nds-icons/viewTable/default.icon";
+import {
+  DatabasePage,
+  type DatabasePageConfig,
+  type PageProperty,
+} from "../components/DatabasePage";
+import { StatusBadge } from "../components/StatusBadge";
 
-type IdeaRow = {
+export type IdeaRow = {
   id: string;
+  slug: string;
   title: string;
   status: "New" | "Exploring" | "Planned" | "Parked";
   author: string;
@@ -25,9 +26,10 @@ type IdeaRow = {
   effort: "S" | "M" | "L" | "XL";
 };
 
-const rows: IdeaRow[] = [
+export const rows: IdeaRow[] = [
   {
     id: "1",
+    slug: "inline-ai-writing-assistant",
     title: "Inline AI writing assistant",
     status: "Exploring",
     author: "Sophie Tran",
@@ -36,6 +38,7 @@ const rows: IdeaRow[] = [
   },
   {
     id: "2",
+    slug: "keyboard-shortcut-cheat-sheet",
     title: "Keyboard shortcut cheat sheet",
     status: "Planned",
     author: "James Wilson",
@@ -44,6 +47,7 @@ const rows: IdeaRow[] = [
   },
   {
     id: "3",
+    slug: "slack-integration",
     title: "Slack integration for page updates",
     status: "New",
     author: "Ravi Kumar",
@@ -52,6 +56,7 @@ const rows: IdeaRow[] = [
   },
   {
     id: "4",
+    slug: "template-gallery",
     title: "Template gallery for new pages",
     status: "Exploring",
     author: "Maya Chen",
@@ -60,6 +65,7 @@ const rows: IdeaRow[] = [
   },
   {
     id: "5",
+    slug: "offline-mode-mobile",
     title: "Offline mode for mobile",
     status: "Parked",
     author: "Jordan Lee",
@@ -68,6 +74,7 @@ const rows: IdeaRow[] = [
   },
   {
     id: "6",
+    slug: "page-analytics-dashboard",
     title: "Page analytics dashboard",
     status: "New",
     author: "Lena Park",
@@ -76,6 +83,7 @@ const rows: IdeaRow[] = [
   },
   {
     id: "7",
+    slug: "bulk-page-export-pdf",
     title: "Bulk page export to PDF",
     status: "Planned",
     author: "Evan Soto",
@@ -84,61 +92,90 @@ const rows: IdeaRow[] = [
   },
 ];
 
-const statusColors: Record<IdeaRow["status"], string> = {
-  New: "bg-blue-secondary text-blue-accent-primary",
-  Exploring: "bg-purple-secondary text-purple-secondary",
-  Planned: "bg-green-secondary text-green-primary",
-  Parked: "bg-secondary text-tertiary",
+export const statusStyles: Record<
+  IdeaRow["status"],
+  { dot: string; bg: string; text: string }
+> = {
+  New: {
+    dot: "bg-blue-500",
+    bg: "bg-blue-secondary",
+    text: "text-blue-accent-primary",
+  },
+  Exploring: {
+    dot: "bg-purple-500",
+    bg: "bg-purple-secondary",
+    text: "text-purple-secondary",
+  },
+  Planned: {
+    dot: "bg-green-600",
+    bg: "bg-green-secondary",
+    text: "text-green-primary",
+  },
+  Parked: { dot: "bg-gray-400", bg: "bg-secondary", text: "text-tertiary" },
 };
 
-const effortColors: Record<IdeaRow["effort"], string> = {
-  S: "bg-green-secondary text-green-primary",
-  M: "bg-blue-secondary text-blue-accent-primary",
-  L: "bg-orange-secondary text-orange-secondary",
-  XL: "bg-red-secondary text-red-secondary",
+export const effortStyles: Record<
+  IdeaRow["effort"],
+  { dot: string; bg: string; text: string }
+> = {
+  S: {
+    dot: "bg-green-600",
+    bg: "bg-green-secondary",
+    text: "text-green-primary",
+  },
+  M: {
+    dot: "bg-blue-500",
+    bg: "bg-blue-secondary",
+    text: "text-blue-accent-primary",
+  },
+  L: {
+    dot: "bg-orange-500",
+    bg: "bg-orange-secondary",
+    text: "text-orange-secondary",
+  },
+  XL: { dot: "bg-red-500", bg: "bg-red-secondary", text: "text-red-secondary" },
 };
 
-const boardColumns: BoardColumn[] = [
-  {
-    id: "New",
-    name: "New",
-    color: "text-blue-accent-primary",
-    bgColor: "bg-blue-secondary",
-  },
-  {
-    id: "Exploring",
-    name: "Exploring",
-    color: "text-purple-secondary",
-    bgColor: "bg-purple-secondary",
-  },
-  {
-    id: "Planned",
-    name: "Planned",
-    color: "text-green-primary",
-    bgColor: "bg-green-secondary",
-  },
-  {
-    id: "Parked",
-    name: "Parked",
-    color: "text-tertiary",
-    bgColor: "bg-secondary",
-  },
-];
-
-const statusFilters = [
-  { id: "New", label: "New" },
-  { id: "Exploring", label: "Exploring" },
-  { id: "Planned", label: "Planned" },
-  { id: "Parked", label: "Parked" },
-];
-
-const propertyDefs = [
-  { id: "title", name: "Idea", type: "Title" },
-  { id: "status", name: "Status", type: "Select" },
-  { id: "author", name: "Author", type: "Person" },
-  { id: "votes", name: "Votes", type: "Number" },
-  { id: "effort", name: "Effort", type: "Select" },
-];
+export function getIdeaProperties(row: IdeaRow): PageProperty[] {
+  const s = statusStyles[row.status];
+  const e = effortStyles[row.effort];
+  return [
+    {
+      label: "Status",
+      icon: starIcon,
+      value: (
+        <StatusBadge
+          label={row.status}
+          dotColor={s.dot}
+          bgColor={s.bg}
+          textColor={s.text}
+        />
+      ),
+    },
+    {
+      label: "Author",
+      icon: peopleIcon,
+      value: <span className="text-primary">{row.author}</span>,
+    },
+    {
+      label: "Votes",
+      icon: numberIcon,
+      value: <span className="text-primary">{row.votes}</span>,
+    },
+    {
+      label: "Effort",
+      icon: flagIcon,
+      value: (
+        <StatusBadge
+          label={row.effort}
+          dotColor={e.dot}
+          bgColor={e.bg}
+          textColor={e.text}
+        />
+      ),
+    },
+  ];
+}
 
 const columns: DatabaseColumn<IdeaRow>[] = [
   {
@@ -153,9 +190,7 @@ const columns: DatabaseColumn<IdeaRow>[] = [
     width: "w-[36%]",
     render: (row) => (
       <div className="flex min-w-0 items-center gap-2">
-        <span className="bg-secondary flex size-6 items-center justify-center rounded-xs text-[13px]">
-          💡
-        </span>
+        <span className="text-[15px]">📄</span>
         <span className="text-primary truncate font-medium">{row.title}</span>
       </div>
     ),
@@ -165,17 +200,17 @@ const columns: DatabaseColumn<IdeaRow>[] = [
     label: "Status",
     labelText: "Status",
     width: "w-[14%]",
-    render: (row) => (
-      <Badge
-        variant="secondary"
-        className={cn(
-          "rounded-full border-0 px-2.5 py-1 text-[11px] font-medium",
-          statusColors[row.status],
-        )}
-      >
-        {row.status}
-      </Badge>
-    ),
+    render: (row) => {
+      const s = statusStyles[row.status];
+      return (
+        <StatusBadge
+          label={row.status}
+          dotColor={s.dot}
+          bgColor={s.bg}
+          textColor={s.text}
+        />
+      );
+    },
   },
   {
     id: "author",
@@ -203,108 +238,96 @@ const columns: DatabaseColumn<IdeaRow>[] = [
     label: "Effort",
     labelText: "Effort",
     width: "w-[10%]",
-    render: (row) => (
-      <Badge
-        variant="secondary"
-        className={cn(
-          "rounded-full border-0 px-2.5 py-1 text-[11px] font-medium",
-          effortColors[row.effort],
-        )}
-      >
-        {row.effort}
-      </Badge>
-    ),
+    render: (row) => {
+      const e = effortStyles[row.effort];
+      return (
+        <StatusBadge
+          label={row.effort}
+          dotColor={e.dot}
+          bgColor={e.bg}
+          textColor={e.text}
+        />
+      );
+    },
   },
 ];
 
-export default function Page() {
-  const [view, setView] = useState<ViewType>("table");
-  const [activeFilters, setActiveFilters] = useState<Set<string>>(new Set());
-  const [filterOpen, setFilterOpen] = useState(false);
-
-  const filtered =
-    activeFilters.size > 0
-      ? rows.filter((r) => activeFilters.has(r.status))
-      : rows;
-
-  return (
-    <NotionShell title="Product ideas">
-      <div className="mx-auto w-full max-w-5xl px-8 pt-10 pb-40">
-        <div className="mb-2 text-[78px] leading-[86px]">💡</div>
-        <h1 className="text-primary text-[40px] font-bold tracking-tight">
-          Product ideas
-        </h1>
-        <p className="text-secondary mt-2 text-[15px]">
-          Ideas from the team, ranked by votes. Add yours below.
-        </p>
-
-        <div className="mt-4">
-          <ViewSwitcher
-            activeView={view}
-            onViewChange={setView}
-          />
-
-          {filterOpen && (
-            <FilterBar
-              filters={statusFilters}
-              activeFilters={activeFilters}
-              onToggle={(id) => {
-                setActiveFilters((prev) => {
-                  const next = new Set(prev);
-                  if (next.has(id)) next.delete(id);
-                  else next.add(id);
-                  return next;
-                });
-              }}
-              onClear={() => setActiveFilters(new Set())}
-            />
-          )}
-
-          {view === "table" ? (
-            <ReusableDatabase
-              title="All ideas"
-              icon={collectionIcon}
-              columns={columns}
-              data={filtered}
-              onNew={() => {}}
-              className="mt-0"
-            />
-          ) : (
-            <div className="mt-0">
-              <BoardView
-                columns={boardColumns}
-                items={filtered}
-                groupBy="status"
-                getItemId={(r) => r.id}
-                renderCard={(row) => (
-                  <div>
-                    <p className="text-primary text-sm font-medium">
-                      {row.title}
-                    </p>
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="text-tertiary text-xs">
-                        {row.author}
-                      </span>
-                      <Badge
-                        variant="secondary"
-                        className={cn(
-                          "rounded-full border-0 px-1.5 py-0.5 text-[10px] font-medium",
-                          effortColors[row.effort],
-                        )}
-                      >
-                        {row.effort}
-                      </Badge>
-                    </div>
-                    <span className="text-quaternary mt-1 block text-xs">
-                      {row.votes} votes
-                    </span>
-                  </div>
-                )}
-              />
-            </div>
-          )}
-        </div>
+const config: DatabasePageConfig<IdeaRow> = {
+  defaultEmoji: "💡",
+  emojiStorageKey: "eric-nc-product-ideas-emoji",
+  titleStorageKey: "eric-nc-product-ideas-title",
+  defaultTitle: "Product ideas",
+  description: "Ideas from the team, ranked by votes. Add yours below.",
+  initialRows: rows,
+  createRow: () => {
+    const now = Date.now();
+    return {
+      id: String(now),
+      slug: `new-idea-${now}`,
+      title: "",
+      status: "New",
+      author: "",
+      votes: 0,
+      effort: "S",
+    };
+  },
+  tableColumns: columns,
+  tableTitle: "All ideas",
+  boardColumns: [
+    {
+      id: "New",
+      name: "New",
+      color: "text-blue-accent-primary",
+      bgColor: "bg-blue-secondary",
+    },
+    {
+      id: "Exploring",
+      name: "Exploring",
+      color: "text-purple-secondary",
+      bgColor: "bg-purple-secondary",
+    },
+    {
+      id: "Planned",
+      name: "Planned",
+      color: "text-green-primary",
+      bgColor: "bg-green-secondary",
+    },
+    {
+      id: "Parked",
+      name: "Parked",
+      color: "text-tertiary",
+      bgColor: "bg-secondary",
+    },
+  ],
+  groupByField: "status",
+  views: [
+    { id: "table", label: "All Ideas", icon: viewTableIcon },
+    { id: "board", label: "By Status", icon: viewBoardIcon },
+  ],
+  getProperties: getIdeaProperties,
+  getTitle: (row) => row.title,
+  titleField: "title",
+  renderBoardCard: (row) => (
+    <div>
+      <p className="text-primary text-sm font-medium">{row.title}</p>
+      <div className="mt-2 flex items-center gap-2">
+        <span className="text-tertiary text-xs">{row.author}</span>
+        <StatusBadge
+          label={row.effort}
+          dotColor={effortStyles[row.effort].dot}
+          bgColor={effortStyles[row.effort].bg}
+        />
       </div>
-    </NotionShell>
-  );
+      <span className="text-quaternary mt-1 block text-xs">
+        {row.votes} votes
+      </span>
+    </div>
+  ),
+  detailHrefPrefix: "/eric/notion-clone/product-ideas",
+  bodyStorageKeyPrefix: "eric-nc-product-ideas",
+  peekIcon: "💡",
+};
+
+export default function Page() {
+  return <DatabasePage config={config} />;
 }

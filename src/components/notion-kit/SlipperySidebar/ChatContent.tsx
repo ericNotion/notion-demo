@@ -7,6 +7,7 @@ export interface ChatItem {
   title: string;
   time: string;
   isDailyBrief?: boolean;
+  agentId?: string;
 }
 
 export interface ChatGroup {
@@ -19,12 +20,20 @@ interface ChatItemRowProps {
   time: string;
   icon: LoadedIconFunction;
   iconColor: "secondary" | "yellowAccentPrimary";
+  onClick?: () => void;
 }
 
-function ChatItemRow({ title, time, icon, iconColor }: ChatItemRowProps) {
+function ChatItemRow({
+  title,
+  time,
+  icon,
+  iconColor,
+  onClick,
+}: ChatItemRowProps) {
   return (
     <button
       type="button"
+      onClick={onClick}
       className="hover:bg-secondary-translucent flex h-[30px] w-full cursor-pointer items-center gap-2 rounded-[6px] px-2 py-1"
     >
       <span className="flex size-6 shrink-0 items-center justify-center">
@@ -42,9 +51,10 @@ function ChatItemRow({ title, time, icon, iconColor }: ChatItemRowProps) {
 
 interface ChatContentProps {
   groups?: ChatGroup[];
+  onChatClick?: (chat: ChatItem) => void;
 }
 
-export function ChatContent({ groups }: ChatContentProps) {
+export function ChatContent({ groups, onChatClick }: ChatContentProps) {
   if (!groups || groups.length === 0) {
     return (
       <div className="flex min-h-[220px] grow flex-col items-center justify-center overflow-hidden px-5 text-center">
@@ -83,6 +93,7 @@ export function ChatContent({ groups }: ChatContentProps) {
                 iconColor={
                   chat.isDailyBrief ? "yellowAccentPrimary" : "secondary"
                 }
+                onClick={() => onChatClick?.(chat)}
               />
             ))}
           </div>

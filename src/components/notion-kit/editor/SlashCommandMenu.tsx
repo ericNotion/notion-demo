@@ -1,71 +1,13 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import { Icon } from "@nds-icons";
-import { listBulletIcon } from "@nds-icons/listBullet/default.icon";
-import { textAlignLeftIcon } from "@nds-icons/textAlignLeft/default.icon";
-import { textH1ToggleIcon } from "@nds-icons/textH1Toggle/default.icon";
-import { textH2ToggleIcon } from "@nds-icons/textH2Toggle/default.icon";
-import { textH3Icon } from "@nds-icons/textH3/default.icon";
 import { useEffect, useRef } from "react";
 import type { Block } from "./atoms";
+import { slashCommands } from "./blocks";
 
 type BlockType = Block["type"];
 
-interface SlashCommand {
-  id: string;
-  label: string;
-  description: string;
-  icon: typeof textAlignLeftIcon;
-  keywords: string[];
-  blockType: BlockType;
-}
-
-// To add a new slash command, add an entry here.
-export const slashCommands: SlashCommand[] = [
-  {
-    id: "text",
-    label: "Text",
-    description: "Plain paragraph block",
-    icon: textAlignLeftIcon,
-    keywords: ["paragraph", "p", "text"],
-    blockType: "paragraph",
-  },
-  {
-    id: "heading1",
-    label: "Heading 1",
-    description: "Large heading",
-    icon: textH1ToggleIcon,
-    keywords: ["h1", "heading", "title", "#"],
-    blockType: "h1",
-  },
-  {
-    id: "heading2",
-    label: "Heading 2",
-    description: "Medium heading",
-    icon: textH2ToggleIcon,
-    keywords: ["h2", "heading", "subheading", "##"],
-    blockType: "h2",
-  },
-  {
-    id: "heading3",
-    label: "Heading 3",
-    description: "Small heading",
-    icon: textH3Icon,
-    keywords: ["h3", "heading", "subheading", "###"],
-    blockType: "h3",
-  },
-  {
-    id: "bulleted-list",
-    label: "Bulleted List",
-    description: "Bullet point list",
-    icon: listBulletIcon,
-    keywords: ["ul", "list", "bullet", "bullets", "-"],
-    blockType: "ul",
-  },
-];
-
-export function filterCommands(filterText: string): SlashCommand[] {
+export function filterCommands(filterText: string) {
   if (!filterText) return slashCommands;
   const search = filterText.toLowerCase();
   return slashCommands.filter(
@@ -119,35 +61,61 @@ export function SlashCommandMenu({
   return (
     <div
       ref={menuRef}
-      className="bg-elevated shadow-md-outline animate-in fade-in zoom-in-95 absolute z-50 w-[300px] overflow-hidden rounded-lg duration-150"
+      className="bg-elevated shadow-md-outline animate-in fade-in zoom-in-95 absolute z-50 w-[324px] overflow-hidden rounded-xl duration-150"
       style={{ top: `${position.top}px`, left: `${position.left}px` }}
     >
-      <div className="max-h-[400px] overflow-y-auto p-2">
-        {filtered.map((cmd, index) => (
-          <button
-            key={cmd.id}
-            ref={index === selectedIndex ? selectedItemRef : null}
-            type="button"
-            className={cn(
-              "flex w-full items-center gap-3 rounded-md px-2 py-1.5 text-left transition-colors",
-              index === selectedIndex ? "bg-tertiary" : "hover:bg-tertiary",
-            )}
-            onClick={() => onSelect(cmd.blockType)}
-            onMouseEnter={() => onHover(index)}
-          >
-            <div className="flex size-6 shrink-0 items-center justify-center">
-              <Icon icon={cmd.icon} size={16} color="secondary" />
+      <div className="max-h-[340px] overflow-y-auto">
+        {filtered.map((cmd, index) => {
+          const prevSection = index > 0 ? filtered[index - 1].section : null;
+          const showSection = cmd.section !== prevSection;
+          return (
+            <div key={cmd.id}>
+              {showSection && (
+                <div className="px-3.5 pt-3 pb-2">
+                  <span className="text-tertiary text-xs font-medium">
+                    {cmd.section === "basic" ? "Basic blocks" : "Inline"}
+                  </span>
+                </div>
+              )}
+              <button
+                ref={index === selectedIndex ? selectedItemRef : null}
+                type="button"
+                className={cn(
+                  "flex w-full items-center gap-3 px-2.5 py-1 text-left transition-colors",
+                  index === selectedIndex
+                    ? "bg-secondary-translucent"
+                    : "hover:bg-secondary-translucent",
+                )}
+                onClick={() => onSelect(cmd.blockType)}
+                onMouseEnter={() => onHover(index)}
+              >
+                {cmd.icon}
+                <div className="min-w-0 flex-1">
+                  <div className="text-primary text-sm">{cmd.label}</div>
+                  <div className="text-tertiary text-xs">{cmd.description}</div>
+                </div>
+                {cmd.shortcut && (
+                  <span className="text-tertiary shrink-0 font-mono text-xs">
+                    {cmd.shortcut}
+                  </span>
+                )}
+              </button>
             </div>
-            <div className="min-w-0 flex-1">
-              <div className="text-body text-primary font-medium">
-                {cmd.label}
-              </div>
-              <div className="text-caption text-secondary">
-                {cmd.description}
-              </div>
-            </div>
-          </button>
-        ))}
+          );
+        })}
+      </div>
+      <div className="border-primary mx-2.5 border-t" />
+      <div className="px-2.5 py-1">
+        <button
+          type="button"
+          className="text-tertiary hover:bg-secondary-translucent flex w-full items-center justify-between rounded-xs px-1 py-1.5 text-left text-sm"
+          onClick={onClose}
+        >
+          <span>Close menu</span>
+          <kbd className="text-quaternary bg-secondary rounded-xs px-1.5 py-0.5 text-[11px] font-medium">
+            esc
+          </kbd>
+        </button>
       </div>
     </div>
   );

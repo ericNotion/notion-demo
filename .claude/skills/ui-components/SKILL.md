@@ -129,6 +129,8 @@ import { Input } from "@/components/ui/input";
 
 ```tsx
 import { Button } from "@/components/ui/button";
+import { Icon } from "@nds-icons";
+import { plusIcon } from "@nds-icons/plus/default.icon";
 
 // Variants
 <Button variant="primary">Primary</Button>
@@ -156,6 +158,43 @@ import { Button } from "@/components/ui/button";
 
 // With tooltip
 <Button tooltip="Click me">Hover for tooltip</Button>
+```
+
+### Notion-Style Button Patterns (ALWAYS use these)
+
+Primary buttons MUST always use `variant="primary"` which gives white text on blue.
+Never hardcode `stroke="white"` in SVGs inside buttons — use `stroke="currentColor"` so the color inherits.
+
+```tsx
+// ✅ "New" button with dropdown chevron (for database toolbars)
+<Button variant="primary" size="sm" className="gap-1">
+  <span>New</span>
+  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="opacity-80">
+    <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+</Button>
+
+// ✅ "New [thing]" button with plus icon (for page headers)
+<Button variant="primary" size="sm">
+  <Icon icon={plusIcon} size={14} color="white" />
+  New agent
+</Button>
+
+// ✅ Dialog footer buttons
+<DialogFooter>
+  <Button variant="ghost">Cancel</Button>
+  <Button variant="primary">Save</Button>
+</DialogFooter>
+
+// ❌ NEVER do this — hardcoded stroke won't adapt
+<Button variant="primary">
+  <svg><path stroke="white" /></svg>
+</Button>
+
+// ❌ NEVER use className for text color on primary buttons
+<Button variant="primary">
+  <Icon icon={plusIcon} className="text-white" />
+</Button>
 ```
 
 ## Dialog Example
@@ -310,9 +349,29 @@ import {
 
 These are simplified versions for rapid prototyping.
 
+## Notion Clone Components
+
+For building within `src/app/eric/notion-clone/`, use these higher-level components. See the `notion-patterns` skill for the full architecture guide.
+
+| Component            | Import                                                    | Use For                                    |
+| -------------------- | --------------------------------------------------------- | ------------------------------------------ |
+| `ContentPage`        | `../components/ContentPage`                               | Rich editor pages (title + emoji + blocks) |
+| `DatabasePage`       | `../components/DatabasePage`                              | Table/board data pages with config object  |
+| `DatabaseDetailPage` | `../components/DatabaseDetailPage`                        | `[slug]` detail routes                     |
+| `BoardView`          | `../components/BoardView`                                 | Kanban board layout                        |
+| `PagePeekModal`      | `../components/PagePeekModal`                             | Quick preview modal for database items     |
+| `StatusBadge`        | `../components/StatusBadge`                               | Colored status pills (dot + bg + text)     |
+| `EditableTitle`      | `../components/EditableTitle`                             | Persistent editable page title             |
+| `EmojiPicker`        | `../components/EmojiPicker`                               | Page emoji selector                        |
+| `BlockEditor`        | `@/components/notion-kit/editor`                          | Block-based content editor                 |
+| `SidebarItem`        | `@/components/notion-kit/PrimarySidebar/SidebarItem`      | Sidebar navigation row                     |
+| `CollapsibleGroup`   | `@/components/notion-kit/PrimarySidebar/CollapsibleGroup` | Collapsible sidebar section                |
+| `ReusableDatabase`   | `@/components/playground-kit/ReusableDatabase`            | Table with configurable columns            |
+
 ## Best Practices
 
 1. **Check library first** - Don't build custom components for common patterns
 2. **Use composition** - Combine components (Dialog + Form, Dropdown + Command)
 3. **Follow variants** - Use built-in variants instead of custom classes
 4. **Accessibility** - Components include keyboard nav and ARIA by default
+5. **Notion clone** - Use `notion-patterns` skill for pages/blocks within the Notion prototype

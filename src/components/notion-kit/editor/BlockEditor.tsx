@@ -1,65 +1,23 @@
 "use client";
 
-import { cn } from "@/utils/cn";
 import {
   type PrimitiveAtom,
   type WritableAtom,
   useAtom,
   useSetAtom,
 } from "jotai";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   type Block,
-  type ListBlock,
-  type ParagraphBlock,
+  type DatabaseBlock,
   blocksAtom,
   createBlockId,
   lastSavedAtom,
 } from "./atoms";
+import { blockRegistry } from "./blocks";
 import "./contenteditable.css";
-import {
-  focusAtEnd,
-  focusAtStart,
-  isCaretAtEnd,
-  isCaretAtStart,
-} from "./selection";
+import { focusAtEnd, focusAtOffset, focusAtStart } from "./selection";
 import { filterCommands, SlashCommandMenu } from "./SlashCommandMenu";
-
-const blockStyles = {
-  container: {
-    paragraph: "pt-[6px] pb-[6px]",
-    h1: "pt-[30px] pb-[6px]",
-    h2: "pt-[22px] pb-[6px]",
-    h3: "pt-[16px] pb-[6px]",
-    ul: "pt-[6px] pb-[6px]",
-  },
-  element: {
-    paragraph:
-      "editable-placeholder content-text-block outline-none focus:ring-0 px-[2px] py-[0px]",
-    h1: "editable-placeholder content-h1 font-bold outline-none focus:ring-0 px-[2px] py-[0px]",
-    h2: "editable-placeholder content-h2 font-bold outline-none focus:ring-0 px-[2px] py-[0px]",
-    h3: "editable-placeholder content-h3 font-bold outline-none focus:ring-0 px-[2px] py-[0px]",
-  },
-  list: {
-    container: "list-disc ps-6",
-    item: "outline-none focus:ring-0 editable-placeholder",
-  },
-};
-
-const placeholders: Record<ParagraphBlock["type"], string> = {
-  h1: "Heading 1",
-  h2: "Heading 2",
-  h3: "Heading 3",
-  paragraph: "",
-};
-
-// To add a new markdown shortcut, add an entry here.
-const markdownShortcuts: Record<string, Block["type"]> = {
-  "#": "h1",
-  "##": "h2",
-  "###": "h3",
-  "-": "ul",
-};
 
 interface SlashMenuState {
   blockId: string;
@@ -67,6 +25,11 @@ interface SlashMenuState {
   filterText: string;
   selectedIndex: number;
   position: { top: number; left: number };
+}
+
+interface DragState {
+  sourceIndex: number;
+  dropIndex: number;
 }
 
 interface BlockEditorProps {
@@ -78,6 +41,15 @@ interface BlockEditorProps {
   >;
   lastSavedAtom?: PrimitiveAtom<Date | null>;
   paragraphPlaceholder?: string;
+  onBackspaceAtStart?: () => void;
+  renderDatabaseBlock?: (
+    block: DatabaseBlock,
+    onTitleChange: (title: string) => void,
+  ) => React.ReactNode;
+  renderCalloutIcon?: (
+    icon: string,
+    onIconChange: (icon: string) => void,
+  ) => React.ReactNode;
 }
 
 export function BlockEditor({
@@ -85,6 +57,9 @@ export function BlockEditor({
   blocksAtom: customBlocksAtom,
   lastSavedAtom: customLastSavedAtom,
   paragraphPlaceholder = "Type something...",
+  onBackspaceAtStart,
+  renderDatabaseBlock,
+  renderCalloutIcon,
 }: BlockEditorProps) {
   const setLastSaved = useSetAtom(customLastSavedAtom ?? lastSavedAtom);
   const [blocks, setBlocks] = useAtom(customBlocksAtom ?? blocksAtom);
@@ -93,8 +68,48 @@ export function BlockEditor({
   const listItemRefs = useRef<Record<string, HTMLElement | null>>({});
   const editorRootRef = useRef<HTMLDivElement | null>(null);
   const hasFocusedInitiallyRef = useRef(false);
+  const blockWrapperRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const [slashMenu, setSlashMenu] = useState<SlashMenuState | null>(null);
+  const [drag, setDrag] = useState<DragState | null>(null);
+  const dragRef = useRef<DragState | null>(null);
+  const [gripSelectedId, setGripSelectedId] = useState<string | null>(null);
+
+  // --- Grip selection dismiss ---
+
+  useEffect(() => {
+    if (!gripSelectedId) return;
+    function handleClick(e: MouseEvent) {
+      const wrapper = document.querySelector(
+        `[data-block-id="${gripSelectedId}"], [data-block-wrapper="${gripSelectedId}"]`,
+      );
+      if (wrapper && !wrapper.contains(e.target as Node)) {
+        setGripSelectedId(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [gripSelectedId]);
+
+  useEffect(() => {
+    if (!gripSelectedId) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Backspace" || e.key === "Delete") {
+        e.preventDefault();
+        const idx = blocks.findIndex((b) => b.id === gripSelectedId);
+        if (idx >= 0) {
+          setGripSelectedId(null);
+          focusPrevBlock(idx);
+          removeBlock(idx);
+        }
+      }
+      if (e.key === "Escape") {
+        setGripSelectedId(null);
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [gripSelectedId, blocks]);
 
   // --- Focus helpers ---
 
@@ -103,12 +118,22 @@ export function BlockEditor({
       const lastItem = block.items[block.items.length - 1];
       return listItemRefs.current[lastItem.id] || null;
     }
+    if (block.type === "divider" || block.type === "database") {
+      return document.querySelector(
+        `[data-block-id="${block.id}"]`,
+      ) as HTMLElement | null;
+    }
     return blockRefs.current[block.id] || null;
   }
 
   function getBlockStartEl(block: Block): HTMLElement | null {
     if (block.type === "ul") {
       return listItemRefs.current[block.items[0].id] || null;
+    }
+    if (block.type === "divider" || block.type === "database") {
+      return document.querySelector(
+        `[data-block-id="${block.id}"]`,
+      ) as HTMLElement | null;
     }
     return blockRefs.current[block.id] || null;
   }
@@ -133,9 +158,10 @@ export function BlockEditor({
             const el = listItemRefs.current[it.id];
             if (el && el.textContent !== it.text) el.textContent = it.text;
           });
-        } else {
+        } else if (blk.type !== "divider" && blk.type !== "database") {
           const el = blockRefs.current[blk.id];
-          if (el && el.textContent !== blk.text) el.textContent = blk.text;
+          const text = "text" in blk ? blk.text : "";
+          if (el && el.textContent !== text) el.textContent = text;
         }
       });
     });
@@ -147,7 +173,12 @@ export function BlockEditor({
       if (blocks.length === 0) return;
       for (let i = blocks.length - 1; i >= 0; i--) {
         const b = blocks[i];
-        if (b.type !== "ul" && (b.text ?? "") === "") {
+        if (
+          b.type !== "ul" &&
+          b.type !== "divider" &&
+          b.type !== "database" &&
+          ("text" in b ? b.text : "") === ""
+        ) {
           focusAtEnd(blockRefs.current[b.id] || null);
           hasFocusedInitiallyRef.current = true;
           return;
@@ -164,24 +195,9 @@ export function BlockEditor({
     setLastSaved(new Date());
   }
 
-  function updateParagraph(blockId: string, text: string) {
+  function updateBlock(blockIndex: number, updates: Record<string, unknown>) {
     setBlocks((prev) =>
-      prev.map((b) =>
-        b.id === blockId && b.type !== "ul" ? { ...b, text } : b,
-      ),
-    );
-    markSaved();
-  }
-
-  function updateListItem(blockId: string, itemId: string, text: string) {
-    setBlocks((prev) =>
-      prev.map((b) => {
-        if (b.id !== blockId || b.type !== "ul") return b;
-        return {
-          ...b,
-          items: b.items.map((it) => (it.id === itemId ? { ...it, text } : it)),
-        };
-      }),
+      prev.map((b, i) => (i === blockIndex ? { ...b, ...updates } : b)),
     );
     markSaved();
   }
@@ -207,27 +223,186 @@ export function BlockEditor({
   }
 
   function transformBlock(blockIndex: number, blockType: Block["type"]) {
+    let newBlockId = createBlockId();
     setBlocks((prev) => {
       if (!prev[blockIndex]) return prev;
       const next = [...prev];
       if (blockType === "ul") {
         next[blockIndex] = {
-          id: createBlockId(),
+          id: newBlockId,
           type: "ul",
           items: [{ id: createBlockId("li"), text: "" }],
         };
+      } else if (blockType === "callout") {
+        next[blockIndex] = {
+          id: newBlockId,
+          type: "callout",
+          text: "",
+          icon: "💡",
+        };
+      } else if (blockType === "divider") {
+        next[blockIndex] = { id: newBlockId, type: "divider" };
+        const afterId = createBlockId();
+        next.splice(blockIndex + 1, 0, {
+          id: afterId,
+          type: "paragraph",
+          text: "",
+        });
+        newBlockId = afterId;
+      } else if (blockType === "database") {
+        next[blockIndex] = { id: newBlockId, type: "database", title: "" };
+        const afterId = createBlockId();
+        next.splice(blockIndex + 1, 0, {
+          id: afterId,
+          type: "paragraph",
+          text: "",
+        });
+        newBlockId = afterId;
       } else {
-        next[blockIndex] = { id: createBlockId(), type: blockType, text: "" };
+        next[blockIndex] = { id: newBlockId, type: blockType, text: "" };
       }
       return next;
     });
     requestAnimationFrame(() => {
-      const refs =
-        blockType === "ul" ? listItemRefs.current : blockRefs.current;
-      const entries = Object.entries(refs);
-      if (entries.length > 0) focusAtEnd(entries[entries.length - 1][1]);
+      if (blockType === "divider" || blockType === "database") {
+        const el = document.querySelector(
+          `[data-block-id="${newBlockId}"]`,
+        ) as HTMLElement | null;
+        el?.focus();
+      } else if (blockType === "ul") {
+        const refs = listItemRefs.current;
+        const entries = Object.entries(refs);
+        if (entries.length > 0) focusAtEnd(entries[entries.length - 1][1]);
+      } else {
+        const el = blockRefs.current[newBlockId];
+        if (el) focusAtEnd(el);
+      }
     });
     markSaved();
+  }
+
+  function mergeIntoPrev(blockIndex: number, currentText: string) {
+    const currentBlock = blocks[blockIndex];
+    const prevBlock = blocks[blockIndex - 1];
+
+    if (
+      prevBlock &&
+      prevBlock.type !== "ul" &&
+      prevBlock.type !== "divider" &&
+      prevBlock.type !== "database"
+    ) {
+      const prevText = "text" in prevBlock ? prevBlock.text || "" : "";
+      const caretPos = prevText.length;
+      const mergedText = prevText + currentText;
+
+      setBlocks((prev) => {
+        const next = [...prev];
+        next[blockIndex - 1] = {
+          ...prevBlock,
+          text: mergedText,
+        } as typeof prevBlock;
+
+        if (currentBlock.type === "ul" && currentBlock.items.length > 1) {
+          next[blockIndex] = {
+            ...currentBlock,
+            items: currentBlock.items.slice(1),
+          };
+        } else {
+          next.splice(blockIndex, 1);
+        }
+        return next;
+      });
+      markSaved();
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          focusAtOffset(blockRefs.current[prevBlock.id] || null, caretPos);
+        }),
+      );
+    } else {
+      focusPrevBlock(blockIndex);
+      if (currentText.length === 0) {
+        if (currentBlock.type === "ul" && currentBlock.items.length > 1) {
+          setBlocks((prev) => {
+            const next = [...prev];
+            next[blockIndex] = {
+              ...currentBlock,
+              items: currentBlock.items.slice(1),
+            };
+            return next;
+          });
+        } else {
+          removeBlock(blockIndex);
+        }
+      }
+    }
+  }
+
+  // --- Pointer-based drag and drop ---
+
+  const computeDropIndex = useCallback(
+    (clientY: number, _sourceIndex: number): number => {
+      const wrappers = blockWrapperRefs.current;
+      for (let i = 0; i < wrappers.length; i++) {
+        const el = wrappers[i];
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+        if (clientY < midY) {
+          return i;
+        }
+      }
+      return wrappers.length;
+    },
+    [],
+  );
+
+  const handlePointerMove = useCallback(
+    (e: PointerEvent) => {
+      const d = dragRef.current;
+      if (!d) return;
+      const newDrop = computeDropIndex(e.clientY, d.sourceIndex);
+      if (newDrop !== d.dropIndex) {
+        const next = { ...d, dropIndex: newDrop };
+        dragRef.current = next;
+        setDrag(next);
+      }
+    },
+    [computeDropIndex],
+  );
+
+  const handlePointerUp = useCallback(() => {
+    const d = dragRef.current;
+    if (d) {
+      const { sourceIndex, dropIndex } = d;
+      const effectiveDrop = dropIndex > sourceIndex ? dropIndex - 1 : dropIndex;
+      if (effectiveDrop !== sourceIndex) {
+        setBlocks((prev) => {
+          const next = [...prev];
+          const [moved] = next.splice(sourceIndex, 1);
+          next.splice(effectiveDrop, 0, moved);
+          return next;
+        });
+        markSaved();
+      }
+    }
+    dragRef.current = null;
+    setDrag(null);
+    document.body.style.cursor = "";
+    document.removeEventListener("pointermove", handlePointerMove);
+    document.removeEventListener("pointerup", handlePointerUp);
+  }, [handlePointerMove]);
+
+  function startDrag(blockIndex: number, e: React.PointerEvent) {
+    e.preventDefault();
+    const initial: DragState = {
+      sourceIndex: blockIndex,
+      dropIndex: blockIndex,
+    };
+    dragRef.current = initial;
+    setDrag(initial);
+    document.body.style.cursor = "grabbing";
+    document.addEventListener("pointermove", handlePointerMove);
+    document.addEventListener("pointerup", handlePointerUp);
   }
 
   // --- Slash menu ---
@@ -267,250 +442,49 @@ export function BlockEditor({
     closeSlashMenu();
   }
 
-  // --- Input handlers ---
+  // --- Drop indicator position ---
 
-  function handleParagraphInput(
-    e: React.FormEvent<HTMLDivElement>,
-    block: ParagraphBlock,
-    blockIndex: number,
-  ) {
-    const text = e.currentTarget.textContent || "";
-    updateParagraph(block.id, text);
+  function getDropIndicatorStyle(): React.CSSProperties | null {
+    if (
+      !drag ||
+      drag.dropIndex === drag.sourceIndex ||
+      drag.dropIndex === drag.sourceIndex + 1
+    )
+      return null;
+    const wrappers = blockWrapperRefs.current;
+    const idx = drag.dropIndex;
+    let top: number;
+    const container = editorRootRef.current;
+    if (!container) return null;
+    const containerRect = container.getBoundingClientRect();
 
-    if (text.startsWith("/")) {
-      openSlashMenu(block.id, blockIndex, text.slice(1));
-    } else if (slashMenu?.blockId === block.id) {
-      closeSlashMenu();
+    if (idx >= wrappers.length) {
+      const last = wrappers[wrappers.length - 1];
+      if (!last) return null;
+      const rect = last.getBoundingClientRect();
+      top = rect.bottom - containerRect.top;
+    } else {
+      const el = wrappers[idx];
+      if (!el) return null;
+      const rect = el.getBoundingClientRect();
+      top = rect.top - containerRect.top;
     }
-  }
-
-  // --- Keyboard handlers ---
-
-  function onParagraphKeyDown(
-    e: React.KeyboardEvent<HTMLDivElement>,
-    block: ParagraphBlock,
-    index: number,
-  ) {
-    if (slashMenu && slashMenu.blockId === block.id) {
-      const filtered = filterCommands(slashMenu.filterText);
-
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        setSlashMenu((prev) =>
-          prev
-            ? {
-                ...prev,
-                selectedIndex: Math.min(
-                  prev.selectedIndex + 1,
-                  filtered.length - 1,
-                ),
-              }
-            : null,
-        );
-        return;
-      }
-      if (e.key === "ArrowUp") {
-        e.preventDefault();
-        setSlashMenu((prev) =>
-          prev
-            ? { ...prev, selectedIndex: Math.max(prev.selectedIndex - 1, 0) }
-            : null,
-        );
-        return;
-      }
-      if (e.key === "Enter") {
-        e.preventDefault();
-        const cmd = filtered[slashMenu.selectedIndex];
-        if (cmd) executeSlashCommand(index, cmd.blockType);
-        return;
-      }
-      if (e.key === "Escape") {
-        e.preventDefault();
-        closeSlashMenu();
-        return;
-      }
-    }
-
-    if (e.key === "Enter") {
-      const el = blockRefs.current[block.id];
-      if (el && isCaretAtEnd(el)) {
-        e.preventDefault();
-        closeSlashMenu();
-        insertBlockAfter(index, {
-          id: createBlockId(),
-          type: "paragraph",
-          text: "",
-        });
-        markSaved();
-        return;
-      }
-    }
-
-    if (e.key === "Backspace") {
-      const text = (e.currentTarget.textContent || "").trim();
-      if (slashMenu && text.length === 0) closeSlashMenu();
-      if (text.length === 0 && index > 0) {
-        e.preventDefault();
-        focusPrevBlock(index);
-        removeBlock(index);
-        return;
-      }
-    }
-
-    if (e.key === "ArrowUp") {
-      const el = blockRefs.current[block.id];
-      if (el && isCaretAtStart(el)) {
-        e.preventDefault();
-        focusPrevBlock(index);
-      }
-    }
-
-    if (e.key === "ArrowDown") {
-      const el = blockRefs.current[block.id];
-      if (el && isCaretAtEnd(el)) {
-        e.preventDefault();
-        focusNextBlock(index);
-      }
-    }
-
-    if (e.key === " " || e.code === "Space") {
-      const text = (e.currentTarget.textContent || "").trim();
-      const shortcutType = markdownShortcuts[text];
-      if (shortcutType) {
-        e.preventDefault();
-        e.stopPropagation();
-        transformBlock(index, shortcutType);
-        return;
-      }
-    }
-  }
-
-  function onListItemKeyDown(
-    e: React.KeyboardEvent<HTMLDivElement>,
-    block: ListBlock,
-    blockIndex: number,
-    itemIndex: number,
-    itemId: string,
-  ) {
-    if (e.key === "ArrowUp") {
-      const el = listItemRefs.current[itemId];
-      if (el && isCaretAtStart(el)) {
-        e.preventDefault();
-        if (itemIndex > 0) {
-          focusAtEnd(
-            listItemRefs.current[block.items[itemIndex - 1].id] || null,
-          );
-        } else {
-          focusPrevBlock(blockIndex);
-        }
-      }
-    }
-
-    if (e.key === "ArrowDown") {
-      const el = listItemRefs.current[itemId];
-      if (el && isCaretAtEnd(el)) {
-        e.preventDefault();
-        if (itemIndex < block.items.length - 1) {
-          focusAtStart(
-            listItemRefs.current[block.items[itemIndex + 1].id] || null,
-          );
-        } else {
-          focusNextBlock(blockIndex);
-        }
-      }
-    }
-
-    if (e.key === "Enter") {
-      e.preventDefault();
-      const text = (e.currentTarget.textContent || "").trim();
-
-      if (text.length === 0) {
-        setBlocks((prev) => {
-          const list = prev[blockIndex] as ListBlock;
-          const remaining = list.items.filter((it) => it.id !== itemId);
-          const next = [...prev];
-          if (remaining.length === 0) {
-            next.splice(blockIndex, 1, {
-              id: createBlockId(),
-              type: "paragraph",
-              text: "",
-            });
-          } else {
-            next[blockIndex] = { ...list, items: remaining };
-            next.splice(blockIndex + 1, 0, {
-              id: createBlockId(),
-              type: "paragraph",
-              text: "",
-            });
-          }
-          return next;
-        });
-        markSaved();
-        requestAnimationFrame(() => {
-          const entries = Object.entries(blockRefs.current);
-          focusAtEnd(entries.length ? entries[entries.length - 1][1] : null);
-        });
-        return;
-      }
-
-      setBlocks((prev) =>
-        prev.map((b, idx) => {
-          if (idx !== blockIndex || b.type !== "ul") return b;
-          const newItems = [
-            ...b.items.slice(0, itemIndex + 1),
-            { id: createBlockId("li"), text: "" },
-            ...b.items.slice(itemIndex + 1),
-          ];
-          return { ...b, items: newItems };
-        }),
-      );
-      markSaved();
-      requestAnimationFrame(() => {
-        const entries = Object.entries(listItemRefs.current);
-        focusAtEnd(entries.length ? entries[entries.length - 1][1] : null);
-      });
-      return;
-    }
-
-    if (e.key === "Backspace") {
-      const text = (e.currentTarget.textContent || "").trim();
-      if (text.length === 0) {
-        e.preventDefault();
-        const focusPrev = () => {
-          if (itemIndex > 0) {
-            focusAtEnd(
-              listItemRefs.current[block.items[itemIndex - 1].id] || null,
-            );
-            return;
-          }
-          const prevBlock = blocks[blockIndex - 1];
-          if (prevBlock) {
-            focusAtEnd(getBlockEndEl(prevBlock));
-          } else if (block.items.length > 1) {
-            const nextItem = block.items[itemIndex + 1];
-            if (nextItem) focusAtEnd(listItemRefs.current[nextItem.id] || null);
-          }
-        };
-
-        setBlocks((prev) => {
-          const list = prev[blockIndex] as ListBlock;
-          const remaining = list.items.filter((_, i) => i !== itemIndex);
-          const next = [...prev];
-          if (remaining.length === 0) {
-            next.splice(blockIndex, 1);
-          } else {
-            next[blockIndex] = { ...list, items: remaining };
-          }
-          return next;
-        });
-        markSaved();
-        requestAnimationFrame(focusPrev);
-        return;
-      }
-    }
+    return {
+      position: "absolute",
+      left: 0,
+      right: 0,
+      top: top - 1,
+      height: 3,
+      background: "#6db3f2",
+      borderRadius: 2,
+      zIndex: 50,
+      pointerEvents: "none",
+    };
   }
 
   // --- Render ---
+
+  const dropIndicatorStyle = getDropIndicatorStyle();
 
   return (
     <div className={className}>
@@ -519,73 +493,74 @@ export function BlockEditor({
         ref={editorRootRef}
       >
         {blocks.map((block, blockIndex) => {
-          if (block.type === "ul") {
-            return (
-              <div
-                key={block.id}
-                className={cn(
-                  blockStyles.container.ul,
-                  blockStyles.list.container,
-                )}
-              >
-                <ul className="list-disc ps-6">
-                  {block.items.map((item, itemIndex) => (
-                    <li key={item.id}>
-                      <div
-                        ref={(el) => {
-                          listItemRefs.current[item.id] = el;
-                        }}
-                        contentEditable
-                        suppressContentEditableWarning
-                        className={blockStyles.list.item}
-                        data-block-id={block.id}
-                        data-item-id={item.id}
-                        data-placeholder="List item"
-                        onInput={(e) =>
-                          updateListItem(
-                            block.id,
-                            item.id,
-                            e.currentTarget.textContent || "",
-                          )
-                        }
-                        onKeyDown={(e) =>
-                          onListItemKeyDown(
-                            e,
-                            block,
-                            blockIndex,
-                            itemIndex,
-                            item.id,
-                          )
-                        }
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          }
+          const isDragging = drag?.sourceIndex === blockIndex;
+          const def = blockRegistry.get(block.type);
+          if (!def) return null;
+
+          const Component = def.Component;
 
           return (
-            <div key={block.id} className={blockStyles.container[block.type]}>
-              <div
-                ref={(el) => {
-                  blockRefs.current[block.id] = el;
-                }}
-                contentEditable
-                suppressContentEditableWarning
-                className={blockStyles.element[block.type]}
-                data-block-id={block.id}
-                data-placeholder={
-                  block.type === "paragraph"
-                    ? paragraphPlaceholder
-                    : placeholders[block.type]
-                }
-                onInput={(e) => handleParagraphInput(e, block, blockIndex)}
-                onKeyDown={(e) => onParagraphKeyDown(e, block, blockIndex)}
-              />
-            </div>
+            <Component
+              key={block.id}
+              block={block}
+              blockIndex={blockIndex}
+              isGripSelected={gripSelectedId === block.id}
+              isDragging={isDragging}
+              wrapperRef={(el) => {
+                blockWrapperRefs.current[blockIndex] = el;
+              }}
+              blockRef={(el) => {
+                blockRefs.current[block.id] = el;
+              }}
+              listItemRef={(itemId, el) => {
+                listItemRefs.current[itemId] = el;
+              }}
+              updateBlock={(updates) => updateBlock(blockIndex, updates)}
+              insertAfter={(newBlock) => insertBlockAfter(blockIndex, newBlock)}
+              remove={() => removeBlock(blockIndex)}
+              transform={(type) => transformBlock(blockIndex, type)}
+              focusPrev={() => focusPrevBlock(blockIndex)}
+              focusNext={() => focusNextBlock(blockIndex)}
+              markSaved={markSaved}
+              mergeIntoPrev={(text) => mergeIntoPrev(blockIndex, text)}
+              openSlashMenu={(filterText) =>
+                openSlashMenu(block.id, blockIndex, filterText)
+              }
+              closeSlashMenu={closeSlashMenu}
+              slashMenuOpen={slashMenu?.blockId === block.id}
+              slashMenuFilterText={slashMenu?.filterText ?? ""}
+              slashMenuSelectedIndex={slashMenu?.selectedIndex ?? 0}
+              setSlashMenuIndex={(index) => {
+                const filtered = filterCommands(slashMenu?.filterText ?? "");
+                setSlashMenu((prev) =>
+                  prev
+                    ? {
+                        ...prev,
+                        selectedIndex: Math.max(
+                          0,
+                          Math.min(index, filtered.length - 1),
+                        ),
+                      }
+                    : null,
+                );
+              }}
+              executeSlashCommand={() => {
+                if (!slashMenu) return;
+                const filtered = filterCommands(slashMenu.filterText);
+                const cmd = filtered[slashMenu.selectedIndex];
+                if (cmd) executeSlashCommand(blockIndex, cmd.blockType);
+              }}
+              selectGrip={() => setGripSelectedId(block.id)}
+              startDrag={(e) => startDrag(blockIndex, e)}
+              renderCalloutIcon={renderCalloutIcon}
+              renderDatabaseBlock={renderDatabaseBlock}
+              paragraphPlaceholder={paragraphPlaceholder}
+              onBackspaceAtStart={onBackspaceAtStart}
+            />
           );
         })}
+
+        {dropIndicatorStyle && <div style={dropIndicatorStyle} />}
 
         {slashMenu && (
           <SlashCommandMenu

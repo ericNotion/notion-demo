@@ -11,7 +11,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-blue-accent-primary text-blue-inverse-primary",
+        primary:
+          "bg-blue-accent-primary hover:bg-blue-accent-primary/90 text-white",
         tint: "bg-tertiary-translucent hover:bg-tertiary text-primary",
         outline:
           "border border-1 dark:border-white/10 border-primary hover:bg-secondary-translucent hover:border-primary",
@@ -82,12 +83,12 @@ const buttonVariants = cva(
       {
         variant: "primary",
         color: "black",
-        class: "bg-accent-primary text-inverse-primary",
+        class: "bg-accent-primary text-white",
       },
       {
         variant: "primary",
         color: "red",
-        class: "bg-red-accent-primary text-red-inverse-primary",
+        class: "bg-red-accent-primary text-white",
       },
       {
         variant: "outline",
@@ -108,7 +109,7 @@ const buttonVariants = cva(
       {
         variant: "primary",
         color: "orange",
-        class: "bg-orange-accent-primary text-orange-inverse-primary",
+        class: "bg-orange-accent-primary text-white",
       },
       {
         variant: "outline",
