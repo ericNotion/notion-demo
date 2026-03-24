@@ -1,6 +1,9 @@
 "use client";
 
 import { cn } from "@/utils/cn";
+import { Icon } from "@nds-icons";
+import { arrowExpandDiagonalIcon } from "@nds-icons/arrowExpandDiagonal/default.icon";
+import { ellipsisIcon } from "@nds-icons/ellipsis/default.icon";
 import { useState } from "react";
 import {
   type DatabaseBlock as DatabaseBlockType,
@@ -55,37 +58,13 @@ function InlineDatabaseBlock({
             type="button"
             className="text-tertiary hover:bg-secondary flex size-7 items-center justify-center rounded-xs"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-            >
-              <path d="M10 2l4 4M2 14l4-4M14 2l-4 4M2 14l4-4" />
-              <path d="M10 2h4v4M6 14H2v-4" />
-            </svg>
+            <Icon icon={arrowExpandDiagonalIcon} size={16} color="inherit" />
           </button>
           <button
             type="button"
             className="text-tertiary hover:bg-secondary flex size-7 items-center justify-center rounded-xs"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-            >
-              <circle cx="8" cy="4" r="1" />
-              <circle cx="8" cy="8" r="1" />
-              <circle cx="8" cy="12" r="1" />
-              <path d="M3 6h10M3 10h10" />
-            </svg>
+            <Icon icon={ellipsisIcon} size={16} color="inherit" />
           </button>
           <button
             type="button"
