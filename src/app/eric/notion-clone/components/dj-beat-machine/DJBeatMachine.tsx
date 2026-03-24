@@ -5,7 +5,7 @@ import { mediaPlayIcon } from "@nds-icons/mediaPlay/default.icon";
 import { mediaStopIcon } from "@nds-icons/mediaStop/default.icon";
 import { cn } from "@/utils/cn";
 import { motion, AnimatePresence } from "motion/react";
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { useEffect, useRef, useState, useCallback } from "react";
 
 // ============================================================================
@@ -151,7 +151,6 @@ class DrumSynth {
 
   private playClap(time: number) {
     if (!this.audioContext) return;
-    // Clap is multiple noise bursts
     for (let i = 0; i < 3; i++) {
       const noise = this.createNoiseBuffer();
       const noiseSource = this.audioContext.createBufferSource();
@@ -342,7 +341,7 @@ export function DJBeatMachine() {
             DJ Beat Machine
           </h2>
           <p className="text-caption text-tertiary">
-            Berlin techno vibes \uD83C\uDFA7 Build your beat
+            Berlin techno vibes 🎧 Build your beat
           </p>
         </div>
         <div className="flex items-center gap-3">
