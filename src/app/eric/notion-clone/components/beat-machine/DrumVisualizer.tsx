@@ -5,6 +5,8 @@ import { useAtomValue } from "jotai";
 import { isPlayingAtom, currentStepAtom } from "./atoms";
 import { getAnalyserNode, TRACK_COLORS } from "./audio-engine";
 
+const canvasStyle = { background: "rgba(10, 0, 20, 0.95)" };
+
 export function DrumVisualizer() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>(0);
@@ -26,14 +28,12 @@ export function DrumVisualizer() {
     const height = canvas.offsetHeight;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Background gradient
     const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
     bgGrad.addColorStop(0, "rgba(10, 0, 20, 0.95)");
     bgGrad.addColorStop(1, "rgba(5, 0, 15, 0.95)");
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw bars
     const barWidth = (width / bufferLength) * 2.5;
     const colors = Object.values(TRACK_COLORS);
     let x = 0;
@@ -55,7 +55,6 @@ export function DrumVisualizer() {
       x += barWidth;
     }
 
-    // Step indicator at bottom
     if (currentStep >= 0) {
       const stepWidth = width / 16;
       ctx.fillStyle = "#ff006e";
@@ -109,7 +108,7 @@ export function DrumVisualizer() {
     <canvas
       ref={canvasRef}
       className="h-[140px] w-full rounded-lg"
-      style= background: "rgba(10, 0, 20, 0.95)" 
+      style={canvasStyle}
     />
   );
 }

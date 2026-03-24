@@ -16,6 +16,20 @@ import {
   setMasterVolume,
 } from "./audio-engine";
 
+const labelStyle = { color: "rgba(255,255,255,0.4)" };
+const bpmValueStyle = { color: "#3a86ff" };
+
+function getPlayButtonStyle(isPlaying: boolean) {
+  return {
+    background: isPlaying
+      ? "linear-gradient(135deg, #ff006e, #ff4d94)"
+      : "linear-gradient(135deg, #06d6a0, #00b894)",
+    boxShadow: isPlaying
+      ? "0 0 20px rgba(255,0,110,0.5)"
+      : "0 0 20px rgba(6,214,160,0.5)",
+  };
+}
+
 export function TransportControls() {
   const [bpm, setBpm] = useAtom(bpmAtom);
   const [isPlaying, setIsPlaying] = useAtom(isPlayingAtom);
@@ -99,14 +113,7 @@ export function TransportControls() {
       <button
         onClick={isPlaying ? stop : start}
         className="flex h-12 w-12 items-center justify-center rounded-full transition-all"
-        style=
-          background: isPlaying
-            ? "linear-gradient(135deg, #ff006e, #ff4d94)"
-            : "linear-gradient(135deg, #06d6a0, #00b894)",
-          boxShadow: isPlaying
-            ? "0 0 20px rgba(255,0,110,0.5)"
-            : "0 0 20px rgba(6,214,160,0.5)",
-        
+        style={getPlayButtonStyle(isPlaying)}
         aria-label={isPlaying ? "Stop" : "Play"}
       >
         {isPlaying ? (
@@ -125,7 +132,7 @@ export function TransportControls() {
       <div className="flex flex-col items-center gap-1">
         <span
           className="font-mono text-[10px] uppercase tracking-widest"
-          style= color: "rgba(255,255,255,0.4)" 
+          style={labelStyle}
         >
           BPM
         </span>
@@ -134,11 +141,11 @@ export function TransportControls() {
             onClick={() => setBpm((b) => Math.max(60, b - 1))}
             className="flex h-6 w-6 items-center justify-center rounded font-mono text-sm text-white/40 hover:bg-white/10 hover:text-white/70"
           >
-            \u2212
+            &minus;
           </button>
           <span
             className="w-10 text-center font-mono text-lg font-bold"
-            style= color: "#3a86ff" 
+            style={bpmValueStyle}
           >
             {bpm}
           </span>
@@ -155,7 +162,7 @@ export function TransportControls() {
       <div className="flex flex-col items-center gap-1">
         <span
           className="font-mono text-[10px] uppercase tracking-widest"
-          style= color: "rgba(255,255,255,0.4)" 
+          style={labelStyle}
         >
           VOL
         </span>

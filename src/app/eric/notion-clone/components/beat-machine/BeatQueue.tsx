@@ -10,6 +10,22 @@ import {
   type QueuedBeat,
 } from "./atoms";
 
+const labelStyle = { color: "rgba(255,255,255,0.4)" };
+const dimTextStyle = { color: "rgba(255,255,255,0.35)" };
+const loadStyle = { color: "#3a86ff" };
+const sectionStyle = {
+  background: "rgba(255,255,255,0.03)",
+  border: "1px solid rgba(255,255,255,0.06)",
+};
+const inputStyle = {
+  background: "rgba(255,255,255,0.06)",
+  border: "1px solid rgba(255,255,255,0.1)",
+};
+const submitStyle = {
+  background: "linear-gradient(135deg, #ff006e, #8338ec)",
+  boxShadow: "0 0 15px rgba(131,56,236,0.3)",
+};
+
 export function BeatQueue() {
   const [queue, setQueue] = useAtom(beatQueueAtom);
   const setPattern = useSetAtom(patternAtom);
@@ -60,16 +76,10 @@ export function BeatQueue() {
   return (
     <div className="flex flex-col gap-4">
       {/* Submit section */}
-      <div
-        className="rounded-lg p-4"
-        style=
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(255,255,255,0.06)",
-        
-      >
+      <div className="rounded-lg p-4" style={sectionStyle}>
         <h3
           className="mb-3 font-mono text-xs uppercase tracking-widest"
-          style= color: "rgba(255,255,255,0.4)" 
+          style={labelStyle}
         >
           Contribute to the queue
         </h3>
@@ -80,10 +90,7 @@ export function BeatQueue() {
             value={nameInput}
             onChange={(e) => setNameInput(e.target.value)}
             className="flex-1 rounded-md px-3 py-1.5 text-sm text-white placeholder-white/30 outline-none"
-            style=
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.1)",
-            
+            style={inputStyle}
           />
           <input
             type="text"
@@ -91,19 +98,13 @@ export function BeatQueue() {
             value={authorInput}
             onChange={(e) => setAuthorInput(e.target.value)}
             className="flex-1 rounded-md px-3 py-1.5 text-sm text-white placeholder-white/30 outline-none"
-            style=
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.1)",
-            
+            style={inputStyle}
           />
         </div>
         <button
           onClick={submitBeat}
           className="w-full rounded-md py-2 text-sm font-semibold text-white transition-all hover:opacity-90"
-          style=
-            background: "linear-gradient(135deg, #ff006e, #8338ec)",
-            boxShadow: "0 0 15px rgba(131,56,236,0.3)",
-          
+          style={submitStyle}
         >
           Drop Your Beat \ud83c\udfb5
         </button>
@@ -113,7 +114,7 @@ export function BeatQueue() {
       <div className="flex flex-col gap-1.5">
         <h3
           className="mb-1 font-mono text-xs uppercase tracking-widest"
-          style= color: "rgba(255,255,255,0.4)" 
+          style={labelStyle}
         >
           Queue ({queue.length})
         </h3>
@@ -122,27 +123,18 @@ export function BeatQueue() {
             key={beat.id}
             onClick={() => loadBeat(beat)}
             className="flex items-center justify-between rounded-md px-3 py-2.5 text-left transition-all hover:scale-[1.01]"
-            style=
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.06)",
-            
+            style={sectionStyle}
           >
             <div className="flex flex-col gap-0.5">
               <span className="text-sm font-medium text-white">
                 {beat.name}
               </span>
-              <span
-                className="text-[11px]"
-                style= color: "rgba(255,255,255,0.35)" 
-              >
+              <span className="text-[11px]" style={dimTextStyle}>
                 by {beat.author} \u00b7 {beat.bpm} BPM \u00b7{" "}
                 {formatTime(beat.timestamp)}
               </span>
             </div>
-            <span
-              className="font-mono text-xs"
-              style= color: "#3a86ff" 
-            >
+            <span className="font-mono text-xs" style={loadStyle}>
               LOAD \u2192
             </span>
           </button>
