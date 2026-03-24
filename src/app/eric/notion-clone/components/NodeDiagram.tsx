@@ -49,6 +49,7 @@ export function NodeDiagram() {
   const animationRef = useRef<number>();
   const graphDataRef = useRef<GraphData>({ nodes: [], edges: [] });
   const draggedNodeRef = useRef<string | null>(null);
+  const [tick, setTick] = useState(0);
 
   // Initialize graph data from pages
   useEffect(() => {
@@ -105,6 +106,7 @@ export function NodeDiagram() {
     });
 
     graphDataRef.current = { nodes, edges };
+    setTick(t => t + 1);
   }, [pages, dimensions.width, dimensions.height]);
 
   useEffect(() => {
@@ -196,6 +198,10 @@ export function NodeDiagram() {
           node.y += node.vy;
         }
       });
+
+      if (iteration % 3 === 0) {
+        setTick(t => t + 1);
+      }
 
       iteration++;
       animationRef.current = requestAnimationFrame(simulate);
