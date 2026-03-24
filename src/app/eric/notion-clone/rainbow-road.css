@@ -1,0 +1,291 @@
+/* Rainbow Road Theme for notion-clone (Mario Kart inspired) */
+.rainbow-road {
+  /* Force dark color scheme for light-dark() function */
+  color-scheme: dark;
+  
+  /* Space/cosmic backgrounds - deep purple/blue space theme */
+  --background-color-primary: #0a0a2e;
+  --background-color-secondary: #12124a;
+  --background-color-tertiary: #1a1a5c;
+  --background-color-secondary-translucent: rgba(18, 18, 74, 0.8);
+  --background-color-tertiary-translucent: rgba(26, 26, 92, 0.8);
+  --background-color-elevated: #15154d;
+  --background-color-accent-primary: #2a1a6e;
+  --background-color-accent-secondary: #3a2a8e;
+  
+  /* Bright text for dark backgrounds */
+  --text-color-primary: rgba(255, 255, 255, 0.95);
+  --text-color-secondary: rgba(255, 255, 255, 0.7);
+  --text-color-tertiary: rgba(255, 255, 255, 0.5);
+  --text-color-disabled: rgba(255, 255, 255, 0.3);
+  --text-color-accent-primary: rgba(255, 255, 255, 0.9);
+  --text-color-inverse-primary: rgba(255, 255, 255, 0.95);
+  --text-color-inverse-secondary: rgba(255, 255, 255, 0.7);
+  
+  /* Gray text colors */
+  --text-color-gray-primary: rgba(255, 255, 255, 0.9);
+  --text-color-gray-secondary: rgba(255, 255, 255, 0.7);
+  --text-color-gray-tertiary: rgba(255, 255, 255, 0.5);
+  --text-color-gray-disabled: rgba(255, 255, 255, 0.3);
+  --text-color-gray-accent-primary: rgba(255, 255, 255, 0.85);
+  --text-color-gray-inverse-primary: rgba(255, 255, 255, 0.95);
+  --text-color-gray-inverse-secondary: rgba(255, 255, 255, 0.7);
+  
+  /* Icons with bright colors */
+  --icon-color-primary: rgba(255, 255, 255, 0.9);
+  --icon-color-secondary: rgba(255, 255, 255, 0.6);
+  --icon-color-tertiary: rgba(255, 255, 255, 0.4);
+  --icon-color-disabled: rgba(255, 255, 255, 0.25);
+  --icon-color-accent-primary: rgba(255, 255, 255, 0.9);
+  --icon-color-inverse-primary: rgba(255, 255, 255, 0.95);
+  --icon-color-inverse-secondary: rgba(255, 255, 255, 0.7);
+  
+  /* Gray icon colors */
+  --icon-color-gray-primary: rgba(255, 255, 255, 0.9);
+  --icon-color-gray-secondary: rgba(255, 255, 255, 0.6);
+  --icon-color-gray-tertiary: rgba(255, 255, 255, 0.4);
+  --icon-color-gray-disabled: rgba(255, 255, 255, 0.25);
+  --icon-color-gray-accent-primary: rgba(255, 255, 255, 0.85);
+  --icon-color-gray-inverse-primary: rgba(255, 255, 255, 0.95);
+  --icon-color-gray-inverse-secondary: rgba(255, 255, 255, 0.7);
+  
+  /* Rainbow-tinted borders */
+  --border-color-primary: rgba(255, 255, 255, 0.15);
+  --border-color-primary-translucent: rgba(255, 255, 255, 0.12);
+  --border-color-secondary: rgba(255, 255, 255, 0.08);
+  --border-color-secondary-translucent: rgba(255, 255, 255, 0.06);
+  --border-color-inverse-primary: rgba(255, 255, 255, 0.5);
+  --border-color-accent-primary: rgba(255, 255, 255, 0.3);
+  --border-color-strong: rgba(255, 255, 255, 0.25);
+  
+  /* Gray border colors */
+  --border-color-gray-primary: rgba(255, 255, 255, 0.15);
+  --border-color-gray-primary-translucent: rgba(255, 255, 255, 0.12);
+  --border-color-gray-secondary: rgba(255, 255, 255, 0.08);
+  --border-color-gray-secondary-translucent: rgba(255, 255, 255, 0.06);
+  --border-color-gray-inverse-primary: rgba(255, 255, 255, 0.5);
+  --border-color-gray-accent-primary: rgba(255, 255, 255, 0.3);
+  --border-color-gray-strong: rgba(255, 255, 255, 0.25);
+  
+  /* Scrollbar */
+  --scrollbar-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Animated rainbow gradient keyframes */
+@keyframes rainbow-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes float-stars {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 3px rgba(147, 51, 234, 0.5)); }
+  50% { filter: drop-shadow(0 0 8px rgba(147, 51, 234, 0.8)); }
+}
+
+/* Starfield background effect */
+.rainbow-road::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(2px 2px at 60% 70%, white, transparent),
+    radial-gradient(1px 1px at 50% 50%, white, transparent),
+    radial-gradient(1px 1px at 80% 10%, white, transparent),
+    radial-gradient(2px 2px at 90% 60%, white, transparent),
+    radial-gradient(1px 1px at 33% 80%, white, transparent),
+    radial-gradient(1px 1px at 70% 40%, white, transparent);
+  background-size: 200% 200%;
+  background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  animation: twinkle 3s ease-in-out infinite, float-stars 6s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+/* Ensure content is above starfield */
+.rainbow-road > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Rainbow border for sidebar */
+.rainbow-road [class*="SlipperySidebar"] > div:first-child {
+  border-right: 2px solid transparent;
+  background-image: 
+    linear-gradient(#12124a, #12124a),
+    linear-gradient(
+      180deg,
+      #ff0000,
+      #ff7f00,
+      #ffff00,
+      #00ff00,
+      #0000ff,
+      #8b00ff,
+      #ff0000
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  animation: rainbow-shift 3s linear infinite;
+  background-size: 100% 100%, 100% 200%;
+}
+
+/* Rainbow gradient text for page titles */
+.rainbow-road h1,
+.rainbow-road [class*="PageTopBar"] h1 {
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff7f00,
+    #ffff00,
+    #00ff00,
+    #0000ff,
+    #8b00ff,
+    #ff0000
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rainbow-shift 4s linear infinite;
+}
+
+/* Neon glow on buttons and interactive elements */
+.rainbow-road button:hover,
+.rainbow-road [role="button"]:hover {
+  animation: glow-pulse 2s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+/* Rainbow border on cards and hover states */
+.rainbow-road [class*="Card"]:hover,
+.rainbow-road [class*="BoardCard"]:hover {
+  border: 1px solid transparent;
+  background-image: 
+    linear-gradient(#1a1a5c, #1a1a5c),
+    linear-gradient(
+      135deg,
+      #ff0000,
+      #ff7f00,
+      #ffff00,
+      #00ff00,
+      #0000ff,
+      #8b00ff
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-size: 100% 100%, 200% 200%;
+  animation: rainbow-shift 3s linear infinite;
+}
+
+/* Cosmic background with gradient overlay */
+.rainbow-road > div:first-child {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 46, 0.95) 0%,
+    rgba(18, 18, 74, 0.9) 50%,
+    rgba(26, 26, 92, 0.95) 100%
+  );
+}
+
+/* Enhanced focus states with rainbow glow */
+.rainbow-road *:focus-visible {
+  outline: 2px solid rgba(147, 51, 234, 0.6);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(147, 51, 234, 0.2);
+}
+
+/* Rainbow underline effect for links */
+.rainbow-road a:hover {
+  text-decoration: underline;
+  text-decoration-color: #8b00ff;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* Add subtle glow to emoji icons */
+.rainbow-road [class*="emoji"] {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+}
+
+/* Sidebar tab indicators with rainbow effect */
+.rainbow-road [class*="SlipperySidebar"] [aria-selected="true"]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    #ff0000,
+    #ff7f00,
+    #ffff00,
+    #00ff00,
+    #0000ff,
+    #8b00ff
+  );
+  border-radius: 0 2px 2px 0;
+  animation: rainbow-shift 2s linear infinite;
+  background-size: 100% 200%;
+}
+
+/* Rainbow shimmer on hover for sidebar items */
+.rainbow-road [class*="SlipperySidebar"] [class*="Item"]:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.05),
+    rgba(255, 127, 0, 0.05),
+    rgba(255, 255, 0, 0.05),
+    rgba(0, 255, 0, 0.05),
+    rgba(0, 0, 255, 0.05),
+    rgba(139, 0, 255, 0.05)
+  );
+  background-size: 200% 100%;
+  animation: rainbow-shift 3s linear infinite;
+}
+
+/* Input fields with cosmic styling */
+.rainbow-road input[type="text"],
+.rainbow-road textarea {
+  background-color: rgba(18, 18, 74, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.rainbow-road input[type="text"]:focus,
+.rainbow-road textarea:focus {
+  border: 1px solid rgba(147, 51, 234, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.2) !important;
+}
+
+/* Search and modal overlays */
+.rainbow-road [role="dialog"],
+.rainbow-road [class*="Modal"] {
+  background-color: #12124a !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 0 40px rgba(147, 51, 234, 0.4) !important;
+}
+
+/* Dropdown menus */
+.rainbow-road [role="menu"],
+.rainbow-road [class*="Popover"] {
+  background-color: #12124a !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}

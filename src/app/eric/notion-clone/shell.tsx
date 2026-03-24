@@ -2,6 +2,7 @@
 
 import { PageTopBar } from "@/components/notion-kit/PageTopBar";
 import { PrimarySidebarHeader } from "@/components/notion-kit/PrimarySidebar/Header";
+import "./rainbow-road.css";
 import {
   ChatContent,
   InboxContent,
@@ -255,7 +256,7 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className="flex h-screen flex-col overflow-hidden"
+      className="rainbow-road flex h-screen flex-col overflow-hidden"
       style={{
         fontFamily:
           'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
