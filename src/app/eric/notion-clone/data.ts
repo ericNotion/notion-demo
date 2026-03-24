@@ -128,6 +128,15 @@ export const pages: PageEntry[] = [
     createdBy: "You",
     lastEdited: "just now",
   },
+  {
+    emoji: "🎧",
+    label: "DJ Beat Machine",
+    href: `${BASE}/beat-machine`,
+    section: "private",
+    kind: "page",
+    createdBy: "You",
+    lastEdited: "just now",
+  },
   // ── Shared ────────────────────────────────────────────────────────────
   {
     emoji: "📋",
