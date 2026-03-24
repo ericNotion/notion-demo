@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Icon } from "@nds-icons";
 import { magnifyingGlassPlusIcon } from "@nds-icons/magnifyingGlassPlus/default.icon";
-import { magnifyingGlassMinusIcon } from "@nds-icons/magnifyingGlassMinus/default.icon";
+import { dashIcon } from "@nds-icons/dash/default.icon";
 import { arrowExpandDiagonalIcon } from "@nds-icons/arrowExpandDiagonal/default.icon";
 
 type GraphControlsProps = {
@@ -37,7 +37,7 @@ export function GraphControls({
         className="h-8 w-8 p-0"
         disabled={scale <= 0.3}
       >
-        <Icon icon={magnifyingGlassMinusIcon} size={16} color="secondary" />
+        <Icon icon={dashIcon} size={16} color="secondary" />
       </Button>
       <div className="border-primary my-0.5 h-px border-t" />
       <Button

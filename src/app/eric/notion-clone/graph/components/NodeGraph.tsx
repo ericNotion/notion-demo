@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
-import { arrowRightIcon } from "@nds-icons/arrowRight/default.icon";
+import { arrowStraightRightIcon } from "@nds-icons/arrowStraightRight/default.icon";
 import { GraphNode } from "./GraphNode";
 import { GraphControls } from "./GraphControls";
 import { useForceSimulation, type Edge, type Node } from "./useForceSimulation";
@@ -296,7 +296,7 @@ export function NodeGraph({ pages }: NodeGraphProps) {
             className="text-body-sm flex w-full items-center justify-between rounded-md border border-secondary bg-secondary px-3 py-2 text-secondary transition-colors hover:bg-tertiary"
           >
             <span>Open page</span>
-            <Icon icon={arrowRightIcon} size={14} color="secondary" />
+            <Icon icon={arrowStraightRightIcon} size={14} color="secondary" />
           </button>
         </div>
       )}
