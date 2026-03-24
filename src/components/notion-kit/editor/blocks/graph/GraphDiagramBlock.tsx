@@ -4,6 +4,7 @@ import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
 import { magnifyingGlassPlusIcon } from "@nds-icons/magnifyingGlassPlus/default.icon";
 import { textSmallIcon } from "@nds-icons/textSmall/default.icon";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { createBlockId } from "../../atoms";
 import { CmdIcon, DragHandle } from "../DragHandle";
@@ -24,6 +25,7 @@ function GraphDiagramBlockComponent({
   startDrag,
   selectGrip,
 }: BlockComponentProps) {
+  const router = useRouter();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [graphData] = useState<GraphData>(mockGraphData);
@@ -67,9 +69,10 @@ function GraphDiagramBlockComponent({
     ctx.scale(zoom, zoom);
 
     // Draw edges
-    ctx.strokeStyle = getComputedStyle(document.documentElement)
-      .getPropertyValue("--color-border-secondary")
-      .trim() || "#e0e0e0";
+    ctx.strokeStyle =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--color-border-secondary")
+        .trim() || "#e0e0e0";
     ctx.lineWidth = 1.5;
 
     graphData.edges.forEach((edge) => {
@@ -96,32 +99,38 @@ function GraphDiagramBlockComponent({
       ctx.arc(pos.x, pos.y, 8, 0, Math.PI * 2);
 
       if (isSelected) {
-        ctx.fillStyle = getComputedStyle(document.documentElement)
-          .getPropertyValue("--color-bg-blue-primary")
-          .trim() || "#0066FF";
+        ctx.fillStyle =
+          getComputedStyle(document.documentElement)
+            .getPropertyValue("--color-bg-blue-primary")
+            .trim() || "#0066FF";
       } else if (isHovered) {
-        ctx.fillStyle = getComputedStyle(document.documentElement)
-          .getPropertyValue("--color-bg-tertiary")
-          .trim() || "#888888";
+        ctx.fillStyle =
+          getComputedStyle(document.documentElement)
+            .getPropertyValue("--color-bg-tertiary")
+            .trim() || "#888888";
       } else {
-        ctx.fillStyle = getComputedStyle(document.documentElement)
-          .getPropertyValue("--color-bg-primary")
-          .trim() || "#333333";
+        ctx.fillStyle =
+          getComputedStyle(document.documentElement)
+            .getPropertyValue("--color-bg-primary")
+            .trim() || "#333333";
       }
       ctx.fill();
 
       // Node border
-      ctx.strokeStyle = getComputedStyle(document.documentElement)
-        .getPropertyValue("--color-border-primary")
-        .trim() || "#cccccc";
+      ctx.strokeStyle =
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--color-border-primary")
+          .trim() || "#cccccc";
       ctx.lineWidth = 2;
       ctx.stroke();
 
       // Draw label
-      ctx.fillStyle = getComputedStyle(document.documentElement)
-        .getPropertyValue("--color-text-primary")
-        .trim() || "#000000";
-      ctx.font = '12px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      ctx.fillStyle =
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--color-text-primary")
+          .trim() || "#000000";
+      ctx.font =
+        '12px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText(node.label, pos.x, pos.y + 20);
@@ -130,7 +139,18 @@ function GraphDiagramBlockComponent({
     ctx.restore();
   }, [positions, zoom, pan, selectedNode, hoveredNode, graphData]);
 
-  // Handle canvas mouse events
+  const findNodeAt = (x: number, y: number): GraphNode | null => {
+    for (const node of graphData.nodes) {
+      const pos = positions[node.id];
+      if (!pos) continue;
+      const dx = x - pos.x;
+      const dy = y - pos.y;
+      // Hit area covers the circle (r=8) and label below it (y+20)
+      if (Math.abs(dx) <= 40 && dy >= -10 && dy <= 30) return node;
+    }
+    return null;
+  };
+
   const handleCanvasMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -139,25 +159,10 @@ function GraphDiagramBlockComponent({
     const x = (e.clientX - rect.left - pan.x) / zoom;
     const y = (e.clientY - rect.top - pan.y) / zoom;
 
-    // Check if clicking on a node
-    let clickedNode: GraphNode | null = null;
-    for (const node of graphData.nodes) {
-      const pos = positions[node.id];
-      if (pos) {
-        const dx = x - pos.x;
-        const dy = y - pos.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance <= 8) {
-          clickedNode = node;
-          break;
-        }
-      }
-    }
+    const clickedNode = findNodeAt(x, y);
 
     if (clickedNode) {
       setSelectedNode(clickedNode.id);
-      // In a real implementation, this would open the page
-      console.log("Clicked node:", clickedNode.label, clickedNode.link);
     } else {
       setSelectedNode(null);
       setIsDraggingCanvas(true);
@@ -181,23 +186,13 @@ function GraphDiagramBlockComponent({
     const x = (e.clientX - rect.left - pan.x) / zoom;
     const y = (e.clientY - rect.top - pan.y) / zoom;
 
-    // Check if hovering over a node
-    let hoveredNodeId: string | null = null;
-    for (const node of graphData.nodes) {
-      const pos = positions[node.id];
-      if (pos) {
-        const dx = x - pos.x;
-        const dy = y - pos.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance <= 8) {
-          hoveredNodeId = node.id;
-          break;
-        }
-      }
-    }
-
-    setHoveredNode(hoveredNodeId);
-    canvas.style.cursor = hoveredNodeId ? "pointer" : isDraggingCanvas ? "grabbing" : "grab";
+    const hovered = findNodeAt(x, y);
+    setHoveredNode(hovered?.id ?? null);
+    canvas.style.cursor = hovered
+      ? "pointer"
+      : isDraggingCanvas
+        ? "grabbing"
+        : "grab";
   };
 
   const handleCanvasMouseUp = () => {
@@ -243,7 +238,7 @@ function GraphDiagramBlockComponent({
         <div
           data-block-id={block.id}
           className={cn(
-            "rounded-lg overflow-hidden",
+            "overflow-hidden rounded-lg",
             isGripSelected && "bg-blue-50 dark:bg-blue-950/30",
           )}
           onKeyDown={(e) => {
@@ -296,7 +291,7 @@ function GraphDiagramBlockComponent({
               <button
                 type="button"
                 onClick={handleResetView}
-                className="bg-elevated hover:bg-secondary shadow-sm-outline text-tertiary px-2 py-1 text-xs font-medium rounded-md transition-colors"
+                className="bg-elevated hover:bg-secondary shadow-sm-outline text-tertiary rounded-md px-2 py-1 text-xs font-medium transition-colors"
                 title="Reset view"
               >
                 Reset
@@ -314,16 +309,22 @@ function GraphDiagramBlockComponent({
             />
 
             {/* Info overlay */}
-            {selectedNode && (
-              <div className="bg-elevated shadow-md-outline text-primary absolute bottom-2 left-2 rounded-lg p-3 text-sm">
-                <div className="text-body font-medium">
-                  {graphData.nodes.find((n) => n.id === selectedNode)?.label}
-                </div>
-                <div className="text-caption text-tertiary mt-1">
-                  Click to open page
-                </div>
-              </div>
-            )}
+            {selectedNode &&
+              (() => {
+                const node = graphData.nodes.find((n) => n.id === selectedNode);
+                return node ? (
+                  <button
+                    type="button"
+                    onClick={() => router.push(node.link)}
+                    className="bg-elevated shadow-md-outline text-primary hover:bg-tertiary absolute bottom-2 left-2 cursor-pointer rounded-lg p-3 text-left text-sm transition-colors"
+                  >
+                    <div className="text-body font-medium">{node.label}</div>
+                    <div className="text-caption text-tertiary mt-1">
+                      Click to open page
+                    </div>
+                  </button>
+                ) : null;
+              })()}
 
             {!selectedNode && (
               <div className="text-tertiary absolute bottom-2 left-2 text-xs">
@@ -376,7 +377,15 @@ export const graphDiagramBlockDef: BlockDefinition = {
         </svg>
       </CmdIcon>
     ),
-    keywords: ["graph", "diagram", "network", "nodes", "relationships", "connections", "roam"],
+    keywords: [
+      "graph",
+      "diagram",
+      "network",
+      "nodes",
+      "relationships",
+      "connections",
+      "roam",
+    ],
     section: "basic",
   },
   Component: GraphDiagramBlockComponent,
