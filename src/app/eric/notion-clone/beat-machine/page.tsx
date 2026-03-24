@@ -3,9 +3,7 @@
 import { Agentation } from "@/components/playground-kit";
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
-import { circle } from "@nds-icons/circle/fillSmall.icon";
-import { plus } from "@nds-icons/plus/default.icon";
-import { trash } from "@nds-icons/trash/default.icon";
+import { trashIcon } from "@nds-icons/trash/default.icon";
 import { atom, useAtom } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -351,7 +349,7 @@ function BeatQueue({
                 onClick={() => onDelete(beat.id)}
                 className="ml-2 rounded p-1.5 text-red-400/60 transition-colors hover:bg-red-500/20 hover:text-red-400"
               >
-                <Icon icon={trash} size={16} />
+                <Icon icon={trashIcon} size={16} />
               </button>
             </motion.div>
           ))
