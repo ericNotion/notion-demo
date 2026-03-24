@@ -63,7 +63,7 @@ export function PageTopBar({
   className,
 }: PageTopBarProps) {
   return (
-    <div className={cn("flex h-10 shrink-0 items-center pr-2 pl-4", className)}>
+    <div data-topbar className={cn("flex h-10 shrink-0 items-center pr-2 pl-4", className)}>
       <div className="flex min-w-0 items-center gap-1 text-sm">
         {breadcrumbs?.map((crumb, i) => (
           <span key={crumb.label} className="flex items-center gap-1">

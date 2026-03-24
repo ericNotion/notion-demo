@@ -144,7 +144,7 @@ function SlipperySidebarRoot({
       activeTab={effectiveTab ?? "home"}
       setActiveTab={(id) => setActiveTab(id as SlipperySidebarTab)}
     >
-      <div className="bg-secondary flex h-full flex-col overflow-hidden border-r">
+      <div data-sidebar className="bg-secondary flex h-full flex-col overflow-hidden border-r">
         {header}
 
         <div className="mx-auto flex min-h-0 w-full max-w-[800px] grow flex-col">

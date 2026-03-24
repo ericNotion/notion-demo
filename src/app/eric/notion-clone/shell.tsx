@@ -255,7 +255,7 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className="flex h-screen flex-col overflow-hidden"
+      className="rainbow-road flex h-screen flex-col overflow-hidden"
       style={{
         fontFamily:
           'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
@@ -272,7 +272,7 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
           }
           minWidth={290}
         >
-          <div className="bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
+          <div className="rainbow-road-stars bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
             {!(pathname.includes("/chat") && searchParams.get("thread")) &&
               !pathname.endsWith("/agents") && (
                 <PageTopBar
