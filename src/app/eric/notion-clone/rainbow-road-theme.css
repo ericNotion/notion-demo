@@ -1,0 +1,627 @@
+/* ============================================
+   🌈 Rainbow Road Theme - Mario Kart Inspired
+   ============================================ */
+
+/* Force dark color scheme for the theme */
+:root {
+  color-scheme: dark;
+}
+
+/* ============================================
+   Rainbow Animation Keyframes
+   ============================================ */
+
+@keyframes rainbow-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes rainbow-border {
+  0% {
+    border-color: #ff0080;
+  }
+  16.66% {
+    border-color: #ff8000;
+  }
+  33.33% {
+    border-color: #ffff00;
+  }
+  50% {
+    border-color: #00ff00;
+  }
+  66.66% {
+    border-color: #0080ff;
+  }
+  83.33% {
+    border-color: #8000ff;
+  }
+  100% {
+    border-color: #ff0080;
+  }
+}
+
+@keyframes starfield-twinkle {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float-sparkle {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 5px rgba(255, 0, 128, 0.3),
+      0 0 10px rgba(255, 128, 0, 0.2),
+      0 0 15px rgba(255, 255, 0, 0.2),
+      0 0 20px rgba(0, 255, 0, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 10px rgba(255, 0, 128, 0.6),
+      0 0 20px rgba(255, 128, 0, 0.4),
+      0 0 30px rgba(255, 255, 0, 0.4),
+      0 0 40px rgba(0, 255, 0, 0.4);
+  }
+}
+
+/* ============================================
+   Star Field Background
+   ============================================ */
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(2px 2px at 60% 70%, white, transparent),
+    radial-gradient(1px 1px at 50% 50%, white, transparent),
+    radial-gradient(1px 1px at 80% 10%, white, transparent),
+    radial-gradient(2px 2px at 90% 60%, white, transparent),
+    radial-gradient(1px 1px at 33% 80%, white, transparent),
+    radial-gradient(1px 1px at 70% 40%, white, transparent);
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  animation: starfield-twinkle 4s ease-in-out infinite;
+  opacity: 0.4;
+}
+
+/* ============================================
+   Base Color Overrides - Deep Space Dark
+   ============================================ */
+
+:root {
+  /* Primary backgrounds - deep space colors */
+  --background-color-primary: rgb(10, 5, 30);
+  --background-color-secondary: rgb(15, 10, 40);
+  --background-color-tertiary: rgb(25, 15, 50);
+  --background-color-elevated: rgb(15, 10, 40);
+  --background-color-accent-primary: rgb(35, 20, 60);
+  --background-color-accent-secondary: rgb(40, 25, 70);
+
+  /* Text colors - bright for contrast */
+  --text-color-primary: rgb(250, 250, 255);
+  --text-color-secondary: rgb(200, 180, 255);
+  --text-color-tertiary: rgb(160, 140, 220);
+  --text-color-disabled: rgb(100, 90, 140);
+  --text-color-accent-primary: rgb(220, 200, 255);
+
+  /* Icon colors - bright lavender/white */
+  --icon-color-primary: rgb(240, 240, 255);
+  --icon-color-secondary: rgb(200, 180, 255);
+  --icon-color-tertiary: rgb(160, 140, 220);
+  --icon-color-disabled: rgb(100, 90, 140);
+
+  /* Border colors - subtle purple with rainbow accents */
+  --border-color-primary: rgba(100, 80, 180, 0.4);
+  --border-color-secondary: rgba(80, 60, 150, 0.3);
+  --border-color-strong: rgba(150, 100, 255, 0.6);
+
+  /* Shadow overrides with rainbow glow */
+  --shadow-sm: 
+    0px 4px 12px 0px rgba(128, 0, 255, 0.3),
+    0px 1px 2px 0px rgba(255, 0, 128, 0.2);
+  --shadow-md:
+    0px 8px 12px 0px rgba(128, 0, 255, 0.3),
+    0px 2px 6px 0px rgba(255, 0, 128, 0.2);
+  --shadow-lg:
+    0px 20px 24px 0px rgba(128, 0, 255, 0.4),
+    0px 5px 8px 0px rgba(255, 0, 128, 0.3);
+}
+
+/* ============================================
+   Rainbow Gradient Accents
+   ============================================ */
+
+/* Rainbow border on sidebar */
+[data-slippery-sidebar],
+.slippery-sidebar {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgb(10, 5, 30) 0%,
+    rgb(15, 10, 40) 100%
+  ) !important;
+}
+
+[data-slippery-sidebar]::after,
+.slippery-sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    #ff0080,
+    #ff8000,
+    #ffff00,
+    #00ff00,
+    #0080ff,
+    #8000ff,
+    #ff0080
+  );
+  background-size: 100% 400%;
+  animation: rainbow-shift 8s ease infinite;
+  opacity: 0.8;
+}
+
+/* Rainbow glow on hover states */
+button:hover,
+a:hover,
+[role="button"]:hover {
+  transition: all 0.3s ease;
+}
+
+/* Interactive elements with neon glow */
+button:not([disabled]):hover {
+  box-shadow: 
+    0 0 10px rgba(255, 0, 128, 0.4),
+    0 0 20px rgba(128, 0, 255, 0.3),
+    0 0 30px rgba(0, 255, 255, 0.2);
+}
+
+/* ============================================
+   Sidebar Rainbow Accents
+   ============================================ */
+
+/* Sidebar header with subtle rainbow glow */
+[data-slippery-sidebar-header],
+.slippery-sidebar-header {
+  background: linear-gradient(
+    135deg,
+    rgba(25, 15, 50, 0.9),
+    rgba(35, 20, 60, 0.9)
+  ) !important;
+  border-bottom: 1px solid rgba(150, 100, 255, 0.3);
+}
+
+/* Quick actions bar with rainbow gradient */
+[data-quick-action-bar] {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 128, 0.1),
+    rgba(255, 128, 0, 0.1),
+    rgba(255, 255, 0, 0.1),
+    rgba(0, 255, 0, 0.1),
+    rgba(0, 128, 255, 0.1),
+    rgba(128, 0, 255, 0.1)
+  );
+  background-size: 400% 100%;
+  animation: rainbow-shift 10s ease infinite;
+  border-radius: 8px;
+}
+
+/* Active tab indicator - rainbow! */
+[data-active="true"],
+[aria-selected="true"] {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 128, 0.2),
+    rgba(128, 0, 255, 0.2)
+  ) !important;
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(
+    180deg,
+    #ff0080,
+    #ff8000,
+    #ffff00,
+    #00ff00,
+    #0080ff,
+    #8000ff
+  ) 1;
+  position: relative;
+}
+
+[data-active="true"]::before,
+[aria-selected="true"]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    #ff0080,
+    #ff8000,
+    #ffff00,
+    #00ff00,
+    #0080ff,
+    #8000ff
+  );
+  animation: rainbow-shift 6s ease infinite;
+}
+
+/* ============================================
+   Top Bar Rainbow Theme
+   ============================================ */
+
+[data-page-top-bar] {
+  background: linear-gradient(
+    90deg,
+    rgba(10, 5, 30, 0.95),
+    rgba(15, 10, 40, 0.95)
+  ) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(150, 100, 255, 0.3);
+}
+
+/* ============================================
+   Content Area with Subtle Starfield
+   ============================================ */
+
+.bg-primary,
+[class*="bg-primary"] {
+  background: rgb(10, 5, 30) !important;
+  position: relative;
+}
+
+/* ============================================
+   Cards and Elevated Elements
+   ============================================ */
+
+[class*="card"],
+[class*="elevated"],
+[role="dialog"],
+[role="menu"] {
+  background: rgba(15, 10, 40, 0.9) !important;
+  border: 1px solid rgba(150, 100, 255, 0.3);
+  box-shadow: 
+    0 4px 20px rgba(128, 0, 255, 0.3),
+    0 2px 10px rgba(255, 0, 128, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* ============================================
+   Input Fields with Rainbow Focus
+   ============================================ */
+
+input,
+textarea,
+[contenteditable="true"] {
+  background: rgba(20, 15, 45, 0.8) !important;
+  border: 1px solid rgba(100, 80, 180, 0.4);
+  color: rgb(250, 250, 255);
+  transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+[contenteditable="true"]:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: 
+    0 0 0 2px rgba(128, 0, 255, 0.5),
+    0 0 20px rgba(255, 0, 128, 0.3),
+    0 0 30px rgba(0, 255, 255, 0.2);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   Buttons with Neon Glow
+   ============================================ */
+
+button:not([disabled]) {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+button:not([disabled]):hover {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 15px rgba(255, 0, 128, 0.4),
+    0 2px 10px rgba(128, 0, 255, 0.3);
+}
+
+button:not([disabled]):active {
+  transform: translateY(0);
+}
+
+/* Primary action buttons - rainbow gradient */
+button[type="submit"],
+button.primary,
+[data-primary="true"] {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 0, 128, 0.8),
+    rgba(128, 0, 255, 0.8)
+  ) !important;
+  border: none;
+  color: white !important;
+  font-weight: 600;
+  box-shadow: 
+    0 4px 15px rgba(255, 0, 128, 0.5),
+    0 2px 10px rgba(128, 0, 255, 0.4);
+}
+
+button[type="submit"]:hover,
+button.primary:hover,
+[data-primary="true"]:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 50, 148, 0.9),
+    rgba(148, 50, 255, 0.9)
+  ) !important;
+  box-shadow: 
+    0 6px 25px rgba(255, 0, 128, 0.6),
+    0 4px 15px rgba(128, 0, 255, 0.5);
+}
+
+/* ============================================
+   Scrollbar Styling
+   ============================================ */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(150, 100, 255, 0.5) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(10, 5, 30, 0.5);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 128, 0.6),
+    rgba(128, 0, 255, 0.6)
+  );
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 128, 0.8),
+    rgba(128, 0, 255, 0.8)
+  );
+}
+
+/* ============================================
+   Selection Highlight - Rainbow!
+   ============================================ */
+
+::selection {
+  background: rgba(255, 0, 128, 0.4);
+  color: white;
+}
+
+::-moz-selection {
+  background: rgba(255, 0, 128, 0.4);
+  color: white;
+}
+
+/* ============================================
+   Sparkle Effects on Key Elements
+   ============================================ */
+
+/* Add sparkle to sidebar items on hover */
+[data-slippery-sidebar] a:hover::after,
+[data-slippery-sidebar] button:hover::after {
+  content: '✨';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: float-sparkle 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ============================================
+   Badge and Count Indicators
+   ============================================ */
+
+[data-count],
+.badge,
+[role="status"] {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 0, 128, 0.9),
+    rgba(255, 128, 0, 0.9)
+  ) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 2px 8px rgba(255, 0, 128, 0.5),
+    0 0 15px rgba(255, 128, 0, 0.3);
+  font-weight: 700;
+}
+
+/* ============================================
+   Modal and Dialog Overlays
+   ============================================ */
+
+[data-overlay],
+.overlay {
+  background: rgba(5, 0, 20, 0.85) !important;
+  backdrop-filter: blur(8px);
+}
+
+/* ============================================
+   Links with Rainbow Underline
+   ============================================ */
+
+a {
+  color: rgb(220, 180, 255);
+  text-decoration-color: rgba(255, 0, 128, 0.5);
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: rgb(255, 220, 255);
+  text-decoration-color: rgba(255, 0, 128, 0.8);
+  text-shadow: 
+    0 0 5px rgba(255, 0, 128, 0.5),
+    0 0 10px rgba(128, 0, 255, 0.3);
+}
+
+/* ============================================
+   Toggle and Switch Elements
+   ============================================ */
+
+[role="switch"],
+.toggle {
+  background: rgba(20, 15, 45, 0.8) !important;
+  border: 2px solid rgba(100, 80, 180, 0.4);
+}
+
+[role="switch"][aria-checked="true"],
+.toggle.active {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 128, 0.8),
+    rgba(128, 0, 255, 0.8)
+  ) !important;
+  box-shadow: 
+    0 0 10px rgba(255, 0, 128, 0.5),
+    0 0 20px rgba(128, 0, 255, 0.3);
+}
+
+/* ============================================
+   Dividers with Rainbow Gradient
+   ============================================ */
+
+hr,
+[role="separator"] {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 0, 128, 0.5),
+    rgba(128, 0, 255, 0.5),
+    transparent
+  );
+}
+
+/* ============================================
+   Tooltip and Popover Styling
+   ============================================ */
+
+[role="tooltip"],
+.tooltip {
+  background: rgba(25, 15, 50, 0.95) !important;
+  border: 1px solid rgba(150, 100, 255, 0.5);
+  color: rgb(250, 250, 255) !important;
+  box-shadow: 
+    0 4px 20px rgba(128, 0, 255, 0.4),
+    0 2px 10px rgba(255, 0, 128, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+/* ============================================
+   Progress Bars - Rainbow!
+   ============================================ */
+
+[role="progressbar"],
+.progress {
+  background: rgba(20, 15, 45, 0.8) !important;
+  border: 1px solid rgba(100, 80, 180, 0.4);
+  overflow: hidden;
+}
+
+[role="progressbar"] > *,
+.progress-bar {
+  background: linear-gradient(
+    90deg,
+    #ff0080,
+    #ff8000,
+    #ffff00,
+    #00ff00,
+    #0080ff,
+    #8000ff
+  ) !important;
+  background-size: 200% 100%;
+  animation: rainbow-shift 3s linear infinite;
+  box-shadow: 
+    0 0 10px rgba(255, 0, 128, 0.5),
+    0 0 20px rgba(128, 0, 255, 0.3);
+}
+
+/* ============================================
+   Code Blocks with Neon Styling
+   ============================================ */
+
+code,
+pre {
+  background: rgba(5, 0, 20, 0.9) !important;
+  border: 1px solid rgba(150, 100, 255, 0.3);
+  color: rgb(200, 255, 200) !important;
+  box-shadow: 
+    inset 0 0 10px rgba(128, 0, 255, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   Special Effects on Prototype Banner
+   ============================================ */
+
+[data-prototype-banner] {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 128, 0.2),
+    rgba(255, 128, 0, 0.2),
+    rgba(255, 255, 0, 0.2),
+    rgba(0, 255, 0, 0.2),
+    rgba(0, 128, 255, 0.2),
+    rgba(128, 0, 255, 0.2)
+  ) !important;
+  background-size: 400% 100%;
+  animation: rainbow-shift 15s ease infinite;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(128, 0, 255, 0.3);
+}
