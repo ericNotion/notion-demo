@@ -1,0 +1,21 @@
+import React from "react";
+
+import {
+  createIcon,
+  type IconDefinition,
+  type LoadedIconFunction,
+} from "@nds-icons";
+
+export const iconDefinition: IconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: (
+    <>
+      <path d="M7.8125 14.375H2.5V5.625H7.8125V7.5H4.375V12.5H7.8125V14.375ZM12.1875 5.625V7.5H15.625V12.5H12.1875V14.375H17.5V5.625H12.1875ZM10.9375 14.375V5.625C10.9375 4.85313 11.4156 4.375 12.1875 4.375H12.8125V2.5H12.1875C11.1625 2.5 10.4 2.925 10 3.65937C9.6 2.925 8.8375 2.5 7.8125 2.5H7.1875V4.375H7.8125C8.58437 4.375 9.0625 4.85313 9.0625 5.625V14.375C9.0625 15.1469 8.58437 15.625 7.8125 15.625H7.1875V17.5H7.8125C8.8375 17.5 9.6 17.075 10 16.3406C10.4 17.075 11.1625 17.5 12.1875 17.5H12.8125V15.625H12.1875C11.4156 15.625 10.9375 15.1469 10.9375 14.375Z" />
+    </>
+  ),
+};
+
+export const renameIcon: LoadedIconFunction = createIcon(
+  "rename",
+  iconDefinition,
+);

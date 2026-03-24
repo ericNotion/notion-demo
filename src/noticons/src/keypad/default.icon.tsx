@@ -1,0 +1,21 @@
+import React from "react";
+
+import {
+  createIcon,
+  type IconDefinition,
+  type LoadedIconFunction,
+} from "@nds-icons";
+
+export const iconDefinition: IconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: (
+    <>
+      <path d="M8.4375 10.625H11.5625V13.125H8.4375V10.625ZM4.0625 16.875H11.5625V14.375H4.0625V16.875ZM8.4375 9.375H11.5625V6.875H8.4375V9.375ZM7.1875 10.625H4.0625V13.125H7.1875V10.625ZM7.1875 3.125H4.0625V5.625H7.1875V3.125ZM7.1875 6.875H4.0625V9.375H7.1875V6.875ZM12.8125 9.375H15.9375V6.875H12.8125V9.375ZM12.8125 3.125V5.625H15.9375V3.125H12.8125ZM12.8125 13.125H15.9375V10.625H12.8125V13.125ZM12.8125 16.875H15.9375V14.375H12.8125V16.875ZM8.4375 5.625H11.5625V3.125H8.4375V5.625Z" />
+    </>
+  ),
+};
+
+export const keypadIcon: LoadedIconFunction = createIcon(
+  "keypad",
+  iconDefinition,
+);

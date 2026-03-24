@@ -1,0 +1,21 @@
+import React from "react";
+
+import {
+  createIcon,
+  type IconDefinition,
+  type LoadedIconFunction,
+} from "@nds-icons";
+
+export const iconDefinition: IconDefinition = {
+  viewBox: "0 0 20 20",
+  svg: (
+    <>
+      <path d="M6.14061 15.625H9.37499V17.5H4.77811L3.35624 13.1281L5.14061 12.55L6.14061 15.625ZM3.75624 8.28435L6.37186 6.38435L5.26874 4.86873L1.54999 7.57185L2.97186 11.9437L4.75624 11.3656L3.75624 8.2906V8.28435ZM13.8625 15.625H10.6281V17.5H15.225L16.6469 13.1281L14.8625 12.55L13.8625 15.625ZM13.7219 4.13123L10.0031 1.4281L6.28436 4.13123L7.38749 5.64685L10.0031 3.74685L12.6187 5.64685L13.7219 4.13123ZM14.7344 4.8656L13.6312 6.38123L16.2469 8.28123L15.2469 11.3562L17.0312 11.9344L18.4531 7.56248L14.7344 4.85935V4.8656Z" />
+    </>
+  ),
+};
+
+export const pentagonDashedIcon: LoadedIconFunction = createIcon(
+  "pentagonDashed",
+  iconDefinition,
+);
