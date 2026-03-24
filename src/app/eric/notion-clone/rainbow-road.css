@@ -1,0 +1,402 @@
+/* Rainbow Road Theme - Mario Kart Inspired */
+
+/* ============================================
+   Rainbow Road Theme Root Scope
+   ============================================ */
+.rainbow-road {
+  /* Backgrounds - Deep Space Theme */
+  --background-color-primary: #0a0015;
+  --background-color-secondary: #120025;
+  --background-color-tertiary: #1a0035;
+  --background-color-elevated: #150030;
+  
+  /* Text - Bright for contrast */
+  --text-color-primary: rgba(255, 255, 255, 0.95);
+  --text-color-secondary: rgba(255, 255, 255, 0.7);
+  --text-color-tertiary: rgba(255, 255, 255, 0.5);
+  
+  /* Borders - Purple-tinted */
+  --border-color-primary: rgba(138, 43, 226, 0.3);
+  --border-color-secondary: rgba(138, 43, 226, 0.15);
+  
+  /* Icons */
+  --icon-color-primary: rgba(255, 255, 255, 0.9);
+  --icon-color-secondary: rgba(255, 255, 255, 0.6);
+  --icon-color-tertiary: rgba(255, 255, 255, 0.4);
+  
+  /* Interactive elements */
+  --interactive-hover-color: rgba(138, 43, 226, 0.2);
+  --interactive-active-color: rgba(138, 43, 226, 0.3);
+}
+
+/* ============================================
+   Rainbow Animations
+   ============================================ */
+@keyframes rainbow-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes star-twinkle {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ============================================
+   Star Field Background
+   ============================================ */
+.rainbow-road-stars {
+  position: relative;
+  background-color: #0a0015;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, white, transparent),
+    radial-gradient(2px 2px at 60px 70px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, white, transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 160px 120px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 30px 100px, white, transparent),
+    radial-gradient(1px 1px at 110px 10px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(2px 2px at 180px 60px, white, transparent),
+    radial-gradient(1px 1px at 50px 150px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 140px 140px, white, transparent),
+    radial-gradient(2px 2px at 10px 90px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 170px 30px, white, transparent),
+    radial-gradient(1px 1px at 80px 110px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 120px 50px, white, transparent),
+    radial-gradient(1px 1px at 40px 160px, rgba(255, 255, 255, 0.9), transparent);
+  background-size: 200px 200px;
+  background-repeat: repeat;
+}
+
+/* Add twinkling stars overlay */
+.rainbow-road-stars::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(1px 1px at 35px 45px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 85px 95px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 145px 25px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 65px 135px, rgba(255, 255, 255, 0.7), transparent);
+  background-size: 200px 200px;
+  background-repeat: repeat;
+  animation: star-twinkle 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ============================================
+   Rainbow Gradient Borders
+   ============================================ */
+.rainbow-border {
+  border: 2px solid transparent;
+  background-image: linear-gradient(#0a0015, #0a0015),
+    linear-gradient(
+      90deg,
+      #ff0080,
+      #ff8c00,
+      #ffd700,
+      #00ff00,
+      #00bfff,
+      #8a2be2,
+      #ff0080
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.rainbow-border-animated {
+  border: 2px solid transparent;
+  background-image: linear-gradient(#0a0015, #0a0015),
+    linear-gradient(
+      90deg,
+      #ff0080,
+      #ff8c00,
+      #ffd700,
+      #00ff00,
+      #00bfff,
+      #8a2be2,
+      #ff0080
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-size: 100% 100%, 300% 100%;
+  animation: rainbow-shift 6s linear infinite;
+}
+
+/* ============================================
+   Rainbow Text Gradient
+   ============================================ */
+.rainbow-text {
+  background: linear-gradient(
+    90deg,
+    #ff0080,
+    #ff8c00,
+    #ffd700,
+    #00ff00,
+    #00bfff,
+    #8a2be2,
+    #ff0080
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow-shift 6s linear infinite;
+}
+
+/* ============================================
+   Neon Glow Effects
+   ============================================ */
+.neon-glow {
+  box-shadow: 0 0 5px rgba(138, 43, 226, 0.5),
+              0 0 10px rgba(138, 43, 226, 0.3),
+              0 0 15px rgba(138, 43, 226, 0.1);
+}
+
+.neon-glow-hover:hover {
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.8),
+              0 0 20px rgba(138, 43, 226, 0.5),
+              0 0 30px rgba(138, 43, 226, 0.3);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.neon-glow-pulse {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   Rainbow Road Specific Overrides
+   ============================================ */
+
+/* Sidebar styling */
+.rainbow-road [data-sidebar] {
+  border-right: 1px solid rgba(138, 43, 226, 0.2);
+  position: relative;
+}
+
+.rainbow-road [data-sidebar]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    #ff0080 20%,
+    #ff8c00 30%,
+    #ffd700 40%,
+    #00ff00 50%,
+    #00bfff 60%,
+    #8a2be2 70%,
+    #ff0080 80%,
+    transparent
+  );
+  background-size: 100% 300%;
+  animation: rainbow-shift 8s linear infinite;
+  opacity: 0.5;
+}
+
+/* Top bar rainbow gradient */
+.rainbow-road [data-topbar] {
+  border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+  position: relative;
+}
+
+.rainbow-road [data-topbar]::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ff0080 10%,
+    #ff8c00 20%,
+    #ffd700 30%,
+    #00ff00 40%,
+    #00bfff 50%,
+    #8a2be2 60%,
+    #ff0080 70%,
+    transparent 80%
+  );
+  background-size: 300% 100%;
+  animation: rainbow-shift 6s linear infinite;
+  opacity: 0.6;
+}
+
+/* Button hover effects */
+.rainbow-road button:hover,
+.rainbow-road [role="button"]:hover {
+  background-color: rgba(138, 43, 226, 0.15) !important;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Interactive elements glow */
+.rainbow-road [role="tab"][aria-selected="true"] {
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
+}
+
+/* Input fields */
+.rainbow-road input,
+.rainbow-road textarea {
+  background-color: rgba(18, 0, 37, 0.8) !important;
+  border-color: rgba(138, 43, 226, 0.3) !important;
+}
+
+.rainbow-road input:focus,
+.rainbow-road textarea:focus {
+  border-color: rgba(138, 43, 226, 0.6) !important;
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.3) !important;
+}
+
+/* Scrollbar styling */
+.rainbow-road ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.rainbow-road ::-webkit-scrollbar-track {
+  background: rgba(18, 0, 37, 0.5);
+}
+
+.rainbow-road ::-webkit-scrollbar-thumb {
+  background: rgba(138, 43, 226, 0.4);
+  border-radius: 6px;
+}
+
+.rainbow-road ::-webkit-scrollbar-thumb:hover {
+  background: rgba(138, 43, 226, 0.6);
+}
+
+/* Cards and elevated surfaces */
+.rainbow-road [data-card],
+.rainbow-road [data-elevated] {
+  background-color: var(--background-color-elevated) !important;
+  border: 1px solid rgba(138, 43, 226, 0.2);
+  box-shadow: 0 4px 20px rgba(138, 43, 226, 0.1);
+}
+
+/* Hover states for interactive cards */
+.rainbow-road [data-card]:hover,
+.rainbow-road [data-interactive]:hover {
+  border-color: rgba(138, 43, 226, 0.4);
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Links */
+.rainbow-road a:hover {
+  color: #00bfff !important;
+  text-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Dropdown menus */
+.rainbow-road [role="menu"],
+.rainbow-road [role="listbox"] {
+  background-color: var(--background-color-elevated) !important;
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  box-shadow: 0 8px 32px rgba(138, 43, 226, 0.2);
+}
+
+/* Badges and pills */
+.rainbow-road [data-badge],
+.rainbow-road [data-pill] {
+  background: linear-gradient(
+    135deg,
+    rgba(138, 43, 226, 0.3),
+    rgba(0, 191, 255, 0.3)
+  );
+  border: 1px solid rgba(138, 43, 226, 0.4);
+}
+
+/* Dividers */
+.rainbow-road hr,
+.rainbow-road [data-divider] {
+  border-color: rgba(138, 43, 226, 0.2) !important;
+}
+
+/* Modals and dialogs */
+.rainbow-road [role="dialog"],
+.rainbow-road [data-modal] {
+  background-color: var(--background-color-elevated) !important;
+  border: 2px solid rgba(138, 43, 226, 0.4);
+  box-shadow: 0 20px 60px rgba(138, 43, 226, 0.3);
+}
+
+/* Toast/notification styling */
+.rainbow-road [data-toast],
+.rainbow-road [data-notification] {
+  background-color: var(--background-color-elevated) !important;
+  border-left: 3px solid #8a2be2;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+}
+
+/* Selection styling */
+.rainbow-road ::selection {
+  background-color: rgba(138, 43, 226, 0.4);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Code blocks */
+.rainbow-road code,
+.rainbow-road pre {
+  background-color: rgba(18, 0, 37, 0.8) !important;
+  border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+/* Floating effect for special elements */
+.rainbow-road-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Sparkle effect */
+.rainbow-road-sparkle {
+  position: relative;
+  overflow: visible;
+}
+
+.rainbow-road-sparkle::after {
+  content: '✨';
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  font-size: 12px;
+  animation: star-twinkle 2s ease-in-out infinite;
+}
