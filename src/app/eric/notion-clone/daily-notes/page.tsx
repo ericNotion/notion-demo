@@ -7,11 +7,16 @@ import {
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import { ContentPage } from "../components/ContentPage";
-import { CalloutBlock } from "../components/StaticBlocks";
 
 const titleAtom = atomWithStorage("eric-nc-daily-notes-title", "Daily notes");
 const lastSavedAtom = atom<Date | null>(null);
 const blocksAtom = atomWithStorage<Block[]>("eric-nc-daily-notes-blocks", [
+  {
+    id: createBlockId(),
+    type: "callout",
+    icon: "✏️",
+    text: "Jot down what you worked on each day. Quick bullets work best — keep it lightweight.",
+  },
   { id: createBlockId(), type: "h2", text: "Wednesday, March 19" },
   {
     id: createBlockId(),
@@ -64,11 +69,6 @@ export default function Page() {
       titleAtom={titleAtom}
       blocksAtom={blocksAtom}
       lastSavedAtom={lastSavedAtom}
-    >
-      <CalloutBlock icon="✏️">
-        Jot down what you worked on each day. Quick bullets work best — keep it
-        lightweight.
-      </CalloutBlock>
-    </ContentPage>
+    />
   );
 }

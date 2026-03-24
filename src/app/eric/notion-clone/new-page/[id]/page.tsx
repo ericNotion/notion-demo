@@ -4,19 +4,14 @@ import {
   createBlockId,
   type Block,
 } from "@/components/notion-kit/editor/atoms";
+import { createAtomCache } from "@/utils/createAtomCache";
 import { atom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import { ContentPage } from "../../components/ContentPage";
 
-const atomCache = new Map<string, ReturnType<typeof atomWithStorage>>();
-function getCachedAtom<T>(key: string, initial: T) {
-  if (!atomCache.has(key)) {
-    atomCache.set(key, atomWithStorage(key, initial));
-  }
-  return atomCache.get(key)! as ReturnType<typeof atomWithStorage<T>>;
-}
+const getCachedAtom = createAtomCache<string>();
+const getCachedBlocksAtom = createAtomCache<Block[]>();
 
 export default function Page() {
   const { id } = useParams<{ id: string }>();
@@ -28,7 +23,7 @@ export default function Page() {
   const lastSavedAtom = useMemo(() => atom<Date | null>(null), []);
   const blocksAtom = useMemo(
     () =>
-      getCachedAtom<Block[]>(`eric-nc-page-${id}-blocks`, [
+      getCachedBlocksAtom(`eric-nc-page-${id}-blocks`, [
         { id: createBlockId(), type: "paragraph", text: "" },
       ]),
     [id],

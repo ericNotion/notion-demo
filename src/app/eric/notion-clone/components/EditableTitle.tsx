@@ -1,20 +1,10 @@
 "use client";
 
+import { createAtomCache } from "@/utils/createAtomCache";
 import { useAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 import { useEffect, useRef } from "react";
 
-const titleAtoms = new Map<
-  string,
-  ReturnType<typeof atomWithStorage<string>>
->();
-
-function getTitleAtom(key: string, defaultValue: string) {
-  if (!titleAtoms.has(key)) {
-    titleAtoms.set(key, atomWithStorage(key, defaultValue));
-  }
-  return titleAtoms.get(key)!;
-}
+const getTitleAtom = createAtomCache<string>();
 
 interface EditableTitleProps {
   storageKey: string;

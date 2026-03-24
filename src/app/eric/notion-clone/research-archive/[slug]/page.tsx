@@ -1,20 +1,16 @@
 "use client";
 
-import { notFound, useParams } from "next/navigation";
-import { DatabasePageView } from "../../components/DatabasePageView";
+import { DatabaseDetailPage } from "../../components/DatabaseDetailPage";
 import { getResearchProperties, rows } from "../page";
 
 export default function ResearchItemPage() {
-  const { slug } = useParams<{ slug: string }>();
-  const row = rows.find((r) => r.slug === slug);
-  if (!row) return notFound();
-
   return (
-    <DatabasePageView
+    <DatabaseDetailPage
+      rows={rows}
+      getTitle={(r) => r.title}
+      getProperties={getResearchProperties}
       icon="📊"
-      title={row.title}
-      properties={getResearchProperties(row)}
-      bodyStorageKey={`eric-nc-research-archive-${slug}`}
+      bodyStorageKeyPrefix="eric-nc-research-archive"
     />
   );
 }

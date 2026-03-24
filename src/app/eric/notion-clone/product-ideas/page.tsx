@@ -1,15 +1,7 @@
 "use client";
 
-import {
-  DatabaseToolbar,
-  ReusableDatabase,
-  type Column as DatabaseColumn,
-  type DatabaseViewTab,
-} from "@/components/playground-kit/ReusableDatabase";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/utils/cn";
+import { type Column as DatabaseColumn } from "@/components/playground-kit/ReusableDatabase";
 import { Icon } from "@nds-icons";
-import { collectionIcon } from "@nds-icons/collection/default.icon";
 import { flagIcon } from "@nds-icons/flag/default.icon";
 import { numberIcon } from "@nds-icons/number/default.icon";
 import { pageIcon } from "@nds-icons/page/default.icon";
@@ -17,14 +9,11 @@ import { peopleIcon } from "@nds-icons/people/default.icon";
 import { starIcon } from "@nds-icons/star/default.icon";
 import { viewBoardIcon } from "@nds-icons/viewBoard/default.icon";
 import { viewTableIcon } from "@nds-icons/viewTable/default.icon";
-import { useAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
-import { useState } from "react";
-import { BoardView, type BoardColumn } from "../components/BoardView";
-import { EditableTitle } from "../components/EditableTitle";
-import { EmojiPicker } from "../components/EmojiPicker";
-import { FilterBar } from "../components/FilterBar";
-import { PagePeekModal, type PageProperty } from "../components/PagePeekModal";
+import {
+  DatabasePage,
+  type DatabasePageConfig,
+  type PageProperty,
+} from "../components/DatabasePage";
 import { StatusBadge } from "../components/StatusBadge";
 
 export type IdeaRow = {
@@ -147,49 +136,46 @@ export const effortStyles: Record<
   XL: { dot: "bg-red-500", bg: "bg-red-secondary", text: "text-red-secondary" },
 };
 
-const boardColumns: BoardColumn[] = [
-  {
-    id: "New",
-    name: "New",
-    color: "text-blue-accent-primary",
-    bgColor: "bg-blue-secondary",
-  },
-  {
-    id: "Exploring",
-    name: "Exploring",
-    color: "text-purple-secondary",
-    bgColor: "bg-purple-secondary",
-  },
-  {
-    id: "Planned",
-    name: "Planned",
-    color: "text-green-primary",
-    bgColor: "bg-green-secondary",
-  },
-  {
-    id: "Parked",
-    name: "Parked",
-    color: "text-tertiary",
-    bgColor: "bg-secondary",
-  },
-];
-
-const ideaEmojiAtom = atomWithStorage("eric-nc-product-ideas-emoji", "💡");
-
-const statusFilters = [
-  { id: "New", label: "New" },
-  { id: "Exploring", label: "Exploring" },
-  { id: "Planned", label: "Planned" },
-  { id: "Parked", label: "Parked" },
-];
-
-const propertyDefs = [
-  { id: "title", name: "Idea", type: "Title" },
-  { id: "status", name: "Status", type: "Select" },
-  { id: "author", name: "Author", type: "Person" },
-  { id: "votes", name: "Votes", type: "Number" },
-  { id: "effort", name: "Effort", type: "Select" },
-];
+export function getIdeaProperties(row: IdeaRow): PageProperty[] {
+  const s = statusStyles[row.status];
+  const e = effortStyles[row.effort];
+  return [
+    {
+      label: "Status",
+      icon: starIcon,
+      value: (
+        <StatusBadge
+          label={row.status}
+          dotColor={s.dot}
+          bgColor={s.bg}
+          textColor={s.text}
+        />
+      ),
+    },
+    {
+      label: "Author",
+      icon: peopleIcon,
+      value: <span className="text-primary">{row.author}</span>,
+    },
+    {
+      label: "Votes",
+      icon: numberIcon,
+      value: <span className="text-primary">{row.votes}</span>,
+    },
+    {
+      label: "Effort",
+      icon: flagIcon,
+      value: (
+        <StatusBadge
+          label={row.effort}
+          dotColor={e.dot}
+          bgColor={e.bg}
+          textColor={e.text}
+        />
+      ),
+    },
+  ];
+}
 
 const columns: DatabaseColumn<IdeaRow>[] = [
   {
@@ -266,167 +252,82 @@ const columns: DatabaseColumn<IdeaRow>[] = [
   },
 ];
 
-export function getIdeaProperties(row: IdeaRow): PageProperty[] {
-  const s = statusStyles[row.status];
-  const e = effortStyles[row.effort];
-  return [
-    {
-      label: "Status",
-      icon: starIcon,
-      value: (
-        <StatusBadge
-          label={row.status}
-          dotColor={s.dot}
-          bgColor={s.bg}
-          textColor={s.text}
-        />
-      ),
-    },
-    {
-      label: "Author",
-      icon: peopleIcon,
-      value: <span className="text-primary">{row.author}</span>,
-    },
-    {
-      label: "Votes",
-      icon: numberIcon,
-      value: <span className="text-primary">{row.votes}</span>,
-    },
-    {
-      label: "Effort",
-      icon: flagIcon,
-      value: (
-        <StatusBadge
-          label={row.effort}
-          dotColor={e.dot}
-          bgColor={e.bg}
-          textColor={e.text}
-        />
-      ),
-    },
-  ];
-}
-
-const dbViews: DatabaseViewTab[] = [
-  { id: "table", label: "All Ideas", icon: viewTableIcon },
-  { id: "board", label: "By Status", icon: viewBoardIcon },
-];
-
-export default function Page() {
-  const [view, setView] = useState("table");
-  const [activeFilters, setActiveFilters] = useState<Set<string>>(new Set());
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [peekRow, setPeekRow] = useState<IdeaRow | null>(null);
-  const [emoji, setEmoji] = useAtom(ideaEmojiAtom);
-  const [allRows, setAllRows] = useState(rows);
-
-  const addRow = () => {
-    const id = String(Date.now());
-    const slug = `new-idea-${id}`;
-    const newRow: IdeaRow = {
-      id,
-      slug,
+const config: DatabasePageConfig<IdeaRow> = {
+  defaultEmoji: "💡",
+  emojiStorageKey: "eric-nc-product-ideas-emoji",
+  titleStorageKey: "eric-nc-product-ideas-title",
+  defaultTitle: "Product ideas",
+  description: "Ideas from the team, ranked by votes. Add yours below.",
+  initialRows: rows,
+  createRow: () => {
+    const now = Date.now();
+    return {
+      id: String(now),
+      slug: `new-idea-${now}`,
       title: "",
       status: "New",
       author: "",
       votes: 0,
       effort: "S",
     };
-    setAllRows((prev) => [...prev, newRow]);
-    setPeekRow(newRow);
-  };
-
-  const filtered =
-    activeFilters.size > 0
-      ? allRows.filter((r) => activeFilters.has(r.status))
-      : allRows;
-
-  return (
-    <>
-      <div className="mx-auto w-full max-w-5xl px-8 pt-10 pb-40">
-        <EmojiPicker value={emoji} onChange={setEmoji} />
-        <EditableTitle
-          storageKey="eric-nc-product-ideas-title"
-          defaultTitle="Product ideas"
+  },
+  tableColumns: columns,
+  tableTitle: "All ideas",
+  boardColumns: [
+    {
+      id: "New",
+      name: "New",
+      color: "text-blue-accent-primary",
+      bgColor: "bg-blue-secondary",
+    },
+    {
+      id: "Exploring",
+      name: "Exploring",
+      color: "text-purple-secondary",
+      bgColor: "bg-purple-secondary",
+    },
+    {
+      id: "Planned",
+      name: "Planned",
+      color: "text-green-primary",
+      bgColor: "bg-green-secondary",
+    },
+    {
+      id: "Parked",
+      name: "Parked",
+      color: "text-tertiary",
+      bgColor: "bg-secondary",
+    },
+  ],
+  groupByField: "status",
+  views: [
+    { id: "table", label: "All Ideas", icon: viewTableIcon },
+    { id: "board", label: "By Status", icon: viewBoardIcon },
+  ],
+  getProperties: getIdeaProperties,
+  getTitle: (row) => row.title,
+  titleField: "title",
+  renderBoardCard: (row) => (
+    <div>
+      <p className="text-primary text-sm font-medium">{row.title}</p>
+      <div className="mt-2 flex items-center gap-2">
+        <span className="text-tertiary text-xs">{row.author}</span>
+        <StatusBadge
+          label={row.effort}
+          dotColor={effortStyles[row.effort].dot}
+          bgColor={effortStyles[row.effort].bg}
         />
-        <p className="text-secondary mt-2 text-[15px]">
-          Ideas from the team, ranked by votes. Add yours below.
-        </p>
-
-        <div className="mt-8">
-          <DatabaseToolbar
-            views={dbViews}
-            activeView={view}
-            onViewChange={setView}
-            onNew={addRow}
-          />
-
-          {filterOpen && (
-            <FilterBar
-              filters={statusFilters}
-              activeFilters={activeFilters}
-              onToggle={(id) => {
-                setActiveFilters((prev) => {
-                  const next = new Set(prev);
-                  if (next.has(id)) next.delete(id);
-                  else next.add(id);
-                  return next;
-                });
-              }}
-              onClear={() => setActiveFilters(new Set())}
-            />
-          )}
-
-          {view === "table" ? (
-            <ReusableDatabase
-              title="All ideas"
-              columns={columns}
-              data={filtered}
-              showHeader={false}
-              onNew={addRow}
-              onRowClick={setPeekRow}
-            />
-          ) : (
-            <BoardView
-              columns={boardColumns}
-              items={filtered}
-              groupBy="status"
-              getItemId={(r) => r.id}
-              onCardClick={setPeekRow}
-              renderCard={(row) => (
-                <div>
-                  <p className="text-primary text-sm font-medium">
-                    {row.title}
-                  </p>
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="text-tertiary text-xs">{row.author}</span>
-                    <StatusBadge
-                      label={row.effort}
-                      dotColor={effortStyles[row.effort].dot}
-                      bgColor={effortStyles[row.effort].bg}
-                    />
-                  </div>
-                  <span className="text-quaternary mt-1 block text-xs">
-                    {row.votes} votes
-                  </span>
-                </div>
-              )}
-            />
-          )}
-        </div>
       </div>
+      <span className="text-quaternary mt-1 block text-xs">
+        {row.votes} votes
+      </span>
+    </div>
+  ),
+  detailHrefPrefix: "/eric/notion-clone/product-ideas",
+  bodyStorageKeyPrefix: "eric-nc-product-ideas",
+  peekIcon: "💡",
+};
 
-      {peekRow && (
-        <PagePeekModal
-          open={!!peekRow}
-          onOpenChange={(open) => !open && setPeekRow(null)}
-          title={peekRow.title}
-          icon="💡"
-          properties={getIdeaProperties(peekRow)}
-          href={`/eric/notion-clone/product-ideas/${peekRow.slug}`}
-          bodyStorageKey={`eric-nc-product-ideas-${peekRow.slug}`}
-        />
-      )}
-    </>
-  );
+export default function Page() {
+  return <DatabasePage config={config} />;
 }

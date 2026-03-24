@@ -349,9 +349,29 @@ import {
 
 These are simplified versions for rapid prototyping.
 
+## Notion Clone Components
+
+For building within `src/app/eric/notion-clone/`, use these higher-level components. See the `notion-patterns` skill for the full architecture guide.
+
+| Component            | Import                                                    | Use For                                    |
+| -------------------- | --------------------------------------------------------- | ------------------------------------------ |
+| `ContentPage`        | `../components/ContentPage`                               | Rich editor pages (title + emoji + blocks) |
+| `DatabasePage`       | `../components/DatabasePage`                              | Table/board data pages with config object  |
+| `DatabaseDetailPage` | `../components/DatabaseDetailPage`                        | `[slug]` detail routes                     |
+| `BoardView`          | `../components/BoardView`                                 | Kanban board layout                        |
+| `PagePeekModal`      | `../components/PagePeekModal`                             | Quick preview modal for database items     |
+| `StatusBadge`        | `../components/StatusBadge`                               | Colored status pills (dot + bg + text)     |
+| `EditableTitle`      | `../components/EditableTitle`                             | Persistent editable page title             |
+| `EmojiPicker`        | `../components/EmojiPicker`                               | Page emoji selector                        |
+| `BlockEditor`        | `@/components/notion-kit/editor`                          | Block-based content editor                 |
+| `SidebarItem`        | `@/components/notion-kit/PrimarySidebar/SidebarItem`      | Sidebar navigation row                     |
+| `CollapsibleGroup`   | `@/components/notion-kit/PrimarySidebar/CollapsibleGroup` | Collapsible sidebar section                |
+| `ReusableDatabase`   | `@/components/playground-kit/ReusableDatabase`            | Table with configurable columns            |
+
 ## Best Practices
 
 1. **Check library first** - Don't build custom components for common patterns
 2. **Use composition** - Combine components (Dialog + Form, Dropdown + Command)
 3. **Follow variants** - Use built-in variants instead of custom classes
 4. **Accessibility** - Components include keyboard nav and ARIA by default
+5. **Notion clone** - Use `notion-patterns` skill for pages/blocks within the Notion prototype

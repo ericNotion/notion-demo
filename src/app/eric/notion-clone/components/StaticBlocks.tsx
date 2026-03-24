@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import { EmojiPicker } from "./EmojiPicker";
+
 function StaticDragHandle() {
   return (
     <div className="absolute top-0 -left-[52px] flex items-center gap-0.5 opacity-0 transition-opacity group-hover/block:opacity-100">
@@ -47,11 +50,17 @@ export function CalloutBlock({
   icon: string;
   children: React.ReactNode;
 }) {
+  const [currentIcon, setCurrentIcon] = useState(icon);
+
   return (
     <div className="group/block relative my-2">
       <StaticDragHandle />
       <div className="bg-secondary flex gap-3 rounded-lg px-4 py-3">
-        <span className="shrink-0 text-lg">{icon}</span>
+        <EmojiPicker
+          value={currentIcon}
+          onChange={setCurrentIcon}
+          size="callout"
+        />
         <div className="text-primary text-[15px] leading-relaxed">
           {children}
         </div>

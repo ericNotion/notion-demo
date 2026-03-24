@@ -6,23 +6,13 @@ import {
   type Block,
   type DatabaseBlock,
 } from "@/components/notion-kit/editor/atoms";
+import { createAtomCache } from "@/utils/createAtomCache";
 import type { PrimitiveAtom, WritableAtom } from "jotai";
 import { useAtom, useSetAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 import { useMemo, useState } from "react";
 import { EmojiPicker } from "./EmojiPicker";
 
-const emojiAtoms = new Map<
-  string,
-  ReturnType<typeof atomWithStorage<string | null>>
->();
-
-function getEmojiAtom(key: string, defaultValue: string | null) {
-  if (!emojiAtoms.has(key)) {
-    emojiAtoms.set(key, atomWithStorage<string | null>(key, defaultValue));
-  }
-  return emojiAtoms.get(key)!;
-}
+const getEmojiAtom = createAtomCache<string | null>();
 
 interface ContentPageProps {
   emoji?: string | null;
@@ -127,6 +117,9 @@ export function ContentPage({
           lastSavedAtom={lastSavedAtom}
           paragraphPlaceholder={paragraphPlaceholder}
           renderDatabaseBlock={renderDatabaseBlock}
+          renderCalloutIcon={(icon, onIconChange) => (
+            <EmojiPicker value={icon} onChange={onIconChange} size="callout" />
+          )}
           onBackspaceAtStart={() => {
             setBlocks((prev) => {
               if (

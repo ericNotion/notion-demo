@@ -1,29 +1,19 @@
 "use client";
 
-import {
-  DatabaseToolbar,
-  ReusableDatabase,
-  type Column as DatabaseColumn,
-  type DatabaseViewTab,
-} from "@/components/playground-kit/ReusableDatabase";
-import { cn } from "@/utils/cn";
+import { type Column as DatabaseColumn } from "@/components/playground-kit/ReusableDatabase";
 import { Icon } from "@nds-icons";
 import { calendarAltIcon } from "@nds-icons/calendarAlt/default.icon";
-import { collectionIcon } from "@nds-icons/collection/default.icon";
 import { flagIcon } from "@nds-icons/flag/default.icon";
 import { pageIcon } from "@nds-icons/page/default.icon";
 import { peopleIcon } from "@nds-icons/people/default.icon";
 import { starIcon } from "@nds-icons/star/default.icon";
 import { viewBoardIcon } from "@nds-icons/viewBoard/default.icon";
 import { viewTableIcon } from "@nds-icons/viewTable/default.icon";
-import { useAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
-import { useState } from "react";
-import { BoardView, type BoardColumn } from "../components/BoardView";
-import { EditableTitle } from "../components/EditableTitle";
-import { EmojiPicker } from "../components/EmojiPicker";
-import { FilterBar } from "../components/FilterBar";
-import { PagePeekModal, type PageProperty } from "../components/PagePeekModal";
+import {
+  DatabasePage,
+  type DatabasePageConfig,
+  type PageProperty,
+} from "../components/DatabasePage";
 import { StatusBadge } from "../components/StatusBadge";
 
 export type LaunchRow = {
@@ -150,44 +140,46 @@ export const priorityStyles: Record<
   },
 };
 
-const boardColumns: BoardColumn[] = [
-  {
-    id: "On track",
-    name: "On track",
-    color: "text-green-primary",
-    bgColor: "bg-green-secondary",
-  },
-  {
-    id: "In review",
-    name: "In review",
-    color: "text-blue-accent-primary",
-    bgColor: "bg-blue-secondary",
-  },
-  {
-    id: "Blocked",
-    name: "Blocked",
-    color: "text-red-secondary",
-    bgColor: "bg-red-secondary",
-  },
-  { id: "Done", name: "Done", color: "text-tertiary", bgColor: "bg-secondary" },
-];
-
-const launchEmojiAtom = atomWithStorage("eric-nc-launch-tracker-emoji", "🚀");
-
-const statusFilters = [
-  { id: "On track", label: "On track" },
-  { id: "In review", label: "In review" },
-  { id: "Blocked", label: "Blocked" },
-  { id: "Done", label: "Done" },
-];
-
-const propertyDefs = [
-  { id: "name", name: "Name", type: "Title" },
-  { id: "status", name: "Status", type: "Select" },
-  { id: "owner", name: "Owner", type: "Person" },
-  { id: "due", name: "Due", type: "Date" },
-  { id: "priority", name: "Priority", type: "Select" },
-];
+export function getLaunchProperties(row: LaunchRow): PageProperty[] {
+  const s = statusStyles[row.status];
+  const p = priorityStyles[row.priority];
+  return [
+    {
+      label: "Status",
+      icon: starIcon,
+      value: (
+        <StatusBadge
+          label={row.status}
+          dotColor={s.dot}
+          bgColor={s.bg}
+          textColor={s.text}
+        />
+      ),
+    },
+    {
+      label: "Owner",
+      icon: peopleIcon,
+      value: <span className="text-primary">{row.owner}</span>,
+    },
+    {
+      label: "Due",
+      icon: calendarAltIcon,
+      value: <span className="text-primary">{row.due}</span>,
+    },
+    {
+      label: "Priority",
+      icon: flagIcon,
+      value: (
+        <StatusBadge
+          label={row.priority}
+          dotColor={p.dot}
+          bgColor={p.bg}
+          textColor={p.text}
+        />
+      ),
+    },
+  ];
+}
 
 const columns: DatabaseColumn<LaunchRow>[] = [
   {
@@ -277,165 +269,80 @@ const columns: DatabaseColumn<LaunchRow>[] = [
   },
 ];
 
-export function getLaunchProperties(row: LaunchRow): PageProperty[] {
-  const s = statusStyles[row.status];
-  const p = priorityStyles[row.priority];
-  return [
-    {
-      label: "Status",
-      icon: starIcon,
-      value: (
-        <StatusBadge
-          label={row.status}
-          dotColor={s.dot}
-          bgColor={s.bg}
-          textColor={s.text}
-        />
-      ),
-    },
-    {
-      label: "Owner",
-      icon: peopleIcon,
-      value: <span className="text-primary">{row.owner}</span>,
-    },
-    {
-      label: "Due",
-      icon: calendarAltIcon,
-      value: <span className="text-primary">{row.due}</span>,
-    },
-    {
-      label: "Priority",
-      icon: flagIcon,
-      value: (
-        <StatusBadge
-          label={row.priority}
-          dotColor={p.dot}
-          bgColor={p.bg}
-          textColor={p.text}
-        />
-      ),
-    },
-  ];
-}
-
-const dbViews: DatabaseViewTab[] = [
-  { id: "table", label: "All Tasks", icon: viewTableIcon },
-  { id: "board", label: "By Status", icon: viewBoardIcon },
-];
-
-export default function Page() {
-  const [view, setView] = useState("table");
-  const [activeFilters, setActiveFilters] = useState<Set<string>>(new Set());
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [peekRow, setPeekRow] = useState<LaunchRow | null>(null);
-  const [emoji, setEmoji] = useAtom(launchEmojiAtom);
-  const [allRows, setAllRows] = useState(rows);
-
-  const addRow = () => {
-    const id = String(Date.now());
-    const slug = `new-launch-${id}`;
-    const newRow: LaunchRow = {
-      id,
-      slug,
+const config: DatabasePageConfig<LaunchRow> = {
+  defaultEmoji: "🚀",
+  emojiStorageKey: "eric-nc-launch-tracker-emoji",
+  titleStorageKey: "eric-nc-launch-tracker-title",
+  defaultTitle: "Launch tracker",
+  description: "Track launches, owners, and blockers across the team.",
+  initialRows: rows,
+  createRow: () => {
+    const now = Date.now();
+    return {
+      id: String(now),
+      slug: `new-launch-${now}`,
       name: "",
       status: "On track",
       owner: "",
       due: "",
       priority: "Medium",
     };
-    setAllRows((prev) => [...prev, newRow]);
-    setPeekRow(newRow);
-  };
-
-  const filtered =
-    activeFilters.size > 0
-      ? allRows.filter((r) => activeFilters.has(r.status))
-      : allRows;
-
-  return (
-    <>
-      <div className="mx-auto w-full max-w-5xl px-8 pt-10 pb-40">
-        <EmojiPicker value={emoji} onChange={setEmoji} />
-        <EditableTitle
-          storageKey="eric-nc-launch-tracker-title"
-          defaultTitle="Launch tracker"
+  },
+  tableColumns: columns,
+  tableTitle: "All launches",
+  boardColumns: [
+    {
+      id: "On track",
+      name: "On track",
+      color: "text-green-primary",
+      bgColor: "bg-green-secondary",
+    },
+    {
+      id: "In review",
+      name: "In review",
+      color: "text-blue-accent-primary",
+      bgColor: "bg-blue-secondary",
+    },
+    {
+      id: "Blocked",
+      name: "Blocked",
+      color: "text-red-secondary",
+      bgColor: "bg-red-secondary",
+    },
+    {
+      id: "Done",
+      name: "Done",
+      color: "text-tertiary",
+      bgColor: "bg-secondary",
+    },
+  ],
+  groupByField: "status",
+  views: [
+    { id: "table", label: "All Tasks", icon: viewTableIcon },
+    { id: "board", label: "By Status", icon: viewBoardIcon },
+  ],
+  getProperties: getLaunchProperties,
+  getTitle: (row) => row.name,
+  titleField: "name",
+  renderBoardCard: (row) => (
+    <div>
+      <p className="text-primary text-sm font-medium">{row.name}</p>
+      <div className="mt-2 flex items-center gap-2">
+        <span className="text-tertiary text-xs">{row.owner}</span>
+        <StatusBadge
+          label={row.priority}
+          dotColor={priorityStyles[row.priority].dot}
+          bgColor={priorityStyles[row.priority].bg}
         />
-        <p className="text-secondary mt-2 text-[15px]">
-          Track launches, owners, and blockers across the team.
-        </p>
-
-        <div className="mt-8">
-          <DatabaseToolbar
-            views={dbViews}
-            activeView={view}
-            onViewChange={setView}
-            onNew={addRow}
-          />
-
-          {filterOpen && (
-            <FilterBar
-              filters={statusFilters}
-              activeFilters={activeFilters}
-              onToggle={(id) => {
-                setActiveFilters((prev) => {
-                  const next = new Set(prev);
-                  if (next.has(id)) next.delete(id);
-                  else next.add(id);
-                  return next;
-                });
-              }}
-              onClear={() => setActiveFilters(new Set())}
-            />
-          )}
-
-          {view === "table" ? (
-            <ReusableDatabase
-              title="All launches"
-              columns={columns}
-              data={filtered}
-              showHeader={false}
-              onNew={addRow}
-              onRowClick={setPeekRow}
-            />
-          ) : (
-            <BoardView
-              columns={boardColumns}
-              items={filtered}
-              groupBy="status"
-              getItemId={(r) => r.id}
-              onCardClick={setPeekRow}
-              renderCard={(row) => (
-                <div>
-                  <p className="text-primary text-sm font-medium">{row.name}</p>
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="text-tertiary text-xs">{row.owner}</span>
-                    <StatusBadge
-                      label={row.priority}
-                      dotColor={priorityStyles[row.priority].dot}
-                      bgColor={priorityStyles[row.priority].bg}
-                    />
-                  </div>
-                  <span className="text-quaternary mt-1 block text-xs">
-                    {row.due}
-                  </span>
-                </div>
-              )}
-            />
-          )}
-        </div>
       </div>
+      <span className="text-quaternary mt-1 block text-xs">{row.due}</span>
+    </div>
+  ),
+  detailHrefPrefix: "/eric/notion-clone/launch-tracker",
+  bodyStorageKeyPrefix: "eric-nc-launch-tracker",
+  peekIcon: "📄",
+};
 
-      {peekRow && (
-        <PagePeekModal
-          open={!!peekRow}
-          onOpenChange={(open) => !open && setPeekRow(null)}
-          title={peekRow.name}
-          icon="📄"
-          properties={getLaunchProperties(peekRow)}
-          href={`/eric/notion-clone/launch-tracker/${peekRow.slug}`}
-          bodyStorageKey={`eric-nc-launch-tracker-${peekRow.slug}`}
-        />
-      )}
-    </>
-  );
+export default function Page() {
+  return <DatabasePage config={config} />;
 }

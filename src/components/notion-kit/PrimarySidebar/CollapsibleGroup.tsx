@@ -3,7 +3,7 @@
 import { useAtom } from "jotai";
 
 import {
-  CollapsibleGroupId,
+  type CollapsibleGroupId,
   collapsibleGroupsAtom,
 } from "@/components/notion-kit/PrimarySidebar/atoms";
 import {
@@ -12,28 +12,23 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useEffect, useState } from "react";
-
-function useHasMounted() {
-  const [hasMounted, setHasMounted] = useState(false);
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
-  return hasMounted;
-}
+import { useHasMounted } from "@/hooks/useHasMounted";
+import { cn } from "@/utils/cn";
 
 export function CollapsibleGroup({
   children,
   label,
   id,
   triggerAccessory,
+  className,
+  contentClassName,
 }: {
   children?: React.ReactNode;
   label: string;
   id: CollapsibleGroupId;
   triggerAccessory?: React.ReactNode;
+  className?: string;
+  contentClassName?: string;
 }) {
   const [groupStates, setGroupStates] = useAtom(collapsibleGroupsAtom);
   const hasMounted = useHasMounted();
@@ -49,7 +44,7 @@ export function CollapsibleGroup({
         setGroupStates((prev) => ({ ...prev, [id]: value.includes("item-1") }));
       }}
       type="multiple"
-      className="group/collapsible mb-4 flex flex-col"
+      className={cn("group/collapsible mb-4 flex flex-col", className)}
     >
       <AccordionItem value="item-1" className="flex flex-1 flex-col">
         <div className="flex flex-1 items-center">
@@ -64,7 +59,9 @@ export function CollapsibleGroup({
           {triggerAccessory}
         </div>
 
-        <AccordionContent className="flex flex-col gap-px pt-1 pb-2">
+        <AccordionContent
+          className={cn("flex flex-col gap-px pt-1 pb-2", contentClassName)}
+        >
           {children}
         </AccordionContent>
       </AccordionItem>
