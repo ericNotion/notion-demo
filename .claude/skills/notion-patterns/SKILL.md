@@ -140,6 +140,18 @@ In `src/components/notion-kit/editor/BlockEditor.tsx`, add a case to the `transf
 
 That's it. The slash command menu, keyboard shortcuts, and markdown shortcuts are all auto-derived from the `blockDefs` array.
 
+### Non-editable Block Checklist
+
+If your block is **non-editable** (no `contentEditable`, like divider, database, beat-machine, or node-graph), you must also make these 5 modifications to `BlockEditor.tsx`. **Missing any causes silent failures:**
+
+1. **`getBlockEndEl`** — add `|| block.type === "your-type"` to the divider/database condition
+2. **`getBlockStartEl`** — same change
+3. **`textContent` sync effect** — add `&& blk.type !== "your-type"` to the exclusion condition
+4. **`hasFocusedInitially` effect** — add `b.type !== "your-type" &&` to the skip condition
+5. **`transformBlock`** — insert an empty paragraph after (same pattern as divider/database), and reassign `newBlockId` to the paragraph so focus goes there
+
+See the `audio-beats` or `node-graph-diagram` skills for complete examples of these modifications.
+
 ### BlockComponentProps Reference
 
 Every block component receives these props:

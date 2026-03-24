@@ -16,7 +16,8 @@ Detailed guidance lives in `.claude/skills/`. Load relevant skills before starti
 | Skill                | Use For                                                  |
 | -------------------- | -------------------------------------------------------- |
 | `notion-patterns`    | Notion clone architecture, block types, page registry    |
-| `audio-beats`        | Beat machine / audio with Tone.js                        |
+| `audio-beats`        | Beat Machine slash menu block with Tone.js               |
+| `node-graph-diagram` | Page Graph slash menu block — interactive SVG node graph |
 | `ui-components`      | 50+ UI components (Button, Dialog, Input, etc.)          |
 | `tailwind-styling`   | Styling, design tokens, colors, dark mode                |
 | `jotai-state`        | State management with atoms, persistence                 |
