@@ -12,7 +12,7 @@ import { pageIcon } from "@/nds-icons/src/page/default.icon";
 import { Icon } from "@nds-icons";
 import { chatBubbleIcon } from "@nds-icons/chatBubble/default.icon";
 import { composeIcon } from "@nds-icons/compose/default.icon";
-import { databaseEmbedIcon } from "@nds-icons/databaseEmbed/default.icon";
+import { viewTableIcon } from "@nds-icons/viewTable/default.icon";
 import { waveformIcon } from "@nds-icons/waveform/default.icon";
 import { useSlipperySidebarContext } from "./context";
 
@@ -104,7 +104,7 @@ function ComposeButton({
             AI Meeting Note
           </DropdownMenuItem>
           <DropdownMenuItem className="min-h-8" onClick={onDatabase}>
-            <Icon icon={databaseEmbedIcon} size={16} />
+            <Icon icon={viewTableIcon} size={16} />
             Database
           </DropdownMenuItem>
         </DropdownMenuGroup>

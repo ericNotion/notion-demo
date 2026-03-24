@@ -4,10 +4,17 @@ interface AgentItemProps {
   name: string;
   color?: string;
   avatar?: string;
+  icon?: React.ReactNode;
   onClick?: () => void;
 }
 
-export function AgentItem({ name, color, avatar, onClick }: AgentItemProps) {
+export function AgentItem({
+  name,
+  color,
+  avatar,
+  icon,
+  onClick,
+}: AgentItemProps) {
   return (
     <button
       type="button"
@@ -15,7 +22,9 @@ export function AgentItem({ name, color, avatar, onClick }: AgentItemProps) {
       onClick={onClick}
     >
       <span className="flex size-6 shrink-0 items-center justify-center">
-        {avatar ? (
+        {icon ? (
+          icon
+        ) : avatar ? (
           <Image
             src={avatar}
             alt=""

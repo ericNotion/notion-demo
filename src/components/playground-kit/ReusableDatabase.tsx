@@ -2,13 +2,22 @@
 
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
+import { cn } from "@/utils/cn";
 import { Icon, type LoadedIconFunction } from "@nds-icons";
+import { arrowChevronSingleDownIcon } from "@nds-icons/arrowChevronSingleDown/default.icon";
 import { arrowExpandDiagonalIcon } from "@nds-icons/arrowExpandDiagonal/default.icon";
 import { arrowUpDownIcon } from "@nds-icons/arrowUpDown/default.icon";
 import { filterIcon } from "@nds-icons/filter/default.icon";
 import { gearIcon } from "@nds-icons/gear/default.icon";
 import { magnifyingGlassIcon } from "@nds-icons/magnifyingGlass/default.icon";
 import { plusIcon } from "@nds-icons/plus/default.icon";
+import { viewTableIcon } from "@nds-icons/viewTable/default.icon";
+
+export type DatabaseViewTab = {
+  id: string;
+  label: string;
+  icon?: LoadedIconFunction;
+};
 
 export type ColumnType =
   | "text"
@@ -66,7 +75,104 @@ interface ReusableDatabaseProps<T> {
   columns: Column<T>[];
   data: T[];
   onNew?: () => void;
+  onRowClick?: (row: T) => void;
   className?: string;
+  compact?: boolean;
+  showHeader?: boolean;
+  showTitle?: boolean;
+  headerLeft?: React.ReactNode;
+}
+
+const defaultViews: DatabaseViewTab[] = [
+  { id: "table", label: "Table", icon: viewTableIcon },
+];
+
+export function DatabaseToolbar({
+  views = defaultViews,
+  activeView,
+  onViewChange,
+  onNew,
+  compact = false,
+  className,
+}: {
+  views?: DatabaseViewTab[];
+  activeView?: string;
+  onViewChange?: (id: string) => void;
+  onNew?: () => void;
+  compact?: boolean;
+  className?: string;
+}) {
+  const iconSize = compact ? 14 : undefined;
+  const current = activeView ?? views[0]?.id;
+  return (
+    <div
+      className={cn(
+        "flex items-center justify-between gap-2",
+        compact ? "mb-1" : "mb-3",
+        className,
+      )}
+    >
+      <div className="flex items-center gap-1">
+        {views.map((view) => (
+          <button
+            key={view.id}
+            type="button"
+            onClick={() => onViewChange?.(view.id)}
+            className={cn(
+              "flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium transition-colors",
+              current === view.id
+                ? "bg-tertiary text-primary"
+                : "text-secondary hover:text-primary hover:bg-tertiary-translucent",
+            )}
+          >
+            {view.icon && (
+              <Icon
+                icon={view.icon}
+                size={14}
+                color={current === view.id ? "primary" : "secondary"}
+              />
+            )}
+            {view.label}
+          </button>
+        ))}
+      </div>
+      <div
+        className={cn(
+          "flex shrink-0 items-center",
+          compact ? "gap-0.5" : "gap-1",
+        )}
+      >
+        <IconButton size={compact ? "xs" : undefined}>
+          <Icon icon={filterIcon} color="secondary" size={iconSize} />
+        </IconButton>
+        <IconButton size={compact ? "xs" : undefined}>
+          <Icon icon={arrowUpDownIcon} color="secondary" size={iconSize} />
+        </IconButton>
+        <IconButton size={compact ? "xs" : undefined}>
+          <Icon icon={magnifyingGlassIcon} color="secondary" size={iconSize} />
+        </IconButton>
+        <IconButton size={compact ? "xs" : undefined}>
+          <Icon
+            icon={arrowExpandDiagonalIcon}
+            color="secondary"
+            size={iconSize}
+          />
+        </IconButton>
+        <IconButton size={compact ? "xs" : undefined}>
+          <Icon icon={gearIcon} color="secondary" size={iconSize} />
+        </IconButton>
+        <Button variant="primary" size="sm" className="gap-0.5" onClick={onNew}>
+          <span>New</span>
+          <Icon
+            icon={arrowChevronSingleDownIcon}
+            size={compact ? 10 : 12}
+            color="white"
+            className="opacity-80"
+          />
+        </Button>
+      </div>
+    </div>
+  );
 }
 
 export function ReusableDatabase<T extends { id: string }>({
@@ -75,112 +181,147 @@ export function ReusableDatabase<T extends { id: string }>({
   columns,
   data,
   onNew,
+  onRowClick,
   className = "",
+  compact = false,
+  showHeader = true,
+  showTitle = true,
+  headerLeft,
 }: ReusableDatabaseProps<T>) {
   return (
-    <div className={`mt-12 ${className}`}>
-      {/* Header */}
-      <div className="mb-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          {icon && <Icon icon={icon} size={20} />}
-          <h2 className="text-primary text-xl font-semibold">{title}</h2>
-        </div>
-        <div className="flex items-center gap-1">
-          <IconButton>
-            <Icon icon={filterIcon} color="secondary" />
-          </IconButton>
-          <IconButton>
-            <Icon icon={arrowUpDownIcon} color="secondary" />
-          </IconButton>
-          <IconButton>
-            <Icon icon={magnifyingGlassIcon} color="secondary" />
-          </IconButton>
-          <IconButton>
-            <Icon icon={arrowExpandDiagonalIcon} color="secondary" />
-          </IconButton>
-          <IconButton>
-            <Icon icon={gearIcon} color="secondary" />
-          </IconButton>
-          <Button variant="primary" onClick={onNew}>
-            New
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+    <div
+      className={cn(
+        !compact && showHeader && !headerLeft && "mt-12",
+        className,
+      )}
+    >
+      {showHeader && (
+        <div
+          className={cn(
+            "flex items-center justify-between gap-2",
+            compact ? "mb-2" : "mb-3",
+          )}
+        >
+          {headerLeft ? (
+            headerLeft
+          ) : showTitle ? (
+            <div className="flex items-center gap-2">
+              {icon && <Icon icon={icon} size={compact ? 16 : 20} />}
+              <h2
+                className={cn(
+                  "text-primary font-semibold",
+                  compact ? "text-sm" : "text-xl",
+                )}
+              >
+                {title}
+              </h2>
+            </div>
+          ) : (
+            <div />
+          )}
+          <div className="flex shrink-0 items-center gap-1">
+            <IconButton>
+              <Icon icon={filterIcon} color="secondary" />
+            </IconButton>
+            <IconButton>
+              <Icon icon={arrowUpDownIcon} color="secondary" />
+            </IconButton>
+            <IconButton>
+              <Icon icon={magnifyingGlassIcon} color="secondary" />
+            </IconButton>
+            <IconButton>
+              <Icon icon={arrowExpandDiagonalIcon} color="secondary" />
+            </IconButton>
+            <IconButton>
+              <Icon icon={gearIcon} color="secondary" />
+            </IconButton>
+            <Button
+              variant="primary"
+              size={compact ? "sm" : "md"}
+              className="gap-0.5"
+              onClick={onNew}
             >
-              <path
-                d="M4 6L8 10L12 6"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+              <span>New</span>
+              <Icon
+                icon={arrowChevronSingleDownIcon}
+                size={compact ? 10 : 12}
+                color="white"
+                className="opacity-80"
               />
-            </svg>
-          </Button>
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Table */}
       <div className="overflow-hidden">
-        <table className="w-full border-collapse">
-          {/* Table Header */}
+        <table className="w-full table-fixed border-collapse">
           <thead>
             <tr className="border-primary border-b">
               {columns.map((column) => (
                 <th
                   key={column.id}
-                  className={`text-secondary hover:bg-secondary/50 h-8 cursor-pointer px-3 text-left text-sm font-normal ${column.width || ""}`}
+                  className={cn(
+                    "text-secondary hover:bg-secondary-translucent cursor-pointer text-left font-normal",
+                    compact ? "text-caption h-7 px-2" : "h-8 px-3 text-sm",
+                    column.width,
+                  )}
                 >
                   <span>{column.label}</span>
                 </th>
               ))}
-              <th
-                className="text-secondary h-8 w-20 px-2 text-left text-sm font-normal"
-                colSpan={2}
-              >
-                <div className="flex items-center gap-0.5">
-                  <IconButton>
-                    <Icon icon={plusIcon} color="secondary" size={16} />
-                  </IconButton>
-                  <IconButton>
-                    <span className="text-secondary text-xl">⋯</span>
-                  </IconButton>
-                </div>
-              </th>
+              {!compact && (
+                <th
+                  className="text-secondary h-8 w-20 px-2 text-left font-normal"
+                  colSpan={2}
+                >
+                  <div className="flex items-center gap-0.5">
+                    <IconButton>
+                      <Icon icon={plusIcon} color="secondary" size={16} />
+                    </IconButton>
+                    <IconButton>
+                      <span className="text-secondary text-xl">⋯</span>
+                    </IconButton>
+                  </div>
+                </th>
+              )}
             </tr>
           </thead>
 
-          {/* Table Body */}
           <tbody>
             {data.map((row) => (
               <tr
                 key={row.id}
-                className="group border-primary hover:bg-secondary/50 border-b"
+                className={cn(
+                  "group border-primary hover:bg-secondary-translucent border-b",
+                  onRowClick && "cursor-pointer",
+                )}
+                onClick={() => onRowClick?.(row)}
               >
                 {columns.map((column) => (
                   <td
                     key={column.id}
-                    className="border-primary h-9 border-r px-3"
+                    className={cn(
+                      compact ? "h-8 px-2 py-1" : "h-9 px-3 py-1.5",
+                    )}
                   >
-                    {column.render(row)}
+                    <div className="min-w-0">{column.render(row)}</div>
                   </td>
                 ))}
 
-                {/* Actions Column */}
-                <td className="h-9 px-3 text-center" colSpan={2}>
-                  {/* Empty - no icons in rows */}
-                </td>
+                {!compact && (
+                  <td className="h-9 px-3 text-center" colSpan={2} />
+                )}
               </tr>
             ))}
           </tbody>
         </table>
 
-        {/* New Page Button */}
-        <div className="px-3 py-2">
+        <div className={compact ? "px-2 py-1" : "px-3 py-2"}>
           <button
-            className="text-tertiary hover:bg-secondary/50 flex items-center gap-1 rounded px-2 py-1 text-sm"
+            className={cn(
+              "text-tertiary hover:bg-secondary-translucent flex items-center gap-1 rounded px-2",
+              compact ? "py-0.5 text-xs" : "py-1 text-sm",
+            )}
             onClick={onNew}
           >
             <span>+</span>

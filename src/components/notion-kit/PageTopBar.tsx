@@ -10,10 +10,18 @@ import { lockIcon } from "@nds-icons/lock/default.icon";
 import { starIcon } from "@nds-icons/star/default.icon";
 import type { Atom } from "jotai";
 import { useAtomValue } from "jotai";
+import Link from "next/link";
+
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
 
 interface PageTopBarProps {
   /** Page title - can be a string or an atom for reactive updates */
   title?: string | Atom<string>;
+  /** Breadcrumb items shown before the title */
+  breadcrumbs?: BreadcrumbItem[];
   /** Callback when Share button is clicked */
   onShare?: () => void;
   /** Callback when Star button is clicked */
@@ -45,6 +53,7 @@ function TitleDisplay({ title }: { title: string | Atom<string> }) {
 
 export function PageTopBar({
   title = "Untitled",
+  breadcrumbs,
   onShare,
   onStar,
   onMore,
@@ -55,9 +64,26 @@ export function PageTopBar({
 }: PageTopBarProps) {
   return (
     <div className={cn("flex h-10 shrink-0 items-center pr-2 pl-4", className)}>
-      <span className="text-primary text-sm">
-        <TitleDisplay title={title} />
-      </span>
+      <div className="flex min-w-0 items-center gap-1 text-sm">
+        {breadcrumbs?.map((crumb, i) => (
+          <span key={crumb.label} className="flex items-center gap-1">
+            {crumb.href ? (
+              <Link
+                href={crumb.href}
+                className="text-secondary hover:text-primary truncate transition-colors"
+              >
+                {crumb.label}
+              </Link>
+            ) : (
+              <span className="text-secondary truncate">{crumb.label}</span>
+            )}
+            <span className="text-quaternary">/</span>
+          </span>
+        ))}
+        <span className="text-primary truncate">
+          <TitleDisplay title={title} />
+        </span>
+      </div>
       <Button
         variant="ghost"
         size="sm"

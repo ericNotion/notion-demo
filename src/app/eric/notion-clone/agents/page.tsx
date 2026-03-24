@@ -4,11 +4,17 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
 import { plusIcon } from "@nds-icons/plus/default.icon";
+import { useAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { CreateAgentModal } from "../components/CreateAgentModal";
+import { EditableTitle } from "../components/EditableTitle";
+import { EmojiPicker } from "../components/EmojiPicker";
 import { type Agent, agents as builtInAgents } from "../data";
 import { NotionShell } from "../shell";
+
+const agentsEmojiAtom = atomWithStorage("eric-nc-agents-emoji", "🤖");
 
 type Category = "all" | "custom" | "workspace";
 
@@ -23,6 +29,7 @@ export default function Page() {
   const [category, setCategory] = useState<Category>("all");
   const [createOpen, setCreateOpen] = useState(false);
   const [customAgents, setCustomAgents] = useState<Agent[]>([]);
+  const [emoji, setEmoji] = useAtom(agentsEmojiAtom);
 
   const allAgents = [...builtInAgents, ...customAgents];
   const filtered =
@@ -33,12 +40,13 @@ export default function Page() {
   return (
     <NotionShell title="Agents">
       <div className="mx-auto w-full max-w-4xl px-8 pt-10 pb-40">
-        <div className="mb-2 text-[78px] leading-[86px]">🤖</div>
+        <EmojiPicker value={emoji} onChange={setEmoji} />
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-primary text-[40px] font-bold tracking-tight">
-              Agents
-            </h1>
+            <EditableTitle
+              storageKey="eric-nc-agents-title"
+              defaultTitle="Agents"
+            />
             <p className="text-secondary mt-1 text-[15px]">
               AI agents that work autonomously on your behalf.
             </p>

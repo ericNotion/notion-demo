@@ -1,23 +1,35 @@
 "use client";
 
 import {
+  DatabaseToolbar,
   ReusableDatabase,
   type Column as DatabaseColumn,
+  type DatabaseViewTab,
 } from "@/components/playground-kit/ReusableDatabase";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
 import { collectionIcon } from "@nds-icons/collection/default.icon";
+import { flagIcon } from "@nds-icons/flag/default.icon";
+import { numberIcon } from "@nds-icons/number/default.icon";
 import { pageIcon } from "@nds-icons/page/default.icon";
 import { peopleIcon } from "@nds-icons/people/default.icon";
+import { starIcon } from "@nds-icons/star/default.icon";
+import { viewBoardIcon } from "@nds-icons/viewBoard/default.icon";
+import { viewTableIcon } from "@nds-icons/viewTable/default.icon";
+import { useAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 import { useState } from "react";
 import { BoardView, type BoardColumn } from "../components/BoardView";
+import { EditableTitle } from "../components/EditableTitle";
+import { EmojiPicker } from "../components/EmojiPicker";
 import { FilterBar } from "../components/FilterBar";
-import { ViewSwitcher, type ViewType } from "../components/ViewSwitcher";
-import { NotionShell } from "../shell";
+import { PagePeekModal, type PageProperty } from "../components/PagePeekModal";
+import { StatusBadge } from "../components/StatusBadge";
 
-type IdeaRow = {
+export type IdeaRow = {
   id: string;
+  slug: string;
   title: string;
   status: "New" | "Exploring" | "Planned" | "Parked";
   author: string;
@@ -25,9 +37,10 @@ type IdeaRow = {
   effort: "S" | "M" | "L" | "XL";
 };
 
-const rows: IdeaRow[] = [
+export const rows: IdeaRow[] = [
   {
     id: "1",
+    slug: "inline-ai-writing-assistant",
     title: "Inline AI writing assistant",
     status: "Exploring",
     author: "Sophie Tran",
@@ -36,6 +49,7 @@ const rows: IdeaRow[] = [
   },
   {
     id: "2",
+    slug: "keyboard-shortcut-cheat-sheet",
     title: "Keyboard shortcut cheat sheet",
     status: "Planned",
     author: "James Wilson",
@@ -44,6 +58,7 @@ const rows: IdeaRow[] = [
   },
   {
     id: "3",
+    slug: "slack-integration",
     title: "Slack integration for page updates",
     status: "New",
     author: "Ravi Kumar",
@@ -52,6 +67,7 @@ const rows: IdeaRow[] = [
   },
   {
     id: "4",
+    slug: "template-gallery",
     title: "Template gallery for new pages",
     status: "Exploring",
     author: "Maya Chen",
@@ -60,6 +76,7 @@ const rows: IdeaRow[] = [
   },
   {
     id: "5",
+    slug: "offline-mode-mobile",
     title: "Offline mode for mobile",
     status: "Parked",
     author: "Jordan Lee",
@@ -68,6 +85,7 @@ const rows: IdeaRow[] = [
   },
   {
     id: "6",
+    slug: "page-analytics-dashboard",
     title: "Page analytics dashboard",
     status: "New",
     author: "Lena Park",
@@ -76,6 +94,7 @@ const rows: IdeaRow[] = [
   },
   {
     id: "7",
+    slug: "bulk-page-export-pdf",
     title: "Bulk page export to PDF",
     status: "Planned",
     author: "Evan Soto",
@@ -84,18 +103,48 @@ const rows: IdeaRow[] = [
   },
 ];
 
-const statusColors: Record<IdeaRow["status"], string> = {
-  New: "bg-blue-secondary text-blue-accent-primary",
-  Exploring: "bg-purple-secondary text-purple-secondary",
-  Planned: "bg-green-secondary text-green-primary",
-  Parked: "bg-secondary text-tertiary",
+export const statusStyles: Record<
+  IdeaRow["status"],
+  { dot: string; bg: string; text: string }
+> = {
+  New: {
+    dot: "bg-blue-500",
+    bg: "bg-blue-secondary",
+    text: "text-blue-accent-primary",
+  },
+  Exploring: {
+    dot: "bg-purple-500",
+    bg: "bg-purple-secondary",
+    text: "text-purple-secondary",
+  },
+  Planned: {
+    dot: "bg-green-600",
+    bg: "bg-green-secondary",
+    text: "text-green-primary",
+  },
+  Parked: { dot: "bg-gray-400", bg: "bg-secondary", text: "text-tertiary" },
 };
 
-const effortColors: Record<IdeaRow["effort"], string> = {
-  S: "bg-green-secondary text-green-primary",
-  M: "bg-blue-secondary text-blue-accent-primary",
-  L: "bg-orange-secondary text-orange-secondary",
-  XL: "bg-red-secondary text-red-secondary",
+export const effortStyles: Record<
+  IdeaRow["effort"],
+  { dot: string; bg: string; text: string }
+> = {
+  S: {
+    dot: "bg-green-600",
+    bg: "bg-green-secondary",
+    text: "text-green-primary",
+  },
+  M: {
+    dot: "bg-blue-500",
+    bg: "bg-blue-secondary",
+    text: "text-blue-accent-primary",
+  },
+  L: {
+    dot: "bg-orange-500",
+    bg: "bg-orange-secondary",
+    text: "text-orange-secondary",
+  },
+  XL: { dot: "bg-red-500", bg: "bg-red-secondary", text: "text-red-secondary" },
 };
 
 const boardColumns: BoardColumn[] = [
@@ -125,6 +174,8 @@ const boardColumns: BoardColumn[] = [
   },
 ];
 
+const ideaEmojiAtom = atomWithStorage("eric-nc-product-ideas-emoji", "💡");
+
 const statusFilters = [
   { id: "New", label: "New" },
   { id: "Exploring", label: "Exploring" },
@@ -153,9 +204,7 @@ const columns: DatabaseColumn<IdeaRow>[] = [
     width: "w-[36%]",
     render: (row) => (
       <div className="flex min-w-0 items-center gap-2">
-        <span className="bg-secondary flex size-6 items-center justify-center rounded-xs text-[13px]">
-          💡
-        </span>
+        <span className="text-[15px]">📄</span>
         <span className="text-primary truncate font-medium">{row.title}</span>
       </div>
     ),
@@ -165,17 +214,17 @@ const columns: DatabaseColumn<IdeaRow>[] = [
     label: "Status",
     labelText: "Status",
     width: "w-[14%]",
-    render: (row) => (
-      <Badge
-        variant="secondary"
-        className={cn(
-          "rounded-full border-0 px-2.5 py-1 text-[11px] font-medium",
-          statusColors[row.status],
-        )}
-      >
-        {row.status}
-      </Badge>
-    ),
+    render: (row) => {
+      const s = statusStyles[row.status];
+      return (
+        <StatusBadge
+          label={row.status}
+          dotColor={s.dot}
+          bgColor={s.bg}
+          textColor={s.text}
+        />
+      );
+    },
   },
   {
     id: "author",
@@ -203,45 +252,113 @@ const columns: DatabaseColumn<IdeaRow>[] = [
     label: "Effort",
     labelText: "Effort",
     width: "w-[10%]",
-    render: (row) => (
-      <Badge
-        variant="secondary"
-        className={cn(
-          "rounded-full border-0 px-2.5 py-1 text-[11px] font-medium",
-          effortColors[row.effort],
-        )}
-      >
-        {row.effort}
-      </Badge>
-    ),
+    render: (row) => {
+      const e = effortStyles[row.effort];
+      return (
+        <StatusBadge
+          label={row.effort}
+          dotColor={e.dot}
+          bgColor={e.bg}
+          textColor={e.text}
+        />
+      );
+    },
   },
 ];
 
+export function getIdeaProperties(row: IdeaRow): PageProperty[] {
+  const s = statusStyles[row.status];
+  const e = effortStyles[row.effort];
+  return [
+    {
+      label: "Status",
+      icon: starIcon,
+      value: (
+        <StatusBadge
+          label={row.status}
+          dotColor={s.dot}
+          bgColor={s.bg}
+          textColor={s.text}
+        />
+      ),
+    },
+    {
+      label: "Author",
+      icon: peopleIcon,
+      value: <span className="text-primary">{row.author}</span>,
+    },
+    {
+      label: "Votes",
+      icon: numberIcon,
+      value: <span className="text-primary">{row.votes}</span>,
+    },
+    {
+      label: "Effort",
+      icon: flagIcon,
+      value: (
+        <StatusBadge
+          label={row.effort}
+          dotColor={e.dot}
+          bgColor={e.bg}
+          textColor={e.text}
+        />
+      ),
+    },
+  ];
+}
+
+const dbViews: DatabaseViewTab[] = [
+  { id: "table", label: "All Ideas", icon: viewTableIcon },
+  { id: "board", label: "By Status", icon: viewBoardIcon },
+];
+
 export default function Page() {
-  const [view, setView] = useState<ViewType>("table");
+  const [view, setView] = useState("table");
   const [activeFilters, setActiveFilters] = useState<Set<string>>(new Set());
   const [filterOpen, setFilterOpen] = useState(false);
+  const [peekRow, setPeekRow] = useState<IdeaRow | null>(null);
+  const [emoji, setEmoji] = useAtom(ideaEmojiAtom);
+  const [allRows, setAllRows] = useState(rows);
+
+  const addRow = () => {
+    const id = String(Date.now());
+    const slug = `new-idea-${id}`;
+    const newRow: IdeaRow = {
+      id,
+      slug,
+      title: "",
+      status: "New",
+      author: "",
+      votes: 0,
+      effort: "S",
+    };
+    setAllRows((prev) => [...prev, newRow]);
+    setPeekRow(newRow);
+  };
 
   const filtered =
     activeFilters.size > 0
-      ? rows.filter((r) => activeFilters.has(r.status))
-      : rows;
+      ? allRows.filter((r) => activeFilters.has(r.status))
+      : allRows;
 
   return (
-    <NotionShell title="Product ideas">
+    <>
       <div className="mx-auto w-full max-w-5xl px-8 pt-10 pb-40">
-        <div className="mb-2 text-[78px] leading-[86px]">💡</div>
-        <h1 className="text-primary text-[40px] font-bold tracking-tight">
-          Product ideas
-        </h1>
+        <EmojiPicker value={emoji} onChange={setEmoji} />
+        <EditableTitle
+          storageKey="eric-nc-product-ideas-title"
+          defaultTitle="Product ideas"
+        />
         <p className="text-secondary mt-2 text-[15px]">
           Ideas from the team, ranked by votes. Add yours below.
         </p>
 
-        <div className="mt-4">
-          <ViewSwitcher
+        <div className="mt-8">
+          <DatabaseToolbar
+            views={dbViews}
             activeView={view}
             onViewChange={setView}
+            onNew={addRow}
           />
 
           {filterOpen && (
@@ -263,48 +380,53 @@ export default function Page() {
           {view === "table" ? (
             <ReusableDatabase
               title="All ideas"
-              icon={collectionIcon}
               columns={columns}
               data={filtered}
-              onNew={() => {}}
-              className="mt-0"
+              showHeader={false}
+              onNew={addRow}
+              onRowClick={setPeekRow}
             />
           ) : (
-            <div className="mt-0">
-              <BoardView
-                columns={boardColumns}
-                items={filtered}
-                groupBy="status"
-                getItemId={(r) => r.id}
-                renderCard={(row) => (
-                  <div>
-                    <p className="text-primary text-sm font-medium">
-                      {row.title}
-                    </p>
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="text-tertiary text-xs">
-                        {row.author}
-                      </span>
-                      <Badge
-                        variant="secondary"
-                        className={cn(
-                          "rounded-full border-0 px-1.5 py-0.5 text-[10px] font-medium",
-                          effortColors[row.effort],
-                        )}
-                      >
-                        {row.effort}
-                      </Badge>
-                    </div>
-                    <span className="text-quaternary mt-1 block text-xs">
-                      {row.votes} votes
-                    </span>
+            <BoardView
+              columns={boardColumns}
+              items={filtered}
+              groupBy="status"
+              getItemId={(r) => r.id}
+              onCardClick={setPeekRow}
+              renderCard={(row) => (
+                <div>
+                  <p className="text-primary text-sm font-medium">
+                    {row.title}
+                  </p>
+                  <div className="mt-2 flex items-center gap-2">
+                    <span className="text-tertiary text-xs">{row.author}</span>
+                    <StatusBadge
+                      label={row.effort}
+                      dotColor={effortStyles[row.effort].dot}
+                      bgColor={effortStyles[row.effort].bg}
+                    />
                   </div>
-                )}
-              />
-            </div>
+                  <span className="text-quaternary mt-1 block text-xs">
+                    {row.votes} votes
+                  </span>
+                </div>
+              )}
+            />
           )}
         </div>
       </div>
-    </NotionShell>
+
+      {peekRow && (
+        <PagePeekModal
+          open={!!peekRow}
+          onOpenChange={(open) => !open && setPeekRow(null)}
+          title={peekRow.title}
+          icon="💡"
+          properties={getIdeaProperties(peekRow)}
+          href={`/eric/notion-clone/product-ideas/${peekRow.slug}`}
+          bodyStorageKey={`eric-nc-product-ideas-${peekRow.slug}`}
+        />
+      )}
+    </>
   );
 }

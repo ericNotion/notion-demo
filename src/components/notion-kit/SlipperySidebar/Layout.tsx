@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { slipperySidebarOpenAtom, slipperySidebarWidthAtom } from "./atoms";
 
-const MIN_WIDTH_PX = 200;
+const MIN_WIDTH_PX = 290;
 const MAX_WIDTH_PX = 480;
 
 let globalStyleElement: HTMLStyleElement | null = null;
@@ -43,6 +43,12 @@ export function SlipperySidebarLayout({
   const [isResizing, setIsResizing] = useState(false);
   const startXRef = useRef(0);
   const startWidthRef = useRef(0);
+
+  useEffect(() => {
+    if (sidebarWidth < minWidth) {
+      setSidebarWidth(minWidth);
+    }
+  }, [sidebarWidth, minWidth, setSidebarWidth]);
 
   const handleMouseDown = useCallback(
     (e: React.MouseEvent) => {

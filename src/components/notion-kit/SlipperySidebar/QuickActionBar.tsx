@@ -37,9 +37,10 @@ function SidebarTab({
         "relative flex h-8 items-center justify-center rounded-full text-sm font-medium",
         "transition-[padding,margin] duration-200 ease-out",
         active
-          ? "bg-tertiary-translucent text-primary"
+          ? "bg-tertiary-translucent text-primary min-w-0"
           : "text-tertiary hover:bg-secondary-translucent",
         isCompact ? "px-[5px]" : "pr-3 pl-2",
+        isCompact && !active && "shrink-0",
         compact && active && !isFirstTab && "mr-0.5 ml-0.5",
       )}
     >
@@ -66,7 +67,7 @@ function SidebarTab({
       >
         <span className="min-w-0 overflow-hidden">
           <span
-            className={cn("pl-1.5 whitespace-nowrap", {
+            className={cn("truncate pl-1.5", {
               "text-primary": active,
               "text-secondary": !active,
             })}
