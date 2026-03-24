@@ -33,12 +33,18 @@ export interface DatabaseBlock {
   emoji?: string;
 }
 
+export interface DJBeatMachineBlock {
+  id: string;
+  type: "dj-beat-machine";
+}
+
 export type Block =
   | ParagraphBlock
   | ListBlock
   | CalloutBlock
   | DividerBlock
-  | DatabaseBlock;
+  | DatabaseBlock
+  | DJBeatMachineBlock;
 
 // Helper to create IDs
 export function createBlockId(prefix: string = "blk"): string {
