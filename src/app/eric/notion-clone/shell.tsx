@@ -21,6 +21,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { CreateAgentModal } from "./components/CreateAgentModal";
 import { HomeContent } from "./components/HomeContent";
 import { PrototypeBanner } from "./components/PrototypeBanner";
+import "./rainbow-road-theme.css";
 import { SearchDialog } from "./components/SearchDialog";
 import { useSyncedTitle } from "./components/SyncedSidebarItem";
 import {
@@ -255,12 +256,13 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className="flex h-screen flex-col overflow-hidden"
+      className="rainbow-road flex h-screen flex-col overflow-hidden"
       style={{
         fontFamily:
           'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
       }}
     >
+      <div className="rainbow-road-stripe" />
       <PrototypeBanner />
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <SlipperySidebarLayout
