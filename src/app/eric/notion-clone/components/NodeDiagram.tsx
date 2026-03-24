@@ -420,7 +420,7 @@ export function NodeDiagram() {
   }, []);
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100vh" }}>
+    <div style={{ position: "relative", width: "100%", height: "100%", minHeight: "600px" }}>
       <canvas
         ref={canvasRef}
         onMouseDown={handleMouseDown}
@@ -428,7 +428,12 @@ export function NodeDiagram() {
         onMouseUp={handleMouseUp}
         onClick={handleClick}
         onWheel={handleWheel}
-        style={{ cursor: draggedNode || isPanning ? "grabbing" : "grab" }}
+        style={{ 
+          display: "block",
+          width: "100%",
+          height: "100%",
+          cursor: draggedNode || isPanning ? "grabbing" : "grab" 
+        }}
       />
 
       {/* Toolbar */}

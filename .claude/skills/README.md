@@ -21,6 +21,7 @@ Skills teach Claude project-specific patterns. Load relevant skills before start
 | `ui-components`    | 50+ pre-built components (Button, Dialog, Input, etc.) |
 | `find-icon`        | Search NDS icon library for icons                      |
 | `tailwind-styling` | Design tokens, colors, dark mode, Tailwind v4 patterns |
+| `slash-menu`       | Add block types and slash commands to notion-clone     |
 
 ### State & Data
 
