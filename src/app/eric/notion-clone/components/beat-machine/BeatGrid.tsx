@@ -31,6 +31,11 @@ export function BeatGrid() {
               const isCurrent = isPlaying && currentStep === stepIndex;
               const isMeasureStart = stepIndex % 4 === 0;
 
+              const cellStyle = { backgroundColor: isActive ? track.color : undefined };
+              const hoverAnimation = { scale: 1.1 };
+              const tapAnimation = { scale: 0.95 };
+              const cellAnimation = { opacity: isCurrent ? 1 : isActive ? 0.9 : 0.6 };
+
               return (
                 <motion.button
                   key={stepIndex}
@@ -44,10 +49,10 @@ export function BeatGrid() {
                         : "border-secondary bg-tertiary",
                     isCurrent && "ring-2 ring-blue-500",
                   )}
-                  style= backgroundColor: isActive ? track.color : undefined 
-                  whileHover= scale: 1.1 
-                  whileTap= scale: 0.95 
-                  animate= opacity: isActive ? 1 : 0.6 
+                  style={cellStyle}
+                  whileHover={hoverAnimation}
+                  whileTap={tapAnimation}
+                  animate={cellAnimation}
                 />
               );
             })}
