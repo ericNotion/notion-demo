@@ -128,6 +128,15 @@ export const pages: PageEntry[] = [
     createdBy: "You",
     lastEdited: "just now",
   },
+  {
+    emoji: "🔗",
+    label: "Graph view",
+    href: `${BASE}/graph`,
+    section: "private",
+    kind: "page",
+    createdBy: "You",
+    lastEdited: "just now",
+  },
   // ── Shared ────────────────────────────────────────────────────────────
   {
     emoji: "📋",
