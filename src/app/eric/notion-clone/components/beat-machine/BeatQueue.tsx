@@ -6,7 +6,6 @@ import { Icon } from "@nds-icons";
 import { mediaPlayIcon } from "@nds-icons/mediaPlay/default.icon";
 import { trashIcon } from "@nds-icons/trash/default.icon";
 import { useAtom } from "jotai";
-import { motion } from "motion/react";
 import { beatQueueAtom, bpmAtom, patternsAtom, type BeatPattern } from "./atoms";
 
 type BeatQueueProps = {
@@ -54,13 +53,9 @@ export function BeatQueue({ onLoadPattern }: BeatQueueProps) {
       </div>
 
       <div className="flex flex-col gap-2 max-h-[400px] overflow-y-auto">
-        {queue.map((beat, index) => (
-          <motion.div
+        {queue.map((beat) => (
+          <div
             key={beat.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ delay: index * 0.05 }}
             className={cn(
               "flex items-center gap-3 p-3 rounded-md",
               "bg-secondary border border-border-primary",
@@ -97,7 +92,7 @@ export function BeatQueue({ onLoadPattern }: BeatQueueProps) {
             >
               <Icon icon={trashIcon} size={16} color="tertiary" />
             </button>
-          </motion.div>
+          </div>
         ))}
 
         {queue.length === 0 && (

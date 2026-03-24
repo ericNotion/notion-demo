@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import { motion } from "motion/react";
 
 type DrumPadProps = {
   active: boolean;
@@ -21,7 +20,7 @@ export function DrumPad({
   const isBeatMarker = stepIndex % 4 === 0;
 
   return (
-    <motion.button
+    <button
       type="button"
       onClick={onClick}
       className={cn(
@@ -33,19 +32,10 @@ export function DrumPad({
         isCurrentStep && isPlaying && "ring-2 ring-teal-primary ring-offset-2 ring-offset-primary",
         isBeatMarker && !active && "border-border-strong",
       )}
-      whileTap={{ scale: 0.9 }}
-      animate={{
-        backgroundColor: active
-          ? "var(--bg-purple-primary)"
-          : isCurrentStep && isPlaying
-            ? "var(--bg-tertiary)"
-            : "var(--bg-secondary)",
-      }}
-      transition={{ duration: 0.1 }}
     >
       {active && (
         <div className="absolute inset-0 rounded-sm bg-purple-primary opacity-50 blur-sm" />
       )}
-    </motion.button>
+    </button>
   );
 }
