@@ -33,12 +33,18 @@ export interface DatabaseBlock {
   emoji?: string;
 }
 
+export interface GraphBlock {
+  id: string;
+  type: "graph";
+}
+
 export type Block =
   | ParagraphBlock
   | ListBlock
   | CalloutBlock
   | DividerBlock
-  | DatabaseBlock;
+  | DatabaseBlock
+  | GraphBlock;
 
 // Helper to create IDs
 export function createBlockId(prefix: string = "blk"): string {
