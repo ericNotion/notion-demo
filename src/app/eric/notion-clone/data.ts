@@ -32,7 +32,7 @@ export type PageEntry = {
 export const pages: PageEntry[] = [
   // ── Favorites ─────────────────────────────────────────────────────────
   {
-    emoji: "📄",
+    emoji: "\uD83D\uDCC4",
     label: "Product workspace",
     href: BASE,
     section: "favorites",
@@ -43,7 +43,7 @@ export const pages: PageEntry[] = [
     titleStorageKey: "eric-nc-product-workspace-title",
   },
   {
-    emoji: "🚀",
+    emoji: "\uD83D\uDE80",
     label: "Launch tracker",
     href: `${BASE}/launch-tracker`,
     section: "favorites",
@@ -53,7 +53,7 @@ export const pages: PageEntry[] = [
     emojiStorageKey: "eric-nc-launch-tracker-emoji",
   },
   {
-    emoji: "📊",
+    emoji: "\uD83D\uDCCA",
     label: "Research archive",
     href: `${BASE}/research-archive`,
     section: "favorites",
@@ -64,7 +64,7 @@ export const pages: PageEntry[] = [
   },
   // ── Private ───────────────────────────────────────────────────────────
   {
-    emoji: "📝",
+    emoji: "\uD83D\uDCDD",
     label: "Daily notes",
     href: `${BASE}/daily-notes`,
     section: "private",
@@ -74,7 +74,7 @@ export const pages: PageEntry[] = [
     emojiStorageKey: "eric-nc-daily-notes-emoji",
   },
   {
-    emoji: "🎨",
+    emoji: "\uD83C\uDFA8",
     label: "Design references",
     href: `${BASE}/design-references`,
     section: "private",
@@ -84,7 +84,7 @@ export const pages: PageEntry[] = [
     emojiStorageKey: "eric-nc-design-refs-emoji",
   },
   {
-    emoji: "🔊",
+    emoji: "\uD83D\uDD0A",
     label: "Design review meeting",
     href: `${BASE}/meeting-note`,
     section: "private",
@@ -93,7 +93,7 @@ export const pages: PageEntry[] = [
     lastEdited: "8h ago",
   },
   {
-    emoji: "💬",
+    emoji: "\uD83D\uDCAC",
     label: "Chat",
     href: `${BASE}/chat`,
     section: "private",
@@ -102,7 +102,7 @@ export const pages: PageEntry[] = [
     lastEdited: "30m ago",
   },
   {
-    emoji: "🎙️",
+    emoji: "\uD83C\uDF99\uFE0F",
     label: "Sprint retro notes",
     href: `${BASE}/meeting-note/sprint-retro`,
     section: "private",
@@ -111,7 +111,7 @@ export const pages: PageEntry[] = [
     lastEdited: "2d ago",
   },
   {
-    emoji: "🎙️",
+    emoji: "\uD83C\uDF99\uFE0F",
     label: "1:1 with manager",
     href: `${BASE}/meeting-note/manager-1on1`,
     section: "private",
@@ -120,7 +120,7 @@ export const pages: PageEntry[] = [
     lastEdited: "4d ago",
   },
   {
-    emoji: "📄",
+    emoji: "\uD83D\uDCC4",
     label: "New page",
     href: `${BASE}/new-page`,
     section: "private",
@@ -128,9 +128,18 @@ export const pages: PageEntry[] = [
     createdBy: "You",
     lastEdited: "just now",
   },
+  {
+    emoji: "\uD83C\uDFA7",
+    label: "DJ Beat Machine",
+    href: `${BASE}/dj-beat-machine`,
+    section: "private",
+    kind: "page",
+    createdBy: "You",
+    lastEdited: "just now",
+  },
   // ── Shared ────────────────────────────────────────────────────────────
   {
-    emoji: "📋",
+    emoji: "\uD83D\uDCCB",
     label: "Product handbook",
     href: `${BASE}/product-handbook`,
     section: "shared",
@@ -140,7 +149,7 @@ export const pages: PageEntry[] = [
     emojiStorageKey: "eric-nc-handbook-emoji",
   },
   {
-    emoji: "💡",
+    emoji: "\uD83D\uDCA1",
     label: "Product ideas",
     href: `${BASE}/product-ideas`,
     section: "shared",
@@ -150,7 +159,7 @@ export const pages: PageEntry[] = [
   },
   // ── Launch tracker items ────────────────────────────────────────────
   {
-    emoji: "📄",
+    emoji: "\uD83D\uDCC4",
     label: "Payments migration",
     href: `${BASE}/launch-tracker/payments-migration`,
     section: "favorites",
@@ -160,7 +169,7 @@ export const pages: PageEntry[] = [
     parent: "Launch tracker",
   },
   {
-    emoji: "📄",
+    emoji: "\uD83D\uDCC4",
     label: "Self-serve onboarding",
     href: `${BASE}/launch-tracker/self-serve-onboarding`,
     section: "favorites",
@@ -170,7 +179,7 @@ export const pages: PageEntry[] = [
     parent: "Launch tracker",
   },
   {
-    emoji: "📄",
+    emoji: "\uD83D\uDCC4",
     label: "Customer health report",
     href: `${BASE}/launch-tracker/customer-health-report`,
     section: "favorites",
@@ -180,7 +189,7 @@ export const pages: PageEntry[] = [
     parent: "Launch tracker",
   },
   {
-    emoji: "📄",
+    emoji: "\uD83D\uDCC4",
     label: "Pricing FAQ refresh",
     href: `${BASE}/launch-tracker/pricing-faq-refresh`,
     section: "favorites",
@@ -190,7 +199,7 @@ export const pages: PageEntry[] = [
     parent: "Launch tracker",
   },
   {
-    emoji: "📄",
+    emoji: "\uD83D\uDCC4",
     label: "API v2 rollout",
     href: `${BASE}/launch-tracker/api-v2-rollout`,
     section: "favorites",
@@ -200,7 +209,7 @@ export const pages: PageEntry[] = [
     parent: "Launch tracker",
   },
   {
-    emoji: "📄",
+    emoji: "\uD83D\uDCC4",
     label: "Mobile push notifications",
     href: `${BASE}/launch-tracker/mobile-push-notifications`,
     section: "favorites",
@@ -210,7 +219,7 @@ export const pages: PageEntry[] = [
     parent: "Launch tracker",
   },
   {
-    emoji: "📄",
+    emoji: "\uD83D\uDCC4",
     label: "Dashboard redesign",
     href: `${BASE}/launch-tracker/dashboard-redesign`,
     section: "favorites",
@@ -220,7 +229,7 @@ export const pages: PageEntry[] = [
     parent: "Launch tracker",
   },
   {
-    emoji: "📄",
+    emoji: "\uD83D\uDCC4",
     label: "Accessibility audit",
     href: `${BASE}/launch-tracker/accessibility-audit`,
     section: "favorites",
@@ -231,7 +240,7 @@ export const pages: PageEntry[] = [
   },
   // ── Product ideas items ─────────────────────────────────────────────
   {
-    emoji: "💡",
+    emoji: "\uD83D\uDCA1",
     label: "Inline AI writing assistant",
     href: `${BASE}/product-ideas/inline-ai-writing-assistant`,
     section: "shared",
@@ -241,7 +250,7 @@ export const pages: PageEntry[] = [
     parent: "Product ideas",
   },
   {
-    emoji: "💡",
+    emoji: "\uD83D\uDCA1",
     label: "Keyboard shortcut cheat sheet",
     href: `${BASE}/product-ideas/keyboard-shortcut-cheat-sheet`,
     section: "shared",
@@ -251,7 +260,7 @@ export const pages: PageEntry[] = [
     parent: "Product ideas",
   },
   {
-    emoji: "💡",
+    emoji: "\uD83D\uDCA1",
     label: "Slack integration for page updates",
     href: `${BASE}/product-ideas/slack-integration`,
     section: "shared",
@@ -261,7 +270,7 @@ export const pages: PageEntry[] = [
     parent: "Product ideas",
   },
   {
-    emoji: "💡",
+    emoji: "\uD83D\uDCA1",
     label: "Template gallery for new pages",
     href: `${BASE}/product-ideas/template-gallery`,
     section: "shared",
@@ -271,7 +280,7 @@ export const pages: PageEntry[] = [
     parent: "Product ideas",
   },
   {
-    emoji: "💡",
+    emoji: "\uD83D\uDCA1",
     label: "Offline mode for mobile",
     href: `${BASE}/product-ideas/offline-mode-mobile`,
     section: "shared",
@@ -281,7 +290,7 @@ export const pages: PageEntry[] = [
     parent: "Product ideas",
   },
   {
-    emoji: "💡",
+    emoji: "\uD83D\uDCA1",
     label: "Page analytics dashboard",
     href: `${BASE}/product-ideas/page-analytics-dashboard`,
     section: "shared",
@@ -291,7 +300,7 @@ export const pages: PageEntry[] = [
     parent: "Product ideas",
   },
   {
-    emoji: "💡",
+    emoji: "\uD83D\uDCA1",
     label: "Bulk page export to PDF",
     href: `${BASE}/product-ideas/bulk-page-export-pdf`,
     section: "shared",
@@ -302,7 +311,7 @@ export const pages: PageEntry[] = [
   },
   // ── Research archive items ──────────────────────────────────────────
   {
-    emoji: "📊",
+    emoji: "\uD83D\uDCCA",
     label: "Onboarding friction points",
     href: `${BASE}/research-archive/onboarding-friction-points`,
     section: "favorites",
@@ -312,7 +321,7 @@ export const pages: PageEntry[] = [
     parent: "Research archive",
   },
   {
-    emoji: "📊",
+    emoji: "\uD83D\uDCCA",
     label: "Pricing page A/B results",
     href: `${BASE}/research-archive/pricing-page-ab-results`,
     section: "favorites",
@@ -322,7 +331,7 @@ export const pages: PageEntry[] = [
     parent: "Research archive",
   },
   {
-    emoji: "📊",
+    emoji: "\uD83D\uDCCA",
     label: "Mobile nav usability",
     href: `${BASE}/research-archive/mobile-nav-usability`,
     section: "favorites",
@@ -332,7 +341,7 @@ export const pages: PageEntry[] = [
     parent: "Research archive",
   },
   {
-    emoji: "📊",
+    emoji: "\uD83D\uDCCA",
     label: "Competitor feature matrix",
     href: `${BASE}/research-archive/competitor-feature-matrix`,
     section: "favorites",
@@ -342,7 +351,7 @@ export const pages: PageEntry[] = [
     parent: "Research archive",
   },
   {
-    emoji: "📊",
+    emoji: "\uD83D\uDCCA",
     label: "Enterprise user interviews",
     href: `${BASE}/research-archive/enterprise-user-interviews`,
     section: "favorites",
@@ -352,7 +361,7 @@ export const pages: PageEntry[] = [
     parent: "Research archive",
   },
   {
-    emoji: "📊",
+    emoji: "\uD83D\uDCCA",
     label: "Search UX benchmarking",
     href: `${BASE}/research-archive/search-ux-benchmarking`,
     section: "favorites",
@@ -362,7 +371,7 @@ export const pages: PageEntry[] = [
     parent: "Research archive",
   },
   {
-    emoji: "📊",
+    emoji: "\uD83D\uDCCA",
     label: "NPS deep-dive Q1",
     href: `${BASE}/research-archive/nps-deep-dive-q1`,
     section: "favorites",
@@ -400,7 +409,7 @@ export const agents: Agent[] = [
     name: "Notion AI",
     avatar: "/images/customAgentAvatars/square-blue-sm.png",
     bannerColor: "#f0f0f0",
-    emoji: "✨",
+    emoji: "\u2728",
     description:
       "Your general-purpose AI assistant built into Notion. Ask questions, draft content, and brainstorm.",
     author: "Notion",
@@ -413,7 +422,7 @@ export const agents: Agent[] = [
     name: "Research Assistant",
     avatar: "/images/customAgentAvatars/bulb-purple-sm.png",
     bannerColor: "#e2d4f0",
-    emoji: "🔬",
+    emoji: "\uD83D\uDD2C",
     description:
       "Searches your workspace and the web to find answers, synthesize research, and surface relevant context.",
     author: "Notion",
@@ -426,7 +435,7 @@ export const agents: Agent[] = [
     name: "Writing Coach",
     avatar: "/images/customAgentAvatars/book-green-sm.png",
     bannerColor: "#d4edda",
-    emoji: "✍️",
+    emoji: "\u270D\uFE0F",
     description:
       "Helps improve your writing — checks grammar, suggests edits, and adjusts tone.",
     author: "Notion",
@@ -439,7 +448,7 @@ export const agents: Agent[] = [
     name: "Meeting Summarizer",
     avatar: "/images/customAgentAvatars/chat-orange-sm.png",
     bannerColor: "#f5e6d3",
-    emoji: "📋",
+    emoji: "\uD83D\uDCCB",
     description:
       "Turns meeting transcripts into structured summaries with action items and key decisions.",
     author: "Notion",
@@ -452,7 +461,7 @@ export const agents: Agent[] = [
     name: "Task Prioritizer",
     avatar: "/images/customAgentAvatars/check-blue-sm.png",
     bannerColor: "#d4e4f7",
-    emoji: "🎯",
+    emoji: "\uD83C\uDFAF",
     description:
       "Analyzes your tasks and suggests priorities based on deadlines, dependencies, and effort.",
     author: "You",
@@ -465,7 +474,7 @@ export const agents: Agent[] = [
     name: "Code Reviewer",
     avatar: "/images/customAgentAvatars/triangle-yellow-sm.png",
     bannerColor: "#f5edd3",
-    emoji: "💻",
+    emoji: "\uD83D\uDCBB",
     description:
       "Reviews code snippets for bugs, performance issues, and best practices.",
     author: "You",
@@ -483,14 +492,14 @@ export const upcomingEvents = [
   {
     id: "1",
     title: "Design review",
-    timeRange: "10 – 11 AM",
+    timeRange: "10 \u2013 11 AM",
     color: "#5e9fe8",
     href: `${BASE}/meeting-note/design-review`,
   },
   {
     id: "2",
     title: "Sprint planning",
-    timeRange: "2 – 3 PM",
+    timeRange: "2 \u2013 3 PM",
     color: "#d49a6a",
     href: `${BASE}/meeting-note/sprint-planning`,
   },
@@ -542,13 +551,13 @@ export const chatThreads: Record<string, ThreadMessage[]> = {
     {
       role: "assistant",
       content:
-        "Based on recent workspace activity, here are the key topics for today's sync:\n\n1. **API v2 rollout** — Lena marked this as Done. Quick celebration + any remaining cleanup?\n\n2. **Payments migration** — Currently \"In review\". Priya may need sign-off before Mar 28 deadline.\n\n3. **Customer health report** — Blocked. Maya is the owner — worth discussing what's blocking and how to unblock.\n\n4. **Self-serve onboarding** — On track for Apr 2. Jordan might have a quick update.\n\nWant me to draft an agenda doc for this?",
+        "Based on recent workspace activity, here are the key topics for today's sync:\n\n1. **API v2 rollout** \u2014 Lena marked this as Done. Quick celebration + any remaining cleanup?\n\n2. **Payments migration** \u2014 Currently \\\"In review\\\". Priya may need sign-off before Mar 28 deadline.\n\n3. **Customer health report** \u2014 Blocked. Maya is the owner \u2014 worth discussing what's blocking and how to unblock.\n\n4. **Self-serve onboarding** \u2014 On track for Apr 2. Jordan might have a quick update.\n\nWant me to draft an agenda doc for this?",
     },
     { role: "user", content: "Yes, draft an agenda" },
     {
       role: "assistant",
       content:
-        "Here's a draft agenda:\n\n---\n\n## Team Sync — Thursday, March 23\n\n**Duration:** 30 min\n\n### Celebrations (5 min)\n- API v2 rollout shipped! 🎉\n\n### Status Updates (10 min)\n- Payments migration — review status, sign-off needed?\n- Self-serve onboarding — quick check-in\n\n### Blockers (10 min)\n- Customer health report — what's blocking?\n- Action items from last sync\n\n### Open Floor (5 min)\n\n---\n\nI can create this as a page in your workspace if you'd like.",
+        "Here's a draft agenda:\n\n---\n\n## Team Sync \u2014 Thursday, March 23\n\n**Duration:** 30 min\n\n### Celebrations (5 min)\n- API v2 rollout shipped! \uD83C\uDF89\n\n### Status Updates (10 min)\n- Payments migration \u2014 review status, sign-off needed?\n- Self-serve onboarding \u2014 quick check-in\n\n### Blockers (10 min)\n- Customer health report \u2014 what's blocking?\n- Action items from last sync\n\n### Open Floor (5 min)\n\n---\n\nI can create this as a page in your workspace if you'd like.",
     },
   ],
   c3: [
@@ -560,7 +569,7 @@ export const chatThreads: Record<string, ThreadMessage[]> = {
     {
       role: "assistant",
       content:
-        "Looking at your Product ideas database, here are the top candidates for Q3 based on votes and strategic alignment:\n\n**High priority (strong signal)**\n- **Offline mode for mobile** — 45 votes, currently Parked. This has the most community demand but is XL effort. Consider scoping a lightweight version.\n- **Template gallery for new pages** — 31 votes, Exploring. Medium effort, high impact on activation.\n\n**Medium priority**\n- **Inline AI writing assistant** — 24 votes, Exploring. Large effort but aligns with AI strategy.\n- **Keyboard shortcut cheat sheet** — 18 votes, Planned. Small effort, good quality-of-life improvement.\n\n**Worth discussing**\n- **Bulk page export to PDF** — 15 votes, Planned. Small effort, frequently requested by enterprise users.\n\nI'd recommend focusing Q3 on the template gallery + keyboard shortcuts as quick wins, then investing in a scoped version of offline mode as the big bet.",
+        "Looking at your Product ideas database, here are the top candidates for Q3 based on votes and strategic alignment:\n\n**High priority (strong signal)**\n- **Offline mode for mobile** \u2014 45 votes, currently Parked. This has the most community demand but is XL effort. Consider scoping a lightweight version.\n- **Template gallery for new pages** \u2014 31 votes, Exploring. Medium effort, high impact on activation.\n\n**Medium priority**\n- **Inline AI writing assistant** \u2014 24 votes, Exploring. Large effort but aligns with AI strategy.\n- **Keyboard shortcut cheat sheet** \u2014 18 votes, Planned. Small effort, good quality-of-life improvement.\n\n**Worth discussing**\n- **Bulk page export to PDF** \u2014 15 votes, Planned. Small effort, frequently requested by enterprise users.\n\nI'd recommend focusing Q3 on the template gallery + keyboard shortcuts as quick wins, then investing in a scoped version of offline mode as the big bet.",
     },
   ],
   c4: [
@@ -571,7 +580,7 @@ export const chatThreads: Record<string, ThreadMessage[]> = {
     {
       role: "assistant",
       content:
-        'I searched through your workspace for context. Based on your existing product ideas, research archive, and recent team discussions, here are some fresh directions:\n\n**Workflow automation**\n- Recurring page templates — auto-create weekly planning docs\n- Status change triggers — notify Slack when a launch item moves to "Blocked"\n\n**Collaboration**\n- Page-level comments thread (like Google Docs)\n- "Suggest edits" mode for shared docs\n- Live cursors showing who\'s viewing a page\n\n**AI-powered**\n- Auto-tagging for research entries based on content\n- Meeting transcript → action items pipeline\n- Smart page linking — suggest related pages as you write\n\n**Data & insights**\n- Page view analytics — see which docs get the most traffic\n- Database rollup dashboards\n- Custom chart blocks for inline data visualization\n\nWant me to add any of these to your Product ideas database?',
+        'I searched through your workspace for context. Based on your existing product ideas, research archive, and recent team discussions, here are some fresh directions:\n\n**Workflow automation**\n- Recurring page templates \u2014 auto-create weekly planning docs\n- Status change triggers \u2014 notify Slack when a launch item moves to "Blocked"\n\n**Collaboration**\n- Page-level comments thread (like Google Docs)\n- "Suggest edits" mode for shared docs\n- Live cursors showing who\'s viewing a page\n\n**AI-powered**\n- Auto-tagging for research entries based on content\n- Meeting transcript \u2192 action items pipeline\n- Smart page linking \u2014 suggest related pages as you write\n\n**Data & insights**\n- Page view analytics \u2014 see which docs get the most traffic\n- Database rollup dashboards\n- Custom chart blocks for inline data visualization\n\nWant me to add any of these to your Product ideas database?',
     },
   ],
   c5: [
@@ -582,7 +591,7 @@ export const chatThreads: Record<string, ThreadMessage[]> = {
     {
       role: "assistant",
       content:
-        'Based on your Design references page and recent workspace activity, here are talking points for the review:\n\n**Navigation patterns**\n- Sidebar with collapsible sections is working well (Notion/Linear pattern)\n- Should we add breadcrumb trails for deep page hierarchies?\n- Command palette (⌘K) usage metrics — are people discovering it?\n\n**Data display updates**\n- Table views with inline editing — any usability issues from the research archive findings?\n- Board views — drag-and-drop feedback from the mobile nav usability study showed 12 insights\n- Timeline views — needed for launch tracker?\n\n**Typography & consistency**\n- Verify we\'re sticking to the type scale: body 14px, titles 40px, headings 24/20/18\n- Semantic token usage — are we consistent across new components?\n\n**Action items from last review**\n- Status of the dashboard redesign (Sophie, currently "In review")\n- Mobile push notification designs (Ravi, "On track" for Apr 15)\n\nWant me to format these into a presentation outline?',
+        'Based on your Design references page and recent workspace activity, here are talking points for the review:\n\n**Navigation patterns**\n- Sidebar with collapsible sections is working well (Notion/Linear pattern)\n- Should we add breadcrumb trails for deep page hierarchies?\n- Command palette (\u2318K) usage metrics \u2014 are people discovering it?\n\n**Data display updates**\n- Table views with inline editing \u2014 any usability issues from the research archive findings?\n- Board views \u2014 drag-and-drop feedback from the mobile nav usability study showed 12 insights\n- Timeline views \u2014 needed for launch tracker?\n\n**Typography & consistency**\n- Verify we\'re sticking to the type scale: body 14px, titles 40px, headings 24/20/18\n- Semantic token usage \u2014 are we consistent across new components?\n\n**Action items from last review**\n- Status of the dashboard redesign (Sophie, currently "In review")\n- Mobile push notification designs (Ravi, "On track" for Apr 15)\n\nWant me to format these into a presentation outline?',
     },
   ],
   c6: [
@@ -594,7 +603,7 @@ export const chatThreads: Record<string, ThreadMessage[]> = {
     {
       role: "assistant",
       content:
-        "I'd be happy to help! To create the best outline, I need a bit more context:\n\n1. **Who is the client?** (industry, size, their role)\n2. **What's the goal?** (pitch, progress update, demo, proposal?)\n3. **How long** is the presentation?\n4. **Any specific topics** they've asked about?\n\nIn the meantime, here's a general structure that works well:\n\n## Client Presentation Outline\n\n1. **Opening** (2 min) — Thank them, set the agenda\n2. **Context recap** (3 min) — What we discussed last time, their goals\n3. **Progress / Demo** (10 min) — What we've built, key milestones\n4. **Results & Insights** (5 min) — Data, user feedback, learnings\n5. **Next Steps** (5 min) — Roadmap, timeline, asks\n6. **Q&A** (5 min)\n\nFill me in on the details and I'll tailor this for you.",
+        "I'd be happy to help! To create the best outline, I need a bit more context:\n\n1. **Who is the client?** (industry, size, their role)\n2. **What's the goal?** (pitch, progress update, demo, proposal?)\n3. **How long** is the presentation?\n4. **Any specific topics** they've asked about?\n\nIn the meantime, here's a general structure that works well:\n\n## Client Presentation Outline\n\n1. **Opening** (2 min) \u2014 Thank them, set the agenda\n2. **Context recap** (3 min) \u2014 What we discussed last time, their goals\n3. **Progress / Demo** (10 min) \u2014 What we've built, key milestones\n4. **Results & Insights** (5 min) \u2014 Data, user feedback, learnings\n5. **Next Steps** (5 min) \u2014 Roadmap, timeline, asks\n6. **Q&A** (5 min)\n\nFill me in on the details and I'll tailor this for you.",
     },
     {
       role: "user",
@@ -604,7 +613,7 @@ export const chatThreads: Record<string, ThreadMessage[]> = {
     {
       role: "assistant",
       content:
-        "Here's a tailored outline for Acme Corp:\n\n## Q1 Progress Update — Acme Corp\n**Duration:** 20 minutes\n\n### 1. Welcome & Agenda (1 min)\n- Quick hello, outline what we'll cover\n\n### 2. Q1 Highlights (4 min)\n- Top 3 shipped features/milestones\n- Key metrics: adoption, performance, reliability\n- Customer feedback highlights\n\n### 3. Deep Dive: Key Deliverables (8 min)\n- Feature A — demo + impact\n- Feature B — demo + impact\n- Infrastructure/performance improvements\n\n### 4. Challenges & Learnings (3 min)\n- What we learned this quarter\n- Any timeline adjustments and why\n- How we're addressing blockers\n\n### 5. Q2 Roadmap Preview (3 min)\n- Planned features and priorities\n- Timeline and milestones\n- Any decisions needed from Acme\n\n### 6. Open Discussion (1 min)\n- Questions, feedback, priorities alignment\n\nWant me to create this as a page in your workspace so you can start filling it in?",
+        "Here's a tailored outline for Acme Corp:\n\n## Q1 Progress Update \u2014 Acme Corp\n**Duration:** 20 minutes\n\n### 1. Welcome & Agenda (1 min)\n- Quick hello, outline what we'll cover\n\n### 2. Q1 Highlights (4 min)\n- Top 3 shipped features/milestones\n- Key metrics: adoption, performance, reliability\n- Customer feedback highlights\n\n### 3. Deep Dive: Key Deliverables (8 min)\n- Feature A \u2014 demo + impact\n- Feature B \u2014 demo + impact\n- Infrastructure/performance improvements\n\n### 4. Challenges & Learnings (3 min)\n- What we learned this quarter\n- Any timeline adjustments and why\n- How we're addressing blockers\n\n### 5. Q2 Roadmap Preview (3 min)\n- Planned features and priorities\n- Timeline and milestones\n- Any decisions needed from Acme\n\n### 6. Open Discussion (1 min)\n- Questions, feedback, priorities alignment\n\nWant me to create this as a page in your workspace so you can start filling it in?",
     },
   ],
 };
@@ -750,7 +759,7 @@ export const inboxNotifications: InboxNotification[] = [
     user: "Sophie",
     avatarColor: "#b0a8a0",
     action: "mentioned you in",
-    pageEmoji: "📄",
+    pageEmoji: "\uD83D\uDCC4",
     pageTitle: "Product workspace",
     pageHref: `${BASE}`,
     preview: "Can you update the key resources section?",
@@ -761,7 +770,7 @@ export const inboxNotifications: InboxNotification[] = [
     user: "James",
     avatarColor: "#d4a843",
     action: "commented in",
-    pageEmoji: "📊",
+    pageEmoji: "\uD83D\uDCCA",
     pageTitle: "Research archive",
     pageHref: `${BASE}/research-archive`,
     preview: "Added the latest interview findings here",
