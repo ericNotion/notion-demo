@@ -1,4 +1,5 @@
 import type { Block } from "../atoms";
+import { beatMachineBlockDef } from "./BeatMachineBlock";
 import { bulletedListBlockDef } from "./BulletedListBlock";
 import { calloutBlockDef } from "./CalloutBlock";
 import { databaseBlockDef } from "./DatabaseBlock";
@@ -22,6 +23,7 @@ export const blockDefs: BlockDefinition[] = [
   calloutBlockDef,
   dividerBlockDef,
   databaseBlockDef,
+  beatMachineBlockDef,
 ];
 
 export const blockRegistry = new Map<Block["type"], BlockDefinition>(
