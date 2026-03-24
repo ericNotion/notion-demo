@@ -3,6 +3,7 @@ import { bulletedListBlockDef } from "./BulletedListBlock";
 import { calloutBlockDef } from "./CalloutBlock";
 import { databaseBlockDef } from "./DatabaseBlock";
 import { dividerBlockDef } from "./DividerBlock";
+import { djBeatMachineBlockDef } from "./DJBeatMachineBlock";
 import {
   h1BlockDef,
   h2BlockDef,
@@ -22,6 +23,7 @@ export const blockDefs: BlockDefinition[] = [
   calloutBlockDef,
   dividerBlockDef,
   databaseBlockDef,
+  djBeatMachineBlockDef,
 ];
 
 export const blockRegistry = new Map<Block["type"], BlockDefinition>(
