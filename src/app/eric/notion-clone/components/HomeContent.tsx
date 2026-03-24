@@ -1,24 +1,20 @@
 "use client";
 
 import {
-  AgentItem,
   CollapsibleGroup,
   EventItem,
   FooterLinks,
   SidebarSection,
   useSlipperySidebarContext,
 } from "@/components/notion-kit/SlipperySidebar";
-import { IconButton } from "@/components/ui/icon-button";
 import { Icon } from "@nds-icons";
-import { aiFaceIcon } from "@nds-icons/aiFace/default.icon";
 import { arrowDiagonalUpRightIcon } from "@nds-icons/arrowDiagonalUpRight/default.icon";
-import { plusIcon } from "@nds-icons/plus/default.icon";
 import { useAtomValue } from "jotai";
 import { usePathname, useRouter } from "next/navigation";
-import { agents, allPagesAtom, upcomingEvents } from "../data";
+import { allPagesAtom, upcomingEvents } from "../data";
 import { SyncedSidebarItem } from "./SyncedSidebarItem";
 
-export function HomeContent({ onNewAgent }: { onNewAgent: () => void }) {
+export function HomeContent() {
   const { setActiveTab: setTab } = useSlipperySidebarContext();
   const pathname = usePathname();
   const router = useRouter();
@@ -89,39 +85,6 @@ export function HomeContent({ onNewAgent }: { onNewAgent: () => void }) {
                 isActive={pathname === page.href}
               />
             ))}
-        </CollapsibleGroup>
-
-        <CollapsibleGroup
-          id="agents"
-          label="Agents"
-          triggerAccessory={
-            <IconButton
-              variant="ghost"
-              size="xs"
-              onClick={(e) => {
-                e.stopPropagation();
-                onNewAgent();
-              }}
-            >
-              <Icon icon={plusIcon} size={14} color="tertiary" />
-            </IconButton>
-          }
-        >
-          {agents.map((agent) => (
-            <AgentItem
-              key={agent.id}
-              name={agent.name}
-              avatar={agent.avatar || undefined}
-              icon={
-                agent.id === "6" ? (
-                  <Icon icon={aiFaceIcon} size={20} color="secondary" />
-                ) : undefined
-              }
-              onClick={() =>
-                router.push(`/eric/notion-clone/chat?agent=${agent.id}`)
-              }
-            />
-          ))}
         </CollapsibleGroup>
       </div>
 

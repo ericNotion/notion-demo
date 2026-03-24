@@ -148,15 +148,6 @@ export const pages: PageEntry[] = [
     createdBy: "Ravi Kumar",
     lastEdited: "6h ago",
   },
-  {
-    emoji: "🤖",
-    label: "Agents",
-    href: `${BASE}/agents`,
-    section: "shared",
-    kind: "page",
-    createdBy: "You",
-    lastEdited: "1d ago",
-  },
   // ── Launch tracker items ────────────────────────────────────────────
   {
     emoji: "📄",
