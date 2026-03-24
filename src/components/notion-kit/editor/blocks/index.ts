@@ -3,6 +3,7 @@ import { bulletedListBlockDef } from "./BulletedListBlock";
 import { calloutBlockDef } from "./CalloutBlock";
 import { databaseBlockDef } from "./DatabaseBlock";
 import { dividerBlockDef } from "./DividerBlock";
+import { graphDiagramBlockDef } from "./graph/GraphDiagramBlock";
 import {
   h1BlockDef,
   h2BlockDef,
@@ -22,6 +23,7 @@ export const blockDefs: BlockDefinition[] = [
   calloutBlockDef,
   dividerBlockDef,
   databaseBlockDef,
+  graphDiagramBlockDef,
 ];
 
 export const blockRegistry = new Map<Block["type"], BlockDefinition>(
