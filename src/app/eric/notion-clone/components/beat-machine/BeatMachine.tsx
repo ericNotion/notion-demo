@@ -113,10 +113,10 @@ export function BeatMachine() {
   };
 
   const tracks = [
-    { name: "Kick", key: "kick" as const, color: "purple" },
-    { name: "Snare", key: "snare" as const, color: "teal" },
-    { name: "Hi-hat", key: "hihat" as const, color: "blue" },
-    { name: "Clap", key: "clap" as const, color: "pink" },
+    { name: "Kick", key: "kick" as const, colorClass: "text-purple-primary" },
+    { name: "Snare", key: "snare" as const, colorClass: "text-teal-primary" },
+    { name: "Hi-hat", key: "hihat" as const, colorClass: "text-blue-primary" },
+    { name: "Clap", key: "clap" as const, colorClass: "text-pink-primary" },
   ];
 
   return (
@@ -196,7 +196,7 @@ export function BeatMachine() {
                 <span
                   className={cn(
                     "text-body font-semibold w-16",
-                    `text-${track.color}-primary`,
+                    track.colorClass,
                   )}
                 >
                   {track.name}
