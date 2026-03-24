@@ -258,13 +258,22 @@ export function BlockEditor({
           text: "",
         });
         newBlockId = afterId;
+      } else if (blockType === "graph") {
+        next[blockIndex] = { id: newBlockId, type: "graph" };
+        const afterId = createBlockId();
+        next.splice(blockIndex + 1, 0, {
+          id: afterId,
+          type: "paragraph",
+          text: "",
+        });
+        newBlockId = afterId;
       } else {
         next[blockIndex] = { id: newBlockId, type: blockType, text: "" };
       }
       return next;
     });
     requestAnimationFrame(() => {
-      if (blockType === "divider" || blockType === "database") {
+      if (blockType === "divider" || blockType === "database" || blockType === "graph") {
         const el = document.querySelector(
           `[data-block-id="${newBlockId}"]`,
         ) as HTMLElement | null;
@@ -289,7 +298,7 @@ export function BlockEditor({
       prevBlock &&
       prevBlock.type !== "ul" &&
       prevBlock.type !== "divider" &&
-      prevBlock.type !== "database"
+      prevBlock.type !== "database" && prevBlock.type !== "graph"
     ) {
       const prevText = "text" in prevBlock ? prevBlock.text || "" : "";
       const caretPos = prevText.length;
