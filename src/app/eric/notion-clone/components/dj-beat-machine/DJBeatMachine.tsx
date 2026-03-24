@@ -33,6 +33,10 @@ const DRUM_LABELS: Record<DrumType, string> = {
   rim: "Rim",
 };
 
+// Animation constants for the glow effect
+const GLOW_VISIBLE = { opacity: 1 };
+const GLOW_HIDDEN = { opacity: 0 };
+
 // ============================================================================
 // Audio Synthesis Engine (Web Audio API)
 // ============================================================================
@@ -552,9 +556,9 @@ function Visualizer({
       <AnimatePresence>
         {isPlaying && (
           <motion.div
-            initial= opacity: 0 
-            animate= opacity: 1 
-            exit= opacity: 0 
+            initial={GLOW_HIDDEN}
+            animate={GLOW_VISIBLE}
+            exit={GLOW_HIDDEN}
             className="absolute inset-0 bg-gradient-to-t from-purple-500/10 to-transparent"
           />
         )}
