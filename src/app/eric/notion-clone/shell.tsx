@@ -18,7 +18,6 @@ import { inboxIcon } from "@nds-icons/inbox/default.icon";
 import { useAtomValue, useSetAtom } from "jotai";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { CreateAgentModal } from "./components/CreateAgentModal";
 import { HomeContent } from "./components/HomeContent";
 import { PrototypeBanner } from "./components/PrototypeBanner";
 import { SearchDialog } from "./components/SearchDialog";
@@ -33,13 +32,7 @@ import {
   type PageEntry,
 } from "./data";
 
-function SidebarContent({
-  onSearch,
-  onNewAgent,
-}: {
-  onSearch: () => void;
-  onNewAgent: () => void;
-}) {
+function SidebarContent({ onSearch }: { onSearch: () => void }) {
   const router = useRouter();
 
   return (
@@ -49,7 +42,7 @@ function SidebarContent({
       cta={<SidebarWithHandlersCTA />}
     >
       <SlipperySidebar.Tab id="home" label="Home" icon={homeIcon}>
-        <HomeContent onNewAgent={onNewAgent} />
+        <HomeContent />
       </SlipperySidebar.Tab>
       <SlipperySidebar.Tab id="chats" label="Chat" icon={chatBubbleIcon}>
         <ChatContent
@@ -168,7 +161,6 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [searchOpen, setSearchOpen] = useState(false);
-  const [createAgentOpen, setCreateAgentOpen] = useState(false);
   const pages = useAtomValue(allPagesAtom);
 
   const currentPage = useMemo(
@@ -264,12 +256,7 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
       <PrototypeBanner />
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <SlipperySidebarLayout
-          sidebar={
-            <SidebarContent
-              onSearch={() => setSearchOpen(true)}
-              onNewAgent={() => setCreateAgentOpen(true)}
-            />
-          }
+          sidebar={<SidebarContent onSearch={() => setSearchOpen(true)} />}
           minWidth={290}
         >
           <div className="bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
@@ -286,11 +273,6 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
         </SlipperySidebarLayout>
       </div>
       <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
-      <CreateAgentModal
-        open={createAgentOpen}
-        onOpenChange={setCreateAgentOpen}
-        onCreateAgent={() => {}}
-      />
     </div>
   );
 }
