@@ -6,13 +6,15 @@ import { Icon } from "@nds-icons";
 import { heartIcon } from "@nds-icons/heart/default.icon";
 import { heartFillIcon } from "@nds-icons/heart/fill.icon";
 import { mediaPlayIcon } from "@nds-icons/mediaPlay/default.icon";
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useState } from "react";
 import { beatPatternAtom, bpmAtom, savedBeatsAtom } from "./atoms";
 import type { BeatPattern } from "./types";
 
 export function BeatQueue() {
   const [savedBeats, setSavedBeats] = useAtom(savedBeatsAtom);
+  const currentPattern = useAtomValue(beatPatternAtom);
+  const currentBpm = useAtomValue(bpmAtom);
   const setPattern = useSetAtom(beatPatternAtom);
   const setBpm = useSetAtom(bpmAtom);
   const [beatName, setBeatName] = useState("");
@@ -26,15 +28,8 @@ export function BeatQueue() {
       id: Date.now().toString(),
       name: beatName,
       author: authorName,
-      bpm: 120,
-      steps: {
-        kick: Array(16).fill(false),
-        snare: Array(16).fill(false),
-        hihat: Array(16).fill(false),
-        clap: Array(16).fill(false),
-        tom: Array(16).fill(false),
-        rim: Array(16).fill(false),
-      },
+      bpm: currentBpm,
+      steps: currentPattern,
       upvotes: 0,
       createdAt: Date.now(),
     };
