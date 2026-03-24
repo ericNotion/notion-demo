@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/playground-kit/Button";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
 import { mediaPlayIcon } from "@nds-icons/mediaPlay/default.icon";
