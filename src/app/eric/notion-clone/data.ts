@@ -102,6 +102,16 @@ export const pages: PageEntry[] = [
     lastEdited: "30m ago",
   },
   {
+    emoji: "🎧",
+    label: "DJ Beat Machine",
+    href: `${BASE}/dj-beat-machine`,
+    section: "private",
+    kind: "page",
+    createdBy: "You",
+    lastEdited: "just now",
+    emojiStorageKey: "eric-nc-dj-beat-machine-emoji",
+  },
+  {
     emoji: "🎙️",
     label: "Sprint retro notes",
     href: `${BASE}/meeting-note/sprint-retro`,
