@@ -118,7 +118,7 @@ export function BlockEditor({
       const lastItem = block.items[block.items.length - 1];
       return listItemRefs.current[lastItem.id] || null;
     }
-    if (block.type === "divider" || block.type === "database") {
+    if (block.type === "divider" || block.type === "database" || block.type === "graph") {
       return document.querySelector(
         `[data-block-id="${block.id}"]`,
       ) as HTMLElement | null;
@@ -130,7 +130,7 @@ export function BlockEditor({
     if (block.type === "ul") {
       return listItemRefs.current[block.items[0].id] || null;
     }
-    if (block.type === "divider" || block.type === "database") {
+    if (block.type === "divider" || block.type === "database" || block.type === "graph") {
       return document.querySelector(
         `[data-block-id="${block.id}"]`,
       ) as HTMLElement | null;
@@ -158,7 +158,7 @@ export function BlockEditor({
             const el = listItemRefs.current[it.id];
             if (el && el.textContent !== it.text) el.textContent = it.text;
           });
-        } else if (blk.type !== "divider" && blk.type !== "database") {
+        } else if (blk.type !== "divider" && blk.type !== "database" && blk.type !== "graph") {
           const el = blockRefs.current[blk.id];
           const text = "text" in blk ? blk.text : "";
           if (el && el.textContent !== text) el.textContent = text;
@@ -177,6 +177,7 @@ export function BlockEditor({
           b.type !== "ul" &&
           b.type !== "divider" &&
           b.type !== "database" &&
+          b.type !== "graph" &&
           ("text" in b ? b.text : "") === ""
         ) {
           focusAtEnd(blockRefs.current[b.id] || null);
@@ -258,13 +259,22 @@ export function BlockEditor({
           text: "",
         });
         newBlockId = afterId;
+      } else if (blockType === "graph") {
+        next[blockIndex] = { id: newBlockId, type: "graph" };
+        const afterId = createBlockId();
+        next.splice(blockIndex + 1, 0, {
+          id: afterId,
+          type: "paragraph",
+          text: "",
+        });
+        newBlockId = afterId;
       } else {
         next[blockIndex] = { id: newBlockId, type: blockType, text: "" };
       }
       return next;
     });
     requestAnimationFrame(() => {
-      if (blockType === "divider" || blockType === "database") {
+      if (blockType === "divider" || blockType === "database" || blockType === "graph") {
         const el = document.querySelector(
           `[data-block-id="${newBlockId}"]`,
         ) as HTMLElement | null;
@@ -289,7 +299,8 @@ export function BlockEditor({
       prevBlock &&
       prevBlock.type !== "ul" &&
       prevBlock.type !== "divider" &&
-      prevBlock.type !== "database"
+      prevBlock.type !== "database" &&
+      prevBlock.type !== "graph"
     ) {
       const prevText = "text" in prevBlock ? prevBlock.text || "" : "";
       const caretPos = prevText.length;
