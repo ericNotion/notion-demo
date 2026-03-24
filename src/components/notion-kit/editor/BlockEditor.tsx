@@ -50,6 +50,7 @@ interface BlockEditorProps {
     icon: string,
     onIconChange: (icon: string) => void,
   ) => React.ReactNode;
+  renderBeatMachineBlock?: () => React.ReactNode;
 }
 
 export function BlockEditor({
@@ -60,6 +61,7 @@ export function BlockEditor({
   onBackspaceAtStart,
   renderDatabaseBlock,
   renderCalloutIcon,
+  renderBeatMachineBlock,
 }: BlockEditorProps) {
   const setLastSaved = useSetAtom(customLastSavedAtom ?? lastSavedAtom);
   const [blocks, setBlocks] = useAtom(customBlocksAtom ?? blocksAtom);
@@ -118,7 +120,7 @@ export function BlockEditor({
       const lastItem = block.items[block.items.length - 1];
       return listItemRefs.current[lastItem.id] || null;
     }
-    if (block.type === "divider" || block.type === "database") {
+    if (block.type === "divider" || block.type === "database" || block.type === "beat-machine") {
       return document.querySelector(
         `[data-block-id="${block.id}"]`,
       ) as HTMLElement | null;
@@ -130,7 +132,7 @@ export function BlockEditor({
     if (block.type === "ul") {
       return listItemRefs.current[block.items[0].id] || null;
     }
-    if (block.type === "divider" || block.type === "database") {
+    if (block.type === "divider" || block.type === "database" || block.type === "beat-machine") {
       return document.querySelector(
         `[data-block-id="${block.id}"]`,
       ) as HTMLElement | null;
@@ -158,7 +160,7 @@ export function BlockEditor({
             const el = listItemRefs.current[it.id];
             if (el && el.textContent !== it.text) el.textContent = it.text;
           });
-        } else if (blk.type !== "divider" && blk.type !== "database") {
+        } else if (blk.type !== "divider" && blk.type !== "database" && blk.type !== "beat-machine") {
           const el = blockRefs.current[blk.id];
           const text = "text" in blk ? blk.text : "";
           if (el && el.textContent !== text) el.textContent = text;
@@ -258,13 +260,22 @@ export function BlockEditor({
           text: "",
         });
         newBlockId = afterId;
+      } else if (blockType === "beat-machine") {
+        next[blockIndex] = { id: newBlockId, type: "beat-machine" };
+        const afterId = createBlockId();
+        next.splice(blockIndex + 1, 0, {
+          id: afterId,
+          type: "paragraph",
+          text: "",
+        });
+        newBlockId = afterId;
       } else {
         next[blockIndex] = { id: newBlockId, type: blockType, text: "" };
       }
       return next;
     });
     requestAnimationFrame(() => {
-      if (blockType === "divider" || blockType === "database") {
+      if (blockType === "divider" || blockType === "database" || blockType === "beat-machine") {
         const el = document.querySelector(
           `[data-block-id="${newBlockId}"]`,
         ) as HTMLElement | null;
@@ -554,6 +565,7 @@ export function BlockEditor({
               startDrag={(e) => startDrag(blockIndex, e)}
               renderCalloutIcon={renderCalloutIcon}
               renderDatabaseBlock={renderDatabaseBlock}
+              renderBeatMachineBlock={renderBeatMachineBlock}
               paragraphPlaceholder={paragraphPlaceholder}
               onBackspaceAtStart={onBackspaceAtStart}
             />

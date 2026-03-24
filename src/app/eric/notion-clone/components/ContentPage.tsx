@@ -9,10 +9,29 @@ import {
 import { createAtomCache } from "@/utils/createAtomCache";
 import type { PrimitiveAtom, WritableAtom } from "jotai";
 import { useAtom, useSetAtom } from "jotai";
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import { EmojiPicker } from "./EmojiPicker";
 
 const getEmojiAtom = createAtomCache<string | null>();
+
+const BeatMachineEmbed = lazy(() =>
+  import("./beat-machine/BeatMachineEmbed").then((m) => ({
+    default: m.BeatMachineEmbed,
+  })),
+);
+
+const defaultRenderBeatMachineBlock = () => (
+  <Suspense
+    fallback={
+      <div className="bg-secondary border-primary flex items-center gap-3 rounded-lg border p-6">
+        <span className="text-2xl">🎵</span>
+        <div className="text-tertiary text-sm">Loading beat machine...</div>
+      </div>
+    }
+  >
+    <BeatMachineEmbed />
+  </Suspense>
+);
 
 interface ContentPageProps {
   emoji?: string | null;
@@ -32,6 +51,7 @@ interface ContentPageProps {
     block: DatabaseBlock,
     onTitleChange: (title: string) => void,
   ) => React.ReactNode;
+  renderBeatMachineBlock?: () => React.ReactNode;
 }
 
 export function ContentPage({
@@ -45,6 +65,7 @@ export function ContentPage({
   children,
   afterBlocks,
   renderDatabaseBlock,
+  renderBeatMachineBlock,
 }: ContentPageProps) {
   const setBlocks = useSetAtom(blocksAtom);
   const emojiAtom = useMemo(
@@ -117,6 +138,7 @@ export function ContentPage({
           lastSavedAtom={lastSavedAtom}
           paragraphPlaceholder={paragraphPlaceholder}
           renderDatabaseBlock={renderDatabaseBlock}
+          renderBeatMachineBlock={renderBeatMachineBlock ?? defaultRenderBeatMachineBlock}
           renderCalloutIcon={(icon, onIconChange) => (
             <EmojiPicker value={icon} onChange={onIconChange} size="callout" />
           )}

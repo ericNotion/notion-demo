@@ -56,6 +56,7 @@ export interface BlockComponentProps {
     block: DatabaseBlock,
     onTitleChange: (title: string) => void,
   ) => React.ReactNode;
+  renderBeatMachineBlock?: () => React.ReactNode;
   paragraphPlaceholder: string;
   onBackspaceAtStart?: () => void;
 }
