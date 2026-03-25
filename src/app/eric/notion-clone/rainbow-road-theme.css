@@ -2,6 +2,9 @@
 /* Inspired by Mario Kart's iconic Rainbow Road track */
 
 .rainbow-road {
+  /* Force dark color scheme for browser controls */
+  color-scheme: dark;
+
   /* === Dark Space Background Colors === */
   --background-color-primary: #0a0a12;
   --background-color-secondary: #12121f;

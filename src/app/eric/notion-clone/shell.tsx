@@ -110,7 +110,7 @@ function SidebarWithHandlersCTA() {
       onNewMeeting={() => {
         const id = Date.now().toString(36);
         createAndNavigate({
-          emoji: "\uD83C\uDF99\uFE0F",
+          emoji: "🎙️",
           label: "Untitled",
           href: `/eric/notion-clone/meeting-note/${id}`,
           section: "private",
@@ -122,7 +122,7 @@ function SidebarWithHandlersCTA() {
       onComposePage={() => {
         const id = Date.now().toString(36);
         createAndNavigate({
-          emoji: "\uD83D\uDCC4",
+          emoji: "📄",
           label: "Untitled",
           href: `/eric/notion-clone/new-page/${id}`,
           section: "private",
@@ -137,7 +137,7 @@ function SidebarWithHandlersCTA() {
       onComposeMeeting={() => {
         const id = Date.now().toString(36);
         createAndNavigate({
-          emoji: "\uD83C\uDF99\uFE0F",
+          emoji: "🎙️",
           label: "Untitled",
           href: `/eric/notion-clone/meeting-note/${id}`,
           section: "private",
@@ -149,7 +149,7 @@ function SidebarWithHandlersCTA() {
       onComposeDatabase={() => {
         const id = Date.now().toString(36);
         createAndNavigate({
-          emoji: "\uD83D\uDCCA",
+          emoji: "📊",
           label: "Untitled",
           href: `/eric/notion-clone/new-database/${id}`,
           section: "private",
@@ -254,10 +254,7 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div
-      className="rainbow-road flex h-screen flex-col overflow-hidden"
-      style= colorScheme: "light dark" 
-    >
+    <div className="rainbow-road flex h-screen flex-col overflow-hidden">
       <PrototypeBanner />
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <SlipperySidebarLayout
