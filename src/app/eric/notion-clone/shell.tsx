@@ -110,7 +110,7 @@ function SidebarWithHandlersCTA() {
       onNewMeeting={() => {
         const id = Date.now().toString(36);
         createAndNavigate({
-          emoji: "🎙️",
+          emoji: "\uD83C\uDF99\uFE0F",
           label: "Untitled",
           href: `/eric/notion-clone/meeting-note/${id}`,
           section: "private",
@@ -122,7 +122,7 @@ function SidebarWithHandlersCTA() {
       onComposePage={() => {
         const id = Date.now().toString(36);
         createAndNavigate({
-          emoji: "📄",
+          emoji: "\uD83D\uDCC4",
           label: "Untitled",
           href: `/eric/notion-clone/new-page/${id}`,
           section: "private",
@@ -137,7 +137,7 @@ function SidebarWithHandlersCTA() {
       onComposeMeeting={() => {
         const id = Date.now().toString(36);
         createAndNavigate({
-          emoji: "🎙️",
+          emoji: "\uD83C\uDF99\uFE0F",
           label: "Untitled",
           href: `/eric/notion-clone/meeting-note/${id}`,
           section: "private",
@@ -149,7 +149,7 @@ function SidebarWithHandlersCTA() {
       onComposeDatabase={() => {
         const id = Date.now().toString(36);
         createAndNavigate({
-          emoji: "📊",
+          emoji: "\uD83D\uDCCA",
           label: "Untitled",
           href: `/eric/notion-clone/new-database/${id}`,
           section: "private",
@@ -255,24 +255,23 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className="flex h-screen flex-col overflow-hidden"
-      style={{
-        fontFamily:
-          'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
-      }}
+      className="rainbow-road flex h-screen flex-col overflow-hidden"
+      style= colorScheme: "light dark" 
     >
       <PrototypeBanner />
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <SlipperySidebarLayout
           sidebar={
-            <SidebarContent
-              onSearch={() => setSearchOpen(true)}
-              onNewAgent={() => setCreateAgentOpen(true)}
-            />
+            <div className="rainbow-road-sidebar-border h-full">
+              <SidebarContent
+                onSearch={() => setSearchOpen(true)}
+                onNewAgent={() => setCreateAgentOpen(true)}
+              />
+            </div>
           }
           minWidth={290}
         >
-          <div className="bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
+          <div className="rainbow-road-stars bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
             {!(pathname.includes("/chat") && searchParams.get("thread")) &&
               !pathname.endsWith("/agents") && (
                 <PageTopBar
