@@ -2,6 +2,7 @@ export interface GraphNode {
   id: string;
   label: string;
   link: string;
+  category?: string;
 }
 
 export interface GraphEdge {

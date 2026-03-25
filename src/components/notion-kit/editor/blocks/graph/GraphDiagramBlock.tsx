@@ -35,6 +35,17 @@ function GraphDiagramBlockComponent({
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isDraggingCanvas, setIsDraggingCanvas] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [clusterColors, setClusterColors] = useState<Record<string, string>>({
+    workspace: "--color-bg-gray-primary",
+    launches: "--color-bg-blue-primary",
+    research: "--color-bg-green-primary",
+    design: "--color-bg-purple-primary",
+    docs: "--color-bg-orange-primary",
+    ideas: "--color-bg-teal-primary",
+    notes: "--color-bg-pink-primary",
+  });
+  const [legendOpen, setLegendOpen] = useState(false);
+  const [colorPickerCategory, setColorPickerCategory] = useState<string | null>(null);
 
   const { positions, animate } = useForceDirectedLayout(
     graphData.nodes,
@@ -109,9 +120,12 @@ function GraphDiagramBlockComponent({
             .getPropertyValue("--color-bg-tertiary")
             .trim() || "#888888";
       } else {
+        const categoryColor = node.category && clusterColors[node.category]
+          ? clusterColors[node.category]
+          : "--color-bg-primary";
         ctx.fillStyle =
           getComputedStyle(document.documentElement)
-            .getPropertyValue("--color-bg-primary")
+            .getPropertyValue(categoryColor)
             .trim() || "#333333";
       }
       ctx.fill();
@@ -137,7 +151,7 @@ function GraphDiagramBlockComponent({
     });
 
     ctx.restore();
-  }, [positions, zoom, pan, selectedNode, hoveredNode, graphData]);
+  }, [positions, zoom, pan, selectedNode, hoveredNode, graphData, clusterColors]);
 
   const findNodeAt = (x: number, y: number): GraphNode | null => {
     for (const node of graphData.nodes) {
@@ -333,6 +347,96 @@ function GraphDiagramBlockComponent({
                 </div>
               </div>
             )}
+
+            {/* Cluster legend */}
+            <div className="absolute bottom-2 right-2 z-10">
+              {!legendOpen ? (
+                <button
+                  type="button"
+                  onClick={() => setLegendOpen(true)}
+                  className="bg-elevated hover:bg-secondary shadow-sm-outline flex h-8 w-8 items-center justify-center rounded-lg transition-colors"
+                  title="Show cluster colors"
+                >
+                  <span className="text-base">🎨</span>
+                </button>
+              ) : (
+                <div className="bg-elevated shadow-sm-outline rounded-lg p-2">
+                  <div className="flex items-center justify-between mb-2 pb-2 border-b border-primary">
+                    <span className="text-caption text-secondary font-medium">Clusters</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setLegendOpen(false);
+                        setColorPickerCategory(null);
+                      }}
+                      className="text-tertiary hover:text-primary text-xs"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    {Object.entries(clusterColors).map(([category, color]) => (
+                      <div key={category} className="relative">
+                        <div
+                          className="flex items-center gap-2 px-1 py-0.5 cursor-pointer hover:bg-tertiary rounded-md"
+                          onClick={() => {
+                            setColorPickerCategory(
+                              colorPickerCategory === category ? null : category
+                            );
+                          }}
+                        >
+                          <div
+                            className="w-3 h-3 rounded-full flex-shrink-0"
+                            style={{
+                              backgroundColor: getComputedStyle(document.documentElement)
+                                .getPropertyValue(color)
+                                .trim() || "#333333",
+                            }}
+                          />
+                          <span className="text-caption text-secondary capitalize">
+                            {category}
+                          </span>
+                        </div>
+                        {colorPickerCategory === category && (
+                          <div className="absolute left-full ml-2 top-0 bg-elevated shadow-md-outline rounded-lg p-2 flex gap-1.5">
+                            {[
+                              "blue",
+                              "green",
+                              "purple",
+                              "orange",
+                              "teal",
+                              "pink",
+                              "red",
+                              "brown",
+                              "gray",
+                            ].map((colorName) => (
+                              <button
+                                key={colorName}
+                                type="button"
+                                onClick={() => {
+                                  setClusterColors((prev) => ({
+                                    ...prev,
+                                    [category]: `--color-bg-${colorName}-primary`,
+                                  }));
+                                  setColorPickerCategory(null);
+                                }}
+                                className="w-4 h-4 rounded-full hover:scale-110 transition-transform"
+                                style={{
+                                  backgroundColor: getComputedStyle(document.documentElement)
+                                    .getPropertyValue(`--color-bg-${colorName}-primary`)
+                                    .trim() || "#333333",
+                                }}
+                                title={colorName}
+                              />
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
