@@ -2,8 +2,8 @@
 
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
+import { magnifyingGlassMinusIcon } from "@nds-icons/magnifyingGlassMinus/default.icon";
 import { magnifyingGlassPlusIcon } from "@nds-icons/magnifyingGlassPlus/default.icon";
-import { textSmallIcon } from "@nds-icons/textSmall/default.icon";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { createBlockId } from "../../atoms";
@@ -286,7 +286,7 @@ function GraphDiagramBlockComponent({
                 className="bg-elevated hover:bg-secondary shadow-sm-outline text-secondary flex h-7 w-7 items-center justify-center rounded-md transition-colors"
                 title="Zoom out"
               >
-                <Icon icon={textSmallIcon} size="small" />
+                <Icon icon={magnifyingGlassMinusIcon} size="small" />
               </button>
               <button
                 type="button"
