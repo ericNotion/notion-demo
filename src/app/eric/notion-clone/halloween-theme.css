@@ -1,0 +1,239 @@
+/* Halloween Theme Override */
+/* This file overrides the semantic design tokens with spooky Halloween colors */
+
+.halloween {
+  /* Halloween color palette */
+  --halloween-black: rgba(10, 10, 15, 1);
+  --halloween-dark-purple: rgba(30, 15, 40, 1);
+  --halloween-deep-purple: rgba(50, 20, 60, 1);
+  --halloween-purple-primary: rgba(123, 45, 142, 1);
+  --halloween-purple-secondary: rgba(155, 89, 182, 1);
+  --halloween-orange-primary: rgba(255, 107, 0, 1);
+  --halloween-orange-secondary: rgba(255, 140, 0, 1);
+  --halloween-orange-light: rgba(255, 165, 50, 1);
+  --halloween-green-primary: rgba(0, 255, 65, 1);
+  --halloween-green-secondary: rgba(46, 204, 64, 1);
+  --halloween-red-primary: rgba(139, 0, 0, 1);
+  --halloween-red-secondary: rgba(204, 0, 0, 1);
+  --halloween-ghost-white: rgba(240, 240, 245, 1);
+  --halloween-ghost-gray: rgba(200, 200, 210, 1);
+  --halloween-dim-gray: rgba(100, 100, 110, 1);
+
+  /* Neutral backgrounds - deep blacks and purples */
+  --background-color-primary: var(--halloween-black);
+  --background-color-secondary: var(--halloween-dark-purple);
+  --background-color-secondary-translucent: rgba(30, 15, 40, 0.8);
+  --background-color-tertiary: var(--halloween-deep-purple);
+  --background-color-tertiary-translucent: rgba(50, 20, 60, 0.8);
+  --background-color-elevated: var(--halloween-dark-purple);
+  --background-color-accent-primary: var(--halloween-purple-primary);
+  --background-color-accent-secondary: var(--halloween-purple-secondary);
+
+  /* Text colors - ghostly whites and oranges */
+  --text-color-primary: var(--halloween-ghost-white);
+  --text-color-secondary: var(--halloween-ghost-gray);
+  --text-color-tertiary: var(--halloween-dim-gray);
+  --text-color-disabled: rgba(100, 100, 110, 0.5);
+  --text-color-accent-primary: var(--halloween-orange-primary);
+  --text-color-inverse-primary: var(--halloween-black);
+  --text-color-inverse-secondary: var(--halloween-deep-purple);
+
+  /* Icon colors */
+  --icon-color-primary: var(--halloween-orange-secondary);
+  --icon-color-secondary: var(--halloween-ghost-gray);
+  --icon-color-tertiary: var(--halloween-dim-gray);
+  --icon-color-disabled: rgba(100, 100, 110, 0.5);
+  --icon-color-accent-primary: var(--halloween-orange-primary);
+  --icon-color-inverse-primary: var(--halloween-ghost-white);
+  --icon-color-inverse-secondary: var(--halloween-ghost-gray);
+
+  /* Border colors */
+  --border-color-primary: var(--halloween-purple-primary);
+  --border-color-primary-translucent: rgba(123, 45, 142, 0.3);
+  --border-color-secondary: var(--halloween-deep-purple);
+  --border-color-secondary-translucent: rgba(50, 20, 60, 0.3);
+  --border-color-inverse-primary: var(--halloween-orange-primary);
+  --border-color-accent-primary: var(--halloween-orange-primary);
+  --border-color-strong: var(--halloween-purple-secondary);
+
+  /* Gray color overrides - use purples */
+  --background-color-gray-primary: var(--halloween-dark-purple);
+  --background-color-gray-primary-translucent: rgba(30, 15, 40, 0.8);
+  --background-color-gray-secondary: var(--halloween-deep-purple);
+  --background-color-gray-secondary-translucent: rgba(50, 20, 60, 0.8);
+  --background-color-gray-tertiary: var(--halloween-purple-primary);
+  --background-color-gray-tertiary-translucent: rgba(123, 45, 142, 0.3);
+  --background-color-gray-elevated: var(--halloween-dark-purple);
+  --background-color-gray-accent-primary: var(--halloween-purple-primary);
+  --background-color-gray-accent-secondary: var(--halloween-purple-secondary);
+
+  --text-color-gray-primary: var(--halloween-ghost-gray);
+  --text-color-gray-secondary: var(--halloween-dim-gray);
+  --text-color-gray-tertiary: var(--halloween-dim-gray);
+  --text-color-gray-disabled: rgba(100, 100, 110, 0.5);
+  --text-color-gray-accent-primary: var(--halloween-purple-secondary);
+  --text-color-gray-inverse-primary: var(--halloween-black);
+  --text-color-gray-inverse-secondary: var(--halloween-deep-purple);
+
+  --icon-color-gray-primary: var(--halloween-ghost-gray);
+  --icon-color-gray-secondary: var(--halloween-dim-gray);
+  --icon-color-gray-tertiary: var(--halloween-dim-gray);
+  --icon-color-gray-disabled: rgba(100, 100, 110, 0.5);
+  --icon-color-gray-accent-primary: var(--halloween-purple-secondary);
+  --icon-color-gray-inverse-primary: var(--halloween-black);
+  --icon-color-gray-inverse-secondary: var(--halloween-deep-purple);
+
+  --border-color-gray-primary: var(--halloween-purple-primary);
+  --border-color-gray-primary-translucent: rgba(123, 45, 142, 0.3);
+  --border-color-gray-secondary: var(--halloween-deep-purple);
+  --border-color-gray-secondary-translucent: rgba(50, 20, 60, 0.3);
+  --border-color-gray-inverse-primary: var(--halloween-orange-primary);
+  --border-color-gray-accent-primary: var(--halloween-purple-secondary);
+  --border-color-gray-strong: var(--halloween-purple-secondary);
+
+  /* Orange color overrides */
+  --background-color-orange-primary: var(--halloween-orange-primary);
+  --background-color-orange-primary-translucent: rgba(255, 107, 0, 0.2);
+  --background-color-orange-secondary: var(--halloween-orange-secondary);
+  --background-color-orange-secondary-translucent: rgba(255, 140, 0, 0.2);
+  --background-color-orange-tertiary: var(--halloween-orange-light);
+  --background-color-orange-tertiary-translucent: rgba(255, 165, 50, 0.2);
+  --background-color-orange-elevated: var(--halloween-orange-secondary);
+  --background-color-orange-accent-primary: var(--halloween-orange-primary);
+  --background-color-orange-accent-secondary: var(--halloween-orange-secondary);
+
+  --text-color-orange-primary: var(--halloween-orange-primary);
+  --text-color-orange-secondary: var(--halloween-orange-secondary);
+  --text-color-orange-tertiary: var(--halloween-orange-light);
+  --text-color-orange-disabled: rgba(255, 140, 0, 0.5);
+  --text-color-orange-accent-primary: var(--halloween-orange-primary);
+  --text-color-orange-inverse-primary: var(--halloween-black);
+  --text-color-orange-inverse-secondary: var(--halloween-deep-purple);
+
+  --icon-color-orange-primary: var(--halloween-orange-primary);
+  --icon-color-orange-secondary: var(--halloween-orange-secondary);
+  --icon-color-orange-tertiary: var(--halloween-orange-light);
+  --icon-color-orange-disabled: rgba(255, 140, 0, 0.5);
+  --icon-color-orange-accent-primary: var(--halloween-orange-primary);
+  --icon-color-orange-inverse-primary: var(--halloween-black);
+  --icon-color-orange-inverse-secondary: var(--halloween-deep-purple);
+
+  --border-color-orange-primary: var(--halloween-orange-primary);
+  --border-color-orange-primary-translucent: rgba(255, 107, 0, 0.3);
+  --border-color-orange-secondary: var(--halloween-orange-secondary);
+  --border-color-orange-secondary-translucent: rgba(255, 140, 0, 0.3);
+  --border-color-orange-inverse-primary: var(--halloween-black);
+  --border-color-orange-accent-primary: var(--halloween-orange-primary);
+  --border-color-orange-strong: var(--halloween-orange-primary);
+
+  /* Purple color overrides */
+  --background-color-purple-primary: var(--halloween-purple-primary);
+  --background-color-purple-primary-translucent: rgba(123, 45, 142, 0.2);
+  --background-color-purple-secondary: var(--halloween-purple-secondary);
+  --background-color-purple-secondary-translucent: rgba(155, 89, 182, 0.2);
+  --background-color-purple-tertiary: var(--halloween-purple-secondary);
+  --background-color-purple-tertiary-translucent: rgba(155, 89, 182, 0.2);
+  --background-color-purple-elevated: var(--halloween-purple-primary);
+  --background-color-purple-accent-primary: var(--halloween-purple-primary);
+  --background-color-purple-accent-secondary: var(--halloween-purple-secondary);
+
+  --text-color-purple-primary: var(--halloween-purple-secondary);
+  --text-color-purple-secondary: var(--halloween-purple-secondary);
+  --text-color-purple-tertiary: var(--halloween-purple-primary);
+  --text-color-purple-disabled: rgba(123, 45, 142, 0.5);
+  --text-color-purple-accent-primary: var(--halloween-purple-secondary);
+  --text-color-purple-inverse-primary: var(--halloween-ghost-white);
+  --text-color-purple-inverse-secondary: var(--halloween-ghost-gray);
+
+  --icon-color-purple-primary: var(--halloween-purple-secondary);
+  --icon-color-purple-secondary: var(--halloween-purple-secondary);
+  --icon-color-purple-tertiary: var(--halloween-purple-primary);
+  --icon-color-purple-disabled: rgba(123, 45, 142, 0.5);
+  --icon-color-purple-accent-primary: var(--halloween-purple-secondary);
+  --icon-color-purple-inverse-primary: var(--halloween-ghost-white);
+  --icon-color-purple-inverse-secondary: var(--halloween-ghost-gray);
+
+  --border-color-purple-primary: var(--halloween-purple-primary);
+  --border-color-purple-primary-translucent: rgba(123, 45, 142, 0.3);
+  --border-color-purple-secondary: var(--halloween-purple-secondary);
+  --border-color-purple-secondary-translucent: rgba(155, 89, 182, 0.3);
+  --border-color-purple-inverse-primary: var(--halloween-orange-primary);
+  --border-color-purple-accent-primary: var(--halloween-purple-secondary);
+  --border-color-purple-strong: var(--halloween-purple-secondary);
+
+  /* Red color overrides - blood red */
+  --background-color-red-primary: var(--halloween-red-primary);
+  --background-color-red-primary-translucent: rgba(139, 0, 0, 0.2);
+  --background-color-red-secondary: var(--halloween-red-secondary);
+  --background-color-red-secondary-translucent: rgba(204, 0, 0, 0.2);
+  --background-color-red-tertiary: var(--halloween-red-secondary);
+  --background-color-red-tertiary-translucent: rgba(204, 0, 0, 0.2);
+  --background-color-red-elevated: var(--halloween-red-primary);
+  --background-color-red-accent-primary: var(--halloween-red-secondary);
+  --background-color-red-accent-secondary: var(--halloween-red-secondary);
+
+  --text-color-red-primary: var(--halloween-red-secondary);
+  --text-color-red-secondary: var(--halloween-red-secondary);
+  --text-color-red-tertiary: var(--halloween-red-primary);
+  --text-color-red-disabled: rgba(204, 0, 0, 0.5);
+  --text-color-red-accent-primary: var(--halloween-red-secondary);
+  --text-color-red-inverse-primary: var(--halloween-ghost-white);
+  --text-color-red-inverse-secondary: var(--halloween-ghost-gray);
+
+  --icon-color-red-primary: var(--halloween-red-secondary);
+  --icon-color-red-secondary: var(--halloween-red-secondary);
+  --icon-color-red-tertiary: var(--halloween-red-primary);
+  --icon-color-red-disabled: rgba(204, 0, 0, 0.5);
+  --icon-color-red-accent-primary: var(--halloween-red-secondary);
+  --icon-color-red-inverse-primary: var(--halloween-ghost-white);
+  --icon-color-red-inverse-secondary: var(--halloween-ghost-gray);
+
+  --border-color-red-primary: var(--halloween-red-primary);
+  --border-color-red-primary-translucent: rgba(139, 0, 0, 0.3);
+  --border-color-red-secondary: var(--halloween-red-secondary);
+  --border-color-red-secondary-translucent: rgba(204, 0, 0, 0.3);
+  --border-color-red-inverse-primary: var(--halloween-ghost-white);
+  --border-color-red-accent-primary: var(--halloween-red-secondary);
+  --border-color-red-strong: var(--halloween-red-secondary);
+
+  /* Green color overrides - spooky green */
+  --background-color-green-primary: var(--halloween-green-primary);
+  --background-color-green-primary-translucent: rgba(0, 255, 65, 0.2);
+  --background-color-green-secondary: var(--halloween-green-secondary);
+  --background-color-green-secondary-translucent: rgba(46, 204, 64, 0.2);
+  --background-color-green-tertiary: var(--halloween-green-secondary);
+  --background-color-green-tertiary-translucent: rgba(46, 204, 64, 0.2);
+  --background-color-green-elevated: var(--halloween-green-primary);
+  --background-color-green-accent-primary: var(--halloween-green-primary);
+  --background-color-green-accent-secondary: var(--halloween-green-secondary);
+
+  --text-color-green-primary: var(--halloween-green-primary);
+  --text-color-green-secondary: var(--halloween-green-secondary);
+  --text-color-green-tertiary: var(--halloween-green-secondary);
+  --text-color-green-disabled: rgba(0, 255, 65, 0.5);
+  --text-color-green-accent-primary: var(--halloween-green-primary);
+  --text-color-green-inverse-primary: var(--halloween-black);
+  --text-color-green-inverse-secondary: var(--halloween-deep-purple);
+
+  --icon-color-green-primary: var(--halloween-green-primary);
+  --icon-color-green-secondary: var(--halloween-green-secondary);
+  --icon-color-green-tertiary: var(--halloween-green-secondary);
+  --icon-color-green-disabled: rgba(0, 255, 65, 0.5);
+  --icon-color-green-accent-primary: var(--halloween-green-primary);
+  --icon-color-green-inverse-primary: var(--halloween-black);
+  --icon-color-green-inverse-secondary: var(--halloween-deep-purple);
+
+  --border-color-green-primary: var(--halloween-green-primary);
+  --border-color-green-primary-translucent: rgba(0, 255, 65, 0.3);
+  --border-color-green-secondary: var(--halloween-green-secondary);
+  --border-color-green-secondary-translucent: rgba(46, 204, 64, 0.3);
+  --border-color-green-inverse-primary: var(--halloween-black);
+  --border-color-green-accent-primary: var(--halloween-green-primary);
+  --border-color-green-strong: var(--halloween-green-primary);
+
+  /* Enhanced shadows for dramatic effect */
+  --shadow-sm: 0 1px 3px 0 rgba(123, 45, 142, 0.3), 0 1px 2px -1px rgba(123, 45, 142, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(123, 45, 142, 0.4), 0 2px 4px -2px rgba(123, 45, 142, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(123, 45, 142, 0.5), 0 4px 6px -4px rgba(123, 45, 142, 0.5);
+  --shadow-xl: 0 20px 25px -5px rgba(123, 45, 142, 0.6), 0 8px 10px -6px rgba(123, 45, 142, 0.6);
+}

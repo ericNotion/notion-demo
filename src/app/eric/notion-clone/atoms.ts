@@ -77,3 +77,8 @@ export const blocksAtom = atomWithStorage<Block[]>(
 );
 
 export const lastSavedAtom = atom<Date | null>(null);
+
+export const halloweenModeAtom = atomWithStorage<boolean>(
+  "eric-notion-clone-halloween-mode",
+  false,
+);

@@ -15,9 +15,10 @@ import { calendarAltIcon } from "@nds-icons/calendarAlt/default.icon";
 import { chatBubbleIcon } from "@nds-icons/chatBubble/default.icon";
 import { homeIcon } from "@nds-icons/home/default.icon";
 import { inboxIcon } from "@nds-icons/inbox/default.icon";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { halloweenModeAtom } from "./atoms";
 import { CreateAgentModal } from "./components/CreateAgentModal";
 import { HomeContent } from "./components/HomeContent";
 import { PrototypeBanner } from "./components/PrototypeBanner";
@@ -32,6 +33,7 @@ import {
   meetingGroups,
   type PageEntry,
 } from "./data";
+import "./halloween-theme.css";
 
 function SidebarContent({
   onSearch,
@@ -169,6 +171,7 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
   const [searchOpen, setSearchOpen] = useState(false);
   const [createAgentOpen, setCreateAgentOpen] = useState(false);
+  const [halloweenMode, setHalloweenMode] = useAtom(halloweenModeAtom);
   const pages = useAtomValue(allPagesAtom);
 
   const currentPage = useMemo(
@@ -255,7 +258,7 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className="flex h-screen flex-col overflow-hidden"
+      className={`flex h-screen flex-col overflow-hidden ${halloweenMode ? "halloween" : ""}`}
       style={{
         fontFamily:
           'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
@@ -285,6 +288,15 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
           </div>
         </SlipperySidebarLayout>
       </div>
+      {/* Halloween Theme Toggle */}
+      <button
+        onClick={() => setHalloweenMode(!halloweenMode)}
+        className="fixed bottom-4 right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-2xl shadow-lg transition-transform hover:scale-110 hover:bg-orange-600"
+        title={halloweenMode ? "Disable Halloween Theme" : "Enable Halloween Theme"}
+        aria-label={halloweenMode ? "Disable Halloween Theme" : "Enable Halloween Theme"}
+      >
+        🎃
+      </button>
       <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
       <CreateAgentModal
         open={createAgentOpen}
