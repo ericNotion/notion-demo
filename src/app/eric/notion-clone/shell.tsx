@@ -254,25 +254,21 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div
-      className="flex h-screen flex-col overflow-hidden"
-      style={{
-        fontFamily:
-          'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
-      }}
-    >
+    <div className="rainbow-road flex h-screen flex-col overflow-hidden">
       <PrototypeBanner />
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <SlipperySidebarLayout
           sidebar={
-            <SidebarContent
-              onSearch={() => setSearchOpen(true)}
-              onNewAgent={() => setCreateAgentOpen(true)}
-            />
+            <div className="rainbow-road-sidebar-border h-full">
+              <SidebarContent
+                onSearch={() => setSearchOpen(true)}
+                onNewAgent={() => setCreateAgentOpen(true)}
+              />
+            </div>
           }
           minWidth={290}
         >
-          <div className="bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
+          <div className="rainbow-road-stars bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
             {!(pathname.includes("/chat") && searchParams.get("thread")) &&
               !pathname.endsWith("/agents") && (
                 <PageTopBar
