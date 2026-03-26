@@ -19,6 +19,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { CreateAgentModal } from "./components/CreateAgentModal";
+import { HalloweenToggle } from "./components/halloween/HalloweenToggle";
 import { HomeContent } from "./components/HomeContent";
 import { PrototypeBanner } from "./components/PrototypeBanner";
 import { SearchDialog } from "./components/SearchDialog";
@@ -32,6 +33,7 @@ import {
   meetingGroups,
   type PageEntry,
 } from "./data";
+import "./halloween-theme.css";
 
 function SidebarContent({
   onSearch,
@@ -291,6 +293,7 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
         onOpenChange={setCreateAgentOpen}
         onCreateAgent={() => {}}
       />
+      <HalloweenToggle />
     </div>
   );
 }
