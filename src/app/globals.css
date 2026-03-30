@@ -2,6 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 @import "./theme.css";
+@import "./halloween-theme.css";
 
 @import "tw-animate-css";
 
