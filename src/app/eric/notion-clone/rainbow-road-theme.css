@@ -1,0 +1,274 @@
+/* Mild Rainbow Road Theme - Soft Pastel Accents */
+
+.rainbow-road {
+  /* Soft dark backgrounds - warmer navy tones instead of deep space */
+  --background-color-primary: #161922;
+  --background-color-secondary: #1c2030;
+  --background-color-tertiary: #222840;
+  --background-color-elevated: #1c2030;
+
+  /* Slightly purple-tinted borders for subtle cohesion */
+  --border-color-primary: rgba(155, 142, 196, 0.15);
+  --border-color-secondary: rgba(155, 142, 196, 0.08);
+  --border-color-strong: rgba(155, 142, 196, 0.25);
+
+  /* Keep text colors very close to defaults - only slightly tinted */
+  --text-color-primary: #e8e8f0;
+  --text-color-secondary: rgba(200, 200, 215, 0.8);
+  --text-color-tertiary: rgba(170, 170, 190, 0.6);
+
+  /* Selection color - soft purple */
+  --selection-bg: rgba(155, 142, 196, 0.2);
+
+  /* Gradient definitions - soft pastels */
+  --rainbow-gradient: linear-gradient(135deg, #d4a0c0 0%, #9b8ec4 50%, #7ba8d4 100%);
+  --rainbow-gradient-b: linear-gradient(135deg, #8cc5b2 0%, #85c5d8 50%, #a89bd4 100%);
+  --rainbow-gradient-shimmer: linear-gradient(
+    135deg,
+    #d4a0c0 0%,
+    #9b8ec4 25%,
+    #7ba8d4 50%,
+    #8cc5b2 75%,
+    #d4a0c0 100%
+  );
+}
+
+/* Subtle selection styling */
+.rainbow-road ::selection {
+  background-color: var(--selection-bg);
+}
+
+/* Primary button gradient with subtle shimmer animation */
+.rainbow-road button[class*="primary"],
+.rainbow-road [data-variant="primary"] {
+  background: var(--rainbow-gradient);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.rainbow-road button[class*="primary"]::before,
+.rainbow-road [data-variant="primary"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--rainbow-gradient-shimmer);
+  background-size: 200% 100%;
+  opacity: 0;
+  animation: rainbow-shimmer 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes rainbow-shimmer {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Active sidebar item - subtle gradient left border */
+.rainbow-road [data-active="true"],
+.rainbow-road [aria-current="page"] {
+  position: relative;
+}
+
+.rainbow-road [data-active="true"]::before,
+.rainbow-road [aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--rainbow-gradient);
+  opacity: 0.8;
+}
+
+/* Hover states with soft glow */
+.rainbow-road button[class*="primary"]:hover,
+.rainbow-road [data-variant="primary"]:hover {
+  box-shadow: 0 0 20px rgba(155, 142, 196, 0.08);
+}
+
+/* Subtle glow on focused elements */
+.rainbow-road button:focus-visible,
+.rainbow-road input:focus-visible,
+.rainbow-road textarea:focus-visible,
+.rainbow-road [role="button"]:focus-visible {
+  outline: 2px solid rgba(155, 142, 196, 0.4);
+  outline-offset: 2px;
+}
+
+/* Page title with subtle gradient underline (only on titles, not all headings) */
+.rainbow-road [class*="page-title"]::after,
+.rainbow-road .content-page-title::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: var(--rainbow-gradient);
+  opacity: 0.3;
+  margin-top: 8px;
+  border-radius: 1px;
+}
+
+/* Scrollbar with soft gradient tint */
+.rainbow-road ::-webkit-scrollbar-thumb {
+  background: rgba(155, 142, 196, 0.2);
+  border-radius: 4px;
+}
+
+.rainbow-road ::-webkit-scrollbar-thumb:hover {
+  background: rgba(155, 142, 196, 0.3);
+}
+
+/* Soft glow on cards and elevated surfaces */
+.rainbow-road [class*="card"],
+.rainbow-road [class*="dialog"],
+.rainbow-road [class*="popover"] {
+  box-shadow: 
+    0 8px 32px rgba(25, 25, 25, 0.4),
+    0 0 0 1px rgba(155, 142, 196, 0.06);
+}
+
+/* Very subtle rainbow tint on hover for interactive items */
+.rainbow-road [role="button"]:hover:not(:disabled),
+.rainbow-road button:hover:not(:disabled):not([class*="primary"]) {
+  background: rgba(155, 142, 196, 0.04);
+}
+
+/* Soft gradient on dividers */
+.rainbow-road hr,
+.rainbow-road [role="separator"] {
+  border-color: rgba(155, 142, 196, 0.12);
+}
+
+/* Link colors with soft purple tint */
+.rainbow-road a {
+  color: #b5a8d4;
+}
+
+.rainbow-road a:hover {
+  color: #d4c8f0;
+  text-decoration-color: rgba(155, 142, 196, 0.4);
+}
+
+/* Subtle gradient on badges/pills */
+.rainbow-road [class*="badge"],
+.rainbow-road [class*="pill"] {
+  background: rgba(155, 142, 196, 0.08);
+  border-color: rgba(155, 142, 196, 0.15);
+}
+
+/* Input fields with soft purple focus */
+.rainbow-road input,
+.rainbow-road textarea,
+.rainbow-road select {
+  background: rgba(28, 32, 48, 0.6);
+  border-color: rgba(155, 142, 196, 0.12);
+}
+
+.rainbow-road input:focus,
+.rainbow-road textarea:focus,
+.rainbow-road select:focus {
+  border-color: rgba(155, 142, 196, 0.3);
+  box-shadow: 0 0 0 3px rgba(155, 142, 196, 0.08);
+}
+
+/* Loading/skeleton states with soft shimmer */
+.rainbow-road [class*="skeleton"],
+.rainbow-road [class*="loading"] {
+  background: linear-gradient(
+    90deg,
+    rgba(155, 142, 196, 0.04) 0%,
+    rgba(155, 142, 196, 0.08) 50%,
+    rgba(155, 142, 196, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 2s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* Soft gradient on progress bars */
+.rainbow-road progress,
+.rainbow-road [role="progressbar"] {
+  background: var(--rainbow-gradient);
+}
+
+/* Tooltip with soft glow */
+.rainbow-road [role="tooltip"] {
+  background: #1c2030;
+  border: 1px solid rgba(155, 142, 196, 0.15);
+  box-shadow: 
+    0 4px 16px rgba(25, 25, 25, 0.4),
+    0 0 0 1px rgba(155, 142, 196, 0.08);
+}
+
+/* Checkbox/radio with soft gradient when checked */
+.rainbow-road input[type="checkbox"]:checked,
+.rainbow-road input[type="radio"]:checked {
+  background: var(--rainbow-gradient);
+  border-color: transparent;
+}
+
+/* Switch/toggle with gradient in active state */
+.rainbow-road [role="switch"][aria-checked="true"] {
+  background: var(--rainbow-gradient);
+}
+
+/* Tab active indicator with gradient */
+.rainbow-road [role="tab"][aria-selected="true"] {
+  border-bottom-color: transparent;
+  position: relative;
+}
+
+.rainbow-road [role="tab"][aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--rainbow-gradient);
+  opacity: 0.8;
+}
+
+/* Dropdown menu with soft background */
+.rainbow-road [role="menu"],
+.rainbow-road [role="listbox"] {
+  background: #1c2030;
+  border: 1px solid rgba(155, 142, 196, 0.15);
+}
+
+/* Menu item hover with soft tint */
+.rainbow-road [role="menuitem"]:hover,
+.rainbow-road [role="option"]:hover {
+  background: rgba(155, 142, 196, 0.06);
+}
+
+/* Code blocks with soft navy background */
+.rainbow-road code,
+.rainbow-road pre {
+  background: rgba(22, 25, 34, 0.8);
+  border: 1px solid rgba(155, 142, 196, 0.1);
+}
+
+/* Blockquote with soft gradient left border */
+.rainbow-road blockquote {
+  border-left: 3px solid transparent;
+  border-image: var(--rainbow-gradient) 1;
+  padding-left: 16px;
+  opacity: 0.8;
+}

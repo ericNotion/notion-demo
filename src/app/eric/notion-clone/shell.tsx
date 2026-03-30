@@ -21,6 +21,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { CreateAgentModal } from "./components/CreateAgentModal";
 import { HomeContent } from "./components/HomeContent";
 import { PrototypeBanner } from "./components/PrototypeBanner";
+import { RainbowRoadThemeProvider } from "./components/RainbowRoadThemeProvider";
 import { SearchDialog } from "./components/SearchDialog";
 import { useSyncedTitle } from "./components/SyncedSidebarItem";
 import {
@@ -32,6 +33,7 @@ import {
   meetingGroups,
   type PageEntry,
 } from "./data";
+import "./rainbow-road-theme.css";
 
 function SidebarContent({
   onSearch,
@@ -254,43 +256,42 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div
-      className="flex h-screen flex-col overflow-hidden"
-      style={{
-        fontFamily:
-          'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
-      }}
-    >
-      <PrototypeBanner />
-      <div className="flex min-h-0 flex-1 overflow-hidden">
-        <SlipperySidebarLayout
-          sidebar={
-            <SidebarContent
-              onSearch={() => setSearchOpen(true)}
-              onNewAgent={() => setCreateAgentOpen(true)}
-            />
-          }
-          minWidth={290}
-        >
-          <div className="bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
-            {!(pathname.includes("/chat") && searchParams.get("thread")) &&
-              !pathname.endsWith("/agents") && (
-                <PageTopBar
-                  title={title}
-                  breadcrumbs={breadcrumbs}
-                  permissionLabel={permissionLabel}
-                />
-              )}
-            <div className="flex-1 overflow-y-auto">{children}</div>
-          </div>
-        </SlipperySidebarLayout>
+    <RainbowRoadThemeProvider>
+      <div
+        className="rainbow-road flex h-screen flex-col overflow-hidden"
+        style={{ colorScheme: "dark" }}
+      >
+        <PrototypeBanner />
+        <div className="flex min-h-0 flex-1 overflow-hidden">
+          <SlipperySidebarLayout
+            sidebar={
+              <SidebarContent
+                onSearch={() => setSearchOpen(true)}
+                onNewAgent={() => setCreateAgentOpen(true)}
+              />
+            }
+            minWidth={290}
+          >
+            <div className="bg-primary flex min-h-0 min-w-0 flex-1 flex-col">
+              {!(pathname.includes("/chat") && searchParams.get("thread")) &&
+                !pathname.endsWith("/agents") && (
+                  <PageTopBar
+                    title={title}
+                    breadcrumbs={breadcrumbs}
+                    permissionLabel={permissionLabel}
+                  />
+                )}
+              <div className="flex-1 overflow-y-auto">{children}</div>
+            </div>
+          </SlipperySidebarLayout>
+        </div>
+        <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
+        <CreateAgentModal
+          open={createAgentOpen}
+          onOpenChange={setCreateAgentOpen}
+          onCreateAgent={() => {}}
+        />
       </div>
-      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
-      <CreateAgentModal
-        open={createAgentOpen}
-        onOpenChange={setCreateAgentOpen}
-        onCreateAgent={() => {}}
-      />
-    </div>
+    </RainbowRoadThemeProvider>
   );
 }
