@@ -259,7 +259,7 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
     <RainbowRoadThemeProvider>
       <div
         className="rainbow-road flex h-screen flex-col overflow-hidden"
-        style= colorScheme: "dark" 
+        style={{ colorScheme: "dark" }}
       >
         <PrototypeBanner />
         <div className="flex min-h-0 flex-1 overflow-hidden">
