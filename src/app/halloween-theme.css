@@ -1,26 +1,26 @@
-/* Halloween Theme Override */
+/* Halloween Theme Override - Subtle/Mild Version */
 
 .halloween {
   /* Set color-scheme to dark for light-dark() function */
   color-scheme: dark;
 
-  /* Halloween color palette */
+  /* Halloween color palette - warm and subtle */
   --halloween-bg-darkest: #0d0d0d;
-  --halloween-bg-dark: #1a1118;
-  --halloween-bg-mid: #251a2e;
-  --halloween-bg-card: #1f1528;
-  --halloween-orange: #ff6b2b;
-  --halloween-orange-muted: #cc5522;
-  --halloween-purple: #8b5cf6;
-  --halloween-purple-muted: #6d3fc4;
+  --halloween-bg-dark: #1c1917;
+  --halloween-bg-mid: #292524;
+  --halloween-bg-card: #262321;
+  --halloween-orange: #d97706;
+  --halloween-orange-muted: #c2742e;
+  --halloween-purple: #8b7fa0;
+  --halloween-purple-muted: #7c6f8a;
   --halloween-green: #4ade80;
   --halloween-green-muted: #22c55e;
   --halloween-red: #ef4444;
-  --halloween-text: #f5f0eb;
-  --halloween-text-secondary: #b8a9c9;
-  --halloween-text-tertiary: #7c6a8e;
-  --halloween-border: #3d2a50;
-  --halloween-border-subtle: #2a1d35;
+  --halloween-text: #e7e5e4;
+  --halloween-text-secondary: #a8a29e;
+  --halloween-text-tertiary: #78716c;
+  --halloween-border: #3f3935;
+  --halloween-border-subtle: #33302e;
 
   /* Override semantic tokens with Halloween colors */
   
@@ -28,7 +28,7 @@
   --text-color-primary: var(--halloween-text);
   --text-color-secondary: var(--halloween-text-secondary);
   --text-color-tertiary: var(--halloween-text-tertiary);
-  --text-color-disabled: #4a3d5a;
+  --text-color-disabled: #57534e;
   --text-color-accent-primary: var(--halloween-orange);
   --text-color-inverse-primary: var(--halloween-bg-darkest);
   --text-color-inverse-secondary: var(--halloween-text-tertiary);
@@ -36,17 +36,17 @@
   /* Icon colors */
   --icon-color-primary: var(--halloween-text-secondary);
   --icon-color-secondary: var(--halloween-text-tertiary);
-  --icon-color-tertiary: #6a5a7e;
-  --icon-color-disabled: #4a3d5a;
+  --icon-color-tertiary: #78716c;
+  --icon-color-disabled: #57534e;
   --icon-color-accent-primary: var(--halloween-orange);
   --icon-color-inverse-primary: var(--halloween-bg-darkest);
   --icon-color-inverse-secondary: var(--halloween-text-tertiary);
 
   /* Border colors */
   --border-color-primary: var(--halloween-border-subtle);
-  --border-color-primary-translucent: rgba(61, 42, 80, 0.5);
+  --border-color-primary-translucent: rgba(51, 48, 46, 0.5);
   --border-color-secondary: var(--halloween-border);
-  --border-color-secondary-translucent: rgba(61, 42, 80, 0.3);
+  --border-color-secondary-translucent: rgba(63, 57, 53, 0.3);
   --border-color-inverse-primary: var(--halloween-purple);
   --border-color-accent-primary: var(--halloween-orange);
   --border-color-strong: var(--halloween-border);
@@ -54,9 +54,9 @@
   /* Background colors */
   --background-color-primary: var(--halloween-bg-dark);
   --background-color-secondary: var(--halloween-bg-card);
-  --background-color-secondary-translucent: rgba(31, 21, 40, 0.8);
+  --background-color-secondary-translucent: rgba(38, 35, 33, 0.8);
   --background-color-tertiary: var(--halloween-bg-mid);
-  --background-color-tertiary-translucent: rgba(37, 26, 46, 0.8);
+  --background-color-tertiary-translucent: rgba(41, 37, 36, 0.8);
   --background-color-elevated: var(--halloween-bg-card);
   --background-color-accent-primary: var(--halloween-purple);
   --background-color-accent-secondary: var(--halloween-purple-muted);
@@ -64,15 +64,15 @@
   /* Color-specific tokens - Orange */
   --text-color-orange-primary: var(--halloween-orange);
   --text-color-orange-secondary: var(--halloween-orange-muted);
-  --background-color-orange-primary: rgba(255, 107, 43, 0.1);
-  --background-color-orange-secondary: rgba(255, 107, 43, 0.15);
+  --background-color-orange-primary: rgba(217, 119, 6, 0.1);
+  --background-color-orange-secondary: rgba(217, 119, 6, 0.15);
   --border-color-orange-primary: var(--halloween-orange-muted);
 
   /* Color-specific tokens - Purple */
   --text-color-purple-primary: var(--halloween-purple);
   --text-color-purple-secondary: var(--halloween-purple-muted);
-  --background-color-purple-primary: rgba(139, 92, 246, 0.1);
-  --background-color-purple-secondary: rgba(139, 92, 246, 0.15);
+  --background-color-purple-primary: rgba(139, 127, 160, 0.1);
+  --background-color-purple-secondary: rgba(139, 127, 160, 0.15);
   --border-color-purple-primary: var(--halloween-purple-muted);
 
   /* Color-specific tokens - Green */
@@ -90,37 +90,11 @@
   --border-color-red-primary: #dc2626;
 
   /* Scrollbar */
-  --scrollbar-color: var(--halloween-purple-muted);
+  --scrollbar-color: #57534e;
 
-  /* Shadows - more dramatic for Halloween */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.7);
-}
-
-/* Apply halloween styling to specific elements */
-.halloween .bg-primary {
-  background-color: var(--halloween-bg-dark);
-}
-
-.halloween .text-primary {
-  color: var(--halloween-text);
-}
-
-.halloween .border-primary {
-  border-color: var(--halloween-border-subtle);
-}
-
-/* Add subtle spooky glow to interactive elements */
-.halloween button:hover,
-.halloween a:hover {
-  filter: brightness(1.1);
-  transition: filter 0.2s ease;
-}
-
-/* Optional: Add subtle purple glow to focused elements */
-.halloween :focus-visible {
-  outline-color: var(--halloween-purple);
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+  /* Shadows - standard values */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
