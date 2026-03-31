@@ -1,0 +1,255 @@
+/* Christmas Theme CSS - Scoped to .christmas-theme class */
+
+.christmas-theme {
+  /* Christmas Color Palette */
+  --christmas-snow-white: #fffaf0;
+  --christmas-ivory: #fffff0;
+  --christmas-cream: #faf8f3;
+  --christmas-mint-light: #f0f9f4;
+  --christmas-mint: #e8f5ee;
+  --christmas-red: #c41e3a;
+  --christmas-red-deep: #8b0000;
+  --christmas-cranberry: #9b1b30;
+  --christmas-forest-green: #228b22;
+  --christmas-pine-green: #1a472a;
+  --christmas-holly-green: #0f5132;
+  --christmas-gold: #ffd700;
+  --christmas-warm-gold: #daa520;
+  --christmas-red-light: #fef5f5;
+  --christmas-red-lighter: #fce8ea;
+  --christmas-green-light: #f2f9f4;
+  --christmas-border-red: #e8c5cc;
+  --christmas-border-green: #c8e6d0;
+
+  /* Override Primary Backgrounds */
+  --background-color-primary: light-dark(var(--christmas-snow-white), #1a2e1a);
+  --background-color-secondary: light-dark(var(--christmas-mint-light), #1f3a1f);
+  --background-color-tertiary: light-dark(var(--christmas-mint), #243f24);
+  --background-color-elevated: light-dark(var(--christmas-ivory), #1f381f);
+
+  /* Override Text Colors */
+  --text-color-primary: light-dark(#2c1810, #f5f5dc);
+  --text-color-secondary: light-dark(#5c3a28, #d4c5a9);
+  --text-color-tertiary: light-dark(#7a5640, #b8a888);
+
+  /* Override Icon Colors */
+  --icon-color-primary: light-dark(var(--christmas-pine-green), #d4e8d4);
+  --icon-color-secondary: light-dark(var(--christmas-forest-green), #a8d4a8);
+
+  /* Override Border Colors */
+  --border-color-primary: light-dark(var(--christmas-border-green), #3a5a3a);
+  --border-color-secondary: light-dark(var(--christmas-border-red), #4a2a2a);
+
+  /* Accent Colors - Red and Green */
+  --background-color-red-primary: light-dark(var(--christmas-red-lighter), #4a1a1a);
+  --background-color-green-primary: light-dark(var(--christmas-green-light), #1a3a1a);
+  --text-color-red-primary: light-dark(var(--christmas-red), #ff6b7a);
+  --text-color-green-primary: light-dark(var(--christmas-forest-green), #6bff8a);
+
+  /* Sidebar Christmas Theme */
+  --sidebar: light-dark(var(--christmas-pine-green), var(--christmas-pine-green));
+  --sidebar-foreground: light-dark(var(--christmas-snow-white), var(--christmas-snow-white));
+  --sidebar-primary: light-dark(var(--christmas-gold), var(--christmas-warm-gold));
+  --sidebar-primary-foreground: light-dark(var(--christmas-pine-green), var(--christmas-pine-green));
+  --sidebar-accent: light-dark(#1f5a3a, #2a6f4a);
+  --sidebar-accent-foreground: light-dark(var(--christmas-snow-white), var(--christmas-snow-white));
+  --sidebar-border: light-dark(#2a6040, #3a7050);
+  --sidebar-ring: light-dark(var(--christmas-gold), var(--christmas-gold));
+}
+
+/* Snowflake Animation */
+@keyframes snowfall {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(50px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes snowfall-alt {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100vh) translateX(-30px) rotate(-360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes snowfall-slow {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh) translateX(20px) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+/* Snowflake container */
+.christmas-theme .snowflakes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.christmas-theme .snowflake {
+  position: absolute;
+  top: -10vh;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1em;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Individual snowflake animations */
+.christmas-theme .snowflake:nth-child(1) {
+  left: 5%;
+  animation: snowfall 12s linear infinite;
+  animation-delay: 0s;
+  font-size: 0.8em;
+}
+
+.christmas-theme .snowflake:nth-child(2) {
+  left: 15%;
+  animation: snowfall-alt 15s linear infinite;
+  animation-delay: 2s;
+  font-size: 1em;
+}
+
+.christmas-theme .snowflake:nth-child(3) {
+  left: 25%;
+  animation: snowfall-slow 18s linear infinite;
+  animation-delay: 4s;
+  font-size: 0.9em;
+}
+
+.christmas-theme .snowflake:nth-child(4) {
+  left: 35%;
+  animation: snowfall 14s linear infinite;
+  animation-delay: 1s;
+  font-size: 1.1em;
+}
+
+.christmas-theme .snowflake:nth-child(5) {
+  left: 45%;
+  animation: snowfall-alt 16s linear infinite;
+  animation-delay: 3s;
+  font-size: 0.7em;
+}
+
+.christmas-theme .snowflake:nth-child(6) {
+  left: 55%;
+  animation: snowfall-slow 13s linear infinite;
+  animation-delay: 5s;
+  font-size: 1em;
+}
+
+.christmas-theme .snowflake:nth-child(7) {
+  left: 65%;
+  animation: snowfall 17s linear infinite;
+  animation-delay: 0.5s;
+  font-size: 0.9em;
+}
+
+.christmas-theme .snowflake:nth-child(8) {
+  left: 75%;
+  animation: snowfall-alt 14s linear infinite;
+  animation-delay: 2.5s;
+  font-size: 1.2em;
+}
+
+.christmas-theme .snowflake:nth-child(9) {
+  left: 85%;
+  animation: snowfall-slow 16s linear infinite;
+  animation-delay: 1.5s;
+  font-size: 0.8em;
+}
+
+.christmas-theme .snowflake:nth-child(10) {
+  left: 95%;
+  animation: snowfall 15s linear infinite;
+  animation-delay: 3.5s;
+  font-size: 1em;
+}
+
+/* Toggle button styling */
+.christmas-theme-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--christmas-red) 0%, var(--christmas-forest-green) 100%);
+  border: 3px solid var(--christmas-gold);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    0 0 20px rgba(255, 215, 0, 0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  z-index: 10000;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+}
+
+.christmas-theme-toggle:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+.christmas-theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Add subtle sparkle effect to the toggle */
+@keyframes sparkle {
+  0%, 100% {
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      0 0 20px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      0 0 30px rgba(255, 215, 0, 0.6),
+      0 0 40px rgba(255, 215, 0, 0.3);
+  }
+}
+
+.christmas-theme-toggle {
+  animation: sparkle 3s ease-in-out infinite;
+}
