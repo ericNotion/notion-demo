@@ -1,0 +1,100 @@
+/* Halloween Theme Override - Subtle/Mild Version */
+
+.halloween {
+  /* Set color-scheme to dark for light-dark() function */
+  color-scheme: dark;
+
+  /* Halloween color palette - warm and subtle */
+  --halloween-bg-darkest: #0d0d0d;
+  --halloween-bg-dark: #1c1917;
+  --halloween-bg-mid: #292524;
+  --halloween-bg-card: #262321;
+  --halloween-orange: #d97706;
+  --halloween-orange-muted: #c2742e;
+  --halloween-purple: #8b7fa0;
+  --halloween-purple-muted: #7c6f8a;
+  --halloween-green: #4ade80;
+  --halloween-green-muted: #22c55e;
+  --halloween-red: #ef4444;
+  --halloween-text: #e7e5e4;
+  --halloween-text-secondary: #a8a29e;
+  --halloween-text-tertiary: #78716c;
+  --halloween-border: #3f3935;
+  --halloween-border-subtle: #33302e;
+
+  /* Override semantic tokens with Halloween colors */
+  
+  /* Text colors */
+  --text-color-primary: var(--halloween-text);
+  --text-color-secondary: var(--halloween-text-secondary);
+  --text-color-tertiary: var(--halloween-text-tertiary);
+  --text-color-disabled: #57534e;
+  --text-color-accent-primary: var(--halloween-orange);
+  --text-color-inverse-primary: var(--halloween-bg-darkest);
+  --text-color-inverse-secondary: var(--halloween-text-tertiary);
+
+  /* Icon colors */
+  --icon-color-primary: var(--halloween-text-secondary);
+  --icon-color-secondary: var(--halloween-text-tertiary);
+  --icon-color-tertiary: #78716c;
+  --icon-color-disabled: #57534e;
+  --icon-color-accent-primary: var(--halloween-orange);
+  --icon-color-inverse-primary: var(--halloween-bg-darkest);
+  --icon-color-inverse-secondary: var(--halloween-text-tertiary);
+
+  /* Border colors */
+  --border-color-primary: var(--halloween-border-subtle);
+  --border-color-primary-translucent: rgba(51, 48, 46, 0.5);
+  --border-color-secondary: var(--halloween-border);
+  --border-color-secondary-translucent: rgba(63, 57, 53, 0.3);
+  --border-color-inverse-primary: var(--halloween-purple);
+  --border-color-accent-primary: var(--halloween-orange);
+  --border-color-strong: var(--halloween-border);
+
+  /* Background colors */
+  --background-color-primary: var(--halloween-bg-dark);
+  --background-color-secondary: var(--halloween-bg-card);
+  --background-color-secondary-translucent: rgba(38, 35, 33, 0.8);
+  --background-color-tertiary: var(--halloween-bg-mid);
+  --background-color-tertiary-translucent: rgba(41, 37, 36, 0.8);
+  --background-color-elevated: var(--halloween-bg-card);
+  --background-color-accent-primary: var(--halloween-purple);
+  --background-color-accent-secondary: var(--halloween-purple-muted);
+
+  /* Color-specific tokens - Orange */
+  --text-color-orange-primary: var(--halloween-orange);
+  --text-color-orange-secondary: var(--halloween-orange-muted);
+  --background-color-orange-primary: rgba(217, 119, 6, 0.1);
+  --background-color-orange-secondary: rgba(217, 119, 6, 0.15);
+  --border-color-orange-primary: var(--halloween-orange-muted);
+
+  /* Color-specific tokens - Purple */
+  --text-color-purple-primary: var(--halloween-purple);
+  --text-color-purple-secondary: var(--halloween-purple-muted);
+  --background-color-purple-primary: rgba(139, 127, 160, 0.1);
+  --background-color-purple-secondary: rgba(139, 127, 160, 0.15);
+  --border-color-purple-primary: var(--halloween-purple-muted);
+
+  /* Color-specific tokens - Green */
+  --text-color-green-primary: var(--halloween-green);
+  --text-color-green-secondary: var(--halloween-green-muted);
+  --background-color-green-primary: rgba(74, 222, 128, 0.1);
+  --background-color-green-secondary: rgba(74, 222, 128, 0.15);
+  --border-color-green-primary: var(--halloween-green-muted);
+
+  /* Color-specific tokens - Red */
+  --text-color-red-primary: var(--halloween-red);
+  --text-color-red-secondary: #dc2626;
+  --background-color-red-primary: rgba(239, 68, 68, 0.1);
+  --background-color-red-secondary: rgba(239, 68, 68, 0.15);
+  --border-color-red-primary: #dc2626;
+
+  /* Scrollbar */
+  --scrollbar-color: #57534e;
+
+  /* Shadows - standard values */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}

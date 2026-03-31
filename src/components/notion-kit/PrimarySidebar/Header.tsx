@@ -8,6 +8,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { cn } from "@/utils/cn";
 import { Icon } from "@nds-icons";
 import { arrowChevronDoubleBackwardIcon } from "@nds-icons/arrowChevronDoubleBackward/default.icon";
+import { HalloweenToggle } from "@/app/eric/notion-clone/components/HalloweenToggle";
 
 export function PrimarySidebarHeader({
   isDesktopApp,
@@ -33,18 +34,21 @@ export function PrimarySidebarHeader({
           <span className="text-sm font-medium select-none">Notion</span>
         </button>
 
-        {!isDesktopApp && (
-          <IconButton
-            size="sm"
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-quaternary opacity-0 transition-opacity duration-200 group-hover/primary-sidebar:opacity-100"
-          >
-            <Icon
-              icon={arrowChevronDoubleBackwardIcon}
-              className="group-hover/button:text-primary"
-            />
-          </IconButton>
-        )}
+        <div className="flex items-center gap-1">
+          <HalloweenToggle />
+          {!isDesktopApp && (
+            <IconButton
+              size="sm"
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-quaternary opacity-0 transition-opacity duration-200 group-hover/primary-sidebar:opacity-100"
+            >
+              <Icon
+                icon={arrowChevronDoubleBackwardIcon}
+                className="group-hover/button:text-primary"
+              />
+            </IconButton>
+          )}
+        </div>
       </div>
     </div>
   );
