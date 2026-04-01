@@ -22,6 +22,7 @@ import {
 } from "./atoms";
 import type { ToolType } from "./types";
 import { COLORS } from "./types";
+import { useMemo } from "react";
 
 const TOOLS: { type: ToolType; icon: any; label: string }[] = [
   { type: "select", icon: cursorClickIcon, label: "Select" },
@@ -32,6 +33,22 @@ const TOOLS: { type: ToolType; icon: any; label: string }[] = [
   { type: "text", icon: textCursorIBeamIcon, label: "Text" },
   { type: "sticky", icon: composeIcon, label: "Sticky Note" },
 ];
+
+function ColorSwatch({ color, isSelected, onClick }: { color: string; isSelected: boolean; onClick: () => void }) {
+  const style = useMemo(() => ({ backgroundColor: color }), [color]);
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "w-10 h-10 rounded-md transition-all",
+        isSelected
+          ? "ring-2 ring-blue-primary ring-offset-2 ring-offset-elevated"
+          : "hover:ring-2 hover:ring-border-primary hover:ring-offset-2 hover:ring-offset-elevated"
+      )}
+      style={style}
+    />
+  );
+}
 
 export function WhiteboardToolbar() {
   const [selectedTool, setSelectedTool] = useAtom(selectedToolAtom);
@@ -93,17 +110,11 @@ export function WhiteboardToolbar() {
       {/* Color Picker */}
       <div className="flex flex-col gap-1">
         {COLORS.map((color) => (
-          <button
+          <ColorSwatch
             key={color.value}
+            color={color.value}
+            isSelected={selectedColor === color.value}
             onClick={() => setSelectedColor(color.value)}
-            className={cn(
-              "w-10 h-10 rounded-md transition-all",
-              selectedColor === color.value
-                ? "ring-2 ring-blue-primary ring-offset-2 ring-offset-elevated"
-                : "hover:ring-2 hover:ring-border-primary hover:ring-offset-2 hover:ring-offset-elevated"
-            )}
-            style= backgroundColor: color.value 
-            title={color.name}
           />
         ))}
       </div>
