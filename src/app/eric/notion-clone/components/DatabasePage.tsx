@@ -66,7 +66,7 @@ export function DatabasePage<T extends { id: string; slug: string }>({
 
   return (
     <>
-      <div className="mx-auto w-full max-w-5xl px-8 pt-10 pb-40">
+      <div className="mx-auto w-full max-w-5xl px-4 pt-6 pb-40 sm:px-8 sm:pt-10">
         <EmojiPicker value={emoji} onChange={setEmoji} />
         <EditableTitle
           storageKey={config.titleStorageKey}

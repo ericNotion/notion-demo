@@ -16,7 +16,7 @@ export function FilterBar({
   onClear,
 }: FilterBarProps) {
   return (
-    <div className="flex items-center gap-1.5 py-2">
+    <div className="flex items-center gap-1.5 overflow-x-auto py-2">
       {filters.map((filter) => {
         const active = activeFilters.has(filter.id);
         return (

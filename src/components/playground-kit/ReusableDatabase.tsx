@@ -136,31 +136,33 @@ export function DatabaseToolbar({
           </button>
         ))}
       </div>
-      <div
-        className={cn(
-          "flex shrink-0 items-center",
-          compact ? "gap-0.5" : "gap-1",
-        )}
-      >
-        <IconButton size={compact ? "xs" : undefined}>
-          <Icon icon={filterIcon} color="secondary" size={iconSize} />
-        </IconButton>
-        <IconButton size={compact ? "xs" : undefined}>
-          <Icon icon={arrowUpDownIcon} color="secondary" size={iconSize} />
-        </IconButton>
-        <IconButton size={compact ? "xs" : undefined}>
-          <Icon icon={magnifyingGlassIcon} color="secondary" size={iconSize} />
-        </IconButton>
-        <IconButton size={compact ? "xs" : undefined}>
-          <Icon
-            icon={arrowExpandDiagonalIcon}
-            color="secondary"
-            size={iconSize}
-          />
-        </IconButton>
-        <IconButton size={compact ? "xs" : undefined}>
-          <Icon icon={gearIcon} color="secondary" size={iconSize} />
-        </IconButton>
+      <div className="flex shrink-0 items-center gap-1">
+        <div
+          className={cn(
+            "hidden items-center sm:flex",
+            compact ? "gap-0.5" : "gap-1",
+          )}
+        >
+          <IconButton size={compact ? "xs" : undefined}>
+            <Icon icon={filterIcon} color="secondary" size={iconSize} />
+          </IconButton>
+          <IconButton size={compact ? "xs" : undefined}>
+            <Icon icon={arrowUpDownIcon} color="secondary" size={iconSize} />
+          </IconButton>
+          <IconButton size={compact ? "xs" : undefined}>
+            <Icon icon={magnifyingGlassIcon} color="secondary" size={iconSize} />
+          </IconButton>
+          <IconButton size={compact ? "xs" : undefined}>
+            <Icon
+              icon={arrowExpandDiagonalIcon}
+              color="secondary"
+              size={iconSize}
+            />
+          </IconButton>
+          <IconButton size={compact ? "xs" : undefined}>
+            <Icon icon={gearIcon} color="secondary" size={iconSize} />
+          </IconButton>
+        </div>
         <Button variant="primary" size="sm" className="gap-0.5" onClick={onNew}>
           <span>New</span>
           <Icon
@@ -220,21 +222,23 @@ export function ReusableDatabase<T extends { id: string }>({
             <div />
           )}
           <div className="flex shrink-0 items-center gap-1">
-            <IconButton>
-              <Icon icon={filterIcon} color="secondary" />
-            </IconButton>
-            <IconButton>
-              <Icon icon={arrowUpDownIcon} color="secondary" />
-            </IconButton>
-            <IconButton>
-              <Icon icon={magnifyingGlassIcon} color="secondary" />
-            </IconButton>
-            <IconButton>
-              <Icon icon={arrowExpandDiagonalIcon} color="secondary" />
-            </IconButton>
-            <IconButton>
-              <Icon icon={gearIcon} color="secondary" />
-            </IconButton>
+            <div className="hidden items-center gap-1 sm:flex">
+              <IconButton>
+                <Icon icon={filterIcon} color="secondary" />
+              </IconButton>
+              <IconButton>
+                <Icon icon={arrowUpDownIcon} color="secondary" />
+              </IconButton>
+              <IconButton>
+                <Icon icon={magnifyingGlassIcon} color="secondary" />
+              </IconButton>
+              <IconButton>
+                <Icon icon={arrowExpandDiagonalIcon} color="secondary" />
+              </IconButton>
+              <IconButton>
+                <Icon icon={gearIcon} color="secondary" />
+              </IconButton>
+            </div>
             <Button
               variant="primary"
               size={compact ? "sm" : "md"}
@@ -253,7 +257,7 @@ export function ReusableDatabase<T extends { id: string }>({
         </div>
       )}
 
-      <div className="overflow-hidden">
+      <div className="overflow-x-auto">
         <table className="w-full table-fixed border-collapse">
           <thead>
             <tr className="border-primary border-b">
