@@ -48,10 +48,10 @@ function SidebarContent({
       quickActions={<SidebarWithHandlersQuickActions onSearch={onSearch} />}
       cta={<SidebarWithHandlersCTA />}
     >
-      <SlipperySidebar.Tab id="home" label="\ud83c\udfda\ufe0f Home" icon={homeIcon}>
+      <SlipperySidebar.Tab id="home" label="Home" icon={homeIcon}>
         <HomeContent onNewAgent={onNewAgent} />
       </SlipperySidebar.Tab>
-      <SlipperySidebar.Tab id="chats" label="\ud83d\udc7b Chat" icon={chatBubbleIcon}>
+      <SlipperySidebar.Tab id="chats" label="Chat" icon={chatBubbleIcon}>
         <ChatContent
           groups={chatGroups}
           onChatClick={(chat) => {
@@ -64,7 +64,7 @@ function SidebarContent({
       </SlipperySidebar.Tab>
       <SlipperySidebar.Tab
         id="meetings"
-        label="\ud83e\udd87 Meetings"
+        label="Meetings"
         icon={calendarAltIcon}
       >
         <MeetingsContent
@@ -74,7 +74,7 @@ function SidebarContent({
           }}
         />
       </SlipperySidebar.Tab>
-      <SlipperySidebar.Tab id="inbox" label="\ud83d\udd77\ufe0f Inbox" icon={inboxIcon} count={2}>
+      <SlipperySidebar.Tab id="inbox" label="Inbox" icon={inboxIcon} count={2}>
         <InboxContent
           notifications={inboxNotifications}
           onNotificationClick={(n) => n.pageHref && router.push(n.pageHref)}
@@ -110,7 +110,7 @@ function SidebarWithHandlersCTA() {
       onNewMeeting={() => {
         const id = Date.now().toString(36);
         createAndNavigate({
-          emoji: "\ud83c\udf99\ufe0f",
+          emoji: "🎙️",
           label: "Untitled",
           href: `/eric/notion-clone/meeting-note/${id}`,
           section: "private",
@@ -122,7 +122,7 @@ function SidebarWithHandlersCTA() {
       onComposePage={() => {
         const id = Date.now().toString(36);
         createAndNavigate({
-          emoji: "\ud83d\udcc4",
+          emoji: "📄",
           label: "Untitled",
           href: `/eric/notion-clone/new-page/${id}`,
           section: "private",
@@ -137,7 +137,7 @@ function SidebarWithHandlersCTA() {
       onComposeMeeting={() => {
         const id = Date.now().toString(36);
         createAndNavigate({
-          emoji: "\ud83c\udf99\ufe0f",
+          emoji: "🎙️",
           label: "Untitled",
           href: `/eric/notion-clone/meeting-note/${id}`,
           section: "private",
@@ -149,7 +149,7 @@ function SidebarWithHandlersCTA() {
       onComposeDatabase={() => {
         const id = Date.now().toString(36);
         createAndNavigate({
-          emoji: "\ud83d\udcca",
+          emoji: "📊",
           label: "Untitled",
           href: `/eric/notion-clone/new-database/${id}`,
           section: "private",
@@ -254,16 +254,13 @@ export function NotionShell({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
-      {/* \ud83c\udf83 Halloween Banner \ud83c\udf83 */}
-      <div className="halloween-banner">
-        <span className="halloween-banner-emoji">\ud83c\udf83</span>
-        <span className="halloween-banner-text">SPOOKY HALLOWEEN MODE ACTIVATED</span>
-        <span className="halloween-banner-emoji">\ud83d\udc7b</span>
-        <span className="halloween-banner-small">\ud83d\udd77\ufe0f</span>
-        <span className="halloween-banner-small">\ud83e\udd87</span>
-        <span className="halloween-banner-small">\ud83d\udd78\ufe0f</span>
-      </div>
+    <div
+      className="flex h-screen flex-col overflow-hidden"
+      style={{
+        fontFamily:
+          'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
+      }}
+    >
       <PrototypeBanner />
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <SlipperySidebarLayout
