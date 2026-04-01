@@ -66,7 +66,7 @@ export function PagePeekModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={false}
-        className="flex max-h-[85vh] max-w-[900px] flex-col gap-0 overflow-hidden p-0"
+        className="flex max-h-[95vh] max-w-[900px] flex-col gap-0 overflow-hidden p-0 sm:max-h-[85vh]"
       >
         <DialogTitle className="sr-only">{editableTitle || title}</DialogTitle>
 
@@ -130,7 +130,7 @@ export function PagePeekModal({
 
         <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto">
           {/* Page header */}
-          <div className="mx-auto max-w-[680px] px-12 pt-10 pb-2">
+          <div className="mx-auto max-w-[680px] px-4 pt-6 pb-2 sm:px-12 sm:pt-10">
             <div className="mb-2">
               <EmojiPicker
                 value={editableIcon}
@@ -151,14 +151,14 @@ export function PagePeekModal({
           </div>
 
           {/* Properties */}
-          <div className="mx-auto max-w-[680px] px-12 py-3">
+          <div className="mx-auto max-w-[680px] px-4 py-3 sm:px-12">
             <div className="space-y-1">
               {properties.map((prop) => (
                 <div
                   key={prop.label}
                   className="hover:bg-secondary-translucent flex min-h-[34px] items-center gap-4 rounded-sm px-1 py-1"
                 >
-                  <span className="text-secondary flex w-[140px] shrink-0 items-center gap-1.5 text-sm">
+                  <span className="text-secondary flex w-[100px] shrink-0 items-center gap-1.5 text-sm sm:w-[140px]">
                     <Icon icon={prop.icon} size={14} color="secondary" />
                     {prop.label}
                   </span>
@@ -169,12 +169,12 @@ export function PagePeekModal({
           </div>
 
           {/* Divider */}
-          <div className="mx-auto max-w-[680px] px-12">
+          <div className="mx-auto max-w-[680px] px-4 sm:px-12">
             <hr className="border-secondary border-t" />
           </div>
 
           {/* Body */}
-          <div className="mx-auto max-w-[680px] px-12 pt-4 pb-20">
+          <div className="mx-auto max-w-[680px] px-4 pt-4 pb-20 sm:px-12">
             {bodyStorageKey ? (
               <DatabasePageBlocks storageKey={bodyStorageKey} />
             ) : (
