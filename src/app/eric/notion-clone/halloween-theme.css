@@ -1,0 +1,93 @@
+/* 🎃 Halloween Theme for Notion Clone 🎃 */
+/* Overrides the default theme with spooky Halloween colors */
+
+:root {
+  /* Custom Halloween color palette */
+  --halloween-black: #0a0a0a;
+  --halloween-dark-purple: #1a0e1f;
+  --halloween-deep-purple: #261535;
+  --halloween-medium-purple: #3d2550;
+  --halloween-bright-purple: #8b00ff;
+  --halloween-glow-purple: #b366ff;
+  
+  --halloween-dark-orange: #1f0f00;
+  --halloween-deep-orange: #331a00;
+  --halloween-medium-orange: #4d2600;
+  --halloween-bright-orange: #ff6600;
+  --halloween-glow-orange: #e88a30;
+  
+  --halloween-ghost-white: #f5f5f5;
+  --halloween-dim-white: #c0c0c0;
+  --halloween-fog-gray: #8a8a8a;
+  
+  /* Main backgrounds - Very dark with purple/orange tint */
+  --background-color-primary: var(--halloween-dark-purple);
+  --background-color-secondary: var(--halloween-black);
+  --background-color-tertiary: var(--halloween-deep-purple);
+  --background-color-elevated: var(--halloween-deep-purple);
+  --background-color-accent-primary: var(--halloween-medium-purple);
+  --background-color-accent-secondary: var(--halloween-medium-orange);
+  
+  /* Text colors - Ghostly whites and fog grays */
+  --text-color-primary: var(--halloween-ghost-white);
+  --text-color-secondary: var(--halloween-dim-white);
+  --text-color-tertiary: var(--halloween-fog-gray);
+  --text-color-disabled: #555555;
+  --text-color-accent-primary: var(--halloween-glow-orange);
+  --text-color-inverse-primary: var(--halloween-black);
+  
+  /* Icon colors - Match text with orange accents */
+  --icon-color-primary: var(--halloween-ghost-white);
+  --icon-color-secondary: var(--halloween-dim-white);
+  --icon-color-tertiary: var(--halloween-fog-gray);
+  --icon-color-accent-primary: var(--halloween-glow-orange);
+  
+  /* Border colors - Subtle purple and orange glows */
+  --border-color-primary: var(--halloween-medium-purple);
+  --border-color-secondary: var(--halloween-deep-purple);
+  --border-color-strong: var(--halloween-bright-purple);
+  --border-color-accent-primary: var(--halloween-bright-orange);
+  
+  /* Halloween-specific colored variants */
+  /* Orange colors - Primary Halloween accent */
+  --background-color-orange-primary: var(--halloween-deep-orange);
+  --background-color-orange-secondary: var(--halloween-medium-orange);
+  --background-color-orange-tertiary: rgba(255, 102, 0, 0.2);
+  --text-color-orange-primary: var(--halloween-glow-orange);
+  --text-color-orange-secondary: var(--halloween-bright-orange);
+  --icon-color-orange-primary: var(--halloween-glow-orange);
+  --border-color-orange-primary: var(--halloween-bright-orange);
+  
+  /* Purple colors - Secondary Halloween accent */
+  --background-color-purple-primary: var(--halloween-deep-purple);
+  --background-color-purple-secondary: var(--halloween-medium-purple);
+  --background-color-purple-tertiary: rgba(139, 0, 255, 0.2);
+  --text-color-purple-primary: var(--halloween-glow-purple);
+  --text-color-purple-secondary: var(--halloween-bright-purple);
+  --icon-color-purple-primary: var(--halloween-glow-purple);
+  --border-color-purple-primary: var(--halloween-bright-purple);
+  
+  /* Gray colors - Maintain dark theme */
+  --background-color-gray-primary: var(--halloween-black);
+  --background-color-gray-secondary: var(--halloween-deep-purple);
+  --text-color-gray-primary: var(--halloween-dim-white);
+  --icon-color-gray-primary: var(--halloween-dim-white);
+  
+  /* Subtle Halloween shadows with minimal glow */
+  --shadow-sm: 0px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0px 4px 12px 0px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0px 12px 24px 0px rgba(0, 0, 0, 0.5);
+  --shadow-diffuse: 0px 8px 32px 0px rgba(0, 0, 0, 0.4);
+  --shadow-scrim: 0px 16px 48px 0px rgba(0, 0, 0, 0.7);
+    
+  /* Outline shadows with subtle Halloween accent */
+  --shadow-sm-outline: 0px 2px 6px 0px rgba(0, 0, 0, 0.3), 0px 0px 0px 1px rgba(74, 44, 90, 0.3);
+  --shadow-md-outline: 0px 4px 12px 0px rgba(0, 0, 0, 0.4), 0px 0px 0px 1px rgba(74, 44, 90, 0.3);
+  --shadow-lg-outline: 0px 12px 24px 0px rgba(0, 0, 0, 0.5), 0px 0px 0px 1px rgba(74, 44, 90, 0.3);
+}
+
+/* Add Halloween glow to buttons and interactive elements */
+button:hover,
+a:hover {
+  transition: all 0.3s ease;
+}
