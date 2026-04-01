@@ -12,6 +12,8 @@ import {
 } from "./atoms";
 import type { Shape, Point } from "./types";
 
+const canvasStyle = { touchAction: "none" as const };
+
 export function WhiteboardCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [selectedTool] = useAtom(selectedToolAtom);
@@ -291,7 +293,7 @@ export function WhiteboardCanvas() {
       onMouseLeave={handleMouseUp}
       onWheel={handleWheel}
       className="w-full h-full cursor-crosshair bg-primary"
-      style= touchAction: "none" 
+      style={canvasStyle}
     />
   );
 }
