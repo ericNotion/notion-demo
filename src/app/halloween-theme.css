@@ -1,0 +1,412 @@
+/* Halloween Theme - Spooky Purple & Pumpkin Orange */
+.halloween {
+  /* Force dark mode for Halloween theme */
+  color-scheme: dark;
+
+  /* === NEUTRAL COLORS === */
+  /* Text colors - Ghostly whites and purple tints */
+  --text-color-primary: rgba(255, 248, 240, 0.92);
+  --text-color-secondary: rgba(200, 180, 220, 0.75);
+  --text-color-tertiary: rgba(160, 140, 180, 0.55);
+  --text-color-disabled: rgba(140, 120, 160, 0.35);
+  --text-color-accent-primary: rgba(220, 200, 240, 0.85);
+  --text-color-inverse-primary: #1a1025;
+  --text-color-inverse-secondary: rgba(100, 80, 120, 0.7);
+
+  /* Icon colors */
+  --icon-color-primary: rgba(255, 248, 240, 0.85);
+  --icon-color-secondary: rgba(200, 180, 220, 0.7);
+  --icon-color-tertiary: rgba(160, 140, 180, 0.5);
+  --icon-color-disabled: rgba(140, 120, 160, 0.3);
+  --icon-color-accent-primary: rgba(220, 200, 240, 0.8);
+  --icon-color-inverse-primary: #1a1025;
+  --icon-color-inverse-secondary: rgba(100, 80, 120, 0.6);
+
+  /* Border colors - Dark purple with subtle glow */
+  --border-color-primary: rgba(120, 80, 160, 0.35);
+  --border-color-primary-translucent: rgba(120, 80, 160, 0.25);
+  --border-color-secondary: rgba(100, 60, 140, 0.25);
+  --border-color-secondary-translucent: rgba(100, 60, 140, 0.15);
+  --border-color-inverse-primary: rgba(200, 180, 220, 0.6);
+  --border-color-accent-primary: rgba(150, 100, 200, 0.5);
+  --border-color-strong: rgba(140, 100, 180, 0.5);
+
+  /* Background colors - Deep purples and blacks */
+  --background-color-primary: #0d0a12;
+  --background-color-secondary: #1a1025;
+  --background-color-secondary-translucent: rgba(26, 16, 37, 0.9);
+  --background-color-tertiary: #2a1f3d;
+  --background-color-tertiary-translucent: rgba(42, 31, 61, 0.85);
+  --background-color-elevated: #251c38;
+  --background-color-accent-primary: #3d2e5c;
+  --background-color-accent-secondary: #352850;
+
+  /* === GRAY COLORS === */
+  --text-color-gray-primary: rgba(200, 180, 220, 0.8);
+  --text-color-gray-secondary: rgba(180, 160, 200, 0.7);
+  --text-color-gray-tertiary: rgba(160, 140, 180, 0.6);
+  --text-color-gray-disabled: rgba(140, 120, 160, 0.35);
+  --text-color-gray-accent-primary: rgba(190, 170, 210, 0.75);
+  --text-color-gray-inverse-primary: #1a1025;
+  --text-color-gray-inverse-secondary: rgba(100, 80, 120, 0.6);
+
+  --icon-color-gray-primary: rgba(200, 180, 220, 0.75);
+  --icon-color-gray-secondary: rgba(180, 160, 200, 0.65);
+  --icon-color-gray-tertiary: rgba(160, 140, 180, 0.55);
+  --icon-color-gray-disabled: rgba(140, 120, 160, 0.3);
+  --icon-color-gray-accent-primary: rgba(190, 170, 210, 0.7);
+  --icon-color-gray-inverse-primary: #1a1025;
+  --icon-color-gray-inverse-secondary: rgba(100, 80, 120, 0.6);
+
+  --border-color-gray-primary: rgba(120, 80, 160, 0.35);
+  --border-color-gray-primary-translucent: rgba(120, 80, 160, 0.25);
+  --border-color-gray-secondary: rgba(100, 60, 140, 0.25);
+  --border-color-gray-secondary-translucent: rgba(100, 60, 140, 0.15);
+  --border-color-gray-inverse-primary: rgba(200, 180, 220, 0.6);
+  --border-color-gray-accent-primary: rgba(150, 100, 200, 0.5);
+  --border-color-gray-strong: rgba(140, 100, 180, 0.5);
+
+  --background-color-gray-primary: #1a1025;
+  --background-color-gray-primary-translucent: rgba(26, 16, 37, 0.85);
+  --background-color-gray-secondary: #2a1f3d;
+  --background-color-gray-secondary-translucent: rgba(42, 31, 61, 0.8);
+  --background-color-gray-tertiary: #352850;
+  --background-color-gray-tertiary-translucent: rgba(53, 40, 80, 0.75);
+  --background-color-gray-elevated: #1e1530;
+  --background-color-gray-accent-primary: #3d2e5c;
+  --background-color-gray-accent-secondary: #332548;
+
+  /* === RED COLORS - Blood red === */
+  --text-color-red-primary: #ff6b6b;
+  --text-color-red-secondary: #ee5a5a;
+  --text-color-red-tertiary: #dd4949;
+  --text-color-red-disabled: rgba(204, 34, 51, 0.4);
+  --text-color-red-accent-primary: #ff5252;
+  --text-color-red-inverse-primary: #1a1025;
+  --text-color-red-inverse-secondary: rgba(204, 34, 51, 0.6);
+
+  --icon-color-red-primary: #ff6b6b;
+  --icon-color-red-secondary: #ee5a5a;
+  --icon-color-red-tertiary: #dd4949;
+  --icon-color-red-disabled: rgba(204, 34, 51, 0.4);
+  --icon-color-red-accent-primary: #ff5252;
+  --icon-color-red-inverse-primary: #1a1025;
+  --icon-color-red-inverse-secondary: rgba(204, 34, 51, 0.6);
+
+  --border-color-red-primary: rgba(204, 34, 51, 0.4);
+  --border-color-red-primary-translucent: rgba(204, 34, 51, 0.3);
+  --border-color-red-secondary: rgba(204, 34, 51, 0.25);
+  --border-color-red-secondary-translucent: rgba(204, 34, 51, 0.15);
+  --border-color-red-inverse-primary: #ff5252;
+  --border-color-red-accent-primary: #ee4444;
+  --border-color-red-strong: rgba(204, 34, 51, 0.6);
+
+  --background-color-red-primary: rgba(204, 34, 51, 0.15);
+  --background-color-red-primary-translucent: rgba(204, 34, 51, 0.12);
+  --background-color-red-secondary: rgba(204, 34, 51, 0.2);
+  --background-color-red-secondary-translucent: rgba(204, 34, 51, 0.18);
+  --background-color-red-tertiary: rgba(204, 34, 51, 0.25);
+  --background-color-red-tertiary-translucent: rgba(204, 34, 51, 0.22);
+  --background-color-red-elevated: rgba(204, 34, 51, 0.1);
+  --background-color-red-accent-primary: #cc2233;
+  --background-color-red-accent-secondary: #bb1f2e;
+
+  /* === ORANGE COLORS - Pumpkin orange (primary accent) === */
+  --text-color-orange-primary: #ffb366;
+  --text-color-orange-secondary: #ffa04d;
+  --text-color-orange-tertiary: #ff8c33;
+  --text-color-orange-disabled: rgba(255, 140, 0, 0.4);
+  --text-color-orange-accent-primary: #ff9933;
+  --text-color-orange-inverse-primary: #1a1025;
+  --text-color-orange-inverse-secondary: rgba(255, 140, 0, 0.6);
+
+  --icon-color-orange-primary: #ffb366;
+  --icon-color-orange-secondary: #ffa04d;
+  --icon-color-orange-tertiary: #ff8c33;
+  --icon-color-orange-disabled: rgba(255, 140, 0, 0.4);
+  --icon-color-orange-accent-primary: #ff9933;
+  --icon-color-orange-inverse-primary: #1a1025;
+  --icon-color-orange-inverse-secondary: rgba(255, 140, 0, 0.6);
+
+  --border-color-orange-primary: rgba(255, 140, 0, 0.45);
+  --border-color-orange-primary-translucent: rgba(255, 140, 0, 0.35);
+  --border-color-orange-secondary: rgba(255, 140, 0, 0.3);
+  --border-color-orange-secondary-translucent: rgba(255, 140, 0, 0.2);
+  --border-color-orange-inverse-primary: #ff9933;
+  --border-color-orange-accent-primary: #ff8c00;
+  --border-color-orange-strong: rgba(255, 140, 0, 0.6);
+
+  --background-color-orange-primary: rgba(255, 140, 0, 0.15);
+  --background-color-orange-primary-translucent: rgba(255, 140, 0, 0.12);
+  --background-color-orange-secondary: rgba(255, 140, 0, 0.22);
+  --background-color-orange-secondary-translucent: rgba(255, 140, 0, 0.18);
+  --background-color-orange-tertiary: rgba(255, 140, 0, 0.3);
+  --background-color-orange-tertiary-translucent: rgba(255, 140, 0, 0.25);
+  --background-color-orange-elevated: rgba(255, 140, 0, 0.1);
+  --background-color-orange-accent-primary: #ff8c00;
+  --background-color-orange-accent-secondary: #e67300;
+
+  /* === YELLOW COLORS === */
+  --text-color-yellow-primary: #ffd966;
+  --text-color-yellow-secondary: #ffcc4d;
+  --text-color-yellow-tertiary: #ffbf33;
+  --text-color-yellow-disabled: rgba(255, 204, 51, 0.4);
+  --text-color-yellow-accent-primary: #ffcc33;
+  --text-color-yellow-inverse-primary: #1a1025;
+  --text-color-yellow-inverse-secondary: rgba(255, 204, 51, 0.6);
+
+  --icon-color-yellow-primary: #ffd966;
+  --icon-color-yellow-secondary: #ffcc4d;
+  --icon-color-yellow-tertiary: #ffbf33;
+  --icon-color-yellow-disabled: rgba(255, 204, 51, 0.4);
+  --icon-color-yellow-accent-primary: #ffcc33;
+  --icon-color-yellow-inverse-primary: #1a1025;
+  --icon-color-yellow-inverse-secondary: rgba(255, 204, 51, 0.6);
+
+  --border-color-yellow-primary: rgba(255, 204, 51, 0.4);
+  --border-color-yellow-primary-translucent: rgba(255, 204, 51, 0.3);
+  --border-color-yellow-secondary: rgba(255, 204, 51, 0.25);
+  --border-color-yellow-secondary-translucent: rgba(255, 204, 51, 0.15);
+  --border-color-yellow-inverse-primary: #ffcc33;
+  --border-color-yellow-accent-primary: #ffbf1a;
+  --border-color-yellow-strong: rgba(255, 204, 51, 0.6);
+
+  --background-color-yellow-primary: rgba(255, 204, 51, 0.12);
+  --background-color-yellow-primary-translucent: rgba(255, 204, 51, 0.1);
+  --background-color-yellow-secondary: rgba(255, 204, 51, 0.18);
+  --background-color-yellow-secondary-translucent: rgba(255, 204, 51, 0.15);
+  --background-color-yellow-tertiary: rgba(255, 204, 51, 0.25);
+  --background-color-yellow-tertiary-translucent: rgba(255, 204, 51, 0.2);
+  --background-color-yellow-elevated: rgba(255, 204, 51, 0.08);
+  --background-color-yellow-accent-primary: #ffcc33;
+  --background-color-yellow-accent-secondary: #ffbf1a;
+
+  /* === GREEN COLORS - Eerie witch green === */
+  --text-color-green-primary: #6ee7b7;
+  --text-color-green-secondary: #5dd9a8;
+  --text-color-green-tertiary: #4ccb99;
+  --text-color-green-disabled: rgba(80, 200, 120, 0.4);
+  --text-color-green-accent-primary: #50c878;
+  --text-color-green-inverse-primary: #1a1025;
+  --text-color-green-inverse-secondary: rgba(80, 200, 120, 0.6);
+
+  --icon-color-green-primary: #6ee7b7;
+  --icon-color-green-secondary: #5dd9a8;
+  --icon-color-green-tertiary: #4ccb99;
+  --icon-color-green-disabled: rgba(80, 200, 120, 0.4);
+  --icon-color-green-accent-primary: #50c878;
+  --icon-color-green-inverse-primary: #1a1025;
+  --icon-color-green-inverse-secondary: rgba(80, 200, 120, 0.6);
+
+  --border-color-green-primary: rgba(80, 200, 120, 0.4);
+  --border-color-green-primary-translucent: rgba(80, 200, 120, 0.3);
+  --border-color-green-secondary: rgba(80, 200, 120, 0.25);
+  --border-color-green-secondary-translucent: rgba(80, 200, 120, 0.15);
+  --border-color-green-inverse-primary: #50c878;
+  --border-color-green-accent-primary: #45b569;
+  --border-color-green-strong: rgba(80, 200, 120, 0.6);
+
+  --background-color-green-primary: rgba(80, 200, 120, 0.12);
+  --background-color-green-primary-translucent: rgba(80, 200, 120, 0.1);
+  --background-color-green-secondary: rgba(80, 200, 120, 0.18);
+  --background-color-green-secondary-translucent: rgba(80, 200, 120, 0.15);
+  --background-color-green-tertiary: rgba(80, 200, 120, 0.25);
+  --background-color-green-tertiary-translucent: rgba(80, 200, 120, 0.2);
+  --background-color-green-elevated: rgba(80, 200, 120, 0.08);
+  --background-color-green-accent-primary: #50c878;
+  --background-color-green-accent-secondary: #45b569;
+
+  /* === TEAL COLORS === */
+  --text-color-teal-primary: #5eead4;
+  --text-color-teal-secondary: #4dd9c5;
+  --text-color-teal-tertiary: #3cc8b6;
+  --text-color-teal-disabled: rgba(60, 200, 182, 0.4);
+  --text-color-teal-accent-primary: #3cb8a6;
+  --text-color-teal-inverse-primary: #1a1025;
+  --text-color-teal-inverse-secondary: rgba(60, 200, 182, 0.6);
+
+  --icon-color-teal-primary: #5eead4;
+  --icon-color-teal-secondary: #4dd9c5;
+  --icon-color-teal-tertiary: #3cc8b6;
+  --icon-color-teal-disabled: rgba(60, 200, 182, 0.4);
+  --icon-color-teal-accent-primary: #3cb8a6;
+  --icon-color-teal-inverse-primary: #1a1025;
+  --icon-color-teal-inverse-secondary: rgba(60, 200, 182, 0.6);
+
+  --border-color-teal-primary: rgba(60, 200, 182, 0.4);
+  --border-color-teal-primary-translucent: rgba(60, 200, 182, 0.3);
+  --border-color-teal-secondary: rgba(60, 200, 182, 0.25);
+  --border-color-teal-secondary-translucent: rgba(60, 200, 182, 0.15);
+  --border-color-teal-inverse-primary: #3cb8a6;
+  --border-color-teal-accent-primary: #33a896;
+  --border-color-teal-strong: rgba(60, 200, 182, 0.6);
+
+  --background-color-teal-primary: rgba(60, 200, 182, 0.12);
+  --background-color-teal-primary-translucent: rgba(60, 200, 182, 0.1);
+  --background-color-teal-secondary: rgba(60, 200, 182, 0.18);
+  --background-color-teal-secondary-translucent: rgba(60, 200, 182, 0.15);
+  --background-color-teal-tertiary: rgba(60, 200, 182, 0.25);
+  --background-color-teal-tertiary-translucent: rgba(60, 200, 182, 0.2);
+  --background-color-teal-elevated: rgba(60, 200, 182, 0.08);
+  --background-color-teal-accent-primary: #3cb8a6;
+  --background-color-teal-accent-secondary: #33a896;
+
+  /* === BLUE COLORS === */
+  --text-color-blue-primary: #93c5fd;
+  --text-color-blue-secondary: #7db3f5;
+  --text-color-blue-tertiary: #67a1ed;
+  --text-color-blue-disabled: rgba(96, 165, 250, 0.4);
+  --text-color-blue-accent-primary: #60a5fa;
+  --text-color-blue-inverse-primary: #1a1025;
+  --text-color-blue-inverse-secondary: rgba(96, 165, 250, 0.6);
+
+  --icon-color-blue-primary: #93c5fd;
+  --icon-color-blue-secondary: #7db3f5;
+  --icon-color-blue-tertiary: #67a1ed;
+  --icon-color-blue-disabled: rgba(96, 165, 250, 0.4);
+  --icon-color-blue-accent-primary: #60a5fa;
+  --icon-color-blue-inverse-primary: #1a1025;
+  --icon-color-blue-inverse-secondary: rgba(96, 165, 250, 0.6);
+
+  --border-color-blue-primary: rgba(96, 165, 250, 0.4);
+  --border-color-blue-primary-translucent: rgba(96, 165, 250, 0.3);
+  --border-color-blue-secondary: rgba(96, 165, 250, 0.25);
+  --border-color-blue-secondary-translucent: rgba(96, 165, 250, 0.15);
+  --border-color-blue-inverse-primary: #60a5fa;
+  --border-color-blue-accent-primary: #4f94ea;
+  --border-color-blue-strong: rgba(96, 165, 250, 0.6);
+
+  --background-color-blue-primary: rgba(96, 165, 250, 0.12);
+  --background-color-blue-primary-translucent: rgba(96, 165, 250, 0.1);
+  --background-color-blue-secondary: rgba(96, 165, 250, 0.18);
+  --background-color-blue-secondary-translucent: rgba(96, 165, 250, 0.15);
+  --background-color-blue-tertiary: rgba(96, 165, 250, 0.25);
+  --background-color-blue-tertiary-translucent: rgba(96, 165, 250, 0.2);
+  --background-color-blue-elevated: rgba(96, 165, 250, 0.08);
+  --background-color-blue-accent-primary: #60a5fa;
+  --background-color-blue-accent-secondary: #4f94ea;
+
+  /* === PURPLE COLORS - Accent purple === */
+  --text-color-purple-primary: #c4b5fd;
+  --text-color-purple-secondary: #b3a3f5;
+  --text-color-purple-tertiary: #a291ed;
+  --text-color-purple-disabled: rgba(167, 139, 250, 0.4);
+  --text-color-purple-accent-primary: #a78bfa;
+  --text-color-purple-inverse-primary: #1a1025;
+  --text-color-purple-inverse-secondary: rgba(167, 139, 250, 0.6);
+
+  --icon-color-purple-primary: #c4b5fd;
+  --icon-color-purple-secondary: #b3a3f5;
+  --icon-color-purple-tertiary: #a291ed;
+  --icon-color-purple-disabled: rgba(167, 139, 250, 0.4);
+  --icon-color-purple-accent-primary: #a78bfa;
+  --icon-color-purple-inverse-primary: #1a1025;
+  --icon-color-purple-inverse-secondary: rgba(167, 139, 250, 0.6);
+
+  --border-color-purple-primary: rgba(167, 139, 250, 0.4);
+  --border-color-purple-primary-translucent: rgba(167, 139, 250, 0.3);
+  --border-color-purple-secondary: rgba(167, 139, 250, 0.25);
+  --border-color-purple-secondary-translucent: rgba(167, 139, 250, 0.15);
+  --border-color-purple-inverse-primary: #a78bfa;
+  --border-color-purple-accent-primary: #967aea;
+  --border-color-purple-strong: rgba(167, 139, 250, 0.6);
+
+  --background-color-purple-primary: rgba(167, 139, 250, 0.12);
+  --background-color-purple-primary-translucent: rgba(167, 139, 250, 0.1);
+  --background-color-purple-secondary: rgba(167, 139, 250, 0.18);
+  --background-color-purple-secondary-translucent: rgba(167, 139, 250, 0.15);
+  --background-color-purple-tertiary: rgba(167, 139, 250, 0.25);
+  --background-color-purple-tertiary-translucent: rgba(167, 139, 250, 0.2);
+  --background-color-purple-elevated: rgba(167, 139, 250, 0.08);
+  --background-color-purple-accent-primary: #a78bfa;
+  --background-color-purple-accent-secondary: #967aea;
+
+  /* === PINK COLORS === */
+  --text-color-pink-primary: #f9a8d4;
+  --text-color-pink-secondary: #f592c8;
+  --text-color-pink-tertiary: #f17cbc;
+  --text-color-pink-disabled: rgba(244, 114, 182, 0.4);
+  --text-color-pink-accent-primary: #f472b6;
+  --text-color-pink-inverse-primary: #1a1025;
+  --text-color-pink-inverse-secondary: rgba(244, 114, 182, 0.6);
+
+  --icon-color-pink-primary: #f9a8d4;
+  --icon-color-pink-secondary: #f592c8;
+  --icon-color-pink-tertiary: #f17cbc;
+  --icon-color-pink-disabled: rgba(244, 114, 182, 0.4);
+  --icon-color-pink-accent-primary: #f472b6;
+  --icon-color-pink-inverse-primary: #1a1025;
+  --icon-color-pink-inverse-secondary: rgba(244, 114, 182, 0.6);
+
+  --border-color-pink-primary: rgba(244, 114, 182, 0.4);
+  --border-color-pink-primary-translucent: rgba(244, 114, 182, 0.3);
+  --border-color-pink-secondary: rgba(244, 114, 182, 0.25);
+  --border-color-pink-secondary-translucent: rgba(244, 114, 182, 0.15);
+  --border-color-pink-inverse-primary: #f472b6;
+  --border-color-pink-accent-primary: #e85fa6;
+  --border-color-pink-strong: rgba(244, 114, 182, 0.6);
+
+  --background-color-pink-primary: rgba(244, 114, 182, 0.12);
+  --background-color-pink-primary-translucent: rgba(244, 114, 182, 0.1);
+  --background-color-pink-secondary: rgba(244, 114, 182, 0.18);
+  --background-color-pink-secondary-translucent: rgba(244, 114, 182, 0.15);
+  --background-color-pink-tertiary: rgba(244, 114, 182, 0.25);
+  --background-color-pink-tertiary-translucent: rgba(244, 114, 182, 0.2);
+  --background-color-pink-elevated: rgba(244, 114, 182, 0.08);
+  --background-color-pink-accent-primary: #f472b6;
+  --background-color-pink-accent-secondary: #e85fa6;
+
+  /* === BROWN COLORS === */
+  --text-color-brown-primary: #d4a574;
+  --text-color-brown-secondary: #c89563;
+  --text-color-brown-tertiary: #bc8552;
+  --text-color-brown-disabled: rgba(180, 133, 82, 0.4);
+  --text-color-brown-accent-primary: #b48552;
+  --text-color-brown-inverse-primary: #1a1025;
+  --text-color-brown-inverse-secondary: rgba(180, 133, 82, 0.6);
+
+  --icon-color-brown-primary: #d4a574;
+  --icon-color-brown-secondary: #c89563;
+  --icon-color-brown-tertiary: #bc8552;
+  --icon-color-brown-disabled: rgba(180, 133, 82, 0.4);
+  --icon-color-brown-accent-primary: #b48552;
+  --icon-color-brown-inverse-primary: #1a1025;
+  --icon-color-brown-inverse-secondary: rgba(180, 133, 82, 0.6);
+
+  --border-color-brown-primary: rgba(180, 133, 82, 0.4);
+  --border-color-brown-primary-translucent: rgba(180, 133, 82, 0.3);
+  --border-color-brown-secondary: rgba(180, 133, 82, 0.25);
+  --border-color-brown-secondary-translucent: rgba(180, 133, 82, 0.15);
+  --border-color-brown-inverse-primary: #b48552;
+  --border-color-brown-accent-primary: #a37647;
+  --border-color-brown-strong: rgba(180, 133, 82, 0.6);
+
+  --background-color-brown-primary: rgba(180, 133, 82, 0.12);
+  --background-color-brown-primary-translucent: rgba(180, 133, 82, 0.1);
+  --background-color-brown-secondary: rgba(180, 133, 82, 0.18);
+  --background-color-brown-secondary-translucent: rgba(180, 133, 82, 0.15);
+  --background-color-brown-tertiary: rgba(180, 133, 82, 0.25);
+  --background-color-brown-tertiary-translucent: rgba(180, 133, 82, 0.2);
+  --background-color-brown-elevated: rgba(180, 133, 82, 0.08);
+  --background-color-brown-accent-primary: #b48552;
+  --background-color-brown-accent-secondary: #a37647;
+
+  /* Scrollbar color - slightly purple-tinted */
+  --scrollbar-color: rgba(120, 100, 140, 0.5);
+}
+
+/* Add subtle orange glow on hover states for interactive elements in Halloween theme */
+.halloween button:hover,
+.halloween [role="button"]:hover {
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.15);
+}
+
+/* Subtle purple gradient for sidebar background */
+.halloween [data-sidebar="sidebar"] {
+  background: linear-gradient(
+    180deg,
+    #0d0a12 0%,
+    #1a1025 50%,
+    #120e18 100%
+  );
+}
