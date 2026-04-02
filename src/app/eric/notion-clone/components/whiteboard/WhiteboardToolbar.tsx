@@ -37,6 +37,14 @@ export function WhiteboardToolbar() {
     { value: "#3B82F6", label: "Blue" },
     { value: "#A855F7", label: "Purple" },
     { value: "#EC4899", label: "Pink" },
+    { value: "#FFFFFF", label: "White" },
+    { value: "#6B7280", label: "Gray" },
+    { value: "#92400E", label: "Brown" },
+    { value: "#14B8A6", label: "Teal" },
+    { value: "#6366F1", label: "Indigo" },
+    { value: "#06B6D4", label: "Cyan" },
+    { value: "#84CC16", label: "Lime" },
+    { value: "#F43F5E", label: "Rose" },
   ];
 
   return (
