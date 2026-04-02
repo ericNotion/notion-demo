@@ -2,8 +2,8 @@
 
 import { Icon } from "@nds-icons";
 import { checklistIcon } from "@nds-icons/checklist/default.icon";
-import { chevronDownIcon } from "@nds-icons/chevronDown/default.icon";
-import { chevronUpIcon } from "@nds-icons/chevronUp/default.icon";
+import { arrowChevronSingleDownIcon } from "@nds-icons/arrowChevronSingleDown/default.icon";
+import { arrowChevronSingleUpIcon } from "@nds-icons/arrowChevronSingleUp/default.icon";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/cn";
 import { motion, AnimatePresence } from "motion/react";
@@ -78,7 +78,7 @@ export function TaskPanel({ tasks }: TaskPanelProps) {
               size="icon-sm"
               onClick={() => setIsOpen(!isOpen)}
             >
-              <Icon icon={isOpen ? chevronDownIcon : chevronUpIcon} />
+              <Icon icon={isOpen ? arrowChevronSingleDownIcon : arrowChevronSingleUpIcon} />
             </Button>
           </div>
 

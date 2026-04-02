@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@nds-icons";
-import { checkmarkCircleIcon } from "@nds-icons/checkmarkCircle/fill.icon";
+import { checkmarkCircleIcon } from "@nds-icons/checkmarkCircle/default.icon";
 import { ellipsisIcon } from "@nds-icons/ellipsis/default.icon";
 import { Button } from "@/components/ui/button";
 import {

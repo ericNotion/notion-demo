@@ -3,7 +3,7 @@
 import { Icon } from "@nds-icons";
 import { plusIcon } from "@nds-icons/plus/default.icon";
 import { Button } from "@/components/ui/button";
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 import { useState } from "react";
 import {
   postItsAtom,
