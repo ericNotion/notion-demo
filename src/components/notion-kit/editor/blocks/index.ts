@@ -10,6 +10,7 @@ import {
   h4BlockDef,
   paragraphBlockDef,
 } from "./ParagraphBlock";
+import { whiteboardBlockDef } from "./WhiteboardBlock";
 import type { BlockDefinition, SlashCommandEntry } from "./types";
 
 export const blockDefs: BlockDefinition[] = [
@@ -22,6 +23,7 @@ export const blockDefs: BlockDefinition[] = [
   calloutBlockDef,
   dividerBlockDef,
   databaseBlockDef,
+  whiteboardBlockDef,
 ];
 
 export const blockRegistry = new Map<Block["type"], BlockDefinition>(
