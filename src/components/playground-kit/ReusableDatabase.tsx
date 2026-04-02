@@ -107,7 +107,7 @@ export function DatabaseToolbar({
   return (
     <div
       className={cn(
-        "flex items-center justify-between gap-2",
+        "flex flex-wrap items-center justify-between gap-2",
         compact ? "mb-1" : "mb-3",
         className,
       )}
@@ -151,14 +151,14 @@ export function DatabaseToolbar({
         <IconButton size={compact ? "xs" : undefined}>
           <Icon icon={magnifyingGlassIcon} color="secondary" size={iconSize} />
         </IconButton>
-        <IconButton size={compact ? "xs" : undefined}>
+        <IconButton size={compact ? "xs" : undefined} className="hidden sm:flex">
           <Icon
             icon={arrowExpandDiagonalIcon}
             color="secondary"
             size={iconSize}
           />
         </IconButton>
-        <IconButton size={compact ? "xs" : undefined}>
+        <IconButton size={compact ? "xs" : undefined} className="hidden sm:flex">
           <Icon icon={gearIcon} color="secondary" size={iconSize} />
         </IconButton>
         <Button variant="primary" size="sm" className="gap-0.5" onClick={onNew}>
@@ -229,10 +229,10 @@ export function ReusableDatabase<T extends { id: string }>({
             <IconButton>
               <Icon icon={magnifyingGlassIcon} color="secondary" />
             </IconButton>
-            <IconButton>
+            <IconButton className="hidden sm:flex">
               <Icon icon={arrowExpandDiagonalIcon} color="secondary" />
             </IconButton>
-            <IconButton>
+            <IconButton className="hidden sm:flex">
               <Icon icon={gearIcon} color="secondary" />
             </IconButton>
             <Button
@@ -253,7 +253,7 @@ export function ReusableDatabase<T extends { id: string }>({
         </div>
       )}
 
-      <div className="overflow-hidden">
+      <div className="overflow-x-auto">
         <table className="w-full table-fixed border-collapse">
           <thead>
             <tr className="border-primary border-b">
