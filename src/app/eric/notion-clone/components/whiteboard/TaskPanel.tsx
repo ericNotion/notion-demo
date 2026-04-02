@@ -51,7 +51,7 @@ export function TaskPanel({ tasks }: TaskPanelProps) {
       <motion.div
         initial={false}
         animate={{ y: isOpen ? 0 : 280 }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
+        transition={{ type: "spring", damping: 25, stiffness: 300 }}
         className="w-full max-w-4xl mx-4 mb-4 pointer-events-auto"
       >
         <div className="bg-elevated border border-primary rounded-lg shadow-lg-outline overflow-hidden">
@@ -82,7 +82,7 @@ export function TaskPanel({ tasks }: TaskPanelProps) {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.15 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
                 className="overflow-hidden"
               >
                 <div className="p-4 space-y-2 max-h-64 overflow-y-auto">
