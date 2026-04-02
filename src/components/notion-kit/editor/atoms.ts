@@ -33,12 +33,18 @@ export interface DatabaseBlock {
   emoji?: string;
 }
 
+export interface WhiteboardBlock {
+  id: string;
+  type: "whiteboard";
+}
+
 export type Block =
   | ParagraphBlock
   | ListBlock
   | CalloutBlock
   | DividerBlock
-  | DatabaseBlock;
+  | DatabaseBlock
+  | WhiteboardBlock;
 
 // Helper to create IDs
 export function createBlockId(prefix: string = "blk"): string {
