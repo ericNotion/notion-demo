@@ -78,6 +78,11 @@ export function Whiteboard() {
     ? postIts.find((p) => p.id === convertingPostIt)
     : null;
 
+  const gridStyle = { 
+    backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)", 
+    backgroundSize: "24px 24px" 
+  };
+
   return (
     <div className="relative h-screen w-full overflow-hidden bg-primary">
       {/* Toolbar */}
@@ -104,11 +109,7 @@ export function Whiteboard() {
         {/* Grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, currentColor 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-          }}
+          style={gridStyle}
         />
 
         {/* Post-its */}

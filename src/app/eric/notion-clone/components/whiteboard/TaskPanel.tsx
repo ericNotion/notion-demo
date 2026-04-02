@@ -46,12 +46,19 @@ function formatDate(dateString: string): string {
 export function TaskPanel({ tasks }: TaskPanelProps) {
   const [isOpen, setIsOpen] = useAtom(taskPanelOpenAtom);
 
+  const panelAnimate = { y: isOpen ? 0 : 280 };
+  const panelTransition = { type: "spring" as const, damping: 25, stiffness: 300 };
+  const contentInitial = { height: 0, opacity: 0 };
+  const contentAnimate = { height: "auto", opacity: 1 };
+  const contentExit = { height: 0, opacity: 0 };
+  const contentTransition = { duration: 0.2, ease: "easeInOut" as const };
+
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
       <motion.div
         initial={false}
-        animate={{ y: isOpen ? 0 : 280 }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        animate={panelAnimate}
+        transition={panelTransition}
         className="w-full max-w-4xl mx-4 mb-4 pointer-events-auto"
       >
         <div className="bg-elevated border border-primary rounded-lg shadow-lg-outline overflow-hidden">
@@ -79,10 +86,10 @@ export function TaskPanel({ tasks }: TaskPanelProps) {
           <AnimatePresence initial={false}>
             {isOpen && (
               <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
+                initial={contentInitial}
+                animate={contentAnimate}
+                exit={contentExit}
+                transition={contentTransition}
                 className="overflow-hidden"
               >
                 <div className="p-4 space-y-2 max-h-64 overflow-y-auto">

@@ -78,18 +78,18 @@ export function PostItNote({
     onSelect();
   };
 
+  const positionStyle = { position: "absolute" as const, left: postIt.x, top: postIt.y, zIndex: isSelected ? 10 : 1 };
+  const motionInitial = { opacity: 0, scale: 0.8 };
+  const motionAnimate = { opacity: 1, scale: 1 };
+  const motionTransition = { duration: 0.15, ease: "easeOut" as const };
+
   return (
     <motion.div
       ref={containerRef}
-      style={{
-        position: "absolute",
-        left: postIt.x,
-        top: postIt.y,
-        zIndex: isSelected ? 10 : 1,
-      }}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.15, ease: "easeOut" }}
+      style={positionStyle}
+      initial={motionInitial}
+      animate={motionAnimate}
+      transition={motionTransition}
       className={cn(
         "group relative w-48 h-48 shadow-md-outline cursor-move select-none",
         colorClasses[postIt.color],
