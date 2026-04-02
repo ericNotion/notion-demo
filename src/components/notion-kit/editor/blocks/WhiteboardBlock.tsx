@@ -35,6 +35,12 @@ const STICKY_COLORS = [
   { name: "purple", bg: "bg-purple-200 dark:bg-purple-900/50", border: "border-purple-300 dark:border-purple-800" },
 ];
 
+function getCanvasCursor(activeTool: Tool): string {
+  if (activeTool === "pen") return "crosshair";
+  if (activeTool === "eraser") return "cell";
+  return "pointer";
+}
+
 function WhiteboardBlockComponent({
   block,
   isGripSelected,
@@ -59,24 +65,16 @@ function WhiteboardBlockComponent({
   const [editingSticky, setEditingSticky] = useState<string | null>(null);
   const dragOffset = useRef<Point>({ x: 0, y: 0 });
 
-  // Initialize canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-
-    // Set canvas size to match display size
     const rect = canvas.getBoundingClientRect();
     canvas.width = rect.width;
     canvas.height = rect.height;
-
-    // Set canvas background
     ctx.fillStyle = "transparent";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Redraw all paths
     paths.forEach((path) => {
       if (path.points.length < 2) return;
       ctx.strokeStyle = path.color;
@@ -96,10 +94,7 @@ function WhiteboardBlockComponent({
     const canvas = canvasRef.current;
     if (!canvas) return { x: 0, y: 0 };
     const rect = canvas.getBoundingClientRect();
-    return {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    };
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   };
 
   const handleCanvasPointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -120,7 +115,6 @@ function WhiteboardBlockComponent({
       setEditingSticky(newSticky.id);
       return;
     }
-
     setIsDrawing(true);
     const point = getCanvasPoint(e);
     setCurrentPath([point]);
@@ -130,17 +124,13 @@ function WhiteboardBlockComponent({
     if (!isDrawing || tool === "sticky") return;
     const point = getCanvasPoint(e);
     setCurrentPath((prev) => [...prev, point]);
-
-    // Draw current stroke in real-time
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (!ctx || currentPath.length === 0) return;
-
     ctx.strokeStyle = tool === "eraser" ? "#ffffff" : currentColor;
     ctx.lineWidth = tool === "eraser" ? 20 : 2;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-
     const lastPoint = currentPath[currentPath.length - 1];
     ctx.beginPath();
     ctx.moveTo(lastPoint.x, lastPoint.y);
@@ -170,10 +160,7 @@ function WhiteboardBlockComponent({
     const sticky = stickyNotes.find((s) => s.id === stickyId);
     if (!sticky) return;
     setDraggingSticky(stickyId);
-    dragOffset.current = {
-      x: e.clientX - sticky.x,
-      y: e.clientY - sticky.y,
-    };
+    dragOffset.current = { x: e.clientX - sticky.x, y: e.clientY - sticky.y };
   };
 
   const handleContainerPointerMove = (e: React.PointerEvent) => {
@@ -217,9 +204,11 @@ function WhiteboardBlockComponent({
   };
 
   const getStickyColorClasses = (colorName: string) => {
-    const color = STICKY_COLORS.find((c) => c.name === colorName) || STICKY_COLORS[0];
-    return { bg: color.bg, border: color.border };
+    const found = STICKY_COLORS.find((c) => c.name === colorName) || STICKY_COLORS[0];
+    return { bg: found.bg, border: found.border };
   };
+
+  const canvasCursorStyle = { cursor: getCanvasCursor(tool) };
 
   return (
     <div ref={wrapperRef} className={cn("pt-[8px] pb-[8px]", isDragging && "opacity-40")}>
@@ -256,7 +245,6 @@ function WhiteboardBlockComponent({
         >
           {/* Toolbar */}
           <div className="mb-2 flex items-center gap-1 bg-elevated shadow-sm-outline rounded-md p-1 w-fit">
-            {/* Pen Tool */}
             <button
               type="button"
               onClick={() => setTool("pen")}
@@ -270,8 +258,6 @@ function WhiteboardBlockComponent({
                 <path d="M11.5 2L14 4.5L5 13.5L2 14L2.5 11L11.5 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
-
-            {/* Eraser Tool */}
             <button
               type="button"
               onClick={() => setTool("eraser")}
@@ -285,8 +271,6 @@ function WhiteboardBlockComponent({
                 <path d="M8 12L2 6L6 2L14 10L10 14H4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
-
-            {/* Sticky Note Tool */}
             <button
               type="button"
               onClick={() => setTool("sticky")}
@@ -301,29 +285,26 @@ function WhiteboardBlockComponent({
                 <path d="M10 14V10H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
             </button>
-
             <div className="w-px h-4 bg-primary mx-1" />
-
-            {/* Color Picker */}
             <div className="flex items-center gap-1">
-              {["#000000", "#ef4444", "#3b82f6", "#22c55e", "#a855f7"].map((color) => (
-                <button
-                  key={color}
-                  type="button"
-                  onClick={() => setCurrentColor(color)}
-                  className={cn(
-                    "w-5 h-5 rounded-sm border-2 transition-all",
-                    currentColor === color ? "border-primary scale-110" : "border-transparent"
-                  )}
-                  style= backgroundColor: color 
-                  title={`Color: ${color}`}
-                />
-              ))}
+              {["#000000", "#ef4444", "#3b82f6", "#22c55e", "#a855f7"].map((color) => {
+                const bgStyle = { backgroundColor: color };
+                return (
+                  <button
+                    key={color}
+                    type="button"
+                    onClick={() => setCurrentColor(color)}
+                    className={cn(
+                      "w-5 h-5 rounded-sm border-2 transition-all",
+                      currentColor === color ? "border-primary scale-110" : "border-transparent"
+                    )}
+                    style={bgStyle}
+                    title={"Color: " + color}
+                  />
+                );
+              })}
             </div>
-
             <div className="w-px h-4 bg-primary mx-1" />
-
-            {/* Clear All */}
             <button
               type="button"
               onClick={handleClearAll}
@@ -351,12 +332,11 @@ function WhiteboardBlockComponent({
               onPointerMove={handleCanvasPointerMove}
               onPointerUp={handleCanvasPointerUp}
               onPointerLeave={handleCanvasPointerUp}
-              style= cursor: tool === "pen" ? "crosshair" : tool === "eraser" ? "cell" : "pointer" 
+              style={canvasCursorStyle}
             />
-
-            {/* Sticky Notes */}
             {stickyNotes.map((sticky) => {
               const colorClasses = getStickyColorClasses(sticky.color);
+              const posStyle = { left: sticky.x, top: sticky.y };
               return (
                 <div
                   key={sticky.id}
@@ -366,7 +346,7 @@ function WhiteboardBlockComponent({
                     "border",
                     colorClasses.border
                   )}
-                  style= left: sticky.x, top: sticky.y 
+                  style={posStyle}
                   onPointerDown={(e) => handleStickyPointerDown(e, sticky.id)}
                   onDoubleClick={() => handleStickyDoubleClick(sticky.id)}
                 >
