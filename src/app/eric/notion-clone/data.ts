@@ -62,6 +62,16 @@ export const pages: PageEntry[] = [
     lastEdited: "3d ago",
     emojiStorageKey: "eric-nc-research-archive-emoji",
   },
+  {
+    emoji: "🎨",
+    label: "Whiteboard",
+    href: `${BASE}/whiteboard`,
+    section: "favorites",
+    kind: "page",
+    createdBy: "You",
+    lastEdited: "Just now",
+    emojiStorageKey: "eric-nc-whiteboard-emoji",
+  },
   // ── Private ───────────────────────────────────────────────────────────
   {
     emoji: "📝",
