@@ -27,6 +27,19 @@ interface StickyNote {
 
 type Tool = "pen" | "eraser" | "sticky";
 
+const DRAWING_COLORS = [
+  { hex: "#000000", label: "Black" },
+  { hex: "#6b7280", label: "Gray" },
+  { hex: "#ef4444", label: "Red" },
+  { hex: "#f97316", label: "Orange" },
+  { hex: "#eab308", label: "Yellow" },
+  { hex: "#22c55e", label: "Green" },
+  { hex: "#06b6d4", label: "Cyan" },
+  { hex: "#3b82f6", label: "Blue" },
+  { hex: "#a855f7", label: "Purple" },
+  { hex: "#ec4899", label: "Pink" },
+];
+
 const STICKY_COLORS = [
   { name: "yellow", bg: "bg-yellow-200 dark:bg-yellow-900/50", border: "border-yellow-300 dark:border-yellow-800" },
   { name: "blue", bg: "bg-blue-200 dark:bg-blue-900/50", border: "border-blue-300 dark:border-blue-800" },
@@ -286,20 +299,20 @@ function WhiteboardBlockComponent({
               </svg>
             </button>
             <div className="w-px h-4 bg-primary mx-1" />
-            <div className="flex items-center gap-1">
-              {["#000000", "#ef4444", "#3b82f6", "#22c55e", "#a855f7"].map((color) => {
-                const bgStyle = { backgroundColor: color };
+            <div className="flex items-center gap-0.5">
+              {DRAWING_COLORS.map((colorObj) => {
+                const bgStyle = { backgroundColor: colorObj.hex };
                 return (
                   <button
-                    key={color}
+                    key={colorObj.hex}
                     type="button"
-                    onClick={() => setCurrentColor(color)}
+                    onClick={() => setCurrentColor(colorObj.hex)}
                     className={cn(
-                      "w-5 h-5 rounded-sm border-2 transition-all",
-                      currentColor === color ? "border-primary scale-110" : "border-transparent"
+                      "w-5 h-5 rounded-full border-2 transition-all",
+                      currentColor === colorObj.hex ? "border-primary scale-110" : "border-transparent"
                     )}
                     style={bgStyle}
-                    title={"Color: " + color}
+                    title={colorObj.label}
                   />
                 );
               })}
